@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "ignore": ["*.test.js", "dist/*", "bin/*", "mobile/*", "node_modules/babel-cli/*", "sql/*"]
+}

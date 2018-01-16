@@ -1,0 +1,11 @@
+{
+  "name": "stacks",
+  "version": "0.0.1",
+  "description": "441 fintech",
+  "main": "index.js",
+  "scripts": {
+    "start": "./bin/servers start"
+  },
+  "author": "441 Fintech",
+  "license": "ISC"
+}
