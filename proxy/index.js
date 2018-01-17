@@ -14,7 +14,7 @@ var proxyRules = new HttpProxyRules({
         '.*/api': 'http://localhost:8080/api',
         '.*/api/*': 'http://localhost:8080/api/'
     },
-    default: 'http://localhost:8080' // default target, will be landing page (Right now its not)
+    default: 'http://localhost:8081' // default target, will be landing page (Right now its not)
 });
 
 var proxy = httpProxy.createProxyServer();
