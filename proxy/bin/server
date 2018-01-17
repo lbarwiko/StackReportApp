@@ -4,17 +4,13 @@
 set -e
 set -u
 
-
 # Sanity check command line options
 usage() {
-  echo "Usage: $0 (start|restart|stop)"
+  echo "Usage: $0 (start|startRoot|restart|restartRoot|stop)"
 }
 
 start() {
-  (cd ./proxy/ && npm start &> /dev/null) &
-  (cd ./www/ && npm start &> /dev/null) &
-  (cd ./restApi/ && npm start &> /dev/null) &
-  (cd ./mobile/ && ionic serve);
+    nodemon $1
 }
 
 stop() {
@@ -30,15 +26,22 @@ fi
 case $1 in
   "start")
       # Start Servers
-      start
+      start index.js
     ;;
-
+  "startRoot")
+      # Start From Root so we don't have to mess with root directories
+      start ./proxy/index.js
+    ;;
   "stop")
       stop
     ;;
 
   "restart")
-      start
+      start index.js
+      stop
+    ;;
+  "restartRoot")
+      start ./proxy/index.js
       stop
     ;;
   *)
