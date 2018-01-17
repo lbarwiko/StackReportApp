@@ -2,6 +2,7 @@
 
 ## First Things First
 There's a few things you're going to need to install
+
 + NodeJs
     + https://nodejs.org/en/download/
 +  Homebrew
@@ -17,6 +18,7 @@ The application is going to consist of various services. These services all shou
 
 We bring the services together via our reverse proxy (located in /proxy/) or by communicating through Celery and RabbitMQ.
 The services are:
+
 +  Rest Api
     +  This will handle user authentication, payment verification, and other REST requests.
     +  Stack: NodeJs, ExpressJS (Using es6), Postgres, Redis
@@ -46,9 +48,11 @@ First clone the resposity:
 git clone https://<INSERT USERNAME>@bitbucket.org/441fintech/stacks.git
 ```
 If you're familiar with NodeJS, you'll know that the package.json is the file that tells npm (Node Package Manager) to get all the libaries need for the project. Right now each service has a package.json, but none of the libaries are installed yet. To install them you'll have to go to the following folders:
+
 +  /proxy/
 +  /www/
 +  /restApi/
+
 And then in each of those respective folders you'll need to use the command
 ```
 npm install --save
