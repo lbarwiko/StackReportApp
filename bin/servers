@@ -7,7 +7,7 @@ set -u
 
 # Sanity check command line options
 usage() {
-  echo "Usage: $0 (start|restart|stop)"
+  echo "Usage: $0 (start|restart|stop|prod)"
 }
 
 start() {
@@ -15,6 +15,12 @@ start() {
   (cd ./www/ && npm start &> /dev/null) &
   (cd ./restApi/ && npm start &> /dev/null) &
   (cd ./mobile/ && ionic serve);
+}
+
+prod() {
+  (cd ./proxy/ && npm prod &> /dev/null) &
+  (cd ./www/ && npm prod &> /dev/null) &
+  (cd ./restApi/ && npm prod &> /dev/null);
 }
 
 stop() {
