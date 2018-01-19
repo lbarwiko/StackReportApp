@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import Users from './controllers'
 
 export default (config, db, auth) => {
 	const router = Router();
