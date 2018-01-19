@@ -68,7 +68,7 @@ at the root directory of the project. This script will run the following servers
 + Proxy   -> localhost:8000
 + RestApi -> localhost:8080
 + WWW     -> localhost:8081
-+ Ionic   -> localhost:8082
++ Ionic   -> Will open automatically
 
 You can navigate to any of these servers individually by going to those directories in your browser. But the Reverse proxy is the main gateway to RestAPi and WWW and any other services in the future.
 The servers start script will automatically run the command 'ionic serve' for you as well in the ./mobile/ directory. However if you exit out of the tab that it opens you can navigate to our mobile app by going to the url 'localhost:8082' in your browser.
