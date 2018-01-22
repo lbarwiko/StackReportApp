@@ -4,7 +4,7 @@
   "description": "Web Facing Service of Stack Report",
   "main": "index.js",
   "scripts": {
-    "start": "./bin/server start"
+    "start": "nodemon ./index.js"
   },
   "author": "",
   "license": "ISC",

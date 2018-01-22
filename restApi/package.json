@@ -6,7 +6,7 @@
   "scripts": {
     "build": "gulp build & node_modules/babel-cli/bin/babel.js ./ --source-maps --out-dir dist",
     "prod": "gulp build & node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js ./dist/server.js",
-    "start": "./bin/server start"
+    "start": "gulp build & node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js ./src/server.js"
   },
   "author": "Luke Barwikowski",
   "license": "ISC",

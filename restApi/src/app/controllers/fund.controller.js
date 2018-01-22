@@ -1,5 +1,5 @@
-import { User as UserModel} from '../models/';
-import { User as UserSql} from '../sql/';
+import { Fund as FeedModel} from '../models/';
+import { Fund as FundData} from '../data/';
 import { RestHelpers } from '../lib/';
 
 export default (db, config) => {
@@ -7,16 +7,9 @@ export default (db, config) => {
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
-                db.any(UserSql.list,{
-                    limit: size,
-                    offset: page*size
-                })
-                .then(res=>{
-                    return resolve(res);
-                })
-                .catch(err=>{
-                    reject(err);
-                });
+                resolve([
+                    FundData
+                ]);
             });
         }
         return {

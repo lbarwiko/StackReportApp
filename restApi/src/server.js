@@ -18,15 +18,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 
 // Initialize the Database
 // TODO: Setup database.
-//const db = pgp(config.db); 
-const db = {}; // DB should be initialized with pgp
+const db = pgp(config.db);
 
 // Load our authorization once.
 const Auth = Authorizer(config, db);
 app.use(Auth.init());
 
 //Initialize Router
-app.use('/', router(config, db, Auth));
+app.use('/', router(db, config, Auth));
 
 // Launch the server on port 3000
 const server = app.listen(config.port, () => {

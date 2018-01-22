@@ -1,18 +1,16 @@
 const dev_config = {
-    prefix: 'dev',
+    prefix: 'src',
     db:{
 	    host: 'localhost', // 'localhost' is the default;
 	    port: 5432, // 5432 is the default;
-	    database: 'cloutwallet',
-	    user: 'Luke',
-	    password: 'password'
+	    database: 'stackreport',
     },
     auth:{
-        secret: '4CXzlStbG9OLDeRguS583Bqn1HZ2xpP7',
+        secret: '',
         jwtSession: {
             session: false
         },
-        expiresIn: '60d', // Expires in Days
+        expiresIn: '', // Expires in Days
         saltRounds: 10
     },
     port:8080,
