@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Users
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <h2>Create List</h2>
+    <div class="form-container">
+      <div class="input-container">
+          <label>Username: </label>
+          <input [(ngModel)]="userToAdd.username" />
+      </div>
+      <div class="button-container">
+          <button (click)="addUser()">Add</button>
+      </div>
+    </div> 
+  </div>
+
+
+  <ion-list>
+    <ion-list-header>
+      <div>List of Active Users</div>
+    </ion-list-header>
+    <ion-item *ngFor="let user of userList">
+      <p>{{user.username}}</p>
+    </ion-item>
+  </ion-list>
+</ion-content>

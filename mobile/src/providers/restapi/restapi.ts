@@ -16,12 +16,13 @@ export class RestapiProvider {
   }
 
   getData() {
-  	  console.log('getting data <<<');
+  	console.log('getting data <<<');
 	  return new Promise(resolve => {
-	    this.http.get('http://localhost:8000/api/f').subscribe(data => {
+			this.http.get('http://localhost:8000/api/f')
+			.subscribe(data => {
 	      console.log('provider getting data');
 	      resolve(data);
-	    }, err => {
+	    },err => {
 	      console.log(err);
 	    });
 	  });

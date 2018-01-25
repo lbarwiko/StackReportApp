@@ -1,0 +1,3 @@
+\c cloutwallet;
+
+DROP TABLE IF EXISTS USERS CASCADE;
