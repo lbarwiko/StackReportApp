@@ -23,9 +23,12 @@
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.1",
     "moment": "^2.19.1",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "passport-local": "^1.0.0",
     "pg-promise": "^7.3.3"
   }
 }

@@ -5,9 +5,13 @@ var http = require('http'),
 httpProxy = require('http-proxy'),
 HttpProxyRules = require('http-proxy-rules');
 express = require('express'),
-bodyParser = require('body-parser');
+bodyParser = require('body-parser'),
+cors = require('cors');
+
 
 var app = express();
+
+app.use(cors());
 
 var proxyRules = new HttpProxyRules({
     rules: {

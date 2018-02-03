@@ -44,7 +44,7 @@ case $1 in
         --echo-all \
         --set ON_ERROR_STOP=on
       echo "DROPPED TABLES"
-      psql -c "DROP DATABASE cloutwallet"
+      psql -c "DROP DATABASE stackreport"
       echo "DROPPED DATABASE"
     ;;
 

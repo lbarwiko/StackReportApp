@@ -17,16 +17,22 @@ export default (db, config, auth) => {
 	const User = Users(db, config).rest;
 	userApi.get('/', User.list);
 	userApi.post('/', User.create);
+	userApi.get('/:user_id', User.get);
+	userApi.param('user_id', User.params.user_id);
 	api.use('/u/', userApi);
+
+
+	const authApi = Router();
+	authApi.post('/', auth.requireLogin, User.get);
+	api.use('/auth', authApi);
+
+	const meApi = Router();
+	meApi.get('/', auth.requireToken, User.get);
+	api.use('/me/', meApi);
 
 	const fundApi = Router();
 	const Fund = Funds(db, config).rest;
-	fundApi.all('/', function(req, res, next) {
-  		res.header("Access-Control-Allow-Origin", "*");
-  		res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  		next();
- 	});
-	fundApi.get('/', Fund.list);
+	fundApi.get('/', auth.requireToken, Fund.list);
 	api.use('/f/', fundApi);
 
 	router.get('/', (req, res)=>{

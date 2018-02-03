@@ -1,0 +1,1 @@
+SELECT * FROM PUBLIC_USERS WHERE user_id = ${user_id}

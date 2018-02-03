@@ -6,11 +6,11 @@ const dev_config = {
 	    database: 'stackreport',
     },
     auth:{
-        secret: '',
+        secret: 'lkas3l2kj42l3k4jamq22114',
         jwtSession: {
             session: false
         },
-        expiresIn: '', // Expires in Days
+        expiresIn: '90d', // Expires in Days
         saltRounds: 10
     },
     port:8080,

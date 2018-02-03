@@ -1,3 +1,5 @@
-\c cloutwallet;
+\c stackreport;
 
 DROP TABLE IF EXISTS USERS CASCADE;
+
+DROP VIEW IF EXISTS PUBLIC_USERS;

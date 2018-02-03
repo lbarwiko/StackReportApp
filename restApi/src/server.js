@@ -21,7 +21,7 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 const db = pgp(config.db);
 
 // Load our authorization once.
-const Auth = Authorizer(config, db);
+const Auth = Authorizer(db, config);
 app.use(Auth.init());
 
 //Initialize Router

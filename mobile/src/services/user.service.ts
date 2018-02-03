@@ -20,6 +20,8 @@ export class UserService {
                     size: size
                   }
             })
+            console.log("this.url");
+            console.log(this.url);
             this.http.get(this.url, options).toPromise()
             .then(res=>{
                 return resolve(this.extractData(res))
