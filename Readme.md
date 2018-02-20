@@ -47,6 +47,10 @@ First clone the resposity:
 ```
 git clone https://<INSERT USERNAME>@bitbucket.org/441fintech/stacks.git
 ```
+Make sure that you have installed all necessary frameworks: NodeJS, Postgres, Ionic
+
+Then we will need to install all the node_modules to make our services work.
+
 If you're familiar with NodeJS, you'll know that the package.json is the file that tells npm (Node Package Manager) to get all the libaries need for the project. Right now each service has a package.json, but none of the libaries are installed yet. To install them you'll have to go to the following folders:
 
 +  /proxy/
@@ -57,6 +61,19 @@ And then in each of those respective folders you'll need to use the command
 ```
 npm install --save
 ```
+### Setting up the Database
+We're using a postgres database to store user data, predictions, and watch lists.
+You'll need to install postgres and make sure that you have a user with adequate permissions.
+
+After you have an instance of postgres running and you have verified that you can access it by typing
+```
+psql
+```
+Then run the initial database scripts to create and populate the database.
+```
+./bin/db reset
+```
+This will create a database, all the tables, and populate them with phony data.
 
 ## Running the Application
 I have created a bash script to run restApi, proxy, www, and mobile. To do so simply type
@@ -71,4 +88,18 @@ at the root directory of the project. This script will run the following servers
 + Ionic   -> Will open automatically
 
 You can navigate to any of these servers individually by going to those directories in your browser. But the Reverse proxy is the main gateway to RestAPi and WWW and any other services in the future.
-The servers start script will automatically run the command 'ionic serve' for you as well in the ./mobile/ directory. However if you exit out of the tab that it opens you can navigate to our mobile app by going to the url 'localhost:8082' in your browser.
+The servers start script will automatically run the command 'ionic serve' for you as well in the ./mobile/ directory.
+
+If you are noticing that the apis aren't pulling data make sure the database is running!
+Open a new terminal and type
+```
+psql
+```
+Also make sure that you're database is populated. Run a simple command in the postgres terminal such as
+```
+SELECT * FROM USERS;
+```
+If there are no hits, re-run the db scripts.
+```
+./bin/db reset
+```

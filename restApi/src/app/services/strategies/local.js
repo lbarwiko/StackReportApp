@@ -40,29 +40,26 @@ export default (db, config) => {
     const strategyUsername = new LocalStrategy(
         {usernameField: 'username', passwordField: 'password'}, 
         (username, password, done) => {
-            console.log("Logging in");
-            console.log(username, password);
             User.getByUsername(username)
                 .then((user)=>{
-                    console.log("Got user:", user);
                     // Check if the password matches the hash
                     return bcrypt.compare(password, user.password)
                     //return testCompare()
                         .then(res => {
                             // If the password is wrong return false, else create a jwt
                             if(!res){
-                                console.log("Bad");
                                 return done(null, false, { err: 'Invalid username or password', code: 401});
                             }
-                            console.log("Password matches");
                             return createToken(user)
-                        }, err => { return done(null, false, { err: 'Error validating login', code: 401}) })
+                        }, err => { 
+                            return done(null, false, { err: 'Error validating login', code: 401}) 
+                        })
                 }, err => {
                     // Were not able to find a matching user_id
-                    console.log("Did not findmatching username");
                     return done(null, false)
                 }) 
                 .then(user => {
+                    // We created a valid token and attached it to the user. We're done.
                     return done(null, user);
                 }, err => done(err, false, {err: 'Error creating token', code:500}))
                 .catch(err => {

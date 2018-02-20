@@ -21,7 +21,6 @@ export default (db, config, auth) => {
 	userApi.param('user_id', User.params.user_id);
 	api.use('/u/', userApi);
 
-
 	const authApi = Router();
 	authApi.post('/', auth.requireLogin, User.get);
 	api.use('/auth', authApi);
