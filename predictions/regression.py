@@ -1,21 +1,43 @@
 """
 module to run linear regressions to predict mutual fund movements
+fit a variety of linear regressions to the model of:
+n1p1 + n2p2 + ... ndpd = stock_assets
+where px is price of stock x and nx is number of shares of stock x
+these regressions solve for N = [n1, n2, ..., nd]
 """
 
+import numpy as np
 from sklearn import linear_model
-from sklearn.model_selection import cross_val_predict
 
 def get_model(type):
 	"""
 	return the appropriate regression model according to type
+	we don't fit intercept since it doesn't match our model of 
+	n1p1 + n2p2 + ... ndpd = stock_assets
+	we also force positives when applicable because a mf can't hold negative shares
 	"""
 	if type == "linear":
-		return linear_model.LinearRegression(fit_intercept=False, copy_X=False)
+		return linear_model.LinearRegression(fit_intercept=False)
 	elif type == "ridge":
-		return linear_model.Ridge(fit_intercept=False, copy_X=False)
+		return linear_model.Ridge(fit_intercept=False)
 	elif type == "lasso":
-		return linear_model.Lasso(fit_intercept=False, copy_X=False)
-	# TODO multi-task Lasso
+		return linear_model.Lasso(fit_intercept=False, positive=True)
+	elif type == "elastic net":
+		return linear_model.ElasticNet(fit_intercept=False, positive=True)
+	elif type == "lars":
+		return linear_model.Lars(fit_intercept=False, positive=True)
+	elif type == "lasso lars":
+		return linear_model.LassoLars(fit_intercept=False, positive=True)
+	elif type == "omp":
+		return linear_model.OrthogonalMatchingPursuit(n_nonzero_coefs=np.inf, fit_intercept=False)
+	elif type == "bayesian ridge":
+		return linear_model.BayesianRidge(fit_intercept=False)
+	elif type == "ard":
+		return linear_model.ARDRegression(fit_intercept=False)
+	elif type == "sgd":
+		return linear_model.SGDRegressor(fit_intercept=False)
+
+	# TODO look into multi-task Lasso, multi-task elastic net
 
 def get_coefficients(regr, X, y):
 	"""
@@ -51,7 +73,8 @@ def predict(mf_symbol):
 	# base classifiers
 	# theoretical results show the same number of base classifiers as class labels gives the highest accuracy (3 class labels)
 	# TODO test different numbers of regressions for ensemble
-	types = ["linear", "ridge", "lasso"]
+	types = ["linear", "ridge", "lasso", "elastic net", "lars", "lasso lars", "omp", \
+		"bayesian ridge", "ard", "sgd"]
 	models = []
 	results = []
 	
