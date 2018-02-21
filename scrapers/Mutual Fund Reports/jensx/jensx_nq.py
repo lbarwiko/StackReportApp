@@ -18,6 +18,7 @@ if len(sys.argv) != 3:
 
 if not sys.argv[2].isdigit():
 	print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
+	exit(1)
 
 quote_page = sys.argv[1]
 date = sys.argv[2]
