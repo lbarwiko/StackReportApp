@@ -11,7 +11,9 @@ import {
     HomePage,
     UserPage,
     TestPage,
-    TabsPage
+    TabsPage,
+    RegisterPage,
+    LoginPage,
 } from '../pages/main'
 
 
@@ -28,7 +30,9 @@ import { UserService } from '../services/main';
     UserPage,
     HomePage,
     TabsPage,
-    TestPage
+    TestPage,
+    RegisterPage,
+    LoginPage,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +47,9 @@ import { UserService } from '../services/main';
     UserPage,
     HomePage,
     TabsPage,
-    TestPage
+    TestPage,
+    RegisterPage,
+    LoginPage,
   ],
   providers: [
     StatusBar,
