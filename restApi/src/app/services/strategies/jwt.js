@@ -9,6 +9,9 @@ export default (db, config) => {
     const User = Users(db, config);
 
     var tokenDeconstructor = function(req){
+        /* We expect the request to come with a header titled 
+            Authorization: 'Bearer <token>'
+        */
         if(req){
             var auth_schemes = req.get('Authorization');
             if(auth_schemes){

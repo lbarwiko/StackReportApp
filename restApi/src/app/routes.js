@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Users, Funds } from './controllers/'
+import { Users, Funds, Predictions } from './controllers/'
 
 export default (db, config, auth) => {
 	const router = Router();
@@ -21,7 +21,6 @@ export default (db, config, auth) => {
 	userApi.param('user_id', User.params.user_id);
 	api.use('/u/', userApi);
 
-
 	const authApi = Router();
 	authApi.post('/', auth.requireLogin, User.get);
 	api.use('/auth', authApi);
@@ -32,8 +31,15 @@ export default (db, config, auth) => {
 
 	const fundApi = Router();
 	const Fund = Funds(db, config).rest;
-	fundApi.get('/', auth.requireToken, Fund.list);
+	fundApi.get('/', Fund.list);
+	fundApi.post('/', Fund.create);
 	api.use('/f/', fundApi);
+
+	const predictionApi = Router();
+	const Prediction = Predictions(db, config).rest;
+	predictionApi.get('/', Prediction.list);
+	predictionApi.post('/', Prediction.create);
+	api.use('/p/', predictionApi);
 
 	router.get('/', (req, res)=>{
 		res.send("Fintech Rest Api");
