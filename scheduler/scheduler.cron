@@ -1,0 +1,2 @@
+# run bash script to collect daily stock prices and NAVs at 4:01 pm, m-f
+1 16 * * mon-fri ./scheduler.sh
