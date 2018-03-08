@@ -5,9 +5,6 @@ import { RegisterPage } from './register';
 @NgModule({
   declarations: [
     RegisterPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(RegisterPage),
-  ],
+  ]
 })
-export class LoginPageModule {}
+export class RegisterPageModule {}

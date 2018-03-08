@@ -15,6 +15,25 @@ export class RestapiProvider {
     console.log('Hello RestapiProvider Provider');
   }
 
+  Login(loginCredentials){
+  	console.log('Logging In');
+	  return new Promise(resolve => {
+			this.http.post('http://localhost:8100/api/auth', loginCredentials, {headers: {'Content-Type': 'application/json'}});
+	  });
+
+  }
+
+  CreateAccount(registerCredentials){
+  	console.log('Creating Account');
+  	console.log('Username: ' + registerCredentials.username);
+  	console.log('Password: ' + registerCredentials.password);
+	  return new Promise(resolve => {
+			this.http.post('http://localhost:8100/api/u', registerCredentials, {headers: {'Content-Type': 'application/json'}});
+			/*.then(console.log(registerCredentials)).catch(error => {console.log(error.status)});*/
+	  });
+
+  }
+
   getData() {
   	console.log('getting data <<<');
 	  return new Promise(resolve => {

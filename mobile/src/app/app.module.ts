@@ -1,27 +1,24 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
-import { 
-    AboutPage,
-    HomePage,
-    UserPage,
-    TestPage,
-    TabsPage,
-    RegisterPage,
-    LoginPage,
-} from '../pages/main'
-
-
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
 import { UserService } from '../services/main';
+
+import { 
+    AboutPage,
+    HomePage,
+    RegisterPage,
+    UserPage,
+    TestPage,
+    TabsPage,
+    LoginPage
+    } from '../pages/main'
+
 
 @NgModule({
   declarations: [
@@ -29,10 +26,10 @@ import { UserService } from '../services/main';
     AboutPage,
     UserPage,
     HomePage,
+    RegisterPage,
     TabsPage,
     TestPage,
-    RegisterPage,
-    LoginPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
@@ -46,10 +43,10 @@ import { UserService } from '../services/main';
     AboutPage,
     UserPage,
     HomePage,
+    RegisterPage,
     TabsPage,
     TestPage,
-    RegisterPage,
-    LoginPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
