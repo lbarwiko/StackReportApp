@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Users, Funds, Predictions } from './controllers/'
+import { Users, Funds, Predictions, Follow } from './controllers/'
 
 export default (db, config, auth) => {
 	const router = Router();
@@ -40,6 +40,11 @@ export default (db, config, auth) => {
 	predictionApi.get('/', Prediction.list);
 	predictionApi.post('/', Prediction.create);
 	api.use('/p/', predictionApi);
+
+    const followingApi = Router();
+    const Following = Follow(db, config);
+    followingApi.get('/', Following.list);
+    api.use('/following/', followingApi);
 
 	router.get('/', (req, res)=>{
 		res.send("Fintech Rest Api");
