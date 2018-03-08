@@ -90,6 +90,17 @@ at the root directory of the project. This script will run the following servers
 You can navigate to any of these servers individually by going to those directories in your browser. But the Reverse proxy is the main gateway to RestAPi and WWW and any other services in the future.
 The servers start script will automatically run the command 'ionic serve' for you as well in the ./mobile/ directory.
 
+### Running Each Server Individually
+You may notice you want feedback or to log data out to the console when developing. To do so you must run each service that you need separately. This will also save your CPU from having to run services you aren't using.
+
+To do run each service, navigate to the following servers in separate windows and run the commands:
++ Proxy   -> npm start
++ RestApi -> npm start
++ WWW     -> npm start
++ Ionic   -> ionic serve
+
+### What could go wrong?
+
 If you are noticing that the apis aren't pulling data make sure the database is running!
 Open a new terminal and type
 ```

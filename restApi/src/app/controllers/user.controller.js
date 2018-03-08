@@ -25,7 +25,6 @@ export default (db, config) => {
 						code: 400
 					})
                 }
-                console.log(payload);
                 UsernameConstraint(payload.username)
                 .then(cleanUsername=>{
                     payload.username = cleanUsername;

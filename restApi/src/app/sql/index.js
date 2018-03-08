@@ -14,6 +14,18 @@ const User = {
     getByIdPublic: sql('./user/user.getByIdPublic.sql')
 }
 
+const Fund = {
+    list: sql('./fund/fund.list.sql'),
+    create: sql('./fund/fund.create.sql')
+}
+
+const Prediction = {
+    list: sql('./prediction/prediction.list.sql'),
+    create: sql('./prediction/prediction.create.sql')
+}
+
 export {
-	User,
+    User,
+    Fund,
+    Prediction,
 }
