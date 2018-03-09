@@ -1,4 +1,4 @@
-import { Prediction as PredictionSql } from '../sql/';
+import { Prediction as PredictionSql, PredictionMeta as PredictionMetaSql } from '../sql/';
 import { RestHelpers } from '../lib/';
 
 export default (db, config) => {
@@ -6,11 +6,50 @@ export default (db, config) => {
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
-                db.any(PredictionSql.list,{
+                db.any(PredictionMetaSql.list,{
                     limit: size,
                     offset: page*size
                 })
+                .then(prediction_metas=>{
+                    var predictionPromises = [];
+                    prediction_metas.forEach(prediction_meta=>{
+                        predictionPromises.push(
+                            new Promise((resolve2, reject2)=>{
+                                return db.any(PredictionSql.list,{
+                                    prediction_meta_id: prediction_meta.prediction_meta_id
+                                })
+                                .then(res=>{
+                                    return resolve2(res)
+                                })
+                                .catch(err=>{
+                                    return reject2(err);
+                                })
+                            })
+                        )
+                    })
+
+                    return Promise.all(predictionPromises)
+                    .then(predictions=>{
+                        return new Promise((resolve3)=>{
+                            var response = [];
+                            var i = 0;
+                            predictions.forEach(prediction=>{
+                                //Find correct prediction meta
+                                response.push({
+                                    meta: prediction_metas[i],
+                                    prediction: prediction
+                                });
+                                i+=1;
+                            })
+                            return resolve3(response);
+                        });
+                    })
+                    .catch(err=>{
+                        return reject(err);
+                    })
+                })
                 .then(res=>{
+                    console.log(res);
                     return resolve(res);
                 })
                 .catch(err=>{
@@ -27,7 +66,7 @@ export default (db, config) => {
 
     function create(){
         /* 
-            Create a Fund 
+            Create a Prediction 
             Input: A fund_id and an array of securities that are predicted
         */
 		function helper(payload){
@@ -40,17 +79,31 @@ export default (db, config) => {
 						code: 400
 					})
                 }
-                return db.tx(t => {
-                    var queries = [];
-                    payload.securities.forEach(security_id => {
-                        queries.push(
-                            t.none(PredictionSql.create, {
-                                fund_id: payload.fund_id,
-                                security_id: security_id
-                            })
-                        );
-                    });
-                    return t.batch(queries);
+                console.log(payload);
+                return db.one(PredictionMetaSql.create,{
+                    fund_id: payload.fund_id
+                })
+                .then(predictionMetaResponse =>{
+                    if(!predictionMetaResponse && !predictionMetaResponse.prediction_meta_id){
+                        return reject({
+                            err: 'Unable to insert',
+                            code: 5000
+                        });
+                    }
+                    var prediction_meta_id = predictionMetaResponse.prediction_meta_id
+                    return db.tx(t => {
+                        var queries = [];
+                        
+                        payload.securities.forEach(security_id => {
+                            queries.push(
+                                t.none(PredictionSql.create, {
+                                    prediction_meta_id: prediction_meta_id,
+                                    security_id: security_id
+                                })
+                            );
+                        });
+                        return t.batch(queries);
+                    })
                 })
                 .then(res => {
                     return resolve(true);

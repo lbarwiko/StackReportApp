@@ -21,11 +21,17 @@ const Fund = {
 
 const Prediction = {
     list: sql('./prediction/prediction.list.sql'),
-    create: sql('./prediction/prediction.create.sql')
+    create: sql('./prediction/prediction.create.sql'),
+}
+
+const PredictionMeta = {
+    list: sql('./prediction/prediction.meta.list.sql'),
+    create: sql('./prediction/prediction.meta.create.sql')
 }
 
 export {
     User,
     Fund,
     Prediction,
+    PredictionMeta
 }

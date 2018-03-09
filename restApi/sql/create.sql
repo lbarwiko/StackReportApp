@@ -24,13 +24,17 @@ CREATE TABLE FOLLOW(
 	PRIMARY KEY(fund_id, user_id)
 );
 
+CREATE TABLE PREDICTION_META(
+	prediction_meta_id SERIAL PRIMARY KEY,
+	date_predicted DATE DEFAULT CURRENT_DATE,
+	fund_id VARCHAR(16) REFERENCES FUND(fund_id) NOT NULL
+);
 
 CREATE TABLE PREDICTION(
-	prediciton_meta_id SERIAL PRIMARY KEY,
-	fund_id VARCHAR(16) REFERENCES FUND(fund_id) NOT NULL,
-	date_predicted timestamp DEFAULT current_timestamp,
+	prediction_meta_id SERIAL REFERENCES PREDICTION_META(prediction_meta_id) NOT NULL,
   security_id VARCHAR(16) NOT NULL
 );
+CREATE INDEX ON PREDICTION USING HASH (prediction_meta_id);
 
 ALTER TABLE USERS ADD CONSTRAINT allowed_roles
   CHECK (role IN (

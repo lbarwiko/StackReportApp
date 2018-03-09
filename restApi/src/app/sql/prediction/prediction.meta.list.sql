@@ -1,0 +1,1 @@
+SELECT * FROM PREDICTION_META LIMIT ${limit} OFFSET ${offset}
