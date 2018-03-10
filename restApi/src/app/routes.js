@@ -33,12 +33,15 @@ export default (db, config, auth) => {
 	const Fund = Funds(db, config).rest;
 	fundApi.get('/', Fund.list);
 	fundApi.post('/', Fund.create);
+	fundApi.get('/:fund_id', Fund.get);
+	fundApi.param('fund_id', Fund.params.fund_id);
 	api.use('/f/', fundApi);
 
 	const predictionApi = Router();
 	const Prediction = Predictions(db, config).rest;
 	predictionApi.get('/', Prediction.list);
 	predictionApi.post('/', Prediction.create);
+	fundApi.get('/:fund_id/p/', Prediction.list);
 	api.use('/p/', predictionApi);
 
     const followingApi = Router();

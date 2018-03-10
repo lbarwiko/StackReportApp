@@ -1,12 +1,17 @@
 import { Prediction as PredictionSql, PredictionMeta as PredictionMetaSql } from '../sql/';
-import { RestHelpers } from '../lib/';
+import { RestHelpers, NextUrl } from '../lib/';
 
 export default (db, config) => {
-    
+
     function list(){
-        function helper(page=0, size=10){
+        function helper(fund_id, page=0, size=1){
             return new Promise((resolve, reject)=>{
-                db.any(PredictionMetaSql.list,{
+                var requestSql = PredictionMetaSql.get;
+                if(!fund_id){
+                    requestSql = PredictionMetaSql.list;
+                }
+                db.any(requestSql,{
+                    fund_id: fund_id,
                     limit: size,
                     offset: page*size
                 })
@@ -49,7 +54,6 @@ export default (db, config) => {
                     })
                 })
                 .then(res=>{
-                    console.log(res);
                     return resolve(res);
                 })
                 .catch(err=>{
@@ -57,9 +61,33 @@ export default (db, config) => {
                 });
             });
         }
+
+        function rest(req, res, next){
+            var page = parseInt(req.param('page')) || 0;
+            var size = parseInt(req.param('size')) || 1; 
+            if(size <=0){
+                return res.status(400).send("Invalid size");
+            }
+            if(page < 0){
+                return res.status(400).send("Invalid page number");
+            }
+            var fund_id = null;
+            if(req.fund){
+                fund_id = req.fund.fund_id;
+            }
+
+            helper(fund_id, page, size)
+                .then(data=>{
+                    res.status(200).json({
+                        data: data,
+                        next: NextUrl(req, data, page, size)
+                    });
+                })
+                .catch(err=>res.json(err));
+        }
         return {
             helper: helper,
-            rest: RestHelpers.BasicListRequest(helper)
+            rest: rest
         }
     }
 

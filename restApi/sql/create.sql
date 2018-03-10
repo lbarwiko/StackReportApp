@@ -21,7 +21,7 @@ CREATE TABLE FOLLOW(
 	fund_id VARCHAR(16) REFERENCES FUND(fund_id),
 	user_id SERIAL REFERENCES USERS(user_id),
 	createdAt timestamp DEFAULT current_timestamp,
-	PRIMARY KEY(fund_id, user_id)
+	PRIMARY KEY(user_id, fund_id)
 );
 
 CREATE TABLE PREDICTION_META(
