@@ -3,13 +3,24 @@ CREATE DATABASE stackreport;
 
 \c stackreport;
 
+CREATE TABLE TIER(
+	tier_type VARCHAR(16) PRIMARY KEY NOT NULL,
+	max_reports INTEGER
+);
+
+INSERT INTO TIER(tier_type, max_reports)
+VALUES
+('FREE', 1),
+('STANDARD', 10),
+('PROFESSIONAL', 50),
+('BUSINESS', 500);
 
 CREATE TABLE USERS(
 	user_id SERIAL PRIMARY KEY NOT NULL,
 	username VARCHAR(24) UNIQUE NOT NULL,
 	password VARCHAR(70) NOT NULL,
 	role VARCHAR(16) DEFAULT 'USER',
-	tier VARCHAR(16) DEFAULT 'FREE'
+	tier VARCHAR(16) REFERENCES TIER(tier_type) DEFAULT 'FREE'
 );
 
 CREATE TABLE FUND(
@@ -40,11 +51,6 @@ ALTER TABLE USERS ADD CONSTRAINT allowed_roles
   CHECK (role IN (
     'ADMIN',
     'USER'
-));
-
-ALTER TABLE USERS ADD CONSTRAINT allowed_tier
-  CHECK (tier IN (
-    'FREE'
 ));
 
 -- Create a view that doesn't expose any sensitive information about user.

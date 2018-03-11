@@ -4,7 +4,6 @@ import { Fund as FundSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 
 export default (db, config) => {
-    
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
