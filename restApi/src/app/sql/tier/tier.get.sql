@@ -1,0 +1,1 @@
+SELECT * FROM TIER WHERE tier_type = ${tier_type}

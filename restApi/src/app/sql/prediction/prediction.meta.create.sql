@@ -1,0 +1,1 @@
+INSERT INTO PREDICTION_META(fund_id) VALUES (${fund_id}) RETURNING prediction_meta_id

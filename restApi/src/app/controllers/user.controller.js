@@ -117,19 +117,19 @@ export default (db, config) => {
             helper(user_id, {
                 public: true
             })
-                .then(user=>{
-                    req.user_param = user;
-                    next();
-                })
-                .catch(err=>{
-                    if(err && err.code === 404){
-						return res.status(404).json({
-							err: 'No user found with id ' + user_id,
-							code: 404
-						});
-					}
-					return res.json(err);
-                })
+            .then(user=>{
+                req.user_param = user;
+                next();
+            })
+            .catch(err=>{
+                if(err && err.code === 404){
+                    return res.status(404).json({
+                        err: 'No user found with id ' + user_id,
+                        code: 404
+                    });
+                }
+                return res.json(err);
+            })
         }
 
         return {

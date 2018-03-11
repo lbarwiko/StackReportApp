@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { NavController, Loading, LoadingController, NavParams } from 'ionic-angular';
 import { RestapiProvider } from '../../providers/restapi/restapi';
 import { LoginPage } from '../login/login';
+import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,8 +13,9 @@ import { LoginPage } from '../login/login';
 export class RegisterPage {
   loading: Loading;
   registerCredentials = {username: '', password: '', confirm: ''};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController,
   public restapiProvider: RestapiProvider ) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
