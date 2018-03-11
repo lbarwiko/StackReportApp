@@ -3,6 +3,7 @@ import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingC
 import { HomePage } from './../home/home';
 import { RegisterPage } from './../register/register';
 import { RestapiProvider } from '../../providers/restapi/restapi';
+import { User } from '../../models/user';
 
 @IonicPage()
 @Component({
@@ -12,6 +13,7 @@ import { RestapiProvider } from '../../providers/restapi/restapi';
 export class LoginPage {
   loading: Loading;
   registerCredentials = {username: '', password: ''};
+  user: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController,
   public restapiProvider: RestapiProvider) {}
@@ -37,18 +39,7 @@ export class LoginPage {
 
     console.log('login');
     console.log(this.restapiProvider.Login({username: this.registerCredentials.username, password: this.registerCredentials.password}));
-    this.navCtrl.setRoot(HomePage);
-    /*
-    this.auth.login(this.registerCredentials).subscribe(allowed => {
-      if (allowed) {        
-        this.navCtrl.setRoot(HomePage);
-      } else {
-        this.showError("Access Denied");
-      }
-    },
-      error => {
-        this.showError(error);
-      });*/
+    /*this.navCtrl.setRoot(HomePage);*/
   }
 
   showLoading() {

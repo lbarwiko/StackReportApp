@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from '../../models/user';
 
 /*
   Generated class for the RestapiProvider provider.
@@ -17,21 +18,30 @@ export class RestapiProvider {
 
   Login(loginCredentials){
   	console.log('Logging In');
-	  return new Promise(resolve => {
-			this.http.post('http://localhost:8100/api/auth', loginCredentials, {headers: {'Content-Type': 'application/json'}});
-	  });
-
+  	console.log(loginCredentials);
+	return new Promise(resolve => {
+		this.http.post<User>('http://localhost:8000/api/auth', loginCredentials, {headers: {'Content-Type': 'application/json'}})
+			.subscribe(data => {
+	      console.log('provider getting data');
+	      resolve(data);
+	    },err => {
+	      console.log(err);
+	    });
+	});
   }
 
   CreateAccount(registerCredentials){
   	console.log('Creating Account');
   	console.log('Username: ' + registerCredentials.username);
   	console.log('Password: ' + registerCredentials.password);
-	  return new Promise(resolve => {
-			this.http.post('http://localhost:8100/api/u', registerCredentials, {headers: {'Content-Type': 'application/json'}});
-			/*.then(console.log(registerCredentials)).catch(error => {console.log(error.status)});*/
-	  });
-
+	/*  return new Promise(resolve => {
+			this.http.post('http://localhost:8100/api/u', registerCredentials, {headers: {'Content-Type': 'application/json'}})
+			.then(data => {
+	        console.log(data);
+	      }).catch(error => {
+	        console.log(error.status);
+	      });
+	  });*/
   }
 
   getData() {
