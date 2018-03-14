@@ -16,7 +16,9 @@ import {
     LoginPage,
 } from '../pages/main'
 
-
+import {
+  PreviewComponent,
+} from '../components/main'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,6 +35,7 @@ import { UserService } from '../services/main';
     TestPage,
     RegisterPage,
     LoginPage,
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,

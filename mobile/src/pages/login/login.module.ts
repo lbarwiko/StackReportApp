@@ -6,8 +6,5 @@ import { LoginPage } from './login';
   declarations: [
     LoginPage,
   ],
-  imports: [
-    IonicPageModule.forChild(LoginPage),
-  ],
 })
 export class LoginPageModule {}

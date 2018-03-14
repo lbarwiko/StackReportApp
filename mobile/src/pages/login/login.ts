@@ -18,7 +18,7 @@ export class LoginPage {
   }
 
   public createAccount(){
-    this.navCtrl.push('RegisterPage')
+    this.navCtrl.push('RegisterPage');
   }
 
   public login(){
