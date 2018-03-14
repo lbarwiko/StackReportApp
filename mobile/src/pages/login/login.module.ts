@@ -6,5 +6,7 @@ import { LoginPage } from './login';
   declarations: [
     LoginPage,
   ],
+  imports: [
+  ],
 })
 export class LoginPageModule {}

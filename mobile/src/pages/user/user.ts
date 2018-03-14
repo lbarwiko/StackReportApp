@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import  { UserService } from '../../services/user.service'
-import { User } from '../../models/main'
+import  { UserService } from '../../services/user.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'page-user',
@@ -16,7 +16,7 @@ export class UserPage {
   
   constructor(public navCtrl: NavController, private userService: UserService) {
     this.getUsers();
-    this.userToAdd = new User();
+    //this.userToAdd = new User();
     this.page = 0;
   }
 

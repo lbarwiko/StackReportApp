@@ -1,18 +1,40 @@
-<!--
-  Generated template for the RegisterPage page.
+<ion-content class="register-content" padding>
+  <ion-row class="logo-row">
+    <ion-col></ion-col>
+    <ion-col width-67>
+    	<h1 id = "StackReportTitle"> StackReport! </h1>
+      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>
+      	<h2 id = "SignInHeader"> Sign in! </h2>
+    </ion-col>
+    <ion-col></ion-col>
+  </ion-row>
+  <div class="register-box">
+    <form (ngSubmit)="register()" #registerForm="ngForm">
+      <ion-row>
+        <ion-col>
+          <ion-list inset>
+            
+            <ion-item>
+              <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>
+            </ion-item>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>register</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+            <ion-item>
+              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>
+            </ion-item>
+            
+            <ion-item>
+              <ion-input type="password" placeholder="Confirm Password" name="confirm" [(ngModel)]="registerCredentials.confirm" required></ion-input>
+            </ion-item>
+                        
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      
+      <ion-row>
+        <ion-col class="signup-col">
+          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register Account</button>
+        </ion-col>
+      </ion-row>
+    </form>          
+  </div>
 </ion-content>

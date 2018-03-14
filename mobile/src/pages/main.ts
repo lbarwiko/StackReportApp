@@ -3,8 +3,8 @@ import { HomePage } from './home/home';
 import { UserPage } from './user/user';
 import { TabsPage } from './tabs/tabs';
 import { TestPage } from './test/test';
-import { RegisterPage } from './register/register';
 import { LoginPage } from './login/login';
+import { RegisterPage } from './register/register';
 
 export {
     AboutPage,
@@ -12,6 +12,6 @@ export {
     UserPage,
     TabsPage,
     TestPage,
-    RegisterPage,
     LoginPage,
+    RegisterPage
 }

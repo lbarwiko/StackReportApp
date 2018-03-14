@@ -1,1 +1,1 @@
-INSERT INTO PREDICTION(fund_id, security_id) VALUES (${fund_id}, ${security_id})
+INSERT INTO PREDICTION(prediction_meta_id, security_id) VALUES (${prediction_meta_id}, ${security_id})

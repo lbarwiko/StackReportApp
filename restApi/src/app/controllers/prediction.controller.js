@@ -1,14 +1,57 @@
-import { Prediction as PredictionSql } from '../sql/';
-import { RestHelpers } from '../lib/';
+import { Prediction as PredictionSql, PredictionMeta as PredictionMetaSql } from '../sql/';
+import { RestHelpers, NextUrl } from '../lib/';
 
 export default (db, config) => {
-    
+
     function list(){
-        function helper(page=0, size=10){
+        function helper(fund_id, page=0, size=1){
             return new Promise((resolve, reject)=>{
-                db.any(PredictionSql.list,{
+                var requestSql = PredictionMetaSql.get;
+                if(!fund_id){
+                    requestSql = PredictionMetaSql.list;
+                }
+                db.any(requestSql,{
+                    fund_id: fund_id,
                     limit: size,
                     offset: page*size
+                })
+                .then(prediction_metas=>{
+                    var predictionPromises = [];
+                    prediction_metas.forEach(prediction_meta=>{
+                        predictionPromises.push(
+                            new Promise((resolve2, reject2)=>{
+                                return db.any(PredictionSql.list,{
+                                    prediction_meta_id: prediction_meta.prediction_meta_id
+                                })
+                                .then(res=>{
+                                    return resolve2(res)
+                                })
+                                .catch(err=>{
+                                    return reject2(err);
+                                })
+                            })
+                        )
+                    })
+
+                    return Promise.all(predictionPromises)
+                    .then(predictions=>{
+                        return new Promise((resolve3)=>{
+                            var response = [];
+                            var i = 0;
+                            predictions.forEach(prediction=>{
+                                //Find correct prediction meta
+                                response.push({
+                                    meta: prediction_metas[i],
+                                    prediction: prediction
+                                });
+                                i+=1;
+                            })
+                            return resolve3(response);
+                        });
+                    })
+                    .catch(err=>{
+                        return reject(err);
+                    })
                 })
                 .then(res=>{
                     return resolve(res);
@@ -18,16 +61,40 @@ export default (db, config) => {
                 });
             });
         }
+
+        function rest(req, res, next){
+            var page = parseInt(req.param('page')) || 0;
+            var size = parseInt(req.param('size')) || 1; 
+            if(size <=0){
+                return res.status(400).send("Invalid size");
+            }
+            if(page < 0){
+                return res.status(400).send("Invalid page number");
+            }
+            var fund_id = null;
+            if(req.fund){
+                fund_id = req.fund.fund_id;
+            }
+
+            helper(fund_id, page, size)
+                .then(data=>{
+                    res.status(200).json({
+                        data: data,
+                        next: NextUrl(req, data, page, size)
+                    });
+                })
+                .catch(err=>res.json(err));
+        }
         return {
             helper: helper,
-            rest: RestHelpers.BasicListRequest(helper)
+            rest: rest
         }
     }
 
 
     function create(){
         /* 
-            Create a Fund 
+            Create a Prediction 
             Input: A fund_id and an array of securities that are predicted
         */
 		function helper(payload){
@@ -40,17 +107,31 @@ export default (db, config) => {
 						code: 400
 					})
                 }
-                return db.tx(t => {
-                    var queries = [];
-                    payload.securities.forEach(security_id => {
-                        queries.push(
-                            t.none(PredictionSql.create, {
-                                fund_id: payload.fund_id,
-                                security_id: security_id
-                            })
-                        );
-                    });
-                    return t.batch(queries);
+                console.log(payload);
+                return db.one(PredictionMetaSql.create,{
+                    fund_id: payload.fund_id
+                })
+                .then(predictionMetaResponse =>{
+                    if(!predictionMetaResponse && !predictionMetaResponse.prediction_meta_id){
+                        return reject({
+                            err: 'Unable to insert',
+                            code: 5000
+                        });
+                    }
+                    var prediction_meta_id = predictionMetaResponse.prediction_meta_id
+                    return db.tx(t => {
+                        var queries = [];
+                        
+                        payload.securities.forEach(security_id => {
+                            queries.push(
+                                t.none(PredictionSql.create, {
+                                    prediction_meta_id: prediction_meta_id,
+                                    security_id: security_id
+                                })
+                            );
+                        });
+                        return t.batch(queries);
+                    })
                 })
                 .then(res => {
                     return resolve(true);

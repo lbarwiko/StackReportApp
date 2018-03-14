@@ -4,7 +4,6 @@ import { Fund as FundSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 
 export default (db, config) => {
-    
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
@@ -26,6 +25,52 @@ export default (db, config) => {
         }
     }
 
+    function get(){
+        function helper(fund_id){
+            return new Promise((resolve, reject)=>{
+                if(!fund_id){
+                    return reject({
+                        code: 400,
+                        err: 'No fund_id provided'
+                    })
+                }
+                db.one(FundSql.get,{
+                    fund_id: fund_id
+                })
+                .then(res=>{
+                    return resolve(res);
+                })
+                .catch(err => reject(err));
+            })
+        }
+
+        function param(req, res, next, fund_id){
+            helper(fund_id)
+            .then(fund=>{
+                req.fund = fund;
+                next();
+            })
+            .catch(err=>{
+                return res.json(err);
+            })
+        }
+
+        function rest(req, res, next){
+            if(!req.fund){
+                return res.status(404).json({
+                    code: 404,
+                    err: 'No fund found'
+                })
+            }
+            return res.json(req.fund);
+        }
+
+        return {
+            helper: helper,
+            param: param,
+            rest: rest
+        }
+    }
 
     function create(){
         /* 
@@ -85,10 +130,15 @@ export default (db, config) => {
 
     return {
         rest: {
+            params:{
+                fund_id: get().param
+            },
             list: list().rest,
-            create: create().rest
+            create: create().rest,
+            get: get().rest
         },
         list: list().helper,
-        create: create().helper
+        create: create().helper,
+        get: get().helper
     }
 }

@@ -1,1 +1,1 @@
-SELECT * FROM PREDICTION LIMIT ${limit} OFFSET ${offset}
+SELECT security_id FROM PREDICTION WHERE prediction_meta_id=${prediction_meta_id}

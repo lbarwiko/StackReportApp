@@ -4,7 +4,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
-import { User } from '../models/main';
+import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
