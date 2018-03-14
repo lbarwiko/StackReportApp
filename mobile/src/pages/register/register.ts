@@ -20,17 +20,7 @@ export class RegisterPage {
   public register(){
   	console.log('Register');
     this.showLoading();
-    this.restapiProvider.CreateAccount({username: this.registerCredentials.username, password: this.registerCredentials.password});
-    /*.subscribe(allowed => {
-      if (allowed) {        
-        this.navCtrl.setRoot(LoginPage);
-      } else {
-        this.showError("Error registering account");
-      }
-    },
-      error => {
-        this.showError(error);
-      });*/
+    console.log(this.restapiProvider.CreateAccount({username: this.registerCredentials.username, password: this.registerCredentials.password}));
   }
 
 
