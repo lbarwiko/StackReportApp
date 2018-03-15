@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+  import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,8 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService } from '../services/main';
-import { AuthService } from '../services/main';
+import { UserService, FundService, AuthService } from '../services/main';
 
 import { 
     AboutPage,
@@ -20,6 +19,9 @@ import {
     LoginPage
     } from '../pages/main'
 
+import {
+  PreviewComponent,
+} from '../components/main'
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import {
     RegisterPage,
     TabsPage,
     TestPage,
-    LoginPage
+    LoginPage,
+    PreviewComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
+    FundService,
     RestapiProvider,
     AuthService
   ]
