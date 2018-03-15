@@ -4,11 +4,12 @@ import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
+import ApiEndpoint from './endpoints.ts';
 import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
-    url = "http://localhost:8000/api/u/";
+    url = ApiEndpoint.base + ApiEndpoint.user;
     
     constructor(private http:Http) { }
 
@@ -51,4 +52,5 @@ export class UserService {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
     }	
+
 } 

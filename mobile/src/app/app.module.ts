@@ -1,4 +1,4 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+  import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService } from '../services/main';
+import { UserService, FundService } from '../services/main';
 
 import { 
     AboutPage,
@@ -22,11 +22,6 @@ import {
 import {
   PreviewComponent,
 } from '../components/main'
-
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService } from '../services/main';
 
 @NgModule({
   declarations: [
@@ -62,6 +57,7 @@ import { UserService } from '../services/main';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
+    FundService,
     RestapiProvider,
   ]
 })
