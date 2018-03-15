@@ -4,7 +4,7 @@ import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
-import EndpointsService from './endpoints.service';
+import EndpointService from './main';
 // import { Fund } from '../models/fund';
 
 @Injectable()

@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class EndpointsService {
+export class EndpointService {
 	base: string;
 	user: string;
 	me: string;
 	prediction: string;
 	fund: string;
-
-
-
 
     constructor() {
     	let fvariable: boolean = false;
