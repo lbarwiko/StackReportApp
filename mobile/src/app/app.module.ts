@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService, FundService } from '../services/main';
+import { UserService, FundService, AuthService, EndpointsService } from '../services/main';
 
 import { 
     AboutPage,
@@ -59,6 +59,8 @@ import {
     UserService,
     FundService,
     RestapiProvider,
+    AuthService,
+    EndpointsService
   ]
 })
 export class AppModule {}
