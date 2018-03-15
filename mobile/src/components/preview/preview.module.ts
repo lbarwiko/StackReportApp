@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RegisterPage } from './register';
+import { PreviewComponent } from './preview';
 
 @NgModule({
   declarations: [
-    RegisterPage,
+    PreviewComponent,
   ],
 })
-export class RegisterPageModule {}
+export class PreviewComponentModule {}

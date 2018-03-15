@@ -1,0 +1,16 @@
+component-preview {
+	background-color: #3d3f42;
+	border-radius: 8px;
+	height: 50px;
+	padding: 18px;
+	width: 100%;
+	color: white;
+
+	.ticker {
+		float: left;
+	}
+
+	.price {
+		float: right;
+	}
+}

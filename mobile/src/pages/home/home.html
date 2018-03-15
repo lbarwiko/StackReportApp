@@ -1,10 +1,22 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content class="home-content" padding>
+    <ion-row>
+        <ion-col>
+            <h1>{{this.user}}</h1>
+            <h2 id="Title-Upper">Vanguard ITX <!--{{fund-name}}--></h2>
+            <p id="Title-Lower-Caption">current value:</p>
+            <h3 id="Title-Lower">$36<!--{{fund-price}}--></h3>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+            <img src="https://pics.me.me/heres-a-graph-of-my-life-thus-far-16329422.png">
+        </ion-col>
+    </ion-row>
 
-<ion-content padding>
-  <h2>{{fund-name}}</h2>
-  <h3>{{fund-price}}</h3>
+    <ion-row>
+        <button ion-button class="home-btn" full type="Investments">Investments</button>
+    </ion-row>
+    <ion-row>
+        <button ion-button class="home-btn" full type="Reports">Reports</button>
+    </ion-row>
 </ion-content>

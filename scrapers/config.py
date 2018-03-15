@@ -7,5 +7,5 @@ config file for global variables
 API_KEY = "U8RRYQ7SOSDVDWVW"
 
 # alphavantage base url
-ALPHA_BASE_URL = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="
+ALPHA_BASE_URL = "https://www.alphavantage.co/query?function="
 
