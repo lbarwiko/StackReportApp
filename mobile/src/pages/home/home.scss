@@ -1,15 +1,15 @@
 page-home {
 
-	#Title-Upper {
+	.title {
 		color: white;
 	}
 
-	#Title-Lower {
+	.sub-title {
 		color: white;
         margin-top: 0px;
 	}
 
-    #Title-Lower-Caption {
+    .caption {
         color: white;
         margin-bottom: 0px;
     }
@@ -32,18 +32,13 @@ page-home {
          box-shadow: none !important;
      }
  
-     .signup-col {
-       margin: 0px 16px 0px 16px;
-       padding-bottom: 20px;
-     }
- 
      .item-inner {
        border-top-color: #ffffff !important;
        border-bottom-color: #ffffff !important;
        box-shadow: none !important;
      }
  
-     .home-btn {
+     .lower-btn {
        background: #2A353B;
      }
  }
