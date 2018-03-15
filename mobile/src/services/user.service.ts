@@ -4,12 +4,12 @@ import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
-import ApiEndpoint from './endpoints.ts';
+import EndpointsService from './main';
 import { User } from '../models/user';
 
 @Injectable()
 export class UserService {
-    url = ApiEndpoint.base + ApiEndpoint.user;
+    url = EndpointsService.getBase() + EndpointsService.getUser();
     
     constructor(private http:Http) { }
 
