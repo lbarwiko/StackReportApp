@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 import { HomePage } from './../home/home';
 import { RegisterPage } from './../register/register';
-import { RestapiProvider } from '../../providers/restapi/restapi';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 
 @IonicPage()
@@ -12,11 +12,11 @@ import { User } from '../../models/user';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = {username: '', password: ''};
+  loginCredentials = {username: '', password: ''};
   user: User;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController,
-  public restapiProvider: RestapiProvider) {}
+   public authService: AuthService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -36,9 +36,8 @@ export class LoginPage {
     
     */
     this.showLoading();
-
     console.log('login');
-    console.log(this.restapiProvider.Login({username: this.registerCredentials.username, password: this.registerCredentials.password}));
+    console.log(this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password}));
     /*this.navCtrl.setRoot(HomePage);*/
   }
 

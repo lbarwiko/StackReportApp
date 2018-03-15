@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
 import { UserService } from '../services/main';
+import { AuthService } from '../services/main';
 
 import { 
     AboutPage,
@@ -54,6 +55,7 @@ import {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     RestapiProvider,
+    AuthService
   ]
 })
 export class AppModule {}

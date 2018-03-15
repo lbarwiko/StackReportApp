@@ -21,8 +21,8 @@ export class RegisterPage {
   	console.log('Register');
     this.showLoading();
     console.log(this.restapiProvider.CreateAccount({username: this.registerCredentials.username, password: this.registerCredentials.password}));
+    this.navCtrl.setRoot(LoginPage);
   }
-
 
   public showLoading() {
     this.loading = this.loadingCtrl.create({
