@@ -8,3 +8,11 @@ VALUES
 ('user4', '$2a$10$NV883tbS6LxDj3mLcRciQeRO8F4rZyWb.f27pKVx8G9dSMRKVLPzq'),
 ('user5', '$2a$10$NV883tbS6LxDj3mLcRciQeRO8F4rZyWb.f27pKVx8G9dSMRKVLPzq'),
 ('user6', '$2a$10$NV883tbS6LxDj3mLcRciQeRO8F4rZyWb.f27pKVx8G9dSMRKVLPzq');
+
+INSERT INTO FUND(fund_id, fund_name)
+VALUES
+('aapl', 'Apple'),
+('fb', 'Facebook'),
+('googl', 'Alphabet'),
+('amzn', 'Amazon'),
+('msft', 'Microsoft');
