@@ -13,16 +13,16 @@ export class User {
         this.token = params.token;
         this.tier = params.tier;
     }
-    getToken(){
+    getToken():string{
     	return this.token;
     }
-    getUsername(){
+    getUsername():string{
         return this.username;
     }
-    getUserId(){
+    getUserId():number{
         return this.user_id;
     }
-    getTier(){
+    getTier():string{
     	return this.tier;
     }
  };
