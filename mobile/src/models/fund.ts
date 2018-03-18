@@ -1,9 +1,8 @@
 export class Fund {
     fund_id: string;
     fund_name: string;
-    current_value: number;
-    liabilities: number;
-    stocks: [string];
+    current_price: number;
+    price_history: [number];
 
     constructor(fund_id_in) {
     	//Required Params

@@ -10,6 +10,10 @@ component-preview {
 		float: left;
 	}
 
+	.rightside {
+		float: right;
+	}
+
 	.ticker {
 		color: white;
 	}
@@ -20,6 +24,18 @@ component-preview {
 	}
 
 	.price {
-		float: right;
+		padding: 8px;
 	}	
+
+	.red {
+		color: red;
+	}
+
+	.green {
+		color: green;
+	}
+
+	.white {
+		color: white;
+	}
 }
