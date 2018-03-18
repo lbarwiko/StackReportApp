@@ -46,7 +46,7 @@ export default (db, config) => {
                 var num_following = null;
                 count().helper(user.user_id)
                 .then(res=>{
-                    num_following;
+                    console.log(num_following);
                     return resolve(true);
                 })
                 .then(isGood=>{
@@ -56,7 +56,7 @@ export default (db, config) => {
                     return resolve(true);
                 })
                 .catch(err=> reject(err));
-            })
+            });
         }
 
         function rest(req, res, next){

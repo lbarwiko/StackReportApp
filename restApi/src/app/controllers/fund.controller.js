@@ -3,7 +3,11 @@ import { Fund as FundData} from '../data/';
 import { Fund as FundSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 
+import { Alphavantage } from '../services/';
+
 export default (db, config) => {
+    const AlphavantageApi = Alphavantage();
+
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
@@ -62,7 +66,17 @@ export default (db, config) => {
                     err: 'No fund found'
                 })
             }
-            return res.json(req.fund);
+            return AlphavantageApi.get(req.fund.fund_id)
+            .then(data=>{
+                return res.json({
+                    fund_id: req.fund.fund_id,
+                    fund_name: req.fund.fund_name,
+                    price_history: data
+                });
+            })
+            .catch(err=>{
+                return res.status(500).json(req.fund);
+            })
         }
 
         return {
