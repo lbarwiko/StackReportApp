@@ -1,15 +1,17 @@
 <div>
-	<div class = "leftside">
-		<div class = "ticker">
-			{{fund.fund_id | uppercase}}
+	<div *ngIf="fund">
+		<div class = "leftside">
+			<div class = "ticker">
+				{{fund.id || "TEST" | uppercase}}
+			</div>
+			<div class = "name">
+				{{fund.name || "TEST"}} 
+			</div>
 		</div>
-		<div class = "name">
-			{{fund.fund_name}} 
+		<div class = "rightside">
+			<div class = {{price_color}}>
+				{{fund.current_price || "TEST" | number : '1.2-2'}}
+			</div>
 		</div>
 	</div>
-	<div class = "rightside">
-		<div class = {{price_color}}>
-			{{fund.current_price | number : '1.2-2'}}
-		</div>
-	</div>
-</div>	
+</div>

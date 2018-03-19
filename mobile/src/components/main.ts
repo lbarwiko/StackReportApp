@@ -1,7 +1,7 @@
 import { PreviewComponent } from './preview/preview';
-import { FundGraphComponent } from './fundGraph/fundGraph';
+import { ServiceGraphComponent } from './serviceGraph/serviceGraph';
 
 export {
     PreviewComponent,
-    FundGraphComponent,
+    ServiceGraphComponent,
 }

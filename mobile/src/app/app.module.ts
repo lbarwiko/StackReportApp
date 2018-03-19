@@ -23,7 +23,7 @@ import {
 
 import {
   PreviewComponent,
-  FundGraphComponent,
+  ServiceGraphComponent,
 } from '../components/main'
 
 @NgModule({
@@ -37,7 +37,7 @@ import {
     TestPage,
     LoginPage,
     PreviewComponent,
-    FundGraphComponent
+    ServiceGraphComponent
   ],
   imports: [
     BrowserModule,

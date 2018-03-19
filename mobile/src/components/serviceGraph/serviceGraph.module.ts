@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { FundGraphComponent } from './fundGraph';
+import { ServiceGraphComponent } from './serviceGraph';
 
 @NgModule({
   declarations: [
-    FundGraphComponent,
+    ServiceGraphComponent,
   ],
 })
-export class FundGraphComponentModule {}
+export class ServiceGraphComponentModule {}

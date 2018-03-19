@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
-import { Fund } from '../../models/fund';
+import { Fund } from '../../models/security';
 
 // !!! this code heavily inspired by https://valor-software.com/ng2-charts/ (chart library example)
 
 @Component({
-  selector: 'component-fundgraph',
-  templateUrl: 'fundGraph.html',
+  selector: 'component-servicegraph',
+  templateUrl: 'serviceGraph.html',
 })
-export class FundGraphComponent {
+export class ServiceGraphComponent {
 
 	@Input('fund_id_in') fund_id_from_front;
 
@@ -17,7 +17,8 @@ export class FundGraphComponent {
 	fundGraphHistory: [number];
 
 	constructor(public fundService: FundService) {
-		this.fund = new Fund("fund_id");
+		//this.fund = new Fund("fund_id");
+		this.fund = null;
 	}
 
   	public lineChartData:Array<any> = [
@@ -42,29 +43,23 @@ export class FundGraphComponent {
   	public lineChartType:string = 'line';
 
   	private populateGraph():void {
-  		// populate graph (last 5 days; no idea why i need to access each of these lists differently)
-		let tempPrices: number[] = [];
-		[4, 3, 2, 1, 0].forEach((i) => {
-			tempPrices.push(this.fund.price_history[i]['4. close']);
+  		// populate graph (last 5 days))
+		[0, 1, 2, 3, 4].forEach((i) => {
+			this.lineChartData[0].data[4 - i] = this.fund.price_history[i]['4. close'];
 
 			let date = new Date(this.fund.price_history[i]['date']);
 	  		let month = date.getMonth() + 1;
 	  		let formatted = month + "/" + date.getDate();
 			this.lineChartLabels[4 - i] = formatted;
-
 		});
-		this.lineChartData = tempPrices;
   	}
 
-  	ngAfterViewInit() {
-		this.fund = new Fund(this.fund_id_from_front);
+  	ngOnInit() {
+		this.fund = null; //new Fund(this.fund_id_from_front);
 		this.fundService.getFund(this.fund_id_from_front)
-		.then(res => {
-			this.fund.fund_name = res.fund_name;
-			this.fund.price_history = res.price_history;
-			// get the closing price of the most recent day
-			this.fund.current_price = this.fund.price_history[0]['4. close'];
-			this.populateGraph();			
+		.then(fundReturned => {
+			this.fund = fundReturned;
+			this.populateGraph();		
 		})
 		.catch(err => {
 			console.log(err);

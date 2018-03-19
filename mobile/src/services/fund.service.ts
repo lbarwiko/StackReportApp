@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
-import { Fund } from '../models/fund';
+import { Fund } from '../models/security';
 
 @Injectable()
 export class FundService {
@@ -24,7 +24,9 @@ export class FundService {
             console.log(this.url);
             this.http.get(this.url + '/' + fund_id, options).toPromise()
             .then(res=>{
-                return resolve(this.extractData(res))
+                var resJson = res.json();
+                var fundToReturn = new Fund(resJson.fund_id, resJson.fund_name, resJson.price_history);
+                return resolve(fundToReturn);
             })
             .catch(this.handleErrorPromise);
         })
