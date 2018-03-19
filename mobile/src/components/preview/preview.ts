@@ -23,7 +23,6 @@ export class PreviewComponent {
 		this.fund = new Fund(this.fund_id_from_front);
 		this.fundService.getFund(this.fund_id_from_front)
 		.then(res => {
-			console.log(res);
 			this.fund.fund_name = res.fund_name;
 			this.fund.price_history = res.price_history;
 			// get the closing price of the most recent day
