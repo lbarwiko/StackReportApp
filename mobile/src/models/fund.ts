@@ -1,15 +1,15 @@
-export default class Fund {
-    fund_id: number;
+export class Fund {
+    fund_id: string;
     fund_name: string;
-    // // current_value: number;
-    // // liabilities: number;
-    // // stocks: [string];
-    // constructor() {
-    // 	//Required Params
-    //     if(!params || params.fund_id == null || params.fund_name == null){
-    //        throw "Missing required field"; 
-    //     }
-    //     this.fund_id = params.fund_id;
-    //     this.fund_name = params.fund_name;
-    // }
+    current_price: number;
+    price_history: [number];
+
+    constructor(fund_id_in) {
+    	//Required Params
+        if(!fund_id_in || fund_id_in == null){
+           throw "Missing required field"; 
+        }
+        this.fund_id = fund_id_in;
+        this.fund_name = "fund_name";
+    }
  } 
