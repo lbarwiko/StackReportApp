@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -12,9 +12,11 @@ export class HomePage {
   user : User;
   username : string;
 
-  constructor(public navCtrl: NavController, public authService : AuthService) {
-  	this.user = authService.getUser();
+  constructor(public authService:AuthService, navCtrl: NavController, navParams: NavParams) {
+  	this.user = this.authService.getUser();
   	this.username = this.user.getUsername();
+  	console.log(this.user);
+  	console.log(this.username);
   }
 
 }

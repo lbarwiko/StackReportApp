@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
-import { HomePage } from './../home/home';
+import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-angular';
 import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { NavController, NavParams } from 'ionic-angular';
+import { HomePage } from './../home/home';
 
 @IonicPage()
 @Component({
@@ -15,8 +16,8 @@ export class LoginPage {
   loginCredentials = {username: '', password: ''};
   user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, private alertCtrl: AlertController,
-   public authService: AuthService) {}
+  constructor(private loadingCtrl: LoadingController, private alertCtrl: AlertController,
+   public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
@@ -37,8 +38,9 @@ export class LoginPage {
     */
     this.showLoading();
     console.log('login');
-    console.log(this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password}));
-    /*this.navCtrl.setRoot(HomePage);*/
+    this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
+    .then(user => {if(user.username) this.navCtrl.setRoot(HomePage);});
+    /*  this.navCtrl.setRoot(HomePage);*/
   }
 
   showLoading() {

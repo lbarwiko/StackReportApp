@@ -1,4 +1,4 @@
-  import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { HttpClientModule} from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
 import { UserService, FundService, AuthService, EndpointService } from '../services/main';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { 
     AboutPage,
@@ -33,13 +34,14 @@ import {
     TabsPage,
     TestPage,
     LoginPage,
-    PreviewComponent,
+    PreviewComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

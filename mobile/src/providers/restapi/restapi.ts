@@ -32,8 +32,8 @@ export class RestapiProvider {
 
   CreateAccount(registerCredentials){
   	console.log('Creating Account');
-  	console.log('Username: ' + registerCredentials.username);
-  	console.log('Password: ' + registerCredentials.password);
+  	/*console.log('Username: ' + registerCredentials.username);
+  	console.log('Password: ' + registerCredentials.password);*/
 	return new Promise(resolve => {
 		this.http.post<User>('http://localhost:8000/api/u', registerCredentials, {headers: {'Content-Type': 'application/json'}})
 			.subscribe(data => {

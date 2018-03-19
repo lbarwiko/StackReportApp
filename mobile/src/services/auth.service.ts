@@ -5,27 +5,43 @@ import { RestapiProvider } from '../providers/restapi/restapi';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import { User } from '../models/user';
+import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class AuthService {
     user : User;
     url = "http://localhost:8000/api/auth/";
-    constructor(private http:Http, public restapiProvider: RestapiProvider) { }
+    constructor(private http:Http, public restapiProvider: RestapiProvider, private storage:Storage) { }
 
     public login(loginCredentials){
-        return this.restapiProvider.Login(loginCredentials).then(res => this.user = new User(res));
+
+
+    return new Promise((resolve, reject) => {
+            this.restapiProvider.Login(loginCredentials)
+            .then(user => {if(user) resolve(this.authenticate(user)); else reject(user);});
+    });
+
+        /*return new Promise( (resolve, reject) => {
+            this.restapiProvider.Login(loginCredentials)
+            .then(user => {if(user) this.authenticate(user); else reject(user);});
+            });*/
     }
 
     public getUser(){
         return this.user;
     }
 
-    private extractData(res: Response) {
-	    let body = res.json();
-        return body.data || [];
+    public authenticate(res){
+
+        return new Promise((resolve, reject) => {
+            this.user = new User(res);
+            console.log('User Set');
+            console.log(this.user);
+            this.storage.set('token', this.user.token);
+            console.log(this.user.token);
+            console.log('This is a promise?');
+            resolve(this.user);
+        });
     }
-    private handleErrorPromise (error: Response | any) {
-        console.error(error.message || error);
-        return Promise.reject(error.message || error);
-    }	
+
 } 
