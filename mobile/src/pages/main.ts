@@ -5,6 +5,7 @@ import { TabsPage } from './tabs/tabs';
 import { TestPage } from './test/test';
 import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
+import { SecurityPage } from './security/security';
 
 export {
     AboutPage,
@@ -13,5 +14,6 @@ export {
     TabsPage,
     TestPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+	SecurityPage
 }
