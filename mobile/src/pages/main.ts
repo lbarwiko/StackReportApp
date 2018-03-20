@@ -6,6 +6,7 @@ import { TestPage } from './test/test';
 import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
 import { SecurityPage } from './security/security';
+import { TopfundsPage } from './topfunds/topfunds';
 
 export {
     AboutPage,
@@ -15,5 +16,6 @@ export {
     TestPage,
     LoginPage,
     RegisterPage,
-	SecurityPage
+	SecurityPage,
+	TopfundsPage
 }
