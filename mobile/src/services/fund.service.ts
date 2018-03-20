@@ -14,6 +14,29 @@ export class FundService {
     url: string = "http://localhost:8000/api/f";
     
     constructor(private http:Http) { }
+    
+
+    listFunds(): Promise<string[]> {
+        return new Promise((resolve, reject)=>{
+            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let options = new RequestOptions({ headers: headers });
+
+            console.log("this.url");
+            console.log(this.url);
+            this.http.get(this.url, options).toPromise()
+            .then(res=>{
+                var resJson = res.json();
+                var idList: string[] = [];
+
+                for(let i in resJson) {
+                    idList.push(resJson[i]['fund_id']);
+                }
+
+                return resolve(idList);
+            })
+            .catch(this.handleErrorPromise);
+        })
+    }
 
     getFund(fund_id:String): Promise<Fund> {
         return new Promise((resolve, reject)=>{
