@@ -13,7 +13,7 @@ DBCONFIG = {
     'host': 'localhost',
     'dbname': 'predictions',
     'user': 'root',
-    'password': 'sugihrocks',
+    'password': 'FinTech123',
     'port': 5432
 }
 
@@ -188,7 +188,7 @@ def get_company_list():
 def get_mf_list():
 
     cur = db_cursor()
-    op_string = "SELECT m_symbol FROM mutual_fund"
+    op_string = "SELECT m_symbol FROM mutual_fund WHERE offer = 'True'"
     try: 
         cur.execute(op_string)
     except psycopg2.Error as e:

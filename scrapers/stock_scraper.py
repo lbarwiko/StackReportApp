@@ -11,7 +11,7 @@ import sys
 import json
 from config import *
 import urllib3.request
-sys.path.append("/root/StackReport/")
+sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 
 def load_stock_historical(ticker):
