@@ -145,7 +145,7 @@ def predict(mf_symbol, num_shares_held, n_shares, navs, prices, symbols, stock_a
 
 	return predictions
 
-def save_result(symbols, mf_symbol, result)
+def save_result(symbols, mf_symbol, result):
 	"""
 	save data in mf_symbol_regr.json
 	follows restAPI specification
