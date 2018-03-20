@@ -1,0 +1,4 @@
+python scrapers/mfscrapers/jensx_csr.py https://www.sec.gov/Archives/edgar/data/887215/000120677418000385/jensen3360471-ncsrs.htm 20171130
+python scrapers/mfscrapers/jensx_nq.py https://www.sec.gov/Archives/edgar/data/887215/000089418917005623/jensen-growth_nq.htm 20170831
+python scrapers/mfscrapers/jensx_csr.py https://www.sec.gov/Archives/edgar/data/887215/000120677417002304/jensenqgf3275451-ncsr.htm 20170531
+python scrapers/mfscrapers/jensx_nq.py https://www.sec.gov/Archives/edgar/data/887215/000089418917002104/jensen_nq.htm 20170228
