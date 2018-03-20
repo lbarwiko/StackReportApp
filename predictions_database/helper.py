@@ -201,7 +201,7 @@ def get_mf_list():
     for row in rows:
         output_list.append(row[0])
 
-    retunr output_list
+    return output_list
 
 
 
