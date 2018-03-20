@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { ServiceGraphComponent } from './serviceGraph';
+import { HomePage } from './home';
 
 @NgModule({
   declarations: [
-    ServiceGraphComponent,
+    HomePage,
+  ],
+  imports: [
   ],
 })
-export class ServiceGraphComponentModule {}
+export class HomePageModule {}

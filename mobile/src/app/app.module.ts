@@ -18,12 +18,13 @@ import {
     UserPage,
     TestPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SecurityPage
     } from '../pages/main'
 
 import {
   PreviewComponent,
-  ServiceGraphComponent,
+  SecurityGraphComponent,
 } from '../components/main'
 
 @NgModule({
@@ -36,8 +37,9 @@ import {
     TabsPage,
     TestPage,
     LoginPage,
+    SecurityPage,
     PreviewComponent,
-    ServiceGraphComponent
+    SecurityGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import {
     RegisterPage,
     TabsPage,
     TestPage,
-    LoginPage
+    LoginPage,
+    SecurityPage
   ],
   providers: [
     StatusBar,
