@@ -10,7 +10,7 @@ usage:
 import sys
 import json
 from config import *
-import urllib.request
+import urllib3.request
 sys.path.append("/root/StackReport/")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 
