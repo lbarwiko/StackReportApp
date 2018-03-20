@@ -37,7 +37,7 @@ def load_stock_historical(ticker):
 	},
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
-	with urllib.request.urlopen(url) as file:
+	with urllib3.request.urlopen(url) as file:
 		data = json.loads(file.read().decode())
 
 	return data
@@ -112,7 +112,7 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		with urllib.request.urlopen(url) as file:
+		with urllib3.request.urlopen(url) as file:
 			data = json.loads(file.read().decode())
 
 		results.append(data)
