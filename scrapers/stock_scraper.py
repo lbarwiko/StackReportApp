@@ -10,7 +10,7 @@ usage:
 import sys
 import json
 from config import *
-import urllib3.request
+import requests
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 
@@ -37,8 +37,8 @@ def load_stock_historical(ticker):
 	},
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
-	with urllib3.request.urlopen(url) as file:
-		data = json.loads(file.read().decode())
+	response = requests.get(url)
+	data = json.loads(response.content)
 
 	return data
 	
@@ -112,8 +112,8 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		with urllib3.request.urlopen(url) as file:
-			data = json.loads(file.read().decode())
+		response = requests.get(url)
+		data = json.loads(response.content)
 
 		results.append(data)
 
