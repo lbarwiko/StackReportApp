@@ -1,2 +1,2 @@
-# run bash script to collect daily stock prices and NAVs at 4:01 pm, m-f
-1 16 * * mon-fri ./scheduler.sh
+# run bash script to collect daily stock prices and NAVs at 4:01 pm, m-f, then run predictions
+1 16 * * mon-fri ./~/StackReport/scheduler/scheduler.sh
