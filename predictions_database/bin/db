@@ -53,7 +53,7 @@ case $1 in
     ;;
 
   "start")
-      pg_ctl -D /usr/local/var/postgres start && service posgresql start
+      service posgresql start
     ;;
     "stop")
       service postgresql stop

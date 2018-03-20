@@ -1,7 +1,7 @@
 import { PreviewComponent } from './preview/preview';
-import { ServiceGraphComponent } from './serviceGraph/serviceGraph';
+import { SecurityGraphComponent } from './securityGraph/securityGraph';
 
 export {
     PreviewComponent,
-    ServiceGraphComponent,
+    SecurityGraphComponent,
 }
