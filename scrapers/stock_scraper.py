@@ -11,6 +11,10 @@ import sys
 import json
 from config import *
 import urllib.request
+import psycopg2
+sys.path.append(sys.path[0]+"/../")
+from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
+
 
 def load_stock_historical(ticker):
 	"""
@@ -34,7 +38,8 @@ def load_stock_historical(ticker):
 			"5. volume": "67969320"
 	},
 	"""
-	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbols=" + ticker + "&apikey=" + API_KEY
+	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
+	print (url)
 	with urllib.request.urlopen(url) as file:
 		data = json.loads(file.read().decode())
 
@@ -49,6 +54,15 @@ def save_all_stocks_historical(tickers):
 	for ticker in tickers:
 		data = load_stock_historical(ticker)
 		# TODO place in database
+
+		# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+		tuple_list = []
+		for key, value in data["Time Series (Daily)"].items():
+			tup = (ticker, value["4. close"], key)
+			tuple_list.append(tup)
+
+		add_tuple_stock_history(tuple_list)
+
 
 def split_stocks(tickers):
 	"""
@@ -101,6 +115,7 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
+		print (url)
 		with urllib.request.urlopen(url) as file:
 			data = json.loads(file.read().decode())
 
@@ -117,10 +132,21 @@ def save_all_stocks_daily(tickers):
 	data = load_stocks_daily(tickers)
 	# TODO place in database
 
+	# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+	tuple_list = []
+	for batch in data:
+		for value in batch["Stock Quotes"]:
+			tup = (value["1. symbol"], value["2. price"], value["4. timestamp"])
+			tuple_list.append(tup)
+
+	add_tuple_stock_history(tuple_list)
+
 def main():
 	# TODO load tickers from database
 	#with open("stock_symbol_list.json") as file:
 		#tickers = json.loads(file.read()).keys()
+
+	tickers = get_company_list()
 
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")

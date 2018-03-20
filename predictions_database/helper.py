@@ -1,5 +1,5 @@
 import psycopg2
-from config import DBCONFIG
+from config import *
 import os
 import json
 import sys
@@ -8,17 +8,23 @@ import re
 import datetime 
 sys.path.append(sys.path[0]+"../")
 
-
-def test():
-    print ("YOOOO")
+# import config causing trouble for scrapers/stock_scraper.py
+DBCONFIG = {
+    'host': 'localhost',
+    'dbname': 'predictions',
+    'user': 'postgres',
+    'password': 'sugihrocks',
+    'port': 5432
+}
 
 def db_cursor():
     try:
-    	conn = psycopg2.connect("dbname='%s' user='%s' password='%s' host='%s' port='%d'" % 
-    		(DBCONFIG['dbname'], DBCONFIG['user'], DBCONFIG['password'], DBCONFIG['host'], DBCONFIG['port']))
+        conn = psycopg2.connect("dbname='%s' user='%s' password='%s' host='%s' port='%d'" % 
+            (DBCONFIG['dbname'], DBCONFIG['user'], DBCONFIG['password'], DBCONFIG['host'], DBCONFIG['port']))
         conn.autocommit = True
 
-    except:
+    except psycopg2.Error as e:
+        print (e.pgerror)
         print ("I am unable to connect to the database.")
     
     return conn.cursor()
@@ -27,7 +33,6 @@ def add_single_stock(symbol, name):
     name = name.replace("'", "''")
     cur = db_cursor()
     op_string = "INSERT INTO company(c_symbol, c_name) VALUES ('%s', '%s');" % (symbol, name)
-    print op_string
     try:
         cur.execute(op_string)
     except:
@@ -93,18 +98,30 @@ def add_mf_report(m_symbol, report, date):
 
     # A faster way     
     cur = db_cursor()
-    chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row) for row in tuple_list)
-    print chain
+    chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
     try:
         cur.execute('insert into holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
         print("Successfully Uploaded MF report to DB!")
     except:
         print ("Insert mf holding failed")
 
+
+def add_tuple_stock_history(tuple_list):
+    cur = db_cursor()
+    chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
+
+    try:
+        cur.execute('insert into stock_history(c_symbol, price, s_date) values ' + chain)
+        print("Successfully uploaded MF history to DB!")
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Insert stocks prices failed")
+
+
 def add_tuple_mf_history(tuple_list):
 
     cur = db_cursor()
-    chain = ','.join(cur.mogrify('(%s,%s,%s)', row) for row in tuple_list)
+    chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
         cur.execute('insert into mutual_fund_history(m_symbol, m_date, price) values ' + chain)
@@ -137,6 +154,7 @@ def get_mf_report_date(m_symbol):
 def get_mf_report(m_symbol, date):
 
     cur = db_cursor()
+
     op_string = ("SELECT * FROM holdings WHERE m_symbol = '%s' AND h_date = '%s'"
         % (m_symbol, date))
 
@@ -144,6 +162,22 @@ def get_mf_report(m_symbol, date):
         cur.execute(op_string)
     except psycopg2.Error as e:
         print (e.pgerror)
+
+def get_company_list():
+
+    cur = db_cursor()
+    op_string = "SELECT c_symbol FROM company"
+    cur.execute(op_string)
+    rows = cur.fetchall()
+    output_list = []
+    for row in rows:
+        # Ignore weird ass symbols
+        if row[0].isalpha():
+            output_list.append(row[0])
+
+    return output_list
+
+
 
 
 
