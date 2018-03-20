@@ -52,15 +52,17 @@ def get_coefficients(regr, X, y):
 def load_data(mf_symbol):
 	"""
 	read in latest stock holdings for mf_symbol
-	return np.array(num_shares_held), n_shares, np.array(navs), np.array(prices), [symbols], np.array(stock_assets)
+	return np.array(num_shares_held), n_shares, np.array(nav), np.array(prices), [symbols], np.array(stock_assets)
 	num_shares_held is the number of shares held for each ticker in symbols
-	s_shares is
+	n_shares is mf shares outstanding
+	nav is mf net asset value
+	prices is list of prices corresponding to symbols
 	symbols is list of stock tickers
 	stock_assets is the total value of stock assets held by mf_symbol, placed into a np array
 	num_shares_held[i] = number of shares of symbols[i] stock mf_symbol held last market day
 	stock_assets = NAV*N_shares + liabilities, where NAV is assets - liabilities and N_shares 
-	is mf_symbol shares outstanding
 	"""
+	
 	# TODO load from db instead
 	with open("num_shares_held.txt", "r") as file:
 		num_shares_held = file.readlines()
@@ -70,8 +72,8 @@ def load_data(mf_symbol):
 		n_shares = int(file.read())
 
 	with open("navs.txt", "r") as file:
-		navs = file.readlines()
-		navs = [float(x) for x in navs]
+		nav = file.readlines()
+		nav = [float(x) for x in nav]
 
 	with open("prices.txt", "r") as file:
 		prices = file.readlines()
@@ -84,16 +86,15 @@ def load_data(mf_symbol):
 	with open("stock_assets.txt", "r") as file:
 		stock_assets = float(file.read())
 
-	return np.array(num_shares_held), n_shares, np.array(navs), np.array(prices).reshape(1,-1), symbols, np.array(stock_assets).reshape(1,-1)
+	return np.array(num_shares_held), n_shares, np.array(nav), np.array(prices).reshape(1,-1), symbols, np.array(stock_assets).reshape(1,-1)
 
-def predict(mf_symbol):
+def predict(mf_symbol, num_shares_held, n_shares, navs, prices, symbols, stock_assets):
 	"""
 	run regressions with individual and ensemble models to predict mf_symbol's current holdings
 	return [predictions]
 	predictions is list of predictions for each model for each symbol, in order of types and with ensemble at end
 	-1 indicates a sell, 0 is a hold, 1 is a buy
 	"""
-	num_shares_held, n_shares, navs, prices, symbols, stock_assets = load_data(mf_symbol)
 	# base classifiers
 	# theoretical results show the same number of base classifiers as class labels gives the highest accuracy (3 class labels)
 	# TODO test different numbers of regressions for ensemble, fix last few regrs
@@ -144,8 +145,30 @@ def predict(mf_symbol):
 
 	return predictions
 
+def save_result(symbols, mf_symbol, result):
+	"""
+	save data in mf_symbol_regr.json
+	follows restAPI specification
+	"""
+
+	output = '{\n\t"fund_id: "' + mf_symbol + '",\n\t"securities": ['
+	for i in range(len(symbols)):
+		# only send buy predictions
+		if result[i] == 1: output += '"' + symbols[i] + '", '
+	
+	output = output[:-2]
+	output += "]\n}"
+
+	with open(mf_symbol + "_regr.json", "w") as file:
+		file.write(output)
+
 def main():
-	predict("jensx")
+	#TODO load mf_symbols from db
+	for mf_symbol in mf_symbols:
+		num_shares_held, n_shares, navs, prices, symbols, stock_assets = load_data(mf_symbol)
+		result = predict(mf_symbol, num_shares_held, n_shares, navs, prices, symbols, stock_assets)
+		#TODO see if ensemble is best prediction to go with
+		save_result(symbols, mf_symbol, result[-1])
 
 if __name__=="__main__":
 	main()

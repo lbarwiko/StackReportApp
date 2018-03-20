@@ -1,25 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
-// import { FundService } from '../../services/fund'
-// import { Fund } from '../../models/fund';
+import { FundService } from '../../services/fund.service'
+import { Fund } from '../../models/security';
 
-@IonicPage()
 @Component({
   selector: 'component-preview',
   templateUrl: 'preview.html',
 })
 export class PreviewComponent {
 	
-	// fund: Fund;
+	@Input('fund_id_in') fund_id_from_front;
 
-	// constructor(fund_id:String, public fundService: FundService) {
-		// fund = null;
-		// fundService.getFund(fund_id)
-		// .then(res=>{
-		// 	fund = res;
-		// })
-		// .catch(err=>{
-		// 	console.log(err);
-		// })
-	// }
+	fund: Fund;
+	price_color: string;
+
+	constructor(public fundService: FundService) {
+		this.fund = null;
+		this.price_color = "price white";
+	}
+
+	ngOnInit(){
+		this.fundService.getFund(this.fund_id_from_front)
+		.then(fundReturned => {
+			this.fund = fundReturned;
+
+			if(this.fund.current_price < this.fund.price_history[0]['1. open']) {
+				this.price_color = "price red";
+			} else if (this.fund.current_price > this.fund.price_history[0]['1. open']) {
+				this.price_color = "price green";
+			}
+
+		})
+		.catch(err => {
+			console.log(err);
+		});		
+	}
+
+	ngAfterViewInit() {
+		
+	}
 }

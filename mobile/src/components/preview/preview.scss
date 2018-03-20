@@ -2,15 +2,40 @@ component-preview {
 	background-color: #3d3f42;
 	border-radius: 8px;
 	height: 50px;
-	padding: 18px;
+	padding: 10px;
 	width: 100%;
-	color: white;
 
-	.ticker {
+	.leftside {
+		display: inline-block;
 		float: left;
 	}
 
-	.price {
+	.rightside {
 		float: right;
+	}
+
+	.ticker {
+		color: white;
+	}
+
+	.name {
+		color: gray;
+		font-size: 75%;
+	}
+
+	.price {
+		padding: 8px;
+	}	
+
+	.red {
+		color: red;
+	}
+
+	.green {
+		color: green;
+	}
+
+	.white {
+		color: white;
 	}
 }

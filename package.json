@@ -7,5 +7,9 @@
     "start": "./bin/servers start"
   },
   "author": "441 Fintech",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular-font-awesome": "^3.1.2",
+    "font-awesome": "^4.7.0"
+  }
 }

@@ -1,0 +1,17 @@
+<div class="row">
+    <div *ngIf="fund">
+        <div class="col-md-6">
+            <div style="display: block;">
+            <canvas baseChart width="400" height="200"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
