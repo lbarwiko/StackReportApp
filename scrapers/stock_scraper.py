@@ -112,7 +112,6 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		print (url)
 		with urllib.request.urlopen(url) as file:
 			data = json.loads(file.read().decode())
 
