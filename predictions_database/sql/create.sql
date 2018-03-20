@@ -12,6 +12,7 @@ CREATE TABLE company(
 CREATE TABLE mutual_fund(
     m_symbol VARCHAR(10) NOT NULL,
     m_name VARCHAR(500) NOT NULL,
+    follow BOOLEAN NOT NULL,
     PRIMARY KEY(m_symbol)
 );
 

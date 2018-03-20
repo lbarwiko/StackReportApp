@@ -32,15 +32,15 @@ def generate_populate_mutual_fund_sql():
     f = open("predictions_database/sql/populate_mutual_fund.sql",'w+')
 
     f.write("\c %s \n" % DBCONFIG['dbname'])
-    f.write("INSERT INTO mutual_fund(m_symbol, m_name) VALUES\n")
+    f.write("INSERT INTO mutual_fund(m_symbol, m_name, follow) VALUES\n")
     first = True
     for key, value in dict.iteritems():
         if first:
-            f.write("('%s', '%s')" % (str(key).replace(" ",""), str(value).replace("'","''")))
+            f.write("('%s', '%s', 'False')" % (str(key).replace(" ",""), str(value).replace("'","''")))
             first = False
         else:
             f.write(",\n")
-            f.write("('%s', '%s')" % (str(key).replace(" ",""), str(value).replace("'","''")))
+            f.write("('%s', '%s', 'False')" % (str(key).replace(" ",""), str(value).replace("'","''")))
 
     f.write(";")
     f.close()
