@@ -1,12 +1,12 @@
-import urllib2
-import json
-import time
-from bs4 import BeautifulSoup
-import re
 import sys
+import json
+from config import *
+import urllib.request
+import psycopg2
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_mf_history
-import time
+from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
+from mutual_fund_nav import 
+
 
 def is_numeric(str_input):
     try:
@@ -63,12 +63,22 @@ def get_nav(ticker):
 
 	return float(-1)
 
-def print_dict(d):
-	for key, value in d.items():
-		print('\t' + str(key))
-
 def main():
-	return 0 
+	# TODO load tickers from database
+	#with open("stock_symbol_list.json") as file:
+		#tickers = json.loads(file.read()).keys()
 
-if __name__ == '__main__':
-    main()
+	tickers = get_company_list()
+
+	if len(sys.argv) != 2:
+		print("Invalid usage, must have exactly one argument")
+		return
+
+	mode = sys.argv[1]
+
+	if mode == "historical":
+		save_all_mf_nav_historical(tickers)
+	elif mode == "daily":
+		save_all_mf_nav_daily(tickers)
+	else:
+		print("Invalid usage, argument must be historical or daily")
