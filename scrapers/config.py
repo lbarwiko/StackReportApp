@@ -8,4 +8,3 @@ API_KEY = "U8RRYQ7SOSDVDWVW"
 
 # alphavantage base url
 ALPHA_BASE_URL = "https://www.alphavantage.co/query?function="
-
