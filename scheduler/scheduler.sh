@@ -6,7 +6,7 @@ result=$(curl -sL "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&
 # if open, scrape data and run predictions. otherwise do nothing
 if [[ "$result" == "2" ]]
 then
-	python ../scrapers/stock_scraper.py daily
-	python ../scrapers/mf_scraper.py daily
-	python ../predictions/regression.py
+	python ~/StackReport/scrapers/stock_scraper.py daily
+	python ~/StackReport/scrapers/mf_scraper.py daily
+	python ~/StackReport/predictions/regression.py
 fi

@@ -10,11 +10,9 @@ usage:
 import sys
 import json
 from config import *
-import urllib.request
-import psycopg2
-sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
-
+import urllib3.request
+sys.path.append("/root/StackReport/")
+from predictions_database.helper import add_tuple_stock_history, get_company_list
 
 def load_stock_historical(ticker):
 	"""
@@ -39,7 +37,6 @@ def load_stock_historical(ticker):
 	},
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
-	print (url)
 	with urllib.request.urlopen(url) as file:
 		data = json.loads(file.read().decode())
 
@@ -160,3 +157,6 @@ def main():
 		save_all_stocks_daily(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
+
+if __name__=="__main__":
+	main()
