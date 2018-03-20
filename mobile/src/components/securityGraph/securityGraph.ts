@@ -6,10 +6,10 @@ import { Fund } from '../../models/security';
 // !!! this code heavily inspired by https://valor-software.com/ng2-charts/ (chart library example)
 
 @Component({
-  selector: 'component-servicegraph',
-  templateUrl: 'serviceGraph.html',
+  selector: 'component-securitygraph',
+  templateUrl: 'securityGraph.html',
 })
-export class ServiceGraphComponent {
+export class SecurityGraphComponent {
 
 	@Input('fund_id_in') fund_id_from_front;
 
