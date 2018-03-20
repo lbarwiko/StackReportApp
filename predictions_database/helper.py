@@ -129,7 +129,8 @@ def get_mf_report_date(m_symbol):
     rows = cur.fetchall()
     out_arr = []
 
-    for row in rowsw('%Y%m%d')
+    for row in rows:
+        out_arr.append(row[0].strftime('%Y%m%d'))
 
     return out_arr
 
