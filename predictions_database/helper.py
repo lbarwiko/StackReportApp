@@ -12,7 +12,7 @@ sys.path.append(sys.path[0]+"../")
 DBCONFIG = {
     'host': 'localhost',
     'dbname': 'predictions',
-    'user': 'postgres',
+    'user': 'root',
     'password': 'sugihrocks',
     'port': 5432
 }
@@ -70,8 +70,6 @@ def sanitize_company(company_name):
     output = re.sub(r'[^\w\s]','',output)
     return output
 
-def add_tuple_mf_report(tuple_list):
-    return 0
 
 def add_mf_report(m_symbol, report, date):
     """
@@ -102,7 +100,7 @@ def add_mf_report(m_symbol, report, date):
     try:
         cur.execute('insert into holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
         print("Successfully Uploaded MF report to DB!")
-    except:
+    except psycopg2.Error as e:
         print ("Insert mf holding failed")
 
 
@@ -163,17 +161,45 @@ def get_mf_report(m_symbol, date):
     except psycopg2.Error as e:
         print (e.pgerror)
 
+    cur.fetchall()
+    # TODOOOOOOOOOOOOOOOOOOOOOO
+
+
 def get_company_list():
 
     cur = db_cursor()
     op_string = "SELECT c_symbol FROM company"
-    cur.execute(op_string)
+    try: 
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
     rows = cur.fetchall()
+    assert(rows is not None)
     output_list = []
     for row in rows:
         # Ignore weird ass symbols
         if row[0].isalpha():
             output_list.append(row[0])
+
+    return output_list
+
+
+def get_mf_list():
+
+    cur = db_cursor()
+    op_string = "SELECT m_symbol FROM mutual_fund"
+    try: 
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
+    rows = cur.fetchall()
+    assert(rows is not None)
+    output_list = []
+
+    for row in rows:
+        output_list.append(row[0])
 
     return output_list
 
