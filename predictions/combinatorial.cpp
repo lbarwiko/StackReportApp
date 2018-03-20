@@ -15,6 +15,8 @@ this is basically the bastard child of linear regression and combinatorial regre
 #include <numeric>
 #include <cmath>
 #include <algorithm>
+#include <limits>
+#include <fstream>
 
 using namespace std;
 
@@ -81,13 +83,12 @@ vector<vector<int>> generate_combinations(int n, int k) {
 	return combinations;
 }
 
-pair<double, vector<int>> predict(const string& mf_symbol, int search_depth) {
+pair<double, vector<int>> predict(const MutualFund& mf, int search_depth) {
 	// make prediction as to what stocks mf currently holds using above algorithm
 	// n is max number of changes in mf's portfolio to consider (search depth)
 	// return pair of min error and vector of new portfolio weights (num_shares_held)
 
-	MutualFund mf = load_data(mf_symbol);
-	double min_error = 0;
+	double min_error = numeric_limits<double>::max();
 	
 	// for each depth level
 	for (int num_changes = 0; num_changes <= search_depth; ++num_changes) {
@@ -95,13 +96,35 @@ pair<double, vector<int>> predict(const string& mf_symbol, int search_depth) {
 	}
 }
 
+void save_result(const MutualFund& mf, const vector<int>& result) {
+	// save data in mf_symbol_comb.json
+	// follows restAPI specification
+	// TODO fix this to save both quantities and securities
+	string output = "{\n\t\"fund_id: \"" + mf.mf_symbol + "\",\n\t\"securities\": [";
+	for (const auto& symbol : mf.symbols) output += "\"" + symbol + "\", ";
+	output.pop_back();
+	output.pop_back();
+	output += "]\n}"
+
+	ofstream file(mf.mf_symbol + "_comb.json");
+	file << output;
+	file.close();
+}
+
 int main(int argc, char** argv) {
 	// read in search depth
 	try int search_depth = argv[1];
 	catch (...) cout << "Error reading argument, search_depth must be an integer >= 0" << endl;
-	
-	predict("jensx", search_depth);
-	
+
+	#TODO load mf_symbols from db
+
+	vector<string> results;
+	for (const auto& mf_symbol: mf_symbols) {
+		MutualFund mf = load_data(mf_symbol);
+		result = predict(mf, search_depth);
+		save_result(mf, result);
+	}
+		
 	return 0;
 }
 

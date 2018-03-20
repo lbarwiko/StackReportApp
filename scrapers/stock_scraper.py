@@ -11,6 +11,8 @@ import sys
 import json
 from config import *
 import urllib.request
+sys.path.append("/root/StackReport/")
+import prediction_database
 
 def load_stock_historical(ticker):
 	"""
@@ -34,7 +36,7 @@ def load_stock_historical(ticker):
 			"5. volume": "67969320"
 	},
 	"""
-	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbols=" + ticker + "&apikey=" + API_KEY
+	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + API_KEY
 	with urllib.request.urlopen(url) as file:
 		data = json.loads(file.read().decode())
 
