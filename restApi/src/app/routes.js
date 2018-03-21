@@ -49,8 +49,8 @@ export default (db, config, auth) => {
     followingApi.get('/', Following.list);
     api.use('/following/', followingApi);
 
-	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {
-		res.send(req.params.id+'.' + 'HvBmjhjg7Ng9HAGb1bmUtrF4gqOWj8LZ56Gx5HyBBNg');
+	api.get('/.well-known/acme-challenge/IxNP1n3kKd7Gp93F8g504S9vERTbk9YrIHWy6wCpA5w', function(req, res, next) {
+		res.send('IxNP1n3kKd7Gp93F8g504S9vERTbk9YrIHWy6wCpA5w'+'.'+'HvBmjhjg7Ng9HAGb1bmUtrF4gqOWj8LZ56Gx5HyBBNg');
 	});
 
 	router.get('/', (req, res)=>{
