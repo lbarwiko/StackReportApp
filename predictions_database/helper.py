@@ -203,6 +203,18 @@ def get_mf_list():
 
     return output_list
 
+def follow_mf(ticker_list):
+    op_string = "UPDATE mutual_fund SET follow = True WHERE 0"
+    for ticker in ticker_list:
+        op_string += " or m_symbol = '%s'" % ticker
+
+    cur = db_cursor()
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
+
 
 
 
