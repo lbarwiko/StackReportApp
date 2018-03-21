@@ -22,7 +22,8 @@ var proxyRules = new HttpProxyRules({
     rules: {
         '.*/api': 'http://localhost:8080/api',
         '.*/api/*': 'http://localhost:8080/api/',
-        '.*/.well-known/*': 'http://localhost:8080/api/.well-known/'
+        '.*/.well-known/*': 'http://localhost:8080/api/.well-known/',
+        '.*/.well-known': 'http://localhost:8080/api/.well-known'
     },
     default: 'http://localhost:8081' // default target, will be landing page (Right now its not)
 });
