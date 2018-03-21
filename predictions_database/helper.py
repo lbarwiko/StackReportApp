@@ -201,7 +201,7 @@ def get_mf_list():
     return output_list
 
 def follow_mf(ticker_list):
-    op_string = "UPDATE mutual_fund SET follow = True WHERE 0"
+    op_string = "UPDATE mutual_fund SET follow = 'True' WHERE False"
     for ticker in ticker_list:
         op_string += " or m_symbol = '%s'" % ticker
 
