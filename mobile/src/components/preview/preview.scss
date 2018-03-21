@@ -1,9 +1,17 @@
 component-preview {
-	background-color: #2A2F33;
-	border-radius: 8px;
-	height: 50px;
-	padding: 10px;
+
 	width: 100%;
+
+	.btn {
+	    background-color: #2A2F33;
+		border-radius: 8px;
+		height: 50px;
+		width: 100%;
+  	}
+
+  	.wrapper {
+  		width: 100%;
+  	}
 
 	.leftside {
 		display: inline-block;
@@ -16,11 +24,16 @@ component-preview {
 
 	.ticker {
 		color: white;
+		width: 100%;
+		text-align: left;
 	}
 
 	.name {
 		color: gray;
 		font-size: 75%;
+		margin-top: 2px;
+		width: 100%;
+		text-align: left;
 	}
 
 	.price {

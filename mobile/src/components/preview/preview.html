@@ -1,17 +1,19 @@
 <div>
-	<div *ngIf="security">
-		<div class = "leftside">
-			<div class = "ticker">
-				{{security.id || "TEST" | uppercase}}
+	<button *ngIf="security" ion-button class='btn' (click)="openPage()">
+		<div class='wrapper'>
+			<div class = "leftside">
+				<div class = "ticker">
+					{{security.id || "TEST" | uppercase}}
+				</div>
+				<div class = "name">
+					{{security.name || "TEST"}} 
+				</div>
 			</div>
-			<div class = "name">
-				{{security.name || "TEST"}} 
+			<div class = "rightside">
+				<div class = {{price_color}}>
+					{{security.current_price || "99.99" | number : '1.2-2'}}
+				</div>
 			</div>
 		</div>
-		<div class = "rightside">
-			<div class = {{price_color}}>
-				{{security.current_price || "99.99" | number : '1.2-2'}}
-			</div>
-		</div>
-	</div>
+	</button>
 </div>

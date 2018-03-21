@@ -3,16 +3,43 @@ page-security {
     background-color: #1A2225;
   }
 
+  .graph-wrapper {
+    width: 300px;
+  }
+
   .fund-name {
     color: white;
-    font-size: 250%;
+    font-size: 45px;
   }
 
-  .fund-price-label {
+  .info-label {
     color: #5E5F63;
+    font-size: 15px;
+    margin-top: 2px;
   }
 
-  .fund-price{
+  .info-value{
     color: white;
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  .fund-graph {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+  .investments-btn {
+    width: 100%;
+    height: 75px;
+    font-size: 150%;
+    background-color: #2A2F33;
+  }
+
+  .reports-btn {
+    width: 100%;
+    height: 75px;
+    font-size: 150%;
+    background-color: #2A2F33;
   }
 }

@@ -39,5 +39,6 @@ class Security {
 
  export {
      Security,
-     Fund
+     Fund,
+     Stock
  }
