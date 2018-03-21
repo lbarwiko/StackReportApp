@@ -27,9 +27,10 @@ start() {
 }
 
 prod() {
-  (cd ./proxy/ && npm prod &> /dev/null) &
-  (cd ./www/ && npm prod &> /dev/null) &
-  (cd ./restApi/ && npm prod &> /dev/null);
+  (cd ./proxy/ && npm run prod &> /dev/null) &
+  (cd ./www/ && npm run prod &> /dev/null) &
+  (cd ./restApi/ && npm run prod &> /dev/null);
+  echo "Servers starting"
 }
 
 stop() {
@@ -53,8 +54,11 @@ case $1 in
     ;;
 
   "restart")
-      start
       stop
+      start
+    ;;
+  "prod")
+      prod
     ;;
   *)
     usage
