@@ -1,45 +1,18 @@
 page-security {
+  .fixed-content {
+    background-color: #1A2225;
+  }
 
-	.title {
-		color: white;
-	}
+  .fund-name {
+    color: white;
+    font-size: 250%;
+  }
 
-	.sub-title {
-		color: white;
-        margin-top: 0px;
-	}
+  .fund-price-label {
+    color: #5E5F63;
+  }
 
-    .caption {
-        color: white;
-        margin-bottom: 0px;
-    }
-
-  .home-content {
-       background: #151A1D;
- 
-    ion-row {
-       align-items: center;
-       text-align: center;
-     }
- 
-     ion-item {
-         border-radius: 30px !important;
-         padding-left: 30px !important;
-         font-size: 0.9em;
-         margin-bottom: 10px;
-         border: 2px solid #ffffff;
-         border-bottom: 0px !important;
-         box-shadow: none !important;
-     }
- 
-     .item-inner {
-       border-top-color: #ffffff !important;
-       border-bottom-color: #ffffff !important;
-       box-shadow: none !important;
-     }
- 
-     .lower-btn {
-       background: #2A353B;
-     }
- }
+  .fund-price{
+    color: white;
+  }
 }
