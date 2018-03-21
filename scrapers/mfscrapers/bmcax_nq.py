@@ -10,8 +10,9 @@ from bs4 import BeautifulSoup
 import re
 import sys
 from helper import *
+url = "https://www.sec.gov/Archives/edgar/data/844779/000119312517361642/d464769dncsr.htm"
 
-soup = get_soup("https://www.sec.gov/Archives/edgar/data/844779/000119312517361642/d464769dncsr.htm")
+soup = get_soup(url)
 tr_tags = soup.find_all("tr")
 
 idx = 0
@@ -40,7 +41,7 @@ for tr_tag in tr_tags:
 		print td_text_list
 		break
 
-time = 0 
+
 for tr_tag in tr_tags[idx:]:
 	td_tags = tr_tag.find_all("td")
 	td_text_list = get_text_list(td_tags)

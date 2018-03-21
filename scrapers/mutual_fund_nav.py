@@ -33,7 +33,6 @@ def get_nav_historical(ticker):
 	data = json.loads(re.search(pattern, script).group(1))
 	return data["context"]["dispatcher"]["stores"]["HistoricalPriceStore"]["prices"]
 
-
 def upload_nav_historical(ticker):
 
 	list = get_nav_historical(ticker)

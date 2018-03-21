@@ -12,6 +12,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ChartsModule } from 'ng2-charts';
 
 import { 
+    RootPage,
     AboutPage,
     HomePage,
     RegisterPage,
@@ -31,6 +32,7 @@ import {
 @NgModule({
   declarations: [
     MyApp,
+    RootPage,
     AboutPage,
     UserPage,
     HomePage,
@@ -54,6 +56,7 @@ import {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    RootPage,
     AboutPage,
     UserPage,
     HomePage,

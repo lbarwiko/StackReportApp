@@ -9,6 +9,7 @@ usage:
 
 import sys
 import json
+import time
 from config import *
 import requests
 sys.path.append(sys.path[0]+"/../")
@@ -39,6 +40,8 @@ def load_stock_historical(ticker):
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
 	response = requests.get(url)
 	data = json.loads(response.text)
+	# don't query alphavantage too quickly
+	time.sleep(2)
 
 	return data
 	
@@ -116,6 +119,8 @@ def load_stocks_daily(tickers):
 		data = json.loads(response.text)
 
 		results.append(data)
+		# don't query alphavantage too quickly
+		time.sleep(2)
 
 	return results
 
