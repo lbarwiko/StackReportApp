@@ -140,7 +140,7 @@ def save_all_mf_daily(tickers):
 			tup = (value["1. symbol"], value["4. timestamp"], value["2. price"])
 			tuple_list.append(tup)
 
-	add_tuple_stock_history(tuple_list)
+	add_tuple_mf_history(tuple_list)
 
 def main():
 	# TODO load tickers from database
