@@ -85,44 +85,45 @@ def split_stocks(tickers):
 
 	return strings
 		
-def load_mf_daily(tickers):
+def load_mf_daily(ticker):
 	"""
-	load last daily closing price data for tickers
-	tickers is a list of string such as "MSFT"
-	return [json]
-	[{
-	"Meta Data": {
-		"1. Information": "Batch Stock Market Quotes",
-		"2. Notes": "IEX Real-Time Price provided for free by IEX (https://iextrading.com/developer/).",
-		"3. Time Zone": "US/Eastern"
-	},
-	"Stock Quotes": [
-		{
-			"1. symbol": "MSFT",
-			"2. price": "94.4200",
-			"3. volume": "34784139",
-			"4. timestamp": "2018-03-13 16:53:45"
-		},
-		{
-			"1. symbol": "FB",
-			"2. price": "181.9100",
-			"3. volume": "17949951",
-			"4. timestamp": "2018-03-13 16:41:53"
-		},
+	load the most recent quote
+	{
+    "Meta Data": {
+        "1. Information": "Daily Prices (open, high, low, close) and Volumes",
+        "2. Symbol": "JENSX",
+        "3. Last Refreshed": "2018-03-19",
+        "4. Output Size": "Compact",
+        "5. Time Zone": "US/Eastern"
+    },
+    "Time Series (Daily)": {
+        "2018-03-19": {
+            "1. open": "47.8500",
+            "2. high": "47.8500",
+            "3. low": "47.8500",
+            "4. close": "47.8500",
+            "5. volume": "0"
+        },
+        "2018-03-16": {
+            "1. open": "48.4600",
+            "2. high": "48.4600",
+            "3. low": "48.4600",
+            "4. close": "48.4600",
+            "5. volume": "0"
+        },
 	...
 	]	
 	"""
-	results = []
-	for stock_string in split_stocks(tickers):
-		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		response = requests.get(url)
-		data = json.loads(response.text)
 
-		results.append(data)
-		# don't query alphavantage too quickly
-		time.sleep(2)
+	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + API_KEY
+	response = requests.get(url)
+	data = json.loads(response.text)
+	if "Error Message" in data or "Information" in data:
+		print("Cant get %s data from alpha" % ticker)
+		print(data)
+	lastest = data["Meta Data"]["3. Last Refreshed"]
 
-	return results
+	return str(lastest), str(data["Time Series (Daily)"][lastest]["4. close"])
 
 def save_all_mf_daily(tickers):
 	"""
@@ -130,15 +131,11 @@ def save_all_mf_daily(tickers):
 	place in database
 	tickers is list of ticker symbol strings
 	"""
-	data = load_mf_daily(tickers)
-	# TODO place in database
-
-	# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
 	tuple_list = []
-	for batch in data:
-		for value in batch["Stock Quotes"]:
-			tup = (value["1. symbol"], value["4. timestamp"], value["2. price"])
-			tuple_list.append(tup)
+	for ticker in tickers:
+		date, price = load_mf_daily(ticker)
+		tup = (ticker, date, price)
+		tuple_list.append(tup)
 
 	add_tuple_mf_history(tuple_list)
 
