@@ -10,7 +10,7 @@ import re
 import sys
 from helper import *
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import add_mf_report, get_db_mf_nav
+from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
 if len(sys.argv) != 3:
 		print("Invalid usage, must have two arguments.")
@@ -137,9 +137,12 @@ def jensx_csr(url, date):
 	return mutualFund
 
 def main():
-	dict = jensx_csr(sys.argv[1], sys.argv[2])
+	date = sys.argv[2]
+	url = sys.argv[1]
+	dict = jensx_csr(url, date)
 	print (dict)
-	add_mf_report("JENSX", dict, sys.argv[2])
+	add_mf_report("JENSX", dict, date)
+	# m_symbol, m_date, total_investment, total_net_assets, shares
 
 if __name__ == '__main__':
 	main()

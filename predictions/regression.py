@@ -9,6 +9,9 @@ these regressions solve for N = [n1, n2, ..., nd]
 import numpy as np
 import random as rand
 from sklearn import linear_model
+import sys
+sys.path.append(sys.path[0]+"/../")
+from predictions_database.helper import get_mf_holdings, get_mf_other, get_mf_report_dates, get_db_stock_quote, get_db_mf_nav, get_mf_list
 
 def get_model(type):
 	"""
@@ -64,27 +67,25 @@ def load_data(mf_symbol):
 	"""
 	
 	# TODO load from db instead
-	with open("num_shares_held.txt", "r") as file:
-		num_shares_held = file.readlines()
-		num_shares_held = [int(x) for x in num_shares_held]
+	num_shares_held = []
+	n_shares = 0
+	nav = 0.0
+	prices = []
+	symbols = []
+	stock_assets = 0.0
 
-	with open("n_shares.txt", "r") as file:
-		n_shares = int(file.read())
+	date = get_mf_report_dates(mf_symbol)[0]
+	symbols, num_shares_held = get_mf_holdings(mf_symbol, date)
+	nav = get_db_mf_nav(mf_symbol, date)
+	_, _, n_shares = get_mf_other(mf_symbol, date)
 
-	with open("navs.txt", "r") as file:
-		nav = file.readlines()
-		nav = [float(x) for x in nav]
+	# get prices
+	for symbol in symbols:
+		prices.append(get_db_stock_quote(symbol, date))
 
-	with open("prices.txt", "r") as file:
-		prices = file.readlines()
-		prices = [float(x) for x in prices]
+	# Is this right?
+	stock_assets = np.dot(num_shares_held,prices)
 
-	with open("symbols.txt", "r") as file:
-		symbols = file.readlines()
-		symbols = [s.replace("\n", "") for s in symbols]
-
-	with open("stock_assets.txt", "r") as file:
-		stock_assets = float(file.read())
 
 	return np.array(num_shares_held), n_shares, np.array(nav), np.array(prices).reshape(1,-1), symbols, np.array(stock_assets).reshape(1,-1)
 
@@ -163,12 +164,20 @@ def save_result(symbols, mf_symbol, result):
 		file.write(output)
 
 def main():
-	#TODO load mf_symbols from db
+	# load mf_symbols from db
+	mf_symbols = get_mf_list()
+
 	for mf_symbol in mf_symbols:
 		num_shares_held, n_shares, navs, prices, symbols, stock_assets = load_data(mf_symbol)
 		result = predict(mf_symbol, num_shares_held, n_shares, navs, prices, symbols, stock_assets)
 		#TODO see if ensemble is best prediction to go with
 		save_result(symbols, mf_symbol, result[-1])
 
+# delete
+def test():
+	return 0
+
 if __name__=="__main__":
-	main()
+	# main()
+	# change
+	test()
