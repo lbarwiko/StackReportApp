@@ -12,7 +12,7 @@ cors = require('cors');
 var PROD = process.env.PROD == 'TRUE';
 console.log("TEST");
 
-var HTTP_PORT   = PROD ? 8888     : 8000;
+var HTTP_PORT   = PROD ? 80     : 8000;
 var HTTPS_PORT  = PROD ? 443    : 4443;
 
 var app = express();
