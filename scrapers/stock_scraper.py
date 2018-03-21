@@ -41,7 +41,7 @@ def load_stock_historical(ticker):
 	response = requests.get(url)
 	data = json.loads(response.text)
 	# don't query alphavantage too quickly
-	time.sleep(2)
+	time.sleep(3)
 
 	return data
 	
@@ -52,17 +52,19 @@ def save_all_stocks_historical(tickers):
 	tickers is list of ticker symbol strings
 	"""
 	for ticker in tickers:
-		data = load_stock_historical(ticker)
-		# TODO place in database
+		try:
+			data = load_stock_historical(ticker)
 
-		# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
-		tuple_list = []
-		for key, value in data["Time Series (Daily)"].items():
-			tup = (ticker, value["4. close"], key)
-			tuple_list.append(tup)
+			# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+			tuple_list = []
+			for key, value in data["Time Series (Daily)"].items():
+				tup = (ticker, value["4. close"], key)
+				tuple_list.append(tup)
 
-		add_tuple_stock_history(tuple_list)
-
+			add_tuple_stock_history(tuple_list)
+		except Exception as e:
+			print("Error loading data for " + ticker)
+			print("Error message: " + str(e))
 
 def split_stocks(tickers):
 	"""
@@ -115,12 +117,16 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		response = requests.get(url)
-		data = json.loads(response.text)
+		try:
+			response = requests.get(url)
+			data = json.loads(response.text)
 
-		results.append(data)
-		# don't query alphavantage too quickly
-		time.sleep(2)
+			results.append(data)
+			# don't query alphavantage too quickly
+			time.sleep(3)
+		except Exception as e:
+			print("URL load failed " + url)
+			print("Error message: " + str(e))
 
 	return results
 
@@ -131,7 +137,6 @@ def save_all_stocks_daily(tickers):
 	tickers is list of ticker symbol strings
 	"""
 	data = load_stocks_daily(tickers)
-	# TODO place in database
 
 	# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
 	tuple_list = []
@@ -143,10 +148,7 @@ def save_all_stocks_daily(tickers):
 	add_tuple_stock_history(tuple_list)
 
 def main():
-	# TODO load tickers from database
-	#with open("stock_symbol_list.json") as file:
-		#tickers = json.loads(file.read()).keys()
-
+	# load tickers from database
 	tickers = get_company_list()
 
 	if len(sys.argv) != 2:
