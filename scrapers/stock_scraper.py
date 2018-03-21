@@ -41,7 +41,7 @@ def load_stock_historical(ticker):
 	response = requests.get(url)
 	data = json.loads(response.text)
 	# don't query alphavantage too quickly
-	time.sleep(1)
+	time.sleep(2)
 
 	return data
 	
@@ -120,7 +120,7 @@ def load_stocks_daily(tickers):
 
 		results.append(data)
 		# don't query alphavantage too quickly
-		time.sleep(1)
+		time.sleep(2)
 
 	return results
 
