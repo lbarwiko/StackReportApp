@@ -3,7 +3,9 @@ const dev_config = {
     db:{
 	    host: 'localhost', // 'localhost' is the default;
 	    port: 5432, // 5432 is the default;
-	    database: 'stackreport',
+        database: 'stackreport',
+        username: 'root',
+        password: 'FinTech123'
     },
     auth:{
         secret: 'lkas3l2kj42l3k4jamq22114',
