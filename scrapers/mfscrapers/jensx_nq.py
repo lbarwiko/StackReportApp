@@ -4,7 +4,7 @@ Input: url of the report
 Output: a txt with a json object contains the list of holdings named jensx_<date>.txt
 """
 
-import urllib2
+import urllib
 import json
 from bs4 import BeautifulSoup
 import re
