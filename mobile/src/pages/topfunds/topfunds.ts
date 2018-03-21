@@ -10,7 +10,7 @@ import { FundService } from '../../services/fund.service'
   templateUrl: 'topfunds.html'
 })
 
-export class TopfundsPage {
+export class TopFundsPage {
 	fundList: string[];
 
 	constructor(public fundService: FundService) {

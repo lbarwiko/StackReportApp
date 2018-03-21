@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { TopfundsPage } from './topfunds';
+import { TopFundsPage } from './topfunds';
 
 @NgModule({
   declarations: [
-    TopfundsPage,
+    TopFundsPage,
   ],
   imports: [
   ],
 })
-export class TopfundsPageModule {}
+export class TopFundsPageModule {}
