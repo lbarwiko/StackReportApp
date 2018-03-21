@@ -11,6 +11,7 @@ import { UserService, FundService, AuthService, EndpointService } from '../servi
 import { IonicStorageModule } from '@ionic/storage';
 
 import { 
+    RootPage,
     AboutPage,
     HomePage,
     RegisterPage,
@@ -27,6 +28,7 @@ import {
 @NgModule({
   declarations: [
     MyApp,
+    RootPage,
     AboutPage,
     UserPage,
     HomePage,
@@ -46,6 +48,7 @@ import {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    RootPage,
     AboutPage,
     UserPage,
     HomePage,

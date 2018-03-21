@@ -10,29 +10,33 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class AuthService {
     user : User;
-    url = "http://localhost:8000/api/auth/";
     constructor(private http:Http, public restapiProvider: RestapiProvider, private storage:Storage) { }
 
-    public login(loginCredentials){
-
-
-    return new Promise((resolve, reject) => {
-            this.restapiProvider.Login(loginCredentials)
-            .then(user => {if(user) resolve(this.authenticate(user)); else reject(user);});
-    });
-
-        /*return new Promise( (resolve, reject) => {
-            this.restapiProvider.Login(loginCredentials)
-            .then(user => {if(user) this.authenticate(user); else reject(user);});
-            });*/
+    public login(loginCredentials): Promise<User>{
+        return new Promise((resolve, reject) => {
+                this.restapiProvider.Login(loginCredentials)
+                .then(user => {if(user) resolve(this.authenticate(user)); else reject(user);});
+        });
     }
 
-    public getUser(){
-        return this.user;
+    public getUser(token): Promise<User>{
+        return new Promise((resolve, reject) => {
+            this.restapiProvider.getUser(token)
+            .then(user => {if(user) resolve(this.assign(user, token)); else reject(user);});
+        });
     }
 
-    public authenticate(res){
+    public assign(user, token): Promise<User>{
+        console.log('Got a User');
+        console.log(user);
+        user.token = token;
+        return new Promise((resolve, reject) => {
+            this.user = new User(user);
+            resolve(this.user);
+        });
+    }
 
+    public authenticate(res): Promise<User>{
         return new Promise((resolve, reject) => {
             this.user = new User(res);
             console.log('User Set');
@@ -43,5 +47,7 @@ export class AuthService {
             resolve(this.user);
         });
     }
+
+
 
 } 
