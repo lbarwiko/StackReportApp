@@ -121,8 +121,9 @@ def add_tuple_mf_history(tuple_list):
 
     try:
         cur.execute('insert into mutual_fund_history(m_symbol, m_date, price) values ' + chain)
-    except:
-        print ("Insert mf holding failed")
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Insert mf history failed")
     
 
 def get_mf_report_date(m_symbol):
