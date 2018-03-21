@@ -2,9 +2,10 @@
   "name": "proxy",
   "version": "1.0.0",
   "description": "Reverse Proxy for our application",
-  "main": "index.js",
+  "main": "proxy.js",
   "scripts": {
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./proxy.js",
+    "prod": "PORT=8000 pm2 start ./proxy.js"
   },
   "author": "",
   "license": "ISC",

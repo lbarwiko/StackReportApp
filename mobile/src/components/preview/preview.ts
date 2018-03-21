@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
-import { Fund } from '../../models/security';
+import { Security } from '../../models/security';
 
 @Component({
   selector: 'component-preview',
@@ -11,7 +11,7 @@ export class PreviewComponent {
 	
 	@Input('fund_id_in') fund_id_from_front;
 
-	fund: Fund;
+	fund: Security;
 	price_color: string;
 
 	constructor(public fundService: FundService) {
