@@ -7,7 +7,7 @@ import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
 import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
-import { TopfundsPage } from './topfunds/topfunds';
+import { TopFundsPage } from './topfunds/topfunds';
 
 export {
 	RootPage,
@@ -19,5 +19,5 @@ export {
     LoginPage,
     RegisterPage,
 	SecurityPage,
-	TopfundsPage
+	TopFundsPage
 }

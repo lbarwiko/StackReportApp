@@ -21,7 +21,7 @@ import {
     TabsPage,
     LoginPage,
     SecurityPage,
-    TopfundsPage
+    TopFundsPage
     } from '../pages/main'
 
 import {
@@ -41,7 +41,7 @@ import {
     TestPage,
     LoginPage,
     SecurityPage,
-    TopfundsPage,
+    TopFundsPage,
     PreviewComponent,
     SecurityGraphComponent
   ],
@@ -65,7 +65,7 @@ import {
     TestPage,
     LoginPage,
     SecurityPage,
-    TopfundsPage
+    TopFundsPage
   ],
   providers: [
     StatusBar,
