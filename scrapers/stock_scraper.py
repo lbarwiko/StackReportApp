@@ -9,8 +9,9 @@ usage:
 
 import sys
 import json
+import time
 from config import *
-import urllib3.request
+import requests
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 
@@ -37,8 +38,10 @@ def load_stock_historical(ticker):
 	},
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
-	with urllib.request.urlopen(url) as file:
-		data = json.loads(file.read().decode())
+	response = requests.get(url)
+	data = json.loads(response.text)
+	# don't query alphavantage too quickly
+	time.sleep(2)
 
 	return data
 	
@@ -112,11 +115,12 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		print (url)
-		with urllib.request.urlopen(url) as file:
-			data = json.loads(file.read().decode())
+		response = requests.get(url)
+		data = json.loads(response.text)
 
 		results.append(data)
+		# don't query alphavantage too quickly
+		time.sleep(2)
 
 	return results
 
