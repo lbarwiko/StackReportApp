@@ -1,5 +1,4 @@
 import psycopg2
-from config import *
 import os
 import json
 import sys
@@ -32,7 +31,7 @@ def db_cursor():
 def add_single_stock(symbol, name):
     name = name.replace("'", "''")
     cur = db_cursor()
-    op_string = "INSERT INTO company(c_symbol, c_name) VALUES ('%s', '%s');" % (symbol, name)
+    op_string = "INSERT IGNORE INTO company(c_symbol, c_name) VALUES ('%s', '%s');" % (symbol, name)
     try:
         cur.execute(op_string)
     except:
@@ -40,7 +39,7 @@ def add_single_stock(symbol, name):
 
 def add_single_mf_holding(m_symbol, c_symbol, date, shares):
     cur = db_cursor()
-    op_string = ("INSERT INTO holdings(c_symbol, m_symbol, h_date, shares) VALUES ('%s', '%s', '%s', '%s');" 
+    op_string = ("INSERT IGNORE INTO holdings(c_symbol, m_symbol, h_date, shares) VALUES ('%s', '%s', '%s', '%s');" 
         % (m_symbol, c_symbol, date, shares))
     try:
         cur.execute(op_string)
@@ -98,9 +97,12 @@ def add_mf_report(m_symbol, report, date):
     cur = db_cursor()
     chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
     try:
-        cur.execute('insert into holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
+        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
     except psycopg2.Error as e:
         print ("Insert mf holding failed")
+
+
+
 
 
 def add_tuple_stock_history(tuple_list):
@@ -108,7 +110,7 @@ def add_tuple_stock_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('insert into stock_history(c_symbol, price, s_date) values ' + chain)
+        cur.execute('INSERT IGNORE INTO stock_history(c_symbol, price, s_date) values ' + chain)
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert stocks prices failed")
@@ -120,7 +122,7 @@ def add_tuple_mf_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('insert into mutual_fund_history(m_symbol, m_date, price) values ' + chain)
+        cur.execute('INSERT IGNORE INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain)
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert mf history failed")
@@ -151,7 +153,7 @@ def get_mf_report(m_symbol, date):
 
     cur = db_cursor()
 
-    op_string = ("SELECT * FROM holdings WHERE m_symbol = '%s' AND h_date = '%s'"
+    op_string = ("SELECT * FROM c_symbol, shares WHERE m_symbol = '%s' AND h_date = '%s'"
         % (m_symbol, date))
 
     try:
@@ -159,8 +161,15 @@ def get_mf_report(m_symbol, date):
     except psycopg2.Error as e:
         print (e.pgerror)
 
-    cur.fetchall()
-    # TODOOOOOOOOOOOOOOOOOOOOOO
+    rows = cur.fetchall()
+    num_shares_held = []
+    stocks = []
+    for row in rows:
+        stock.append(row[0])
+        num_shares_held.append(row[0])
+
+    return stocks, num_shares_held
+    
 
 
 def get_company_list():
@@ -211,6 +220,21 @@ def follow_mf(ticker_list):
         cur.execute(op_string)
     except psycopg2.Error as e:
         print (e.pgerror)
+
+def get_db_mf_nav(ticker):
+    cur = db_cursor()
+    op = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC" % ticker
+    cur.execute(op)
+    row = cur.fetchone()
+    return float(row[0])
+
+def get_db_mf_nav(ticker, date):
+    cur = db_cursor()
+    op = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
+    cur.execute(op)
+    row = cur.fetchone()
+    return float(row[0])
+
 
 
 

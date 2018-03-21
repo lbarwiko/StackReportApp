@@ -1,13 +1,13 @@
 import Levenshtein
 import json
-import urllib2
+from urllib.request import urlopen
 import json
 from bs4 import BeautifulSoup
 import re
 import sys
 
 def get_soup(url):
-	page = urllib2.urlopen(url)
+	page = urlopen(url)
 	soup = BeautifulSoup(page, 'html.parser')
 	return soup
 
