@@ -69,6 +69,10 @@ After you have an instance of postgres running and you have verified that you ca
 ```
 psql
 ```
+Move into the REST API service folder now
+```
+cd ./restApi
+```
 Then run the initial database scripts to create and populate the database.
 ```
 ./bin/db reset

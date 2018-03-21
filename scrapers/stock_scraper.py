@@ -41,7 +41,7 @@ def load_stock_historical(ticker):
 	response = requests.get(url)
 	data = json.loads(response.text)
 	# don't query alphavantage too quickly
-	time.sleep(2)
+	time.sleep(5)
 
 	return data
 	
@@ -123,7 +123,7 @@ def load_stocks_daily(tickers):
 
 			results.append(data)
 			# don't query alphavantage too quickly
-			time.sleep(2)
+			time.sleep(5)
 		except Exception as e:
 			print("URL load failed " + url)
 			print("Error message: " + str(e))
