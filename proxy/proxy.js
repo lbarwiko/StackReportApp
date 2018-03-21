@@ -17,8 +17,8 @@ var HTTPS_PORT  = PROD ? 443    : 4443;
 
 var credentials = {};
 if(PROD){
-    var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
-    var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+    var privateKey  = fs.readFileSync('./letsencrypt/privkey.pem', 'utf8');
+    var certificate = fs.readFileSync('./letsencrypt/fullchain.pem', 'utf8');
     credentials = {key: privateKey, cert: certificate};
 }
 
