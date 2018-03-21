@@ -9,6 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
 import { UserService, FundService, AuthService, EndpointService } from '../services/main';
 import { IonicStorageModule } from '@ionic/storage';
+import { ChartsModule } from 'ng2-charts';
 
 import { 
     RootPage,
@@ -18,11 +19,14 @@ import {
     UserPage,
     TestPage,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SecurityPage,
+    TopfundsPage
     } from '../pages/main'
 
 import {
   PreviewComponent,
+  SecurityGraphComponent,
 } from '../components/main'
 
 @NgModule({
@@ -36,14 +40,18 @@ import {
     TabsPage,
     TestPage,
     LoginPage,
-    PreviewComponent
+    SecurityPage,
+    TopfundsPage,
+    PreviewComponent,
+    SecurityGraphComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    ChartsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,7 +63,9 @@ import {
     RegisterPage,
     TabsPage,
     TestPage,
-    LoginPage
+    LoginPage,
+    SecurityPage,
+    TopfundsPage
   ],
   providers: [
     StatusBar,

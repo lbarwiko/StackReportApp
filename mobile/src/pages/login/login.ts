@@ -39,7 +39,7 @@ export class LoginPage {
     this.showLoading();
     console.log('login');
     this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
-    .then(user => {if(user.username) this.navCtrl.setRoot(HomePage);});
+    .then(user => {if(user /*&& user.username*/) this.navCtrl.setRoot(HomePage);});
     /*  this.navCtrl.setRoot(HomePage);*/
   }
 
