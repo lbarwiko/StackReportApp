@@ -21,8 +21,6 @@ export class FundService {
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
 
-            console.log("this.url");
-            console.log(this.url);
             this.http.get(this.url, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
@@ -43,8 +41,6 @@ export class FundService {
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
 
-            console.log("this.url");
-            console.log(this.url);
             this.http.get(this.url + '/' + fund_id, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
