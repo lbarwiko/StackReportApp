@@ -143,7 +143,7 @@ def main():
 	#with open("stock_symbol_list.json") as file:
 		#tickers = json.loads(file.read()).keys()
 
-	tickers = get_company_list()
+	tickers = get_mf_list()
 
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")
