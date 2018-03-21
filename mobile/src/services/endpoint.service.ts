@@ -9,7 +9,7 @@ export class EndpointService {
 	fund: string;
 
     constructor() {
-    	let fvariable: boolean = true;
+    	let fvariable: boolean = false;
 		if (fvariable) {
 			this.base = 'http://stackreport.io';
 		} else {	
@@ -19,6 +19,7 @@ export class EndpointService {
 		this.user = '/api/u';
 		this.me = '/api/me';
 		this.prediction = '/api/p';
+		this.auth = '/api/auth';
      }
 
      getUser(){
