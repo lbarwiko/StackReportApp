@@ -4,14 +4,13 @@ Input: url of the report
 Output: a txt with a json object contains the list of holdings named jensx_<date>.txt
 """
 
-import urllib2
 import json
 from bs4 import BeautifulSoup
 import re
 import sys
 from helper import *
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import add_mf_report
+from predictions_database.helper import add_mf_report, get_db_mf_nav
 
 if len(sys.argv) != 3:
 		print("Invalid usage, must have two arguments.")
@@ -130,11 +129,16 @@ def jensx_csr(url, date):
 
 		prev_temp_list = temp_list
 
+	nav = get_db_mf_nav("JENSX", date)
+
+	num_shares = float(mutualFund["total_net_assets"]) / float(nav)
+	mutualFund["num_shares"] = num_shares
+
 	return mutualFund
 
 def main():
 	dict = jensx_csr(sys.argv[1], sys.argv[2])
-	print dict
+	print (dict)
 	add_mf_report("JENSX", dict, sys.argv[2])
 
 if __name__ == '__main__':
