@@ -111,7 +111,8 @@ def add_tuple_stock_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('INSERT INTO stock_history(c_symbol, price, s_date) values ' + chain)
+        cur.execute('INSERT INTO stock_history(c_symbol, price, s_date) values ' + chain
+            + " ON CONFLICT (c_symbol, s_date) DO UPDATE SET price = EXCLUDED.price")
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert stocks prices failed")
@@ -123,7 +124,8 @@ def add_tuple_mf_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('INSERT INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain + " ON CONFLICT (m_symbol, m_date) DO UPDATE SET price = EXCLUDED.price")
+        cur.execute('INSERT INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain
+            + " ON CONFLICT (m_symbol, m_date) DO UPDATE SET price = EXCLUDED.price")
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert mf history failed")
@@ -236,8 +238,10 @@ def get_db_mf_nav(ticker, date):
     row = cur.fetchone()
     return float(row[0])
 
-
-
+def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
+    cur = db_cursor()
+    op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" )
+    return 0 
 
 
 
