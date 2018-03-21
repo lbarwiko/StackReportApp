@@ -13,7 +13,7 @@ def load_data():
 	#TODO load mf symbols list and prediction data from db
 	mf_symbols_to_data = {}
 	for mf_symbol in mf_symbols:
-		with open(mf_symbol + ".json") as file:
+		with open("~/StackReport/predictions/" + mf_symbol + "_regr.json") as file:
 			data = json.load(file)
 			mf_symbols_to_data[mf_symbol] = data
 

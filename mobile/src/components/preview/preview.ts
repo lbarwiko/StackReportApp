@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
 import { Security } from '../../models/security';
@@ -9,34 +9,22 @@ import { Security } from '../../models/security';
 })
 export class PreviewComponent {
 	
-	@Input('fund_id_in') fund_id_from_front;
+	@Input('security_in') security_from_front;
 
-	fund: Security;
+	security: Security;
 	price_color: string;
 
-	constructor(public fundService: FundService) {
-		this.fund = null;
+	constructor() {
+		this.security = null;
 		this.price_color = "price white";
 	}
 
-	ngOnInit(){
-		this.fundService.getFund(this.fund_id_from_front)
-		.then(fundReturned => {
-			this.fund = fundReturned;
-
-			if(this.fund.current_price < this.fund.price_history[0]['1. open']) {
-				this.price_color = "price red";
-			} else if (this.fund.current_price > this.fund.price_history[0]['1. open']) {
-				this.price_color = "price green";
-			}
-
-		})
-		.catch(err => {
-			console.log(err);
-		});		
-	}
-
-	ngAfterViewInit() {
-		
+	ngOnInit() {
+		this.security = this.security_from_front;
+		if(this.security.current_price < this.security.price_history[0]['1. open']) {
+			this.price_color = 'price red';
+		} else if (this.security.current_price > this.security.price_history[0]['1. open']) {
+			this.price_color = 'price green';
+		}
 	}
 }
