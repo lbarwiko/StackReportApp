@@ -1,0 +1,13 @@
+<ion-content class="home-content" padding>
+    <ion-row>
+    	<div class="title">
+        	Top 100 Mutual Funds
+    	</div>
+	</ion-row>
+	<ion-row class="previewlist">
+		<ion-row class="preview" *ngFor="let i of fundList">
+			<component-preview  fund_id_in={{i}}>
+			</component-preview>
+		</ion-row>
+	</ion-row>
+</ion-content>
