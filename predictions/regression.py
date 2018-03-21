@@ -159,7 +159,7 @@ def save_result(symbols, mf_symbol, result):
 	output = output[:-2]
 	output += "]\n}"
 
-	with open(mf_symbol + "_regr.json", "w") as file:
+	with open("~/StackReport/predictions/" + mf_symbol + "_regr.json", "w") as file:
 		file.write(output)
 
 def main():
