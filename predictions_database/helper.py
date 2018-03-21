@@ -31,7 +31,7 @@ def db_cursor():
 def add_single_stock(symbol, name):
     name = name.replace("'", "''")
     cur = db_cursor()
-    op_string = "INSERT IGNORE INTO company(c_symbol, c_name) VALUES ('%s', '%s');" % (symbol, name)
+    op_string = "INSERT INTO company(c_symbol, c_name) VALUES ('%s', '%s');" % (symbol, name)
     try:
         cur.execute(op_string)
     except:
@@ -39,7 +39,7 @@ def add_single_stock(symbol, name):
 
 def add_single_mf_holding(m_symbol, c_symbol, date, shares):
     cur = db_cursor()
-    op_string = ("INSERT IGNORE INTO holdings(c_symbol, m_symbol, h_date, shares) VALUES ('%s', '%s', '%s', '%s');" 
+    op_string = ("INSERT INTO holdings(c_symbol, m_symbol, h_date, shares) VALUES ('%s', '%s', '%s', '%s');" 
         % (m_symbol, c_symbol, date, shares))
     try:
         cur.execute(op_string)
@@ -110,7 +110,7 @@ def add_tuple_stock_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('INSERT IGNORE INTO stock_history(c_symbol, price, s_date) values ' + chain)
+        cur.execute('INSERT INTO stock_history(c_symbol, price, s_date) values ' + chain)
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert stocks prices failed")
@@ -122,7 +122,7 @@ def add_tuple_mf_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('INSERT IGNORE INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain)
+        cur.execute('INSERT INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain)
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert mf history failed")
