@@ -10,10 +10,16 @@ bodyParser = require('body-parser'),
 cors = require('cors');
 
 var PROD = process.env.PROD == 'TRUE';
-console.log("TEST");
 
 var HTTP_PORT   = PROD ? 80     : 8000;
 var HTTPS_PORT  = PROD ? 443    : 4443;
+
+var credentials = {};
+if(PROD){
+    var privateKey  = fs.readFileSync('sslcert/server.key', 'utf8');
+    var certificate = fs.readFileSync('sslcert/server.crt', 'utf8');
+    credentials = {key: privateKey, cert: certificate};
+}
 
 var app = express();
 
@@ -62,4 +68,9 @@ httpServer.listen(HTTP_PORT, function(){
     console.log("Http Listening on port " + HTTP_PORT);
 });
 
-
+if(PROD){
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(HTTPS_PORT, function(){
+        console.log("Https Listening on port " + HTTPS_PORT);
+    });
+}
