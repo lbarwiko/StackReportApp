@@ -1,7 +1,8 @@
 // Reverse Proxy server to handle REST requests to multiple servers
 // Code taken from https://nodebb.readthedocs.io/en/latest/configuring/proxies/node.html
 
-var http = require('http'),
+var fs = require('fs'),
+http = require('http'),
 https = require('https'),
 httpProxy = require('http-proxy'),
 HttpProxyRules = require('http-proxy-rules');
