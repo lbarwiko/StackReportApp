@@ -28,8 +28,8 @@ export class FundService {
                 var resJson = res.json();
                 var idList: string[] = [];
 
-                for(let i in resJson) {
-                    idList.push(resJson[i]['fund_id']);
+                for(let i in resJson.data) {
+                    idList.push(resJson.data[i]['fund_id']);
                 }
 
                 return resolve(idList);
