@@ -5,7 +5,7 @@
   "main": "proxy.js",
   "scripts": {
     "start": "nodemon ./proxy.js",
-    "prod": "PORT=8000 pm2 start ./proxy.js"
+    "prod": "PORT=80 pm2 start ./proxy.js"
   },
   "author": "",
   "license": "ISC",
