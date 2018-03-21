@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build": "gulp build & ./node_modules/babel-cli/bin/babel.js ./ --source-maps --out-dir dist",
-    "prod": "gulp build & ./node_modules/nodemon/bin/nodemon.js -- ./node_modules/babel-cli/bin/babel-node.js ./dist/server.js",
+    "prod": "pm2 start --interpreter ./node_modules/babel-cli/bin/babel-node.js ./src/server.js",
     "start": "nodemon -- ./node_modules/babel-cli/bin/babel-node.js ./src/server.js"
   },
   "author": "Luke Barwikowski",
@@ -32,6 +32,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
-    "pg-promise": "^7.3.3"
+    "pg-promise": "^7.3.3",
+    "pm2": "^2.10.1"
   }
 }

@@ -8,6 +8,7 @@ express = require('express'),
 bodyParser = require('body-parser'),
 cors = require('cors');
 
+var PORT = process.env.PORT || 8000;
 
 var app = express();
 
@@ -50,6 +51,6 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 // TODO: Change this to https !VERY IMPORTANT
 // TODO: Create Options
 var server = http.createServer(app);
-server.listen(8000, function(){
-    console.log("Listening on port 8000");
+server.listen(PORT, function(){
+    console.log("Listening on port " + PORT);
 });
