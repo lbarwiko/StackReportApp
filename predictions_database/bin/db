@@ -53,7 +53,7 @@ case $1 in
     ;;
 
   "start")
-      service posgresql start
+      service postgresql start
     ;;
     "stop")
       service postgresql stop

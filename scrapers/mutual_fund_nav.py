@@ -1,74 +1,166 @@
-import urllib2
+"""
+module to retrieve stock price data
+run historical mode to save historical data
+run daily mode to save last daily data
+usage:
+	python stock_scraper.py historical
+	python stock_scraper.py daily
+"""
+
+import sys
 import json
 import time
-from bs4 import BeautifulSoup
-import re
-import sys
+from config import *
+import requests
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_mf_history
-import time
+from predictions_database.helper import add_tuple_mf_history, get_company_list
 
-def is_numeric(str_input):
-    try:
-        float(str_input)
-        return True
-    except ValueError:
-        return False
-
-def get_nav_historical(ticker):
+def load_stock_historical(ticker):
 	"""
-	get all the historical data (including the newest)
-	example. {"date":718896600,"open":9.630000114440918,"high":9.630000114440918,
-				"low":9.630000114440918,"close":9.630000114440918,"volume":0,"adjclose":5.044559955596924}
+	load all available historical price data for ticker (up to 20 years)
+	tickers is a string such as "MSFT"
+	return json
+	{
+	"Meta Data": {
+		"1. Information": "Daily Prices (open, high, low, close) and Volumes",
+		"2. Symbol": "MSFT",
+		"3. Last Refreshed": "2018-02-06",
+		"4. Output Size": "Full size",
+		"5. Time Zone": "US/Eastern"
+	},
+	"Time Series (Daily)": {
+		"2018-02-06": {
+			"1. open": "86.8900",
+			"2. high": "91.4750",
+			"3. low": "85.2500",
+			"4. close": "91.3300",
+			"5. volume": "67969320"
+	},
 	"""
-	pattern = re.compile(r"root\.App\.main = (.*);", re.MULTILINE)
+	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
+	response = requests.get(url)
+	data = json.loads(response.text)
+	# don't query alphavantage too quickly
+	time.sleep(2)
 
-	today_time = int(time.time())
+	return data
+	
+def save_all_mf_historical(tickers):
+	"""
+	load all available historical price data for each ticker in tickers (up to 20 years)
+	place in database
+	tickers is list of ticker symbol strings
+	"""
+	for ticker in tickers:
+		data = load_stock_historical(ticker)
+		# TODO place in database
 
-	url = "https://finance.yahoo.com/quote/%s/history?period1=0&period2=%d&interval=1d&filter=history&frequency=1d" % (ticker, today_time)
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'html.parser')
+		# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
+		tuple_list = []
+		for key, value in data["Time Series (Daily)"].items():
+			tup = (ticker, key, value["4. close"])
+			tuple_list.append(tup)
 
-	script = soup.find("script", text=lambda x: x and "root.App.main" in x).text
-	data = json.loads(re.search(pattern, script).group(1))
-	return data["context"]["dispatcher"]["stores"]["HistoricalPriceStore"]["prices"]
+		add_tuple_mf_history(tuple_list)
 
 
-def upload_nav_historical(ticker):
+def split_stocks(tickers):
+	"""
+	returns a list of strings of 100 ticker symbols, delimited by commas
+	["ABC,AAC,AFC,...", "CDE,CCE,CGE,...", ...]
+	"""
+	strings = []
+	string = ""
+	for i in range(len(tickers)):
+		# every 100 stocks, append string
+		if i % 100 == 0:
+			if string != "": 
+				strings.append(string[:-1])
+				
+			string = ""
 
-	list = get_nav_historical(ticker)
-	# convert into tuple list ((m_symbol, m_date, price), ...)
+		string += tickers[i] + ","
+
+	strings.append(string[:-1])
+
+	return strings
+		
+def load_mf_daily(tickers):
+	"""
+	load last daily closing price data for tickers
+	tickers is a list of string such as "MSFT"
+	return [json]
+	[{
+	"Meta Data": {
+		"1. Information": "Batch Stock Market Quotes",
+		"2. Notes": "IEX Real-Time Price provided for free by IEX (https://iextrading.com/developer/).",
+		"3. Time Zone": "US/Eastern"
+	},
+	"Stock Quotes": [
+		{
+			"1. symbol": "MSFT",
+			"2. price": "94.4200",
+			"3. volume": "34784139",
+			"4. timestamp": "2018-03-13 16:53:45"
+		},
+		{
+			"1. symbol": "FB",
+			"2. price": "181.9100",
+			"3. volume": "17949951",
+			"4. timestamp": "2018-03-13 16:41:53"
+		},
+	...
+	]	
+	"""
+	results = []
+	for stock_string in split_stocks(tickers):
+		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
+		response = requests.get(url)
+		data = json.loads(response.text)
+
+		results.append(data)
+		# don't query alphavantage too quickly
+		time.sleep(2)
+
+	return results
+
+def save_all_mf_daily(tickers):
+	"""
+	load all available historical price data for each ticker in tickers (up to 20 years)
+	place in database
+	tickers is list of ticker symbol strings
+	"""
+	data = load_stocks_daily(tickers)
+	# TODO place in database
+
+	# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
 	tuple_list = []
-	for each in list:
-		tup = (ticker, time.strftime("%Y%m%d", time.gmtime(float(each["date"]))), 
-			float(each["close"]))
-		tuple_list.append(tup)
+	for batch in data:
+		for value in batch["Stock Quotes"]:
+			tup = (value["1. symbol"], value["4. timestamp"], value["2. price"])
+			tuple_list.append(tup)
+
 	add_tuple_mf_history(tuple_list)
 
-
-def get_nav(ticker):
-	"""
-	return the nav of ticker as a float
-	"""
-	url = "https://finance.yahoo.com/quote/%s/" % (ticker)
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'html.parser')
-	soup = soup.find("div", id="quote-header-info")
-	soup = soup.find_all("span")
-
-	for s in soup:
-		s = s.get_text()
-		if is_numeric(s):
-			return float(s)
-
-	return float(-1)
-
-def print_dict(d):
-	for key, value in d.items():
-		print('\t' + str(key))
-
 def main():
-	return 0 
+	# TODO load tickers from database
+	#with open("stock_symbol_list.json") as file:
+		#tickers = json.loads(file.read()).keys()
 
-if __name__ == '__main__':
-    main()
+	tickers = get_company_list()
+
+	if len(sys.argv) != 2:
+		print("Invalid usage, must have exactly one argument")
+		return
+
+	mode = sys.argv[1]
+
+	if mode == "historical":
+		save_all_mf_historical(tickers)
+	elif mode == "daily":
+		save_all_mf_daily(tickers)
+	else:
+		print("Invalid usage, argument must be historical or daily")
+
+if __name__=="__main__":
+	main()
