@@ -1,11 +1,29 @@
 <ion-content class="security-content" padding>
     <ion-row class='fund-name'>
-        Fund Name
+        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>
-    <ion-row class='fund-price-label'>
+    <ion-row class='info-label'>
     	Current Share Price
 	</ion-row>
-	<ion-row class='fund-price'>
-		$99.99
+	<ion-row class='info-value'>
+		${{security.current_price || "99.99" | number : '1.2-2'}}
 	</ion-row>
+	<ion-row class='info-label'>
+    	Volume Traded
+	</ion-row>
+	<ion-row class='info-value'>
+		{{volume_traded || "1000000" | number : '1.0-0'}}
+	</ion-row>
+	<ion-row class='fund-graph'>
+		<div class="graph-wrapper">
+			<component-securitygraph fund_id_in={{security.id}}>
+			</component-securitygraph>
+		</div>
+	</ion-row>
+	<ion-row id = "investments-btn-row">
+        <button ion-button class="investments-btn">Investments</button>
+    </ion-row>
+    <ion-row id = "reports-btn-row">
+        <button ion-button class="reports-btn">Reports</button>
+    </ion-row>
 </ion-content>

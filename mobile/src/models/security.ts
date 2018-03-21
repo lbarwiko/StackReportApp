@@ -31,7 +31,14 @@ class Security {
     }
  } 
 
+ class Stock extends Security {
+     constructor(id, name, price_history) {
+        super(id, name, price_history);
+     }
+ }
+
  export {
      Security,
-     Fund
+     Fund,
+     Stock
  }
