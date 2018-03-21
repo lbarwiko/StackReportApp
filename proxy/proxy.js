@@ -2,13 +2,17 @@
 // Code taken from https://nodebb.readthedocs.io/en/latest/configuring/proxies/node.html
 
 var http = require('http'),
+https = require('https'),
 httpProxy = require('http-proxy'),
 HttpProxyRules = require('http-proxy-rules');
 express = require('express'),
 bodyParser = require('body-parser'),
 cors = require('cors');
 
-var PORT = process.env.PORT || 8000;
+var PROD = process.env.PROD == 'TRUE';
+
+var HTTP_PORT   = PROD ? 80     : 8000;
+var HTTPS_PORT  = PROD ? 443    : 4443;
 
 var app = express();
 
@@ -17,7 +21,8 @@ app.use(cors());
 var proxyRules = new HttpProxyRules({
     rules: {
         '.*/api': 'http://localhost:8080/api',
-        '.*/api/*': 'http://localhost:8080/api/'
+        '.*/api/*': 'http://localhost:8080/api/',
+        '.*/.well-known/*': 'http://localhost:8080/api/.well-known/'
     },
     default: 'http://localhost:8081' // default target, will be landing page (Right now its not)
 });
@@ -50,7 +55,11 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 
 // TODO: Change this to https !VERY IMPORTANT
 // TODO: Create Options
-var server = http.createServer(app);
-server.listen(PORT, function(){
-    console.log("Listening on port " + PORT);
+var httpServer = http.createServer(app);
+httpServer.listen(HTTP_PORT, function(){
+    console.log("Http Listening on port " + HTTP_PORT);
 });
+
+if(PROD){
+    console.log("in prod");
+}
