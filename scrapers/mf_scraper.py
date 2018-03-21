@@ -9,12 +9,13 @@ usage:
 
 import sys
 import json
+import time
 from config import *
-import urllib3.request
+import requests
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, get_mf_list
+from predictions_database.helper import add_tuple_mf_history, get_mf_list
 
-def load_stock_historical(ticker):
+def load_mf_historical(ticker):
 	"""
 	load all available historical price data for ticker (up to 20 years)
 	tickers is a string such as "MSFT"
@@ -37,28 +38,30 @@ def load_stock_historical(ticker):
 	},
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
-	with urllib3.request.urlopen(url) as file:
-		data = json.loads(file.read().decode())
+	response = requests.get(url)
+	data = json.loads(response.text)
+	# don't query alphavantage too quickly
+	time.sleep(2)
 
 	return data
 	
-def save_all_stocks_historical(tickers):
+def save_all_mf_historical(tickers):
 	"""
 	load all available historical price data for each ticker in tickers (up to 20 years)
 	place in database
 	tickers is list of ticker symbol strings
 	"""
 	for ticker in tickers:
-		data = load_stock_historical(ticker)
+		data = load_mf_historical(ticker)
 		# TODO place in database
 
-		# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+		# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
 		tuple_list = []
 		for key, value in data["Time Series (Daily)"].items():
-			tup = (ticker, value["4. close"], key)
+			tup = (ticker, key, value["4. close"])
 			tuple_list.append(tup)
 
-		add_tuple_stock_history(tuple_list)
+		add_tuple_mf_history(tuple_list)
 
 
 def split_stocks(tickers):
@@ -82,7 +85,7 @@ def split_stocks(tickers):
 
 	return strings
 		
-def load_stocks_daily(tickers):
+def load_mf_daily(tickers):
 	"""
 	load last daily closing price data for tickers
 	tickers is a list of string such as "MSFT"
@@ -112,28 +115,29 @@ def load_stocks_daily(tickers):
 	results = []
 	for stock_string in split_stocks(tickers):
 		url = ALPHA_BASE_URL + "BATCH_STOCK_QUOTES&symbols=" + stock_string + "&apikey=" + API_KEY
-		print (url)
-		with urllib.request.urlopen(url) as file:
-			data = json.loads(file.read().decode())
+		response = requests.get(url)
+		data = json.loads(response.text)
 
 		results.append(data)
+		# don't query alphavantage too quickly
+		time.sleep(2)
 
 	return results
 
-def save_all_stocks_daily(tickers):
+def save_all_mf_daily(tickers):
 	"""
 	load all available historical price data for each ticker in tickers (up to 20 years)
 	place in database
 	tickers is list of ticker symbol strings
 	"""
-	data = load_stocks_daily(tickers)
+	data = load_mf_daily(tickers)
 	# TODO place in database
 
-	# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+	# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
 	tuple_list = []
 	for batch in data:
 		for value in batch["Stock Quotes"]:
-			tup = (value["1. symbol"], value["2. price"], value["4. timestamp"])
+			tup = (value["1. symbol"], value["4. timestamp"], value["2. price"])
 			tuple_list.append(tup)
 
 	add_tuple_stock_history(tuple_list)
@@ -152,9 +156,9 @@ def main():
 	mode = sys.argv[1]
 
 	if mode == "historical":
-		save_all_stocks_historical(tickers)
+		save_all_mf_historical(tickers)
 	elif mode == "daily":
-		save_all_stocks_daily(tickers)
+		save_all_mf_daily(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
 
