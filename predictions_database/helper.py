@@ -97,8 +97,9 @@ def add_mf_report(m_symbol, report, date):
     cur = db_cursor()
     chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
     try:
-        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
+        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain + " ON CONFLICT(c_symbol, m_symbol, h_date) DO UPDATE SET shares = EXCLUDED.shares")
     except psycopg2.Error as e:
+        print (e.pgerror)
         print ("Insert mf holding failed")
 
 
@@ -122,7 +123,7 @@ def add_tuple_mf_history(tuple_list):
     chain = ','.join(cur.mogrify('(%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
 
     try:
-        cur.execute('INSERT INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain)
+        cur.execute('INSERT INTO mutual_fund_history(m_symbol, m_date, price) values ' + chain + " ON CONFLICT (m_symbol, m_date) DO UPDATE SET price = EXCLUDED.price")
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert mf history failed")
