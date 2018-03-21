@@ -41,7 +41,7 @@ def load_mf_historical(ticker):
 	response = requests.get(url)
 	data = json.loads(response.text)
 	# don't query alphavantage too quickly
-	time.sleep(2)
+	time.sleep(5)
 
 	return data
 	
@@ -118,6 +118,8 @@ def load_mf_daily(ticker):
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + API_KEY
 	response = requests.get(url)
 	data = json.loads(response.text)
+	# don't query alphavantage too quickly
+	time.sleep(5)
 	if "Error Message" in data or "Information" in data:
 		print("Cant get %s data from alpha" % ticker)
 		print(data)

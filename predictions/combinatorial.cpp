@@ -106,7 +106,7 @@ void save_result(const MutualFund& mf, const vector<int>& result) {
 	output.pop_back();
 	output += "]\n}"
 
-	ofstream file(mf.mf_symbol + "_comb.json");
+	ofstream file("~/StackReport/predictions/" + mf.mf_symbol + "_comb.json");
 	file << output;
 	file.close();
 }

@@ -9,4 +9,5 @@ then
 	python3 ~/StackReport/scrapers/stock_scraper.py daily >> ~/StackReport/logs/stock_scraper.log 2>&1
 	python3 ~/StackReport/scrapers/mf_scraper.py daily >> ~/StackReport/logs/mf_scraper.log 2>&1
 	python3 ~/StackReport/predictions/regression.py >> ~/StackReport/logs/regression.log 2>&1
+	python3 ~/StackReport/predictions/post.py >> ~/StackReport/logs/post.log 2>&1
 fi
