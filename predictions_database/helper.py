@@ -99,7 +99,6 @@ def add_mf_report(m_symbol, report, date):
     chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
     try:
         cur.execute('insert into holdings(c_symbol, m_symbol, shares, h_date) values ' + chain)
-        print("Successfully Uploaded MF report to DB!")
     except psycopg2.Error as e:
         print ("Insert mf holding failed")
 
@@ -110,7 +109,6 @@ def add_tuple_stock_history(tuple_list):
 
     try:
         cur.execute('insert into stock_history(c_symbol, price, s_date) values ' + chain)
-        print("Successfully uploaded MF history to DB!")
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert stocks prices failed")
@@ -123,7 +121,6 @@ def add_tuple_mf_history(tuple_list):
 
     try:
         cur.execute('insert into mutual_fund_history(m_symbol, m_date, price) values ' + chain)
-        print("Successfully uploaded MF history to DB!")
     except:
         print ("Insert mf holding failed")
     
@@ -188,7 +185,7 @@ def get_company_list():
 def get_mf_list():
 
     cur = db_cursor()
-    op_string = "SELECT m_symbol FROM mutual_fund WHERE offer = 'True'"
+    op_string = "SELECT m_symbol FROM mutual_fund WHERE follow = 'True'"
     try: 
         cur.execute(op_string)
     except psycopg2.Error as e:
@@ -202,6 +199,18 @@ def get_mf_list():
         output_list.append(row[0])
 
     return output_list
+
+def follow_mf(ticker_list):
+    op_string = "UPDATE mutual_fund SET follow = True WHERE 0"
+    for ticker in ticker_list:
+        op_string += " or m_symbol = '%s'" % ticker
+
+    cur = db_cursor()
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
 
 
 

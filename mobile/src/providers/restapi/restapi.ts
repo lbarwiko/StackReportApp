@@ -16,10 +16,10 @@ export class RestapiProvider {
     console.log('Hello RestapiProvider Provider');
   }
 
-  Login(loginCredentials){
+  Login(loginCredentials): Promise<User>{
   	console.log('Logging In');
   	console.log(loginCredentials);
-	return new Promise(resolve => {
+	return new Promise<User>(resolve => {
 		this.http.post<User>('http://localhost:8000/api/auth', loginCredentials, {headers: {'Content-Type': 'application/json'}})
 			.subscribe(data => {
 	      console.log('provider getting data');
@@ -28,6 +28,19 @@ export class RestapiProvider {
 	      console.log(err);
 	    });
 	});
+  }
+
+  getUser(token): Promise<User>{
+  	console.log('checking token');
+  	console.log(token);
+  	return new Promise<User>(resolve => {
+  		this.http.get<User>('http://localhost:8000/api/me', {headers: {'Authorization': token}}).subscribe(data => {
+	      console.log('provider getting user');
+	      resolve(data);
+	    },err => {
+	      console.log(err);
+	    });
+  	});
   }
 
   CreateAccount(registerCredentials){

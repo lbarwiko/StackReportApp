@@ -5,10 +5,12 @@ import { TabsPage } from './tabs/tabs';
 import { TestPage } from './test/test';
 import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
+import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
 import { TopfundsPage } from './topfunds/topfunds';
 
 export {
+	RootPage,
     AboutPage,
     HomePage,
     UserPage,
