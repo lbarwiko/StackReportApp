@@ -1,14 +1,26 @@
 // Reverse Proxy server to handle REST requests to multiple servers
 // Code taken from https://nodebb.readthedocs.io/en/latest/configuring/proxies/node.html
 
-var http = require('http'),
+var fs = require('fs'),
+http = require('http'),
+https = require('https'),
 httpProxy = require('http-proxy'),
 HttpProxyRules = require('http-proxy-rules');
 express = require('express'),
 bodyParser = require('body-parser'),
 cors = require('cors');
 
-var PORT = process.env.PORT || 8000;
+var PROD = process.env.PROD == 'TRUE';
+
+var HTTP_PORT   = PROD ? 80     : 8000;
+var HTTPS_PORT  = PROD ? 443    : 4443;
+
+var credentials = {};
+if(PROD){
+    var privateKey  = fs.readFileSync('./letsencrypt/privkey.pem', 'utf8');
+    var certificate = fs.readFileSync('./letsencrypt/fullchain.pem', 'utf8');
+    credentials = {key: privateKey, cert: certificate};
+}
 
 var app = express();
 
@@ -17,7 +29,9 @@ app.use(cors());
 var proxyRules = new HttpProxyRules({
     rules: {
         '.*/api': 'http://localhost:8080/api',
-        '.*/api/*': 'http://localhost:8080/api/'
+        '.*/api/*': 'http://localhost:8080/api/',
+        '.*/.well-known/*': 'http://localhost:8080/api/.well-known/',
+        '.*/.well-known': 'http://localhost:8080/api/.well-known'
     },
     default: 'http://localhost:8081' // default target, will be landing page (Right now its not)
 });
@@ -50,7 +64,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 
 // TODO: Change this to https !VERY IMPORTANT
 // TODO: Create Options
-var server = http.createServer(app);
-server.listen(PORT, function(){
-    console.log("Listening on port " + PORT);
+var httpServer = http.createServer(app);
+httpServer.listen(HTTP_PORT, function(){
+    console.log("Http Listening on port " + HTTP_PORT);
 });
+
+if(PROD){
+    var httpsServer = https.createServer(credentials, app);
+    httpsServer.listen(HTTPS_PORT, function(){
+        console.log("Https Listening on port " + HTTPS_PORT);
+    });
+}

@@ -49,6 +49,10 @@ export default (db, config, auth) => {
     followingApi.get('/', Following.list);
     api.use('/following/', followingApi);
 
+	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {
+		res.send(req.params.id + '.' + 'HvBmjhjg7Ng9HAGb1bmUtrF4gqOWj8LZ56Gx5HyBBNg');
+	});
+
 	router.get('/', (req, res)=>{
 		res.send("Fintech Rest Api");
 	})
