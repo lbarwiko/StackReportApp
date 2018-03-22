@@ -298,11 +298,10 @@ def get_db_stock_quote(ticker, date):
     cur.execute(op_string)
     row = cur.fetchone()
 
-    if row[1].strftime("%Y%m%d") != date:
-        print ("Warning: Using an older date automatically(%s instead of %s)"
-            % (row[1].strftime("%Y%m%d"), date))
-
     try:
+        if row[1].strftime("%Y%m%d") != date:
+            print ("Warning: Using an older date automatically(%s instead of %s)"
+                % (row[1].strftime("%Y%m%d"), date))
         ret = float(row[0])
     except TypeError:
         print ("Cannot get stock quote %s %s" % (ticker, str(date)))
