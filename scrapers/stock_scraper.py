@@ -13,11 +13,10 @@ import time
 from config import *
 import requests
 from bs4 import BeautifulSoup
-import 
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 from mutual_fund_nav import get_quote
-from scraper.helper import get_soup
+from mfscrapers.helper import get_soup
 
 def load_stock_historical(ticker):
 	"""
@@ -155,10 +154,13 @@ def save_all_stocks_daily(tickers):
 
 	# TEMP SLOW
 	tuple_list = [] 
+	idx = 1
 	for ticker in tickers:
 		# ATTENTION !!!! The date might not be right, it's inserting the current day
 		tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
+		print ("%d. %s" % (idx, ticker))
 		tuple_list.append(tup)
+		idx += 1
 
 	add_tuple_stock_history(tuple_list)
 

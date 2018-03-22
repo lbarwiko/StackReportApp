@@ -12,14 +12,20 @@ from helper import *
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
-if len(sys.argv) != 4:
-		print("Invalid usage, must have 3 arguments.")
-		print("Usage: <program> \"url of the jensen report\" date mf_symbol")
+# TODO FIX FLAG
+if len(sys.argv) != 5:
+		print("Invalid usage, must have 4 arguments.")
+		print("Usage: <program> \"url of the jensen report\" date mf_symbol ('p'/'np'")
 		print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 		exit(1)
 
 if not sys.argv[2].isdigit():
 	print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
+	exit(1)
+
+# TODO FIX FLAG
+if sys.argv[4] != 'p' and sys.argv[4] != 'np':
+	print ("MUST state 'p' or 'np' (post or no-post)")
 	exit(1)
 
 def jensx_nq(url, date, m_symbol):
