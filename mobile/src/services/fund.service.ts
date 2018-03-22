@@ -38,7 +38,7 @@ export class FundService {
         })
     }
 
-    getFund(fund_id:String): Promise<Fund> {
+    getFund(fund_id:string): Promise<Fund> {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
