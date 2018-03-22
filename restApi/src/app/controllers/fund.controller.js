@@ -8,6 +8,57 @@ import { Alphavantage } from '../services/';
 export default (db, config) => {
     const AlphavantageApi = Alphavantage();
 
+    function update(){
+        function helper(fund_id, payload){
+            //Delete holdings with fund_id first
+            return db.none(HoldingSql.delete,{
+                fund_id: fund_id
+            })
+            .then(res=>{
+                //Then Update fund_id if there is a different name
+                console.log("Deleted holdings");
+                console.log("fund_name", fund_id);
+                console.log("fund_name", payload.fund_name);
+                return db.none(FundSql.update, {
+                    fund_id: fund_id,
+                    fund_name: payload.fund_name
+                })
+            })
+            .then(res=>{
+                console.log("Updatedname");
+                //Create new list of holdings
+                return createHoldings(fund_id, payload.holdings)
+            })
+            .then(res=>{
+                return Promise.resolve(true)
+            })
+            .catch(err=>Promise.reject(err));
+        }
+
+        function rest(req, res, next){
+            if(!req.fund){
+                return res.status(404).json({
+                    code:404,
+                    err: 'Fund not found'
+                })
+            }
+            helper(req.fund.fund_id, req.body)
+            .then(result=>{
+                return res.status(201).json({
+                    code:201,
+                    message: 'Fund succesfully updated'
+                })
+            })
+            .catch(err=>{
+                return res.json(err);
+            })
+        }
+        return{
+            rest: rest,
+            helper: helper
+        }
+    }
+
     function remove(){
         function helper(fund_id){
             return db.none(HoldingSql.delete,{
@@ -138,6 +189,34 @@ export default (db, config) => {
         }
     }
 
+    function createHoldings(fund_id, holdings){
+        if(!fund_id){
+            return Promise.reject({
+                err: 'No fund_id given',
+                code: 404
+            });
+        }
+        if(!holdings){
+            return Promise.reject({
+                err: 'No holdings given',
+                code: 404
+            });
+        }
+        return db.tx(t=>{
+            var queries = [];
+            holdings.forEach(holding=>{
+                queries.push(
+                    t.none(HoldingSql.create,{
+                        fund_id: fund_id,
+                        security_id: holding.security_id,
+                        amount: holding.amount
+                    })
+                );
+            });
+            return t.batch(queries);
+        })
+    }
+
     function create(){
         /* 
             Create a Fund 
@@ -169,21 +248,9 @@ export default (db, config) => {
                     if(!payload.holdings){
                         return Promise.resolve(true);
                     }
-
                     var fund_id = fundResponse.fund_id;
-                    return db.tx(t=>{
-                        var queries = [];
-                        payload.holdings.forEach(holding=>{
-                            queries.push(
-                                t.none(HoldingSql.create,{
-                                    fund_id: fund_id,
-                                    security_id: holding.security_id,
-                                    amount: holding.amount
-                                })
-                            );
-                        });
-                        return t.batch(queries);
-                    })
+                    return createHoldings(fund_id, payload.holdings)
+                    
                 })
                 .then(res =>{
                     resolve(true);
@@ -227,10 +294,12 @@ export default (db, config) => {
             list: list().rest,
             create: create().rest,
             get: get().rest,
-            remove: remove().rest
+            remove: remove().rest,
+            update: update().rest
         },
         list: list().helper,
         create: create().helper,
-        get: get().helper
+        get: get().helper,
+        update: update().helper
     }
 }

@@ -1,0 +1,1 @@
+UPDATE FUND SET fund_name = ${fund_name} WHERE fund_id = ${fund_id}
