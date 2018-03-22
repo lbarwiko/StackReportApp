@@ -24,7 +24,7 @@ def post_request(mf_symbol, data):
 	send prediction results for mf_symbol to server
 	"""
 
-	url = "localhost:8000/api/f/" + mf_symbol + "/p/"
+	url = "localhost:8000/api/p/"
 	r = requests.post(url, data)
 
 def main():
