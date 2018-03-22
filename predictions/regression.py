@@ -74,7 +74,7 @@ def load_data(mf_symbol):
 	symbols = []
 	stock_assets = 0.0
 
-	date = get_mf_report_dates(mf_symbol)[0]
+	date = get_mf_report_dates(mf_symbol)
 	symbols, num_shares_held = get_mf_holdings(mf_symbol, date)
 	nav = get_db_mf_nav(mf_symbol, date)
 	_, _, n_shares = get_mf_other(mf_symbol, date)
@@ -155,7 +155,7 @@ def save_result(symbols, mf_symbol, result):
 	output = '{\n\t"fund_id": "' + mf_symbol + '",\n\t"securities": ['
 	for i in range(len(symbols)):
 		# only send buy predictions
-		if result[i] == 1: output += '\n\t\t{"security_id": "' + symbols[i] + '"}, '
+		if result[i] == 1: output += '\n\t\t{"security_id": "' + symbols[i] + '", "order_type": 1}, '
 	
 	output = output[:-2]
 	output += "\n\t]\n}"
