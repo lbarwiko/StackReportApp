@@ -26007,6 +26007,10 @@ page-reports .table {
   margin-bottom: 30px;
 }
 
+page-reports .top {
+  font-weight: bold;
+}
+
 page-root #StackReportTitle {
   color: white;
 }

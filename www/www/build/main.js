@@ -1,37 +1,26 @@
-webpackJsonp([6],{
+webpackJsonp([5],{
 
-/***/ 122:
+/***/ 100:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__about_about__ = __webpack_require__(443);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__user_user__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(444);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__test_test__ = __webpack_require__(359);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__login_login__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__register_register__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__root_root__ = __webpack_require__(126);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__security_security__ = __webpack_require__(230);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__topfunds_topfunds__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__menu_menu__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__reports_reports__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__regionalfunds_regionalfunds__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__investments_investments__ = __webpack_require__(123);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_7__root_root__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__about_about__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__home_home__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return __WEBPACK_IMPORTED_MODULE_2__user_user__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_4__test_test__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_5__login_login__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_6__register_register__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_8__security_security__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_9__topfunds_topfunds__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_10__menu_menu__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_13__investments_investments__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_11__reports_reports__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_12__regionalfunds_regionalfunds__["a"]; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__topfunds_topfunds__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__regionalfunds_regionalfunds__ = __webpack_require__(64);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
 
@@ -39,15 +28,50 @@ webpackJsonp([6],{
 
 
 
+var UserPage = (function () {
+    function UserPage(navCtrl, navParams, authService, menuCtrl) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.authService = authService;
+        this.menuCtrl = menuCtrl;
+        this.current_user = authService.getLoggedInUser();
+    }
+    UserPage.prototype.openMenu = function () {
+        this.menuCtrl.open();
+    };
+    UserPage.prototype.closeMenu = function () {
+        this.menuCtrl.close();
+    };
+    UserPage.prototype.toggleMenu = function () {
+        this.menuCtrl.toggle();
+    };
+    UserPage.prototype.navToTopFunds = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__topfunds_topfunds__["a" /* TopFundsPage */]);
+    };
+    UserPage.prototype.navToByRegionPage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__regionalfunds_regionalfunds__["a" /* RegionalfundsPage */]);
+    };
+    UserPage.prototype.navUserInfo = function () {
+        this.menuCtrl.toggle();
+    };
+    UserPage.prototype.logout = function () {
+        this.authService.logout();
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__login_login__["a" /* LoginPage */]);
+    };
+    UserPage.prototype.navPortfolioPage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+    };
+    UserPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-user',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/'<ion-content>\n    <ion-row>\n        <ion-col class="user-data">\n            <ion-icon class="icon" name="md-person" large></ion-icon>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="title">\n            {{ current_user.username }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            user_id: {{ current_user.user_id }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Tier: {{ current_user.tier }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Role: {{ current_user.role }}\n        </ion-col>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
+    ], UserPage);
+    return UserPage;
+}());
 
-
-
-
-
-
-
-
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=user.js.map
 
 /***/ }),
 
@@ -56,7 +80,7 @@ webpackJsonp([6],{
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return InvestmentsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_fund_service__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_security_service__ = __webpack_require__(183);
@@ -160,9 +184,9 @@ var InvestmentsPage = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__login_login__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -221,16 +245,97 @@ var RegisterPage = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RootPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(20);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var RootPage = (function () {
+    function RootPage(loadingCtrl, alertCtrl, authService, navCtrl, navParams) {
+        this.loadingCtrl = loadingCtrl;
+        this.alertCtrl = alertCtrl;
+        this.authService = authService;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    RootPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad RootPage');
+    };
+    /*public createAccount(){
+      console.log('Navigate to register page.');
+      this.navCtrl.push(RegisterPage);
+    }
+  
+    public login(){
+  
+      
+      google how to find if ionic is in dev mode
+      send post request to localhost:8000/api/auth, production endpoint
+      create endpoint service, if dev export localhost endpoint else export production endpoint
+      
+      
+      this.showLoading();
+      console.log('login');
+      this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
+      .then(user => {if(user.username) this.navCtrl.setRoot(HomePage);});
+        this.navCtrl.setRoot(HomePage);
+    }*/
+    RootPage.prototype.showLoading = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Please wait...',
+            dismissOnPageChange: true
+        });
+        this.loading.present();
+    };
+    RootPage.prototype.showError = function (text) {
+        this.loading.dismiss();
+        var alert = this.alertCtrl.create({
+            title: 'Fail',
+            subTitle: text,
+            buttons: ['OK']
+        });
+        alert.present();
+    };
+    RootPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-root',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/'<ion-content class="root-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+    ], RootPage);
+    return RootPage;
+}());
+
+//# sourceMappingURL=root.js.map
+
+/***/ }),
+
+/***/ 126:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReportsPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_fund_service__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__topfunds_topfunds__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__regionalfunds_regionalfunds__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__user_user__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__topfunds_topfunds__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__regionalfunds_regionalfunds__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__user_user__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_prediction_service__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__services_prediction_service__ = __webpack_require__(186);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -324,87 +429,6 @@ var ReportsPage = (function () {
 
 /***/ }),
 
-/***/ 126:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RootPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(20);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var RootPage = (function () {
-    function RootPage(loadingCtrl, alertCtrl, authService, navCtrl, navParams) {
-        this.loadingCtrl = loadingCtrl;
-        this.alertCtrl = alertCtrl;
-        this.authService = authService;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    RootPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad RootPage');
-    };
-    /*public createAccount(){
-      console.log('Navigate to register page.');
-      this.navCtrl.push(RegisterPage);
-    }
-  
-    public login(){
-  
-      
-      google how to find if ionic is in dev mode
-      send post request to localhost:8000/api/auth, production endpoint
-      create endpoint service, if dev export localhost endpoint else export production endpoint
-      
-      
-      this.showLoading();
-      console.log('login');
-      this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
-      .then(user => {if(user.username) this.navCtrl.setRoot(HomePage);});
-        this.navCtrl.setRoot(HomePage);
-    }*/
-    RootPage.prototype.showLoading = function () {
-        this.loading = this.loadingCtrl.create({
-            content: 'Please wait...',
-            dismissOnPageChange: true
-        });
-        this.loading.present();
-    };
-    RootPage.prototype.showError = function (text) {
-        this.loading.dismiss();
-        var alert = this.alertCtrl.create({
-            title: 'Fail',
-            subTitle: text,
-            buttons: ['OK']
-        });
-        alert.present();
-    };
-    RootPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-root',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/'<ion-content class="root-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
-    ], RootPage);
-    return RootPage;
-}());
-
-//# sourceMappingURL=root.js.map
-
-/***/ }),
-
 /***/ 138:
 /***/ (function(module, exports) {
 
@@ -427,27 +451,23 @@ webpackEmptyAsyncContext.id = 138;
 
 var map = {
 	"../pages/investments/investments.module": [
-		499,
-		5
-	],
-	"../pages/login/login.module": [
-		500,
+		498,
 		4
 	],
-	"../pages/register/register.module": [
-		502,
+	"../pages/login/login.module": [
+		499,
 		3
+	],
+	"../pages/register/register.module": [
+		500,
+		2
 	],
 	"../pages/reports/reports.module": [
 		501,
-		2
-	],
-	"../pages/root/root.module": [
-		503,
 		1
 	],
-	"../pages/test/test.module": [
-		504,
+	"../pages/root/root.module": [
+		502,
 		0
 	]
 };
@@ -495,7 +515,12 @@ var Security = (function () {
         this.id = id;
         this.name = name;
         this.price_history = price_history;
-        this.current_price = this.price_history[0]['4. close'];
+        if (price_history && price_history != undefined && price_history.length > 0) {
+            this.current_price = this.price_history[0]['4. close'];
+        }
+        else {
+            this.current_price = 0;
+        }
     }
     return Security;
 }());
@@ -528,12 +553,12 @@ var Stock = (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SecurityService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(42);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -549,6 +574,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+// import { Security } from '../models/security';
 var SecurityService = (function () {
     function SecurityService(http, endpointService) {
         this.http = http;
@@ -567,10 +593,6 @@ var SecurityService = (function () {
             })
                 .catch(_this.handleErrorPromise);
         });
-    };
-    SecurityService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body;
     };
     SecurityService.prototype.handleErrorPromise = function (error) {
         console.error(error.message || error);
@@ -636,14 +658,44 @@ var User = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_service__ = __webpack_require__(417);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fund_service__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__endpoint_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__following_service__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__prediction_service__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__security_service__ = __webpack_require__(183);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_0__user_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__fund_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__endpoint_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__following_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__prediction_service__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__security_service__["a"]; });
+
+
+
+
+
+
+
+
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 186:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PredictionService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(42);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -678,10 +730,6 @@ var PredictionService = (function () {
                 .catch(_this.handleErrorPromise);
         });
     };
-    PredictionService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body;
-    };
     PredictionService.prototype.handleErrorPromise = function (error) {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
@@ -697,20 +745,19 @@ var PredictionService = (function () {
 
 /***/ }),
 
-/***/ 20:
+/***/ 187:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restapi_restapi__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_user__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__topfunds_topfunds__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__regionalfunds_regionalfunds__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_user__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_following_service__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_fund_service__ = __webpack_require__(37);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -727,133 +774,74 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var AuthService = (function () {
-    function AuthService(http, restapiProvider, storage) {
-        this.http = http;
-        this.restapiProvider = restapiProvider;
-        this.storage = storage;
+
+var HomePage = (function () {
+    function HomePage(navCtrl, navParams, menuCtrl, followService, fundService, authService) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.menuCtrl = menuCtrl;
+        this.followService = followService;
+        this.fundService = fundService;
+        this.authService = authService;
+        this.fundList = [];
+        this.user = authService.getLoggedInUser();
     }
-    AuthService.prototype.login = function (loginCredentials) {
+    HomePage.prototype.ngOnInit = function () {
         var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.restapiProvider.Login(loginCredentials)
-                .then(function (user) { if (user && user.username)
-                resolve(_this.authenticate(user));
-            else
-                resolve(user); });
+        this.followService.getAllFollowing()
+            .then(function (fund_meta_list) {
+            var promiseList = [];
+            fund_meta_list.forEach(function (fund) {
+                promiseList.push(new Promise(function (resolve, reject) {
+                    _this.fundService.getFund(fund)
+                        .then(function (currentFund) {
+                        return resolve(currentFund);
+                    })
+                        .catch(function (err) { return reject(err); });
+                }));
+            });
+            return Promise.all(promiseList);
+        })
+            .then(function (fund_list) {
+            _this.fundList = fund_list;
+        })
+            .catch(function (err) {
+            console.log(err);
         });
     };
-    AuthService.prototype.logout = function () {
-        this.storage.remove('token');
+    HomePage.prototype.navToTopFunds = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__topfunds_topfunds__["a" /* TopFundsPage */]);
     };
-    AuthService.prototype.getUser = function (token) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.restapiProvider.getUser(token)
-                .then(function (user) { if (user)
-                resolve(_this.assign(user, token));
-            else
-                reject(user); });
-        });
+    HomePage.prototype.navToByRegionPage = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__regionalfunds_regionalfunds__["a" /* RegionalfundsPage */]);
     };
-    AuthService.prototype.getLoggedInUser = function () {
-        return this.user;
+    HomePage.prototype.navUserInfo = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__user_user__["a" /* UserPage */]);
     };
-    AuthService.prototype.assign = function (user, token) {
-        var _this = this;
-        console.log('Got a User');
-        console.log(user);
-        user.token = token;
-        return new Promise(function (resolve, reject) {
-            _this.user = new __WEBPACK_IMPORTED_MODULE_5__models_user__["a" /* User */](user);
-            resolve(_this.user);
-        });
-    };
-    AuthService.prototype.authenticate = function (res) {
-        var _this = this;
-        console.log('WE SHOULD NOT BE HERE. GET TO THE CHOPPER;');
-        return new Promise(function (resolve, reject) {
-            _this.user = new __WEBPACK_IMPORTED_MODULE_5__models_user__["a" /* User */](res);
-            console.log('User Set');
-            console.log(_this.user);
-            _this.storage.set('token', _this.user.token);
-            console.log(_this.user.token);
-            console.log('This is a promise?');
-            resolve(_this.user);
-        });
-    };
-    AuthService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_2__providers_restapi_restapi__["a" /* RestapiProvider */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */]])
-    ], AuthService);
-    return AuthService;
-}());
-
-//# sourceMappingURL=auth.service.js.map
-
-/***/ }),
-
-/***/ 229:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__main__ = __webpack_require__(122);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var MenuPage = (function () {
-    function MenuPage(platform) {
-        this.platform = platform;
-        this.rootPage = __WEBPACK_IMPORTED_MODULE_2__main__["b" /* HomePage */];
-        // used for an example of ngFor and navigation
-        this.pages = [
-            { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_2__main__["b" /* HomePage */] }
-        ];
-    }
-    MenuPage.prototype.openPage = function (page) {
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
-        this.nav.setRoot(page.component);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
-    ], MenuPage.prototype, "nav", void 0);
-    MenuPage = __decorate([
+    HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>StackReport</ion-title>\n    </ion-navbar>\n</ion-header>\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navToUserPage()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */]])
-    ], MenuPage);
-    return MenuPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_6__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_7__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]])
+    ], HomePage);
+    return HomePage;
 }());
 
-//# sourceMappingURL=menu.js.map
+//# sourceMappingURL=home.js.map
 
 /***/ }),
 
-/***/ 230:
+/***/ 188:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SecurityPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_security__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_investments_investments__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_reports_reports__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_reports_reports__ = __webpack_require__(126);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_following_service__ = __webpack_require__(53);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -950,14 +938,19 @@ var SecurityPage = (function () {
 
 /***/ }),
 
-/***/ 359:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TestPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_restapi_restapi__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_user__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(97);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -968,43 +961,75 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+// import { Http, Response } from '@angular/http';
+// import { Headers, RequestOptions } from '@angular/http';
 
 
-/**
- * Generated class for the TestPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-var TestPage = (function () {
-    function TestPage(navCtrl, navParams, restapiProvider) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
+
+
+
+var AuthService = (function () {
+    function AuthService(restapiProvider, storage) {
         this.restapiProvider = restapiProvider;
-        this.getData();
+        this.storage = storage;
     }
-    TestPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad TestPage');
-    };
-    TestPage.prototype.getData = function () {
+    AuthService.prototype.login = function (loginCredentials) {
         var _this = this;
-        this.restapiProvider.getData()
-            .then(function (data) {
-            _this.jData = data;
-            console.log(JSON.stringify(_this.jData));
+        return new Promise(function (resolve, reject) {
+            _this.restapiProvider.Login(loginCredentials)
+                .then(function (user) { if (user && user.username)
+                resolve(_this.authenticate(user));
+            else
+                resolve(user); });
         });
     };
-    TestPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-test',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/test/test.html"*/'<!--\n  Generated template for the TestPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>TESTING</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n    <ion-item *ngFor="let d of jData?.data">\n      <h2>{{d.name}}</h2>\n        <ion-item *ngFor="let hold of d?.holdings">\n          <p>{{hold.security.name}}  {{hold.security.ticker}}  Amount: {{hold.amount}}   Value: {{hold.security.value}}</p>\n        </ion-item>\n    </ion-item>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/test/test.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_restapi_restapi__["a" /* RestapiProvider */]])
-    ], TestPage);
-    return TestPage;
+    AuthService.prototype.logout = function () {
+        this.storage.remove('token');
+    };
+    AuthService.prototype.getUser = function (token) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.restapiProvider.getUser(token)
+                .then(function (user) { if (user)
+                resolve(_this.assign(user, token));
+            else
+                reject(user); });
+        });
+    };
+    AuthService.prototype.getLoggedInUser = function () {
+        return this.user;
+    };
+    AuthService.prototype.assign = function (user, token) {
+        var _this = this;
+        console.log('Got a User');
+        console.log(user);
+        user.token = token;
+        return new Promise(function (resolve, reject) {
+            _this.user = new __WEBPACK_IMPORTED_MODULE_4__models_user__["a" /* User */](user);
+            resolve(_this.user);
+        });
+    };
+    AuthService.prototype.authenticate = function (res) {
+        var _this = this;
+        console.log('WE SHOULD NOT BE HERE. GET TO THE CHOPPER;');
+        return new Promise(function (resolve, reject) {
+            _this.user = new __WEBPACK_IMPORTED_MODULE_4__models_user__["a" /* User */](res);
+            console.log('User Set');
+            console.log(_this.user);
+            _this.storage.set('token', _this.user.token);
+            console.log(_this.user.token);
+            console.log('This is a promise?');
+            resolve(_this.user);
+        });
+    };
+    AuthService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__["a" /* RestapiProvider */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
+    ], AuthService);
+    return AuthService;
 }());
 
-//# sourceMappingURL=test.js.map
+//# sourceMappingURL=auth.service.js.map
 
 /***/ }),
 
@@ -1028,12 +1053,12 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FundService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_security__ = __webpack_require__(182);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1090,10 +1115,6 @@ var FundService = (function () {
                 .catch(_this.handleErrorPromise);
         });
     };
-    FundService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body;
-    };
     FundService.prototype.handleErrorPromise = function (error) {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
@@ -1109,7 +1130,277 @@ var FundService = (function () {
 
 /***/ }),
 
-/***/ 38:
+/***/ 382:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_restapi_restapi__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_main__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_storage__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_charts__ = __webpack_require__(446);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_charts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_ng2_charts__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_main__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_main__ = __webpack_require__(495);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["i" /* RootPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["m" /* UserPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["b" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["g" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["k" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["d" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["j" /* SecurityPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["l" /* TopFundsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["f" /* RegionalfundsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["c" /* InvestmentsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["h" /* ReportsPage */],
+                __WEBPACK_IMPORTED_MODULE_13__components_main__["a" /* PreviewComponent */],
+                __WEBPACK_IMPORTED_MODULE_13__components_main__["b" /* SecurityGraphComponent */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["e" /* MenuPage */],
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
+                    links: [
+                        { loadChildren: '../pages/investments/investments.module#InvestmentsPageModule', name: 'InvestmentsPage', segment: 'investments', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] }
+                    ]
+                }),
+                __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_11_ng2_charts__["ChartsModule"]
+            ],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicApp */]],
+            entryComponents: [
+                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["i" /* RootPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["a" /* AboutPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["m" /* UserPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["b" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["g" /* RegisterPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["k" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["d" /* LoginPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["j" /* SecurityPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["l" /* TopFundsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["e" /* MenuPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["h" /* ReportsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["c" /* InvestmentsPage */],
+                __WEBPACK_IMPORTED_MODULE_12__pages_main__["f" /* RegionalfundsPage */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__["a" /* SplashScreen */],
+                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicErrorHandler */] },
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["g" /* UserService */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["d" /* FundService */],
+                __WEBPACK_IMPORTED_MODULE_8__providers_restapi_restapi__["a" /* RestapiProvider */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["a" /* AuthService */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["b" /* EndpointService */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["c" /* FollowingService */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["e" /* PredictionService */],
+                __WEBPACK_IMPORTED_MODULE_9__services_main__["f" /* SecurityService */]
+            ]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 417:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var UserService = (function () {
+    function UserService(http) {
+        this.http = http;
+    }
+    UserService.prototype.getUsers = function (page, size) {
+        var _this = this;
+        if (page === void 0) { page = 0; }
+        if (size === void 0) { size = 10; }
+        return new Promise(function (resolve, reject) {
+            var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({
+                params: {
+                    page: page,
+                    size: size
+                }
+            });
+            console.log("this.url");
+            console.log(_this.url);
+            _this.http.get(_this.url, options).toPromise()
+                .then(function (res) {
+                return resolve(_this.extractData(res));
+            })
+                .catch(_this.handleErrorPromise);
+        });
+    };
+    UserService.prototype.addUser = function (user) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
+        // TODO: Consider changing this to an observable.
+        return new Promise(function (resolve, reject) {
+            _this.http.post(_this.url, user, options).toPromise()
+                .then(function (res) {
+                return resolve(_this.extractData(res));
+            })
+                .catch(_this.handleErrorPromise);
+        });
+    };
+    UserService.prototype.extractData = function (res) {
+        var body = res.json();
+        return body.data || [];
+    };
+    UserService.prototype.handleErrorPromise = function (error) {
+        console.error(error.message || error);
+        return Promise.reject(error.message || error);
+    };
+    UserService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+    ], UserService);
+    return UserService;
+}());
+
+//# sourceMappingURL=user.service.js.map
+
+/***/ }),
+
+/***/ 418:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var AboutPage = (function () {
+    function AboutPage(navCtrl) {
+        this.navCtrl = navCtrl;
+    }
+    AboutPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-about',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
+    ], AboutPage);
+    return AboutPage;
+}());
+
+//# sourceMappingURL=about.js.map
+
+/***/ }),
+
+/***/ 419:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(99);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var TabsPage = (function () {
+    function TabsPage() {
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__main__["b" /* HomePage */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__main__["a" /* AboutPage */];
+        this.tab3Root = __WEBPACK_IMPORTED_MODULE_1__main__["m" /* UserPage */];
+    }
+    TabsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/tabs/tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Users" tabIcon="contacts"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="Test" tabIcon="test"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/tabs/tabs.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], TabsPage);
+    return TabsPage;
+}());
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 42:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1157,137 +1448,16 @@ var EndpointService = (function () {
 
 /***/ }),
 
-/***/ 382:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__providers_restapi_restapi__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__services_main__ = __webpack_require__(445);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_storage__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_charts__ = __webpack_require__(447);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_ng2_charts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_ng2_charts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_main__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_main__ = __webpack_require__(496);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var AppModule = (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["i" /* RootPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["n" /* UserPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["b" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["g" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["k" /* TabsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["l" /* TestPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["d" /* LoginPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["j" /* SecurityPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["m" /* TopFundsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["f" /* RegionalfundsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["c" /* InvestmentsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["h" /* ReportsPage */],
-                __WEBPACK_IMPORTED_MODULE_13__components_main__["a" /* PreviewComponent */],
-                __WEBPACK_IMPORTED_MODULE_13__components_main__["b" /* SecurityGraphComponent */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["e" /* MenuPage */],
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
-                    links: [
-                        { loadChildren: '../pages/investments/investments.module#InvestmentsPageModule', name: 'InvestmentsPage', segment: 'investments', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/test/test.module#TestPageModule', name: 'TestPage', segment: 'test', priority: 'low', defaultHistory: [] }
-                    ]
-                }),
-                __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_11_ng2_charts__["ChartsModule"]
-            ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicApp */]],
-            entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["i" /* RootPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["a" /* AboutPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["n" /* UserPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["b" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["g" /* RegisterPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["k" /* TabsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["l" /* TestPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["d" /* LoginPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["j" /* SecurityPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["m" /* TopFundsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["e" /* MenuPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["h" /* ReportsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["c" /* InvestmentsPage */],
-                __WEBPACK_IMPORTED_MODULE_12__pages_main__["f" /* RegionalfundsPage */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicErrorHandler */] },
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["g" /* UserService */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["d" /* FundService */],
-                __WEBPACK_IMPORTED_MODULE_8__providers_restapi_restapi__["a" /* RestapiProvider */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["a" /* AuthService */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["b" /* EndpointService */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["c" /* FollowingService */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["e" /* PredictionService */],
-                __WEBPACK_IMPORTED_MODULE_9__services_main__["f" /* SecurityService */]
-            ]
-        })
-    ], AppModule);
-    return AppModule;
-}());
-
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
 /***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_register__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__menu_menu__ = __webpack_require__(98);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1343,7 +1513,7 @@ var LoginPage = (function () {
         console.log('login');
         this.authService.login({ username: this.loginCredentials.username, password: this.loginCredentials.password })
             .then(function (user) { if (user && user.username)
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_4__menu_menu__["a" /* MenuPage */]);
         else
             _this.resetLoginPage(); });
     };
@@ -1377,20 +1547,20 @@ var LoginPage = (function () {
 
 /***/ }),
 
-/***/ 434:
+/***/ 437:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(225);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_root_root__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_root_root__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_auth_service__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_menu_menu__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_menu_menu__ = __webpack_require__(98);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1454,440 +1624,254 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 443:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AboutPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var AboutPage = (function () {
-    function AboutPage(navCtrl) {
-        this.navCtrl = navCtrl;
-    }
-    AboutPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-about',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
-    ], AboutPage);
-    return AboutPage;
-}());
-
-//# sourceMappingURL=about.js.map
-
-/***/ }),
-
-/***/ 444:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__main__ = __webpack_require__(122);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var TabsPage = (function () {
-    function TabsPage() {
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_1__main__["b" /* HomePage */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__main__["a" /* AboutPage */];
-        this.tab3Root = __WEBPACK_IMPORTED_MODULE_1__main__["n" /* UserPage */];
-        this.tab4Root = __WEBPACK_IMPORTED_MODULE_1__main__["l" /* TestPage */];
-    }
-    TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/tabs/tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="home"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="About" tabIcon="information-circle"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Users" tabIcon="contacts"></ion-tab>\n  <ion-tab [root]="tab4Root" tabTitle="Test" tabIcon="test"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/tabs/tabs.html"*/
-        }),
-        __metadata("design:paramtypes", [])
-    ], TabsPage);
-    return TabsPage;
-}());
-
-//# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 445:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__user_service__ = __webpack_require__(446);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fund_service__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__endpoint_service__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__following_service__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__prediction_service__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__security_service__ = __webpack_require__(183);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_0__user_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1__auth_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_2__fund_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_3__endpoint_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_4__following_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_5__prediction_service__["a"]; });
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_6__security_service__["a"]; });
-
-
-
-
-
-
-
-
-//# sourceMappingURL=main.js.map
-
-/***/ }),
-
-/***/ 446:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(38);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var UserService = (function () {
-    function UserService(http, endpointService) {
-        this.http = http;
-        this.endpointService = endpointService;
-    }
-    UserService.prototype.getUsers = function (page, size) {
-        var _this = this;
-        if (page === void 0) { page = 0; }
-        if (size === void 0) { size = 10; }
-        return new Promise(function (resolve, reject) {
-            var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({
-                params: {
-                    page: page,
-                    size: size
-                }
-            });
-            console.log("this.url");
-            console.log(_this.url);
-            _this.http.get(_this.url, options).toPromise()
-                .then(function (res) {
-                return resolve(_this.extractData(res));
-            })
-                .catch(_this.handleErrorPromise);
-        });
-    };
-    UserService.prototype.addUser = function (user) {
-        var _this = this;
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
-        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-        // TODO: Consider changing this to an observable.
-        return new Promise(function (resolve, reject) {
-            _this.http.post(_this.url, user, options).toPromise()
-                .then(function (res) {
-                return resolve(_this.extractData(res));
-            })
-                .catch(_this.handleErrorPromise);
-        });
-    };
-    UserService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body.data || [];
-    };
-    UserService.prototype.handleErrorPromise = function (error) {
-        console.error(error.message || error);
-        return Promise.reject(error.message || error);
-    };
-    UserService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__endpoint_service__["a" /* EndpointService */]])
-    ], UserService);
-    return UserService;
-}());
-
-//# sourceMappingURL=user.service.js.map
-
-/***/ }),
-
-/***/ 477:
+/***/ 476:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 237,
-	"./af.js": 237,
-	"./ar": 238,
-	"./ar-dz": 239,
-	"./ar-dz.js": 239,
-	"./ar-kw": 240,
-	"./ar-kw.js": 240,
-	"./ar-ly": 241,
-	"./ar-ly.js": 241,
-	"./ar-ma": 242,
-	"./ar-ma.js": 242,
-	"./ar-sa": 243,
-	"./ar-sa.js": 243,
-	"./ar-tn": 244,
-	"./ar-tn.js": 244,
-	"./ar.js": 238,
-	"./az": 245,
-	"./az.js": 245,
-	"./be": 246,
-	"./be.js": 246,
-	"./bg": 247,
-	"./bg.js": 247,
-	"./bm": 248,
-	"./bm.js": 248,
-	"./bn": 249,
-	"./bn.js": 249,
-	"./bo": 250,
-	"./bo.js": 250,
-	"./br": 251,
-	"./br.js": 251,
-	"./bs": 252,
-	"./bs.js": 252,
-	"./ca": 253,
-	"./ca.js": 253,
-	"./cs": 254,
-	"./cs.js": 254,
-	"./cv": 255,
-	"./cv.js": 255,
-	"./cy": 256,
-	"./cy.js": 256,
-	"./da": 257,
-	"./da.js": 257,
-	"./de": 258,
-	"./de-at": 259,
-	"./de-at.js": 259,
-	"./de-ch": 260,
-	"./de-ch.js": 260,
-	"./de.js": 258,
-	"./dv": 261,
-	"./dv.js": 261,
-	"./el": 262,
-	"./el.js": 262,
-	"./en-au": 263,
-	"./en-au.js": 263,
-	"./en-ca": 264,
-	"./en-ca.js": 264,
-	"./en-gb": 265,
-	"./en-gb.js": 265,
-	"./en-ie": 266,
-	"./en-ie.js": 266,
-	"./en-il": 267,
-	"./en-il.js": 267,
-	"./en-nz": 268,
-	"./en-nz.js": 268,
-	"./eo": 269,
-	"./eo.js": 269,
-	"./es": 270,
-	"./es-do": 271,
-	"./es-do.js": 271,
-	"./es-us": 272,
-	"./es-us.js": 272,
-	"./es.js": 270,
-	"./et": 273,
-	"./et.js": 273,
-	"./eu": 274,
-	"./eu.js": 274,
-	"./fa": 275,
-	"./fa.js": 275,
-	"./fi": 276,
-	"./fi.js": 276,
-	"./fo": 277,
-	"./fo.js": 277,
-	"./fr": 278,
-	"./fr-ca": 279,
-	"./fr-ca.js": 279,
-	"./fr-ch": 280,
-	"./fr-ch.js": 280,
-	"./fr.js": 278,
-	"./fy": 281,
-	"./fy.js": 281,
-	"./gd": 282,
-	"./gd.js": 282,
-	"./gl": 283,
-	"./gl.js": 283,
-	"./gom-latn": 284,
-	"./gom-latn.js": 284,
-	"./gu": 285,
-	"./gu.js": 285,
-	"./he": 286,
-	"./he.js": 286,
-	"./hi": 287,
-	"./hi.js": 287,
-	"./hr": 288,
-	"./hr.js": 288,
-	"./hu": 289,
-	"./hu.js": 289,
-	"./hy-am": 290,
-	"./hy-am.js": 290,
-	"./id": 291,
-	"./id.js": 291,
-	"./is": 292,
-	"./is.js": 292,
-	"./it": 293,
-	"./it.js": 293,
-	"./ja": 294,
-	"./ja.js": 294,
-	"./jv": 295,
-	"./jv.js": 295,
-	"./ka": 296,
-	"./ka.js": 296,
-	"./kk": 297,
-	"./kk.js": 297,
-	"./km": 298,
-	"./km.js": 298,
-	"./kn": 299,
-	"./kn.js": 299,
-	"./ko": 300,
-	"./ko.js": 300,
-	"./ky": 301,
-	"./ky.js": 301,
-	"./lb": 302,
-	"./lb.js": 302,
-	"./lo": 303,
-	"./lo.js": 303,
-	"./lt": 304,
-	"./lt.js": 304,
-	"./lv": 305,
-	"./lv.js": 305,
-	"./me": 306,
-	"./me.js": 306,
-	"./mi": 307,
-	"./mi.js": 307,
-	"./mk": 308,
-	"./mk.js": 308,
-	"./ml": 309,
-	"./ml.js": 309,
-	"./mr": 310,
-	"./mr.js": 310,
-	"./ms": 311,
-	"./ms-my": 312,
-	"./ms-my.js": 312,
-	"./ms.js": 311,
-	"./mt": 313,
-	"./mt.js": 313,
-	"./my": 314,
-	"./my.js": 314,
-	"./nb": 315,
-	"./nb.js": 315,
-	"./ne": 316,
-	"./ne.js": 316,
-	"./nl": 317,
-	"./nl-be": 318,
-	"./nl-be.js": 318,
-	"./nl.js": 317,
-	"./nn": 319,
-	"./nn.js": 319,
-	"./pa-in": 320,
-	"./pa-in.js": 320,
-	"./pl": 321,
-	"./pl.js": 321,
-	"./pt": 322,
-	"./pt-br": 323,
-	"./pt-br.js": 323,
-	"./pt.js": 322,
-	"./ro": 324,
-	"./ro.js": 324,
-	"./ru": 325,
-	"./ru.js": 325,
-	"./sd": 326,
-	"./sd.js": 326,
-	"./se": 327,
-	"./se.js": 327,
-	"./si": 328,
-	"./si.js": 328,
-	"./sk": 329,
-	"./sk.js": 329,
-	"./sl": 330,
-	"./sl.js": 330,
-	"./sq": 331,
-	"./sq.js": 331,
-	"./sr": 332,
-	"./sr-cyrl": 333,
-	"./sr-cyrl.js": 333,
-	"./sr.js": 332,
-	"./ss": 334,
-	"./ss.js": 334,
-	"./sv": 335,
-	"./sv.js": 335,
-	"./sw": 336,
-	"./sw.js": 336,
-	"./ta": 337,
-	"./ta.js": 337,
-	"./te": 338,
-	"./te.js": 338,
-	"./tet": 339,
-	"./tet.js": 339,
-	"./tg": 340,
-	"./tg.js": 340,
-	"./th": 341,
-	"./th.js": 341,
-	"./tl-ph": 342,
-	"./tl-ph.js": 342,
-	"./tlh": 343,
-	"./tlh.js": 343,
-	"./tr": 344,
-	"./tr.js": 344,
-	"./tzl": 345,
-	"./tzl.js": 345,
-	"./tzm": 346,
-	"./tzm-latn": 347,
-	"./tzm-latn.js": 347,
-	"./tzm.js": 346,
-	"./ug-cn": 348,
-	"./ug-cn.js": 348,
-	"./uk": 349,
-	"./uk.js": 349,
-	"./ur": 350,
-	"./ur.js": 350,
-	"./uz": 351,
-	"./uz-latn": 352,
-	"./uz-latn.js": 352,
-	"./uz.js": 351,
-	"./vi": 353,
-	"./vi.js": 353,
-	"./x-pseudo": 354,
-	"./x-pseudo.js": 354,
-	"./yo": 355,
-	"./yo.js": 355,
-	"./zh-cn": 356,
-	"./zh-cn.js": 356,
-	"./zh-hk": 357,
-	"./zh-hk.js": 357,
-	"./zh-tw": 358,
-	"./zh-tw.js": 358
+	"./af": 238,
+	"./af.js": 238,
+	"./ar": 239,
+	"./ar-dz": 240,
+	"./ar-dz.js": 240,
+	"./ar-kw": 241,
+	"./ar-kw.js": 241,
+	"./ar-ly": 242,
+	"./ar-ly.js": 242,
+	"./ar-ma": 243,
+	"./ar-ma.js": 243,
+	"./ar-sa": 244,
+	"./ar-sa.js": 244,
+	"./ar-tn": 245,
+	"./ar-tn.js": 245,
+	"./ar.js": 239,
+	"./az": 246,
+	"./az.js": 246,
+	"./be": 247,
+	"./be.js": 247,
+	"./bg": 248,
+	"./bg.js": 248,
+	"./bm": 249,
+	"./bm.js": 249,
+	"./bn": 250,
+	"./bn.js": 250,
+	"./bo": 251,
+	"./bo.js": 251,
+	"./br": 252,
+	"./br.js": 252,
+	"./bs": 253,
+	"./bs.js": 253,
+	"./ca": 254,
+	"./ca.js": 254,
+	"./cs": 255,
+	"./cs.js": 255,
+	"./cv": 256,
+	"./cv.js": 256,
+	"./cy": 257,
+	"./cy.js": 257,
+	"./da": 258,
+	"./da.js": 258,
+	"./de": 259,
+	"./de-at": 260,
+	"./de-at.js": 260,
+	"./de-ch": 261,
+	"./de-ch.js": 261,
+	"./de.js": 259,
+	"./dv": 262,
+	"./dv.js": 262,
+	"./el": 263,
+	"./el.js": 263,
+	"./en-au": 264,
+	"./en-au.js": 264,
+	"./en-ca": 265,
+	"./en-ca.js": 265,
+	"./en-gb": 266,
+	"./en-gb.js": 266,
+	"./en-ie": 267,
+	"./en-ie.js": 267,
+	"./en-il": 268,
+	"./en-il.js": 268,
+	"./en-nz": 269,
+	"./en-nz.js": 269,
+	"./eo": 270,
+	"./eo.js": 270,
+	"./es": 271,
+	"./es-do": 272,
+	"./es-do.js": 272,
+	"./es-us": 273,
+	"./es-us.js": 273,
+	"./es.js": 271,
+	"./et": 274,
+	"./et.js": 274,
+	"./eu": 275,
+	"./eu.js": 275,
+	"./fa": 276,
+	"./fa.js": 276,
+	"./fi": 277,
+	"./fi.js": 277,
+	"./fo": 278,
+	"./fo.js": 278,
+	"./fr": 279,
+	"./fr-ca": 280,
+	"./fr-ca.js": 280,
+	"./fr-ch": 281,
+	"./fr-ch.js": 281,
+	"./fr.js": 279,
+	"./fy": 282,
+	"./fy.js": 282,
+	"./gd": 283,
+	"./gd.js": 283,
+	"./gl": 284,
+	"./gl.js": 284,
+	"./gom-latn": 285,
+	"./gom-latn.js": 285,
+	"./gu": 286,
+	"./gu.js": 286,
+	"./he": 287,
+	"./he.js": 287,
+	"./hi": 288,
+	"./hi.js": 288,
+	"./hr": 289,
+	"./hr.js": 289,
+	"./hu": 290,
+	"./hu.js": 290,
+	"./hy-am": 291,
+	"./hy-am.js": 291,
+	"./id": 292,
+	"./id.js": 292,
+	"./is": 293,
+	"./is.js": 293,
+	"./it": 294,
+	"./it.js": 294,
+	"./ja": 295,
+	"./ja.js": 295,
+	"./jv": 296,
+	"./jv.js": 296,
+	"./ka": 297,
+	"./ka.js": 297,
+	"./kk": 298,
+	"./kk.js": 298,
+	"./km": 299,
+	"./km.js": 299,
+	"./kn": 300,
+	"./kn.js": 300,
+	"./ko": 301,
+	"./ko.js": 301,
+	"./ky": 302,
+	"./ky.js": 302,
+	"./lb": 303,
+	"./lb.js": 303,
+	"./lo": 304,
+	"./lo.js": 304,
+	"./lt": 305,
+	"./lt.js": 305,
+	"./lv": 306,
+	"./lv.js": 306,
+	"./me": 307,
+	"./me.js": 307,
+	"./mi": 308,
+	"./mi.js": 308,
+	"./mk": 309,
+	"./mk.js": 309,
+	"./ml": 310,
+	"./ml.js": 310,
+	"./mr": 311,
+	"./mr.js": 311,
+	"./ms": 312,
+	"./ms-my": 313,
+	"./ms-my.js": 313,
+	"./ms.js": 312,
+	"./mt": 314,
+	"./mt.js": 314,
+	"./my": 315,
+	"./my.js": 315,
+	"./nb": 316,
+	"./nb.js": 316,
+	"./ne": 317,
+	"./ne.js": 317,
+	"./nl": 318,
+	"./nl-be": 319,
+	"./nl-be.js": 319,
+	"./nl.js": 318,
+	"./nn": 320,
+	"./nn.js": 320,
+	"./pa-in": 321,
+	"./pa-in.js": 321,
+	"./pl": 322,
+	"./pl.js": 322,
+	"./pt": 323,
+	"./pt-br": 324,
+	"./pt-br.js": 324,
+	"./pt.js": 323,
+	"./ro": 325,
+	"./ro.js": 325,
+	"./ru": 326,
+	"./ru.js": 326,
+	"./sd": 327,
+	"./sd.js": 327,
+	"./se": 328,
+	"./se.js": 328,
+	"./si": 329,
+	"./si.js": 329,
+	"./sk": 330,
+	"./sk.js": 330,
+	"./sl": 331,
+	"./sl.js": 331,
+	"./sq": 332,
+	"./sq.js": 332,
+	"./sr": 333,
+	"./sr-cyrl": 334,
+	"./sr-cyrl.js": 334,
+	"./sr.js": 333,
+	"./ss": 335,
+	"./ss.js": 335,
+	"./sv": 336,
+	"./sv.js": 336,
+	"./sw": 337,
+	"./sw.js": 337,
+	"./ta": 338,
+	"./ta.js": 338,
+	"./te": 339,
+	"./te.js": 339,
+	"./tet": 340,
+	"./tet.js": 340,
+	"./tg": 341,
+	"./tg.js": 341,
+	"./th": 342,
+	"./th.js": 342,
+	"./tl-ph": 343,
+	"./tl-ph.js": 343,
+	"./tlh": 344,
+	"./tlh.js": 344,
+	"./tr": 345,
+	"./tr.js": 345,
+	"./tzl": 346,
+	"./tzl.js": 346,
+	"./tzm": 347,
+	"./tzm-latn": 348,
+	"./tzm-latn.js": 348,
+	"./tzm.js": 347,
+	"./ug-cn": 349,
+	"./ug-cn.js": 349,
+	"./uk": 350,
+	"./uk.js": 350,
+	"./ur": 351,
+	"./ur.js": 351,
+	"./uz": 352,
+	"./uz-latn": 353,
+	"./uz-latn.js": 353,
+	"./uz.js": 352,
+	"./vi": 354,
+	"./vi.js": 354,
+	"./x-pseudo": 355,
+	"./x-pseudo.js": 355,
+	"./yo": 356,
+	"./yo.js": 356,
+	"./zh-cn": 357,
+	"./zh-cn.js": 357,
+	"./zh-hk": 358,
+	"./zh-hk.js": 358,
+	"./zh-tw": 359,
+	"./zh-tw.js": 359
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1903,16 +1887,16 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 477;
+webpackContext.id = 476;
 
 /***/ }),
 
-/***/ 496:
+/***/ 495:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__preview_preview__ = __webpack_require__(497);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__securityGraph_securityGraph__ = __webpack_require__(498);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__preview_preview__ = __webpack_require__(496);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__securityGraph_securityGraph__ = __webpack_require__(497);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__preview_preview__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__securityGraph_securityGraph__["a"]; });
 
@@ -1922,14 +1906,14 @@ webpackContext.id = 477;
 
 /***/ }),
 
-/***/ 497:
+/***/ 496:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PreviewComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_security_security__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_security_security__ = __webpack_require__(188);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1951,10 +1935,12 @@ var PreviewComponent = (function () {
     }
     PreviewComponent.prototype.ngOnInit = function () {
         this.security = this.security_from_front;
-        if (this.security.current_price < this.security.price_history[0]['1. open']) {
+        if (this.security.price_history.length > 0 &&
+            this.security.current_price < this.security.price_history[0]['1. open']) {
             this.price_color = 'price red';
         }
-        else if (this.security.current_price > this.security.price_history[0]['1. open']) {
+        else if (this.security.price_history.length > 0 &&
+            this.security.current_price > this.security.price_history[0]['1. open']) {
             this.price_color = 'price green';
         }
     };
@@ -1980,7 +1966,7 @@ var PreviewComponent = (function () {
 
 /***/ }),
 
-/***/ 498:
+/***/ 497:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2078,12 +2064,12 @@ var SecurityGraphComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FollowingService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_toPromise__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__endpoint_service__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__auth_service__ = __webpack_require__(20);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -2116,7 +2102,6 @@ var FollowingService = (function () {
                 'Authorization': _this.authService.user.getToken()
             });
             var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-            var currentUser = _this.authService.user;
             _this.http.get(_this.url + '/' + fund_id + '/follow', options).toPromise()
                 .then(function (res) {
                 var resJson = res.json();
@@ -2133,7 +2118,6 @@ var FollowingService = (function () {
                 'Authorization': _this.authService.user.getToken()
             });
             var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-            var currentUser = _this.authService.user;
             _this.http.post(_this.url + '/' + fund_id + '/follow', {}, options).toPromise()
                 .then(function (res) {
                 var resJson = res.json();
@@ -2150,7 +2134,6 @@ var FollowingService = (function () {
                 'Authorization': _this.authService.user.getToken()
             });
             var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
-            var currentUser = _this.authService.user;
             _this.http.delete(_this.url + '/' + fund_id + '/follow', options).toPromise()
                 .then(function (res) {
                 var resJson = res.json();
@@ -2179,10 +2162,6 @@ var FollowingService = (function () {
                 .catch(_this.handleErrorPromise);
         });
     };
-    FollowingService.prototype.extractData = function (res) {
-        var body = res.json();
-        return body;
-    };
     FollowingService.prototype.handleErrorPromise = function (error) {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
@@ -2203,12 +2182,184 @@ var FollowingService = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopFundsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_following_service__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_fund_service__ = __webpack_require__(37);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var TopFundsPage = (function () {
+    function TopFundsPage(loadingCtrl, navCtrl, navParams, menuCtrl, followService, fundService, authService, applicationRef) {
+        this.loadingCtrl = loadingCtrl;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.menuCtrl = menuCtrl;
+        this.followService = followService;
+        this.fundService = fundService;
+        this.authService = authService;
+        this.applicationRef = applicationRef;
+        this.fundList = [];
+        this.user = this.authService.getLoggedInUser();
+    }
+    TopFundsPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.showLoading();
+        this.fundService.listFunds()
+            .then(function (fund_meta_list) {
+            var promiseList = [];
+            fund_meta_list.forEach(function (fund) {
+                promiseList.push(new Promise(function (resolve, reject) {
+                    _this.fundService.getFund(fund)
+                        .then(function (currentFund) {
+                        return resolve(currentFund);
+                    })
+                        .catch(function (err) { return reject(err); });
+                }));
+            });
+            return Promise.all(promiseList);
+        })
+            .then(function (fund_list) {
+            _this.fundList = fund_list;
+            console.log(_this.fundList);
+            _this.applicationRef.tick();
+            _this.loading.dismiss();
+        })
+            .catch(function (err) {
+            console.log(err);
+        });
+    };
+    TopFundsPage.prototype.showLoading = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Loading...',
+            dismissOnPageChange: false
+        });
+        this.loading.present();
+    };
+    TopFundsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-topfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n    	<div class="title">\n        	Top Mutual Funds\n    	</div>\n	</ion-row>\n	<ion-row class="previewlist">\n		<ion-row class="preview" *ngFor="let fund of fundList">\n			<component-preview *ngIf="fund" [security_in] = "fund">\n			</component-preview>\n		</ion-row>\n	</ion-row>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
+    ], TopFundsPage);
+    return TopFundsPage;
+}());
+
+//# sourceMappingURL=topfunds.js.map
+
+/***/ }),
+
+/***/ 64:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegionalfundsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_following_service__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_fund_service__ = __webpack_require__(37);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var RegionalfundsPage = (function () {
+    function RegionalfundsPage(loadingCtrl, navCtrl, navParams, menuCtrl, followService, fundService, authService, applicationRef) {
+        this.loadingCtrl = loadingCtrl;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.menuCtrl = menuCtrl;
+        this.followService = followService;
+        this.fundService = fundService;
+        this.authService = authService;
+        this.applicationRef = applicationRef;
+        this.fundList = [];
+        this.user = this.authService.getLoggedInUser();
+    }
+    RegionalfundsPage.prototype.ngOnInit = function () {
+        var _this = this;
+        this.showLoading();
+        this.fundService.listFunds()
+            .then(function (fund_meta_list) {
+            var promiseList = [];
+            fund_meta_list.forEach(function (fund) {
+                promiseList.push(new Promise(function (resolve, reject) {
+                    _this.fundService.getFund(fund)
+                        .then(function (currentFund) {
+                        return resolve(currentFund);
+                    })
+                        .catch(function (err) { return reject(err); });
+                }));
+            });
+            return Promise.all(promiseList);
+        })
+            .then(function (fund_list) {
+            _this.fundList = fund_list;
+            console.log(_this.fundList);
+            _this.applicationRef.tick();
+            _this.loading.dismiss();
+        })
+            .catch(function (err) {
+            console.log(err);
+        });
+    };
+    RegionalfundsPage.prototype.showLoading = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'Loading...',
+            dismissOnPageChange: false
+        });
+        this.loading.present();
+    };
+    RegionalfundsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-regionalfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n        <div class="title">\n            Mutual Funds by Region\n        </div>\n    </ion-row>\n    \n    <!-- Currently only support funds from North America -->\n    <h2 class="title">North America</h2>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>    \n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+            __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
+    ], RegionalfundsPage);
+    return RegionalfundsPage;
+}());
+
+//# sourceMappingURL=regionalfunds.js.map
+
+/***/ }),
+
+/***/ 96:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RestapiProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_common_http__ = __webpack_require__(139);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_user__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_endpoint_service__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_endpoint_service__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(13);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2300,191 +2451,15 @@ var RestapiProvider = (function () {
 
 /***/ }),
 
-/***/ 64:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TopFundsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_following_service__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_fund_service__ = __webpack_require__(37);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var TopFundsPage = (function () {
-    function TopFundsPage(loadingCtrl, navCtrl, navParams, menuCtrl, followService, fundService, authService, applicationRef) {
-        this.loadingCtrl = loadingCtrl;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.followService = followService;
-        this.fundService = fundService;
-        this.authService = authService;
-        this.applicationRef = applicationRef;
-        this.fundList = [];
-        this.user = this.authService.getLoggedInUser();
-    }
-    TopFundsPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.showLoading();
-        this.fundService.listFunds()
-            .then(function (fund_meta_list) {
-            var promiseList = [];
-            fund_meta_list.forEach(function (fund) {
-                promiseList.push(new Promise(function (resolve, reject) {
-                    _this.fundService.getFund(fund)
-                        .then(function (currentFund) {
-                        return resolve(currentFund);
-                    })
-                        .catch(function (err) { return reject(err); });
-                }));
-            });
-            return Promise.all(promiseList);
-        })
-            .then(function (fund_list) {
-            _this.fundList = fund_list;
-            console.log(_this.fundList);
-            _this.applicationRef.tick();
-            _this.loading.dismiss();
-        })
-            .catch(function (err) {
-            console.log(err);
-        });
-    };
-    TopFundsPage.prototype.showLoading = function () {
-        this.loading = this.loadingCtrl.create({
-            content: 'Loading...',
-            dismissOnPageChange: false
-        });
-        this.loading.present();
-    };
-    TopFundsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-topfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n    	<div class="title">\n        	Top Mutual Funds\n    	</div>\n	</ion-row>\n	<ion-row class="previewlist">\n		<ion-row class="preview" *ngFor="let fund of fundList">\n			<component-preview *ngIf="fund" [security_in] = "fund">\n			</component-preview>\n		</ion-row>\n	</ion-row>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
-    ], TopFundsPage);
-    return TopFundsPage;
-}());
-
-//# sourceMappingURL=topfunds.js.map
-
-/***/ }),
-
-/***/ 65:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegionalfundsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_following_service__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_fund_service__ = __webpack_require__(37);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-var RegionalfundsPage = (function () {
-    function RegionalfundsPage(loadingCtrl, navCtrl, navParams, menuCtrl, followService, fundService, authService, applicationRef) {
-        this.loadingCtrl = loadingCtrl;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.followService = followService;
-        this.fundService = fundService;
-        this.authService = authService;
-        this.applicationRef = applicationRef;
-        this.fundList = [];
-        this.user = this.authService.getLoggedInUser();
-    }
-    RegionalfundsPage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.showLoading();
-        this.fundService.listFunds()
-            .then(function (fund_meta_list) {
-            var promiseList = [];
-            fund_meta_list.forEach(function (fund) {
-                promiseList.push(new Promise(function (resolve, reject) {
-                    _this.fundService.getFund(fund)
-                        .then(function (currentFund) {
-                        return resolve(currentFund);
-                    })
-                        .catch(function (err) { return reject(err); });
-                }));
-            });
-            return Promise.all(promiseList);
-        })
-            .then(function (fund_list) {
-            _this.fundList = fund_list;
-            console.log(_this.fundList);
-            _this.applicationRef.tick();
-            _this.loading.dismiss();
-        })
-            .catch(function (err) {
-            console.log(err);
-        });
-    };
-    RegionalfundsPage.prototype.showLoading = function () {
-        this.loading = this.loadingCtrl.create({
-            content: 'Loading...',
-            dismissOnPageChange: false
-        });
-        this.loading.present();
-    };
-    RegionalfundsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-regionalfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n        <div class="title">\n            Mutual Funds by Region\n        </div>\n    </ion-row>\n    \n    <!-- Currently only support funds from North America -->\n    <h2 class="title">North America</h2>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n    \n    </ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
-    ], RegionalfundsPage);
-    return RegionalfundsPage;
-}());
-
-//# sourceMappingURL=regionalfunds.js.map
-
-/***/ }),
-
 /***/ 98:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MenuPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__topfunds_topfunds__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__regionalfunds_regionalfunds__ = __webpack_require__(65);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_user__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_following_service__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__services_fund_service__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_main__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__main__ = __webpack_require__(99);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2498,64 +2473,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
-
-
-var HomePage = (function () {
-    function HomePage(navCtrl, navParams, menuCtrl, followService, fundService, authService) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.menuCtrl = menuCtrl;
-        this.followService = followService;
-        this.fundService = fundService;
-        this.authService = authService;
-        this.fundList = [];
-        this.user = authService.getLoggedInUser();
+var MenuPage = (function () {
+    function MenuPage(platform, authService) {
+        this.platform = platform;
+        this.rootPage = __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */];
+        // used for an example of ngFor and navigation
+        this.pages = [
+            { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */], authService: '' },
+            { title: 'Top Mutual Funds', component: __WEBPACK_IMPORTED_MODULE_3__main__["l" /* TopFundsPage */], authService: '' },
+            { title: 'Funds By Region', component: __WEBPACK_IMPORTED_MODULE_3__main__["f" /* RegionalfundsPage */], authService: '' },
+            { title: 'My account', component: __WEBPACK_IMPORTED_MODULE_3__main__["m" /* UserPage */], authService: '' },
+            { title: 'Logout', component: __WEBPACK_IMPORTED_MODULE_3__main__["d" /* LoginPage */], authService: authService }
+        ];
     }
-    HomePage.prototype.ngOnInit = function () {
-        var _this = this;
-        this.followService.getAllFollowing()
-            .then(function (fund_meta_list) {
-            var promiseList = [];
-            fund_meta_list.forEach(function (fund) {
-                promiseList.push(new Promise(function (resolve, reject) {
-                    _this.fundService.getFund(fund)
-                        .then(function (currentFund) {
-                        return resolve(currentFund);
-                    })
-                        .catch(function (err) { return reject(err); });
-                }));
-            });
-            return Promise.all(promiseList);
-        })
-            .then(function (fund_list) {
-            _this.fundList = fund_list;
-        })
-            .catch(function (err) {
-            console.log(err);
-        });
+    MenuPage.prototype.openPage = function (page) {
+        if (page.authService != '') {
+            page.authService.logout();
+        }
+        // Reset the content nav to have just this page
+        // we wouldn't want the back button to show in this scenario
+        this.nav.setRoot(page.component);
     };
-    HomePage.prototype.navToTopFunds = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__topfunds_topfunds__["a" /* TopFundsPage */]);
-    };
-    HomePage.prototype.navToByRegionPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__regionalfunds_regionalfunds__["a" /* RegionalfundsPage */]);
-    };
-    HomePage.prototype.navUserInfo = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__user_user__["a" /* UserPage */]);
-    };
-    HomePage = __decorate([
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
+    ], MenuPage.prototype, "nav", void 0);
+    MenuPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navToUserPage()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
+            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>StackReport</ion-title>\n    </ion-navbar>\n</ion-header>\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
-            __WEBPACK_IMPORTED_MODULE_6__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_7__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]])
-    ], HomePage);
-    return HomePage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__services_main__["a" /* AuthService */]])
+    ], MenuPage);
+    return MenuPage;
 }());
 
-//# sourceMappingURL=home.js.map
+//# sourceMappingURL=menu.js.map
 
 /***/ }),
 
@@ -2563,23 +2515,32 @@ var HomePage = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_service__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__home_home__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__topfunds_topfunds__ = __webpack_require__(64);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__regionalfunds_regionalfunds__ = __webpack_require__(65);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__about_about__ = __webpack_require__(418);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_home__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__user_user__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(419);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__login_login__ = __webpack_require__(43);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__register_register__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__root_root__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__security_security__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__topfunds_topfunds__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__menu_menu__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__reports_reports__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__regionalfunds_regionalfunds__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__investments_investments__ = __webpack_require__(123);
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return __WEBPACK_IMPORTED_MODULE_6__root_root__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__about_about__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_1__home_home__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return __WEBPACK_IMPORTED_MODULE_2__user_user__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_4__login_login__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return __WEBPACK_IMPORTED_MODULE_5__register_register__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return __WEBPACK_IMPORTED_MODULE_7__security_security__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return __WEBPACK_IMPORTED_MODULE_8__topfunds_topfunds__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return __WEBPACK_IMPORTED_MODULE_9__menu_menu__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_12__investments_investments__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return __WEBPACK_IMPORTED_MODULE_10__reports_reports__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return __WEBPACK_IMPORTED_MODULE_11__regionalfunds_regionalfunds__["a"]; });
 
 
 
@@ -2587,49 +2548,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var UserPage = (function () {
-    function UserPage(navCtrl, navParams, authService, menuCtrl) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.authService = authService;
-        this.menuCtrl = menuCtrl;
-        this.current_user = authService.getLoggedInUser();
-    }
-    UserPage.prototype.openMenu = function () {
-        this.menuCtrl.open();
-    };
-    UserPage.prototype.closeMenu = function () {
-        this.menuCtrl.close();
-    };
-    UserPage.prototype.toggleMenu = function () {
-        this.menuCtrl.toggle();
-    };
-    UserPage.prototype.navToTopFunds = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__topfunds_topfunds__["a" /* TopFundsPage */]);
-    };
-    UserPage.prototype.navToByRegionPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_6__regionalfunds_regionalfunds__["a" /* RegionalfundsPage */]);
-    };
-    UserPage.prototype.navUserInfo = function () {
-        this.menuCtrl.toggle();
-    };
-    UserPage.prototype.logout = function () {
-        this.authService.logout();
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__login_login__["a" /* LoginPage */]);
-    };
-    UserPage.prototype.navPortfolioPage = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__home_home__["a" /* HomePage */]);
-    };
-    UserPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-user',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/'<ion-content>\n    <ion-row>\n        <ion-col class="user-data">\n            <ion-icon class="icon" name="md-person" large></ion-icon>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="title">\n            {{ current_user.username }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            user_id: {{ current_user.user_id }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Tier: {{ current_user.tier }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Role: {{ current_user.role }}\n        </ion-col>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
-    ], UserPage);
-    return UserPage;
-}());
 
-//# sourceMappingURL=user.js.map
+
+
+
+
+
+
+//# sourceMappingURL=main.js.map
 
 /***/ })
 
