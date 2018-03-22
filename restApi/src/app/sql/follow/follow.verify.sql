@@ -1,0 +1,1 @@
+select exists(select 1 from FOLLOW where fund_id=${fund_id} AND user_id=${user_id}) AS "exists"

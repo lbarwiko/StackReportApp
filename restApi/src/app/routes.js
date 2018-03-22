@@ -44,6 +44,7 @@ export default (db, config, auth) => {
     const Following = Follow(db, config).rest;
 	fundApi.post('/:fund_id/follow', auth.requireToken, Following.create);
 	fundApi.delete('/:fund_id/follow', auth.requireToken, Following.remove);
+	fundApi.get('/:fund_id/follow', auth.requireToken, Following.verify);
 	api.use('/following/', followingApi);
 	
 	const securityApi = Router();

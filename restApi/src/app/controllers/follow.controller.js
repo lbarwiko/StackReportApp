@@ -148,13 +148,39 @@ export default (db, config) => {
         }
     }
 
-    function get(){
-        function helper(){
-
+    function verify(){
+        /* Checks if a user is following a fund */
+        function helper(user, fund){
+            return db.one(FollowSql.verify,{
+                user_id: user.user_id,
+                fund_id: fund.fund_id
+            })
+            .then(result=>{
+                return Promise.resolve(result);
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
         }
 
         function rest(req, res, next){
-            res.send("hi");
+            if(!req.user){
+                return res.status(403).json({
+                    err: 'Not authenticated',
+                    code: 403
+                });
+            }
+            if(!req.fund){
+                return res.status(404).json({
+                    err: 'Fund not found',
+                    code: 404
+                })
+            }
+            helper(req.user, req.fund)
+            .then(result=>{
+                return res.json(result);
+            })
+            .catch(err=> res.json(err));
         }
 
         return {
@@ -211,13 +237,13 @@ export default (db, config) => {
 
     return {
         rest:{
-            get: get().rest,
+            verify: verify().rest,
             create: create().rest,
             remove: remove().rest,
             list: list().rest
         },
         list: list().rest,
-        get: get().helper,
+        verify: verify().helper,
         create: create().helper,
         remove: remove().helper
     }
