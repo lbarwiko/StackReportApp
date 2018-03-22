@@ -3,30 +3,33 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+
 import { EndpointService } from './endpoint.service';
+import { Security } from '../models/security';
 
 @Injectable()
-export class PredictionService {
+export class SecurityService {
 
     url: string;
     
     constructor(private http:Http, public endpointService: EndpointService) { 
-        this.url = this.endpointService.base + '/api/f';
+        this.url = this.endpointService.base + '/api/security/';
     }
     
-    getPredictions(fund_id:string): Promise<any> {
-    	return new Promise((resolve, reject)=>{
+
+    get(security_id:String): Promise<any> {
+        return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
 
-            this.http.get(this.url + '/' + fund_id + '/p/', options).toPromise()
+            this.http.get(this.url + security_id, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
                 return resolve(resJson);
             })
             .catch(this.handleErrorPromise);
         })
-    }
+    } 
 
     private extractData(res: Response) {
         let body = res.json();
@@ -37,5 +40,4 @@ export class PredictionService {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
     }    
-
-}
+} 

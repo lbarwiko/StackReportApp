@@ -1,10 +1,10 @@
+import sys
+sys.path.append(sys.path[0]+"/../")
 from mfscrapers.helper import get_soup
 import time
 from bs4 import BeautifulSoup
 import re
-import sys
 import json
-sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_mf_history
 import time
 
@@ -37,13 +37,21 @@ def upload_mf_historical(ticker):
 	result = get_quote_historical(ticker)
 	# convert into tuple list ((m_symbol, m_date, price), ...)
 	tuple_list = []
+
 	for each in result:
-		try:
-			tup = (ticker, time.strftime("%Y%m%d", time.gmtime(float(each["date"]))), 
-				float(each["close"]))
-		except KeyError:
-			print (each)
-		tuple_list.append(tup)
+		if "date" in each and "close" in each:
+			if each["date"] is not None and each["close"] is not None:
+				date = time.strftime("%Y%m%d", time.gmtime(float(each["date"])))
+				try:
+					tup = (ticker, date, float(each["close"]))
+				except TypeError:
+					print (each)
+
+				tuple_list.append(tup)
+
+	tuple_list = list(set(tuple_list))
+
+
 	add_tuple_mf_history(tuple_list)
 
 

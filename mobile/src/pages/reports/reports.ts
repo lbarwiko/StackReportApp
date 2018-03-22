@@ -10,6 +10,7 @@ import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
 import { FollowingService } from '../../services/following.service';
+import { PredictionService } from '../../services/prediction.service'
 
 @IonicPage()
 @Component({
@@ -20,15 +21,32 @@ export class ReportsPage {
 
   	security: any;
   	user: User;
+  	buyPredictions: any;
+  	sellPredictions: any;
+  	lastUpdated: string;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService, public menuCtrl:MenuController, public authService: AuthService) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService, public menuCtrl:MenuController, public authService: AuthService, public predictionService: PredictionService) {
 		this.security = null;
 		this.user = authService.getLoggedInUser();
-	}
-	ngOnInit() {
-		this.security = this.navParams.get('param');
+		this.buyPredictions = [];
+		this.sellPredictions = [];
+		this.lastUpdated = "1/1/2000";
 	}
 
+	ngOnInit() {
+		this.security = this.navParams.get('param');
+		this.getPredictions();
+	}
+
+	getPredictions() {
+		this.predictionService.getPredictions(this.security.id)
+		.then(predictionList => {
+			console.log(predictionList);
+		})
+		.catch(err => {
+			console.log(err);
+		}); 
+	}
 
 
 	  openMenu() {

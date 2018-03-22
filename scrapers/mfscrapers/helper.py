@@ -5,6 +5,8 @@ import json
 from bs4 import BeautifulSoup
 import re
 import sys
+sys.path.append(sys.path[0]+"/../../")
+from predictions_database.helper import get_mf_name
 
 def get_soup(url):
 	page = urlopen(url)
@@ -24,3 +26,22 @@ def sanitize_company(company_name):
 	output = output.replace(" Class ", '')
 	output = re.sub(r'[^\w\s]','',output)
 	return output
+
+def post_to_frontend(m_symbol, report):
+
+	# DO SOMETHING
+
+	post_dict = {}
+	post_dict["fund_id"] = m_symbol
+	post_dict["fund_name"] = get_mf_name(m_symbol)
+	post_dict["holdings"] = []
+
+	for each in report["stocks"]:
+		temp = {}
+		temp["security_id"] = 2
+
+	url = "http://www.stackreport.io:80/api/f/"
+	response = os.popen("curl --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
+
+	return response
+	
