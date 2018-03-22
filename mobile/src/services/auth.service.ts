@@ -19,11 +19,19 @@ export class AuthService {
         });
     }
 
+    public logout(){
+        this.storage.remove('token');
+    }
+
     public getUser(token): Promise<User>{
         return new Promise((resolve, reject) => {
             this.restapiProvider.getUser(token)
             .then(user => {if(user) resolve(this.assign(user, token)); else reject(user);});
         });
+    }
+
+    public getLoggedInUser():User{
+        return this.user;
     }
 
     public assign(user, token): Promise<User>{

@@ -3,6 +3,7 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams } from 'ionic-angular';
 import { TopFundsPage } from '../topfunds/topfunds';
+import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { FollowingService } from '../../services/following.service';
@@ -51,6 +52,7 @@ export class HomePage {
   navToTop100Page() {
     this.navCtrl.push(TopFundsPage);
   }
+
 
   navToRegionalFunds() {
     this.navCtrl.push(RegionalfundsPage);

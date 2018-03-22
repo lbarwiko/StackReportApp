@@ -1,4 +1,43 @@
 <ion-content class="home-content" padding>
+        <component-navbar>
+		</component-navbar>
+		<ion-menu [content]="mycontent">
+				<button ion-button menuToggle>
+					<ion-icon name="menu"></ion-icon>
+				</button>
+				<ion-content>
+						<ion-header class="ion-header">
+							<ion-navbar>
+								<ion-buttons start>
+								<button ion-button>
+									<ion-icon name="contact"></ion-icon>
+								</button>
+								</ion-buttons>
+								<button ion-button menuToggle>
+									<ion-icon name="menu"></ion-icon>
+								</button>
+								<ion-title>
+								{{user.username}}
+								</ion-title>
+							</ion-navbar>
+						</ion-header>
+						<ion-row>
+							<button ion-button class="" full type=""></button>
+						</ion-row>
+						<ion-row>
+							<button ion-button class="mainDashboard-btn" (click)="navToTopFunds()" full type="mfundList">Mutual Funds</button>
+						</ion-row>
+					<ion-row>
+						<button ion-button class="mainDashboard-btn" full type="mfundRegion" (click)="navToByRegionPage()" >Mutual Funds By Region</button>
+					</ion-row>
+					<ion-row>
+							<button ion-button class="mainDashboard-btn" full type="userPortfolio" (click)="navPortfolioPage()">My Portfolios</button>
+					</ion-row>
+					<ion-row>
+							<button ion-button class="mainDashboard-btn" full type="logout" (click)="logout()">Logout</button>
+					</ion-row>  
+				</ion-content>
+			</ion-menu>
     <ion-row>
     	<div class="title">
         	Top Mutual Funds

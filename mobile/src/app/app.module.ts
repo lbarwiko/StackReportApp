@@ -11,6 +11,7 @@ import { UserService, FundService, AuthService, EndpointService, FollowingServic
 import { IonicStorageModule } from '@ionic/storage';
 import { ChartsModule } from 'ng2-charts';
 
+
 import { 
     RootPage,
     AboutPage,
@@ -22,14 +23,16 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
+    MainDashboardPage,
     InvestmentsPage,
     ReportsPage,
-    RegionalfundsPage,
+    RegionalfundsPage
     } from '../pages/main'
 
 import {
   PreviewComponent,
   SecurityGraphComponent,
+  NavBarComponent
 } from '../components/main'
 
 @NgModule({
@@ -49,7 +52,9 @@ import {
     InvestmentsPage,
     ReportsPage,
     PreviewComponent,
-    SecurityGraphComponent
+    SecurityGraphComponent,
+    MainDashboardPage,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
@@ -72,9 +77,10 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
+    MainDashboardPage,
     ReportsPage,
     InvestmentsPage,
-    RegionalfundsPage,
+    RegionalfundsPage
   ],
   providers: [
     StatusBar,
