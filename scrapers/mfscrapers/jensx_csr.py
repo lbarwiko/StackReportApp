@@ -12,9 +12,9 @@ from helper import *
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
-if len(sys.argv) != 3:
+if len(sys.argv) != 4:
 		print("Invalid usage, must have two arguments.")
-		print("Usage: <program> \"url of the jensx report\" date")
+		print("Usage: <program> \"url of the jensx report\" date mf_symbol")
 		print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 		exit(1)
 
@@ -22,7 +22,7 @@ if not sys.argv[2].isdigit():
 	print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 	exit(1)
 
-def jensx_csr(url, date):
+def jensx_csr(url, date, m_symbol):
 
 	# Initialize dicts and lists
 	mutualFund = {"stocks": [], "other": []}
@@ -93,17 +93,17 @@ def jensx_csr(url, date):
 
 		# Figure out what to do with that tr entry
 		if len(prev_temp_list) == 2 and len(temp_list) == 2 and prev_temp_list[0].isdigit() and temp_list[1].isdigit():
-			print ("===================== Special ==================")
-			print (prev_temp_list, temp_list)
+			# print ("===================== Special ==================")
+			# print (prev_temp_list, temp_list)
 			prev_temp_list[1] = prev_temp_list[1] + " " + temp_list[0]
 			prev_temp_list.append(temp_list[1])
 			temp_list = prev_temp_list
-			print (temp_list)
+			# print (temp_list)
 
 		if is_total_common_stocks:
 			if "total_stock" not in mutualFund:
-				print ("===================== TOTAL STOCKS ====================")
-				print (temp_list)
+				# print ("===================== TOTAL STOCKS ====================")
+				# print (temp_list)
 				mutualFund["total_stock"] = int(temp_list[1])
 				done_with_stocks = True
 
@@ -111,8 +111,8 @@ def jensx_csr(url, date):
 			mutualFund["total_investment"] = int(temp_list[1])
 
 		elif is_total_net_assets and started_scraping:
-			print("============= TOTAL NET ASSETS ==============")
-			print (temp_list)
+			# print("============= TOTAL NET ASSETS ==============")
+			# print (temp_list)
 			done_with_all = True
 			mutualFund["total_net_assets"] = int(temp_list[1])
 
@@ -129,7 +129,7 @@ def jensx_csr(url, date):
 
 		prev_temp_list = temp_list
 
-	nav = get_db_mf_nav("JENSX", date)
+	nav = get_db_mf_nav(m_symbol, date)
 
 	num_shares = float(mutualFund["total_net_assets"]) / float(nav)
 	mutualFund["num_shares"] = num_shares
@@ -139,9 +139,10 @@ def jensx_csr(url, date):
 def main():
 	date = sys.argv[2]
 	url = sys.argv[1]
-	dict = jensx_csr(url, date)
+	m_symbol = sys.argv[3].upper()
+	dict = jensx_csr(url, date, m_symbol)
 	print (dict)
-	add_mf_report("JENSX", dict, date)
+	add_mf_report(m_symbol, dict, date)
 	# m_symbol, m_date, total_investment, total_net_assets, shares
 
 if __name__ == '__main__':
