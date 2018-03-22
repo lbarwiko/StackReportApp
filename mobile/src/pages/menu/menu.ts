@@ -18,18 +18,16 @@ export class MenuPage {
   hidden:string;
   authService:AuthService;
   app:App;
-
   rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
   constructor(public platform: Platform, authService:AuthService, app:App) {
-
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage }, 
       { title: 'Top Mutual Funds', component: TopFundsPage },
-      { title: 'Funds By Region', component: RegionalfundsPage },
+      { title: 'Mutual Funds By Region', component: RegionalfundsPage },
       { title: 'My account', component: UserPage },
     ];
     this.authService = authService;
@@ -37,8 +35,9 @@ export class MenuPage {
 }
 
 back(){
-  if(this.nav.canGoBack())
-    this.nav.pop();
+  if(this.nav.canGoBack()){
+      let page:any = this.nav.pop();
+  }
 }
 
 openPage(page) {
