@@ -1,10 +1,10 @@
+import sys
+sys.path.append(sys.path[0]+"/../")
 from mfscrapers.helper import get_soup
 import time
 from bs4 import BeautifulSoup
 import re
-import sys
 import json
-sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_mf_history
 import time
 
