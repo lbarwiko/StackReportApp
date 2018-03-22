@@ -11,11 +11,6 @@ VALUES
 
 INSERT INTO FUND(fund_id, fund_name)
 VALUES
-('aapl', 'Apple'),
-('fb', 'Facebook'),
-('googl', 'Alphabet'),
-('amzn', 'Amazon'),
-('msft', 'Microsoft'),
 ('jensx', 'Jensen Quality Growth Fund Class J');
 
 INSERT INTO HOLDING(fund_id, security_id, num_shares)
