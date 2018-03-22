@@ -64,10 +64,22 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 
 // TODO: Change this to https !VERY IMPORTANT
 // TODO: Create Options
-var httpServer = http.createServer(app);
-httpServer.listen(HTTP_PORT, function(){
-    console.log("Http Listening on port " + HTTP_PORT);
-});
+if(!PROD){
+    var httpServer = http.createServer(app);
+    httpServer.listen(HTTP_PORT, function(){
+        console.log("Http Listening on port " + HTTP_PORT);
+    });
+}
+
+if(PROD){
+    var httpServer = express.createServer();
+    http.get('*', function(req, res) {  
+        res.redirect('https://' + req.headers.host + req.url);
+    })
+    httpServer.listen(HTTP_PORT, function(){
+        console.log("Http redirecting on port" + HTTP_PORT);
+    });
+}
 
 if(PROD){
     var httpsServer = https.createServer(credentials, app);

@@ -1,1 +1,1 @@
-SELECT security_id FROM HOLDING WHERE fund_id = ${fund_id}
+SELECT security_id, num_shares FROM HOLDING WHERE fund_id = ${fund_id}

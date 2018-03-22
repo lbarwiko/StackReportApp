@@ -124,7 +124,7 @@ export default (db, config) => {
                     if(!payload.holdings){
                         return Promise.resolve(true);
                     }
-                    
+
                     var fund_id = fundResponse.fund_id;
                     return db.tx(t=>{
                         var queries = [];
@@ -132,7 +132,8 @@ export default (db, config) => {
                             queries.push(
                                 t.none(HoldingSql.create,{
                                     fund_id: fund_id,
-                                    security_id: holding
+                                    security_id: holding.security_id,
+                                    amount: holding.amount
                                 })
                             );
                         });
