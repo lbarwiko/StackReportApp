@@ -69,6 +69,8 @@ def sanitize_company(company_name):
     output = output.replace("(the)", '')
     output = output.replace("the ", '')
     output = output.replace("incorporated", 'inc')
+    output = output.replace("corperation", 'corp')
+    output = output.replace("company", 'co')
     output = re.sub(r'[^\w\s]','',output)
     return output
 
