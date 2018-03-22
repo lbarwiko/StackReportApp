@@ -24,6 +24,7 @@ import {
     TopFundsPage,
     InvestmentsPage,
     ReportsPage
+    RegionalfundsPage,
     } from '../pages/main'
 
 import {
@@ -44,6 +45,7 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
+    RegionalfundsPage,
     InvestmentsPage,
     ReportsPage,
     PreviewComponent,
@@ -72,6 +74,7 @@ import {
     TopFundsPage,
     ReportsPage,
     InvestmentsPage
+    RegionalfundsPage,
   ],
   providers: [
     StatusBar,

@@ -121,6 +121,10 @@ export default (db, config) => {
                             code: 500
                         });
                     }
+                    if(!payload.holdings){
+                        return Promise.resolve(true);
+                    }
+                    
                     var fund_id = fundResponse.fund_id;
                     return db.tx(t=>{
                         var queries = [];
