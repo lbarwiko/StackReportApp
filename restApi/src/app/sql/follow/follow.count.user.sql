@@ -1,1 +1,1 @@
-SELECT COUNT(*) FORM FOLLOW WHERE user_id = ${user_id}
+SELECT COUNT(*) FROM FOLLOW WHERE user_id = ${user_id}
