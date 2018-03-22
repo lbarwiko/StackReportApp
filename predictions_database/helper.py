@@ -47,7 +47,10 @@ def add_single_mf_holding(m_symbol, c_symbol, date, shares):
     except:
         print ("Insert mf holding failed")
 
-def get_ticker(cname, name_list, name_dict):
+def get_ticker(cname):
+
+    name_dict = json.load(open("predictions_database/stock_name_list.json",'r'))
+    name_list = name_dict.keys()
 
     min = 9999999999
     min_name = ""
@@ -96,7 +99,7 @@ def add_mf_report(m_symbol, report, date):
 
     tuple_list=[]
     for holding in report["stocks"]:
-        ticker = get_ticker(holding["company"], name_list, name_dict)
+        ticker = get_ticker(holding["company"])
 
         price = get_db_stock_quote(ticker, date)
 

@@ -1,12 +1,12 @@
 import Levenshtein
 import json
 from urllib.request import urlopen
-import json
+import os
 from bs4 import BeautifulSoup
 import re
 import sys
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import get_mf_name
+from predictions_database.helper import get_mf_name, get_ticker
 
 def get_soup(url):
 	page = urlopen(url)
@@ -38,10 +38,14 @@ def post_to_frontend(m_symbol, report):
 
 	for each in report["stocks"]:
 		temp = {}
-		temp["security_id"] = 2
+		temp["security_id"] = get_ticker(each["company"])
+		temp["amount"] = each["value"]
+		post_dict["holdings"].append(temp)
+
+	data = json.dumps(post_dict)
 
 	url = "http://www.stackreport.io:80/api/f/"
 	response = os.popen("curl --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
 
-	return response
+	return post_dict
 	

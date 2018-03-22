@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ApplicationRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, Loading, LoadingController } from 'ionic-angular';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
@@ -15,16 +15,20 @@ import { Security } from '../../models/security';
 })
 
 export class RegionalfundsPage {
+	loading: Loading;
 	fundList: Security[];
 	user: User;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
-       public followService: FollowingService, public fundService: FundService, public authService: AuthService) {
+	constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
+			 public followService: FollowingService, public fundService: FundService, public authService: AuthService,
+			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
 	    this.user = this.authService.getLoggedInUser();
   	}
 
 	ngOnInit() {
+		this.showLoading();
+
 		this.fundService.listFunds()
 		.then(fund_meta_list => {
 			var promiseList = [];
@@ -43,45 +47,23 @@ export class RegionalfundsPage {
 		})
 		.then(fund_list=>{
 			this.fundList = fund_list;
+			console.log(this.fundList);
+			this.applicationRef.tick();
+			this.loading.dismiss();
 		})
 		.catch(err => {
 			console.log(err);
 		});	
 	}
 
-  openMenu() {
-    this.menuCtrl.open();
-  }
- 
-  closeMenu() {
-    this.menuCtrl.close();
-  }
- 
-  toggleMenu() {
-    this.menuCtrl.toggle();
+	showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading...',
+      dismissOnPageChange: false
+    });
+    this.loading.present();
   }
 
-  navToTopFunds(){
-    this.navCtrl.push(RegionalfundsPage);
-    this.menuCtrl.toggle();
-  }
 
-  navToByRegionPage(){
-    this.menuCtrl.toggle();
-  }
-  
-  navUserInfo(){
-    this.navCtrl.push(UserPage);
-  }
-
-  logout() {
-    this.authService.logout();
-    this.navCtrl.push(LoginPage);
-  }
-
-  navPortfolioPage() {
-    this.navCtrl.push(HomePage);
-  }
 
 }
-
