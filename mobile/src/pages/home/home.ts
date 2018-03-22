@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { TopFundsPage } from '../topfunds/topfunds';
 import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
+import { LoginPage } from '../login/login';
 import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';
@@ -18,10 +19,12 @@ import { Security } from '../../models/security';
 export class HomePage {
 
   fundList: Security[];
+  user: User;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-              public followService: FollowingService, public fundService: FundService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
+              public followService: FollowingService, public fundService: FundService, public authService: AuthService) {
     this.fundList = [];
+    this.user = authService.getLoggedInUser();
   }
 
   ngOnInit() {
@@ -49,16 +52,39 @@ export class HomePage {
       });  
   }
 
-  navToTop100Page() {
+  openMenu() {
+    this.menuCtrl.open();
+  }
+ 
+  closeMenu() {
+    this.menuCtrl.close();
+  }
+ 
+  toggleMenu() {
+    this.menuCtrl.toggle();
+  }
+
+  navToTopFunds(){
     this.navCtrl.push(TopFundsPage);
   }
 
-
-  navToRegionalFunds() {
+  navToByRegionPage(){
     this.navCtrl.push(RegionalfundsPage);
   }
 
-  navToUserPage() {
+  navUserInfo(){
     this.navCtrl.push(UserPage);
   }
+
+  logout() {
+    this.authService.logout();
+    this.navCtrl.push(LoginPage);
+  }
+
+  navPortfolioPage() {
+    this.menuCtrl.toggle();
+  }
+
+
+
 }

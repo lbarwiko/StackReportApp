@@ -7,7 +7,7 @@ import { UserPage } from './user';
     UserPage,
   ],
   imports: [
-    IonicPageModule.forChild(UserPage),
+  
   ],
 })
 export class UserPageModule {}

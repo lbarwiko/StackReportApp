@@ -47,6 +47,7 @@ export class UserService {
             .catch(this.handleErrorPromise);
         })
     }		
+    
     private extractData(res: Response) {
 	    let body = res.json();
         return body.data || [];
