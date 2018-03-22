@@ -23,7 +23,7 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    MainDashboardPage,
+    MenuPage,
     InvestmentsPage,
     ReportsPage,
     RegionalfundsPage
@@ -32,7 +32,6 @@ import {
 import {
   PreviewComponent,
   SecurityGraphComponent,
-  NavBarComponent
 } from '../components/main'
 
 @NgModule({
@@ -53,8 +52,7 @@ import {
     ReportsPage,
     PreviewComponent,
     SecurityGraphComponent,
-    MainDashboardPage,
-    NavBarComponent
+    MenuPage,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +75,7 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    MainDashboardPage,
+    MenuPage,
     ReportsPage,
     InvestmentsPage,
     RegionalfundsPage

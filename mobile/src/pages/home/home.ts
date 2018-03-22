@@ -3,7 +3,6 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { TopFundsPage } from '../topfunds/topfunds';
-import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';

@@ -52,6 +52,10 @@ export class InvestmentsPage {
 		.then(securities=>{
 			var i = 0;
 			securities.forEach(security=>{
+				if(!security.price_history || !security.price_history[0]){
+					this.security.holdings[i]['current_price'] = -1;
+					return;
+				}
 				var current_price = parseFloat(security.price_history[0]["4. close"]);
 				this.totalPrice += current_price * this.security.holdings[i]['num_shares'];
 				this.security.holdings[i]['current_price'] = current_price;

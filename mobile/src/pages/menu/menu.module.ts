@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { NavBarComponent } from './navbar';
+import { MenuPage } from './menu';
 
 @NgModule({
   declarations: [
-    NavBarComponent,
+    MenuPage,
+  ],
+  imports: [
   ],
 })
-export class NavBarComponentModule {}
+export class LoginPageModule {}
