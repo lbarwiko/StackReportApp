@@ -1,0 +1,59 @@
+page-mainDashboard {
+
+	#Title-Upper {
+		color: white;
+	}
+
+	#Title-Lower {
+		color: white;
+        margin-top: 0px;
+	}
+
+    #Title-Lower-Caption {
+        color: white;
+        margin-bottom: 0px;
+    }
+
+  .mainDashboard-content {
+       background: #151A1D;
+ 
+    ion-row {
+       align-items: center;
+       text-align: center;
+     }
+ 
+     ion-item {
+         border-radius: 30px !important;
+         padding-left: 30px !important;
+         font-size: 0.9em;
+         margin-bottom: 10px;
+         border: 2px solid #ffffff;
+         border-bottom: 0px !important;
+         box-shadow: none !important;
+     }
+ 
+     .signup-col {
+       margin: 0px 16px 0px 16px;
+       padding-bottom: 20px;
+     }
+ 
+     .item-inner {
+       border-top-color: #ffffff !important;
+       border-bottom-color: #ffffff !important;
+       box-shadow: none !important;
+     }
+ 
+     .mainDashboard-btn {
+       background: #ffffff;
+       color: black;
+     }
+
+     .mainDashboard-menu {
+      background: #2A353B;
+     }
+     
+      .ion-header{
+        margin-bottom: 100px;
+      }
+ }
+}

@@ -42,4 +42,29 @@ page-security {
     font-size: 150%;
     background-color: #2A2F33;
   }
+
+  .follow-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+  }
+
+  .follow-icon {
+    font-size: 25px;
+    margin-left: 10px;
+    margin-right: -5px;
+  }
+
+  .unfollow-btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 18px;
+    background-color: gray;
+  }
+
+  .unfollow-icon {
+    font-size: 25px;
+    margin-left: 10px;
+    margin-right: -5px;
+  }
 }

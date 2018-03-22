@@ -10,7 +10,7 @@ CREATE TABLE TIER(
 
 INSERT INTO TIER(tier_type, max_reports)
 VALUES
-('FREE', 1),
+('FREE', 3),
 ('STANDARD', 10),
 ('PROFESSIONAL', 50),
 ('BUSINESS', 500);
@@ -30,6 +30,7 @@ CREATE TABLE FUND(
 
 CREATE TABLE HOLDING(
 	fund_id VARCHAR(16) REFERENCES FUND(fund_id),
+    num_shares INTEGER,
 	security_id VARCHAR(16)
 );
 

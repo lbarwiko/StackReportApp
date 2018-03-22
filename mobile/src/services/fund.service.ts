@@ -38,7 +38,7 @@ export class FundService {
         })
     }
 
-    getFund(fund_id:String): Promise<Fund> {
+    getFund(fund_id:string): Promise<Fund> {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
@@ -47,6 +47,8 @@ export class FundService {
             .then(res=>{
                 var resJson = res.json();
                 var fundToReturn = new Fund(resJson.fund_id, resJson.fund_name, resJson.price_history);
+                // console.log(resJson.holdings);
+                fundToReturn.setHoldings(resJson.holdings);
                 return resolve(fundToReturn);
             })
             .catch(this.handleErrorPromise);
