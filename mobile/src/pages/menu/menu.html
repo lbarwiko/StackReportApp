@@ -15,15 +15,17 @@
 </ion-menu>
 
     
-<ion-header>
-    <ion-navbar>
-        <button ion-button icon-only start class="button" id="backButton" (click)="back()">
-            <ion-icon name="arrow-back"></ion-icon>
-        </button>
+<ion-header id="nav-bar-super">
+    <ion-navbar class="navigation-bar">
+        <ion-buttons left>
+            <button ion-button icon-only start class="button" id="backButton" (click)="back()">
+                <ion-icon name="arrow-back" class="back-btn"></ion-icon>
+            </button>
+            <button ion-button menuToggle start class="menu-btn">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title class="title">StackReport</ion-title>
-        <button ion-button menuToggle end class="button">
-            <ion-icon name="menu"></ion-icon>
-        </button>
     </ion-navbar>
 </ion-header>
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
