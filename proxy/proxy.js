@@ -80,7 +80,7 @@ if(PROD){
     redirectApp.use(router);
     var httpServer = http.createServer(redirectApp);
     httpServer.listen(HTTP_PORT, function(){
-        console.log("Http redirecting on port" + HTTP_PORT);
+        console.log("Http redirecting on port " + HTTP_PORT);
     });
 }
 
