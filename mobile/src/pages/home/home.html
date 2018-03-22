@@ -13,4 +13,10 @@
     		Watching
     	</div>
 	</ion-row>
+    <ion-row class="previewlist">
+        <ion-row class="preview" *ngFor="let fund of fundList">
+            <component-preview *ngIf="fund" [security_in] = "fund">
+            </component-preview>
+        </ion-row>
+    </ion-row>
 </ion-content>

@@ -75,6 +75,29 @@ export class FollowingService {
         })
     }
 
+    getAllFollowing(): Promise<string[]> {
+        return new Promise((resolve, reject)=>{
+            let headers = new Headers({ 
+                'Content-Type': 'application/json',
+                'Authorization': this.authService.user.getToken()
+            });
+            let options = new RequestOptions({ headers: headers });
+
+            this.http.get(this.endpointService.base + '/api/me/following', options).toPromise()
+            .then(res=>{
+                var resJson = res.json();
+                var idList: string[] = [];
+
+                for(let i in resJson) {
+                    idList.push(resJson[i]['fund_id']);
+                }
+
+                return resolve(idList);
+            })
+            .catch(this.handleErrorPromise);
+        })
+    }
+
     private extractData(res: Response) {
         let body = res.json();
         return body;
