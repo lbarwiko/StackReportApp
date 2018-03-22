@@ -15,7 +15,7 @@ export class AuthService {
     public login(loginCredentials): Promise<User>{
         return new Promise((resolve, reject) => {
                 this.restapiProvider.Login(loginCredentials)
-                .then(user => {if(user) resolve(this.authenticate(user)); else reject(user);});
+                .then(user => {if(user && user.username) resolve(this.authenticate(user)); else resolve(user);});
         });
     }
 
@@ -37,6 +37,7 @@ export class AuthService {
     }
 
     public authenticate(res): Promise<User>{
+        console.log('WE SHOULD NOT BE HERE. GET TO THE CHOPPER;');
         return new Promise((resolve, reject) => {
             this.user = new User(res);
             console.log('User Set');

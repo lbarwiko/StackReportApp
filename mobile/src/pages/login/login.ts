@@ -16,7 +16,7 @@ export class LoginPage {
   loginCredentials = {username: '', password: ''};
   user: User;
 
-  constructor(private loadingCtrl: LoadingController, private alertCtrl: AlertController,
+  constructor(private loadingCtrl: LoadingController, private alertController: AlertController,
    public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {}
 
   ionViewDidLoad() {
@@ -27,6 +27,18 @@ export class LoginPage {
     console.log('Navigate to register page.');
     this.navCtrl.push(RegisterPage);
   }
+
+  public resetLoginPage(){
+    let alert = this.alertController.create({
+      title: 'Invalid Login',
+      subTitle: 'Username or password incorrect.',
+      buttons: [{text:'OK', handler: () => {
+        this.loading.dismiss();
+        this.loginCredentials.password = '';
+      }}]
+    });
+    alert.present(prompt);
+}
 
   public login(){
 
@@ -39,8 +51,7 @@ export class LoginPage {
     this.showLoading();
     console.log('login');
     this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
-    .then(user => {if(user /*&& user.username*/) this.navCtrl.setRoot(HomePage);});
-    /*  this.navCtrl.setRoot(HomePage);*/
+    .then(user => {if(user && user.username) this.navCtrl.setRoot(HomePage); else this.resetLoginPage()});
   }
 
   showLoading() {
@@ -54,7 +65,7 @@ export class LoginPage {
   showError(text) {
     this.loading.dismiss();
  
-    let alert = this.alertCtrl.create({
+    let alert = this.alertController.create({
       title: 'Fail',
       subTitle: text,
       buttons: ['OK']
