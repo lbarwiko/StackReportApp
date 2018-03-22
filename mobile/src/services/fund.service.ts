@@ -55,11 +55,6 @@ export class FundService {
         })
     } 
 
-    private extractData(res: Response) {
-        let body = res.json();
-        return body;
-    }
-
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);
         return Promise.reject(error.message || error);

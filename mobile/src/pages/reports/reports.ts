@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
-import { SecurityPage } from '../../pages/security/security';
-import { Security, Fund, Stock } from '../../models/security';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { TopFundsPage } from '../topfunds/topfunds';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
-import { FollowingService } from '../../services/following.service';
 import { PredictionService } from '../../services/prediction.service'
 
 @IonicPage()

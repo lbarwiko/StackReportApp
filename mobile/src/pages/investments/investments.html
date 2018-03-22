@@ -2,7 +2,7 @@
     <ion-row class='fund-name'>
         {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>
-    <ion-content class = 'table'>
+    <div class = 'table'>
         <div class="row header">
           <div class="col">Ticker</div>
           <div class="col" style='text-align: right;'>Current Price</div>
@@ -18,5 +18,5 @@
               <div class="col" style='text-align: right;'>{{(holding.current_price*holding.num_shares)/totalPrice * 100 | number : '1.2-2'}}%</div>
             </div>
         </div>
-    </ion-content>
+    </div>
 </ion-content>

@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-angular';
-import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from './../home/home';
 
 @IonicPage()
 @Component({

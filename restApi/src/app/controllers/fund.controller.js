@@ -8,6 +8,42 @@ import { Alphavantage } from '../services/';
 export default (db, config) => {
     const AlphavantageApi = Alphavantage();
 
+    function remove(){
+        function helper(fund_id){
+            return db.none(HoldingSql.delete,{
+                fund_id: fund_id
+            })
+            .then(res=>{
+                return db.none(FundSql.delete, {
+                    fund_id: fund_id
+                })
+            })
+            .then(res=>{
+                return Promise.resolve(true);
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
+        }
+        function rest(req, res, next){
+            if(!req.fund){
+                return res.status(404).json({
+                    code: 404,
+                    err: 'No fund found'
+                })
+            }
+            helper(req.fund.fund_id)
+            .then(result=>{
+                res.status(202).send("Deleted");
+            })
+            .catch(err=>res.json(err));
+        }
+        return {
+            rest: rest,
+            helper: helper
+        }
+    }
+
     function list(){
         function helper(page=0, size=10){
             return new Promise((resolve, reject)=>{
@@ -50,7 +86,16 @@ export default (db, config) => {
                     })
                     .catch(err=> reject(err));
                 })
-                .catch(err => reject(err));
+                .catch(err => {
+                    if(err && err.code == 0){
+                        return reject({
+                            code: 404,
+                            err: 'No fund found'
+                        });
+                    }else{
+                        return reject(err);
+                    }
+                });
             })
         }
 
@@ -181,7 +226,8 @@ export default (db, config) => {
             },
             list: list().rest,
             create: create().rest,
-            get: get().rest
+            get: get().rest,
+            remove: remove().rest
         },
         list: list().helper,
         create: create().helper,

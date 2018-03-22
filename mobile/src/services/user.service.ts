@@ -3,8 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-
-import { EndpointService } from './endpoint.service';
+// import { EndpointService } from './endpoint.service';
 import { User } from '../models/user';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class UserService {
         this.url = this.endpointService.getBase() + this.endpointService.getUser();
     }*/
     url: string;
-    constructor(private http:Http, private endpointService: EndpointService) { }
+    constructor(private http:Http) { }
 
     getUsers(page:Number = 0, size:Number = 10): Promise<User[]> {
         return new Promise((resolve, reject)=>{

@@ -1,5 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
+import { Component, Input } from '@angular/core';
 import { FundService } from '../../services/fund.service'
 import { Fund } from '../../models/security';
 

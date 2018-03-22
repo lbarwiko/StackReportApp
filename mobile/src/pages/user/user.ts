@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
-import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
@@ -15,7 +14,8 @@ import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 export class UserPage {
 
   current_user: User;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private authService: AuthService, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, 
+              private authService: AuthService, public menuCtrl: MenuController) {
     this.current_user = authService.getLoggedInUser();
   }
 

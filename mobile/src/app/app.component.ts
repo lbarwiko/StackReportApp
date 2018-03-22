@@ -7,9 +7,6 @@ import { Storage } from '@ionic/storage';
 import { AuthService } from './../services/auth.service';
 import { User } from '../models/user';
 import { LoginPage } from '../pages/login/login';
-import { HomePage } from '../pages/home/home';
-import { SecurityPage } from '../pages/security/security';
-import { TopFundsPage } from '../pages/topfunds/topfunds';
 import { MenuPage } from '../pages/menu/menu';
 
 @Component({

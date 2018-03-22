@@ -12,14 +12,20 @@ from helper import *
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
-if len(sys.argv) != 4:
-		print("Invalid usage, must have 3 arguments.")
-		print("Usage: <program> \"url of the jensx report\" date mf_symbol")
+# TODO FIX FLAG
+if len(sys.argv) != 5:
+		print("Invalid usage, must have 4 arguments.")
+		print("Usage: <program> \"url of the jensx report\" date mf_symbol (p/np)")
 		print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 		exit(1)
 
 if not sys.argv[2].isdigit():
 	print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
+	exit(1)
+
+# TODO FIX FLAG
+if sys.argv[4] != 'p' and sys.argv[4] != 'np':
+	print ("MUST state 'p' or 'np' (post or no-post)")
 	exit(1)
 
 def jensx_csr(url, date, m_symbol):
@@ -140,9 +146,18 @@ def main():
 	date = sys.argv[2]
 	url = sys.argv[1]
 	m_symbol = sys.argv[3].upper()
-	dict = jensx_csr(url, date, m_symbol)
-	print (dict)
-	add_mf_report(m_symbol, dict, date)
+	post = False
+	if sys.argv[4] == 'p':
+		post = True
+
+	report = jensx_csr(url, date, m_symbol)
+	print (report)
+	add_mf_report(m_symbol, report, date)
+
+	# TODO FIX FLAG
+	if post:
+		print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+		print(post_to_frontend(m_symbol, report))
 	# m_symbol, m_date, total_investment, total_net_assets, shares
 
 if __name__ == '__main__':
