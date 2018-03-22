@@ -1,0 +1,29 @@
+page-reports {
+  .fixed-content {
+    background-color: #1A2225;
+  }
+
+  .fund-name {
+    color: white;
+    font-size: 45px;
+  }
+
+  .table {
+    width: 100%;
+    color: white;
+  }
+
+  .header {
+    color: #5E5F63;
+  }
+
+  hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 1em 0;
+      padding: 0; 
+      border-color: #5E5F63;
+  }
+}

@@ -9,6 +9,9 @@ import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
 import { TopFundsPage } from './topfunds/topfunds';
 import { MainDashboardPage } from './mainDashboard/mainDashboard';
+import { ReportsPage } from './reports/reports'
+import { RegionalfundsPage } from './regionalfunds/regionalfunds';
+import { InvestmentsPage } from './investments/investments';
 
 export {
 	RootPage,
@@ -21,5 +24,8 @@ export {
     RegisterPage,
 	SecurityPage,
     TopFundsPage,
-    MainDashboardPage
+    MainDashboardPage,
+    InvestmentsPage,
+    ReportsPage,
+    RegionalfundsPage,
 }

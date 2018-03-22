@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService, FundService, AuthService, EndpointService } from '../services/main';
+import { UserService, FundService, AuthService, EndpointService, FollowingService } from '../services/main';
 import { IonicStorageModule } from '@ionic/storage';
 import { ChartsModule } from 'ng2-charts';
 
@@ -23,7 +23,10 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    MainDashboardPage
+    MainDashboardPage,
+    InvestmentsPage,
+    ReportsPage,
+    RegionalfundsPage
     } from '../pages/main'
 
 import {
@@ -45,6 +48,9 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
+    RegionalfundsPage,
+    InvestmentsPage,
+    ReportsPage,
     PreviewComponent,
     SecurityGraphComponent,
     MainDashboardPage,
@@ -71,7 +77,10 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    MainDashboardPage
+    MainDashboardPage,
+    ReportsPage,
+    InvestmentsPage,
+    RegionalfundsPage
   ],
   providers: [
     StatusBar,
@@ -81,7 +90,8 @@ import {
     FundService,
     RestapiProvider,
     AuthService,
-    EndpointService
+    EndpointService,
+    FollowingService
   ]
 })
 export class AppModule {}

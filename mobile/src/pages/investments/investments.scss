@@ -1,40 +1,29 @@
 page-investments {
+  .fixed-content {
+    background-color: #1A2225;
+  }
 
-	.Title {
-		color: white;
-	}
+  .fund-name {
+    color: white;
+    font-size: 45px;
+  }
 
-    .caption {
-        color: white;
-        margin-bottom: 0px;
-    }
+  .table {
+    width: 100%;
+    color: white;
+  }
 
-  .home-content {
-       background: #151A1D;
- 
-    ion-row {
-       align-items: center;
-       text-align: center;
-     }
- 
-     ion-item {
-         border-radius: 30px !important;
-         padding-left: 30px !important;
-         font-size: 0.9em;
-         margin-bottom: 10px;
-         border: 2px solid #ffffff;
-         border-bottom: 0px !important;
-         box-shadow: none !important;
-     }
- 
-     .item-inner {
-       border-top-color: #ffffff !important;
-       border-bottom-color: #ffffff !important;
-       box-shadow: none !important;
-     }
- 
-     .lower-btn {
-       background: #2A353B;
-     }
- }
+  .header {
+    color: #5E5F63;
+  }
+
+  hr {
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 1em 0;
+      padding: 0; 
+      border-color: #5E5F63;
+  }
 }

@@ -20,6 +20,11 @@ const Fund = {
     get: sql('./fund/fund.get.sql')
 }
 
+const Holding = {
+    list: sql('./fund/fund.holding.list.sql'),
+    create: sql('./fund/fund.holding.create.sql')
+}
+
 const Prediction = {
     list: sql('./prediction/prediction.list.sql'),
     create: sql('./prediction/prediction.create.sql')
@@ -32,15 +37,24 @@ const PredictionMeta = {
 }
 
 const Follow = {
-    get: sql('./follow/follow.get.sql'),
+    verify: sql('./follow/follow.verify.sql'),
+    list: sql('./follow/follow.list.sql'),
     create: sql('./follow/follow.create.sql'),
-    delete: sql('./follow/follow.delete.sql')
+    delete: sql('./follow/follow.delete.sql'),
+    count: sql('./follow/follow.count.user.sql')
+}
+
+const Tier = {
+    get: sql('./tier/tier.get.sql'),
+    list: sql('./tier.list.sql')
 }
 
 export {
     User,
     Fund,
+    Holding,
     Prediction,
     PredictionMeta,
-    Follow
+    Follow,
+    Tier
 }

@@ -11,9 +11,11 @@ import { Fund } from '../models/security';
 export class FundService {
     // url = ApiEndpoint.base + ApiEndpoint.fund;
 
-    url: string = "http://localhost:8000/api/f";
+    url: string;
     
-    constructor(private http:Http) { }
+    constructor(private http:Http, public endpointService: EndpointService) { 
+        this.url = this.endpointService.base + '/api/f';
+    }
     
 
     listFunds(): Promise<string[]> {
