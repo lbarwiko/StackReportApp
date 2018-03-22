@@ -48,7 +48,6 @@ def post_to_frontend(m_symbol, report):
 
 	data = json.dumps(post_dict)
 
-<<<<<<< HEAD
 	print (data)
 	# print (post_dict)
 	headers = {
@@ -59,11 +58,3 @@ def post_to_frontend(m_symbol, report):
 	response = requests.request("PUT", url, data=data, headers=headers)
 
 	print(response.text)
-	
-=======
-	url = "https://www.stackreport.io/api/f/"
-	response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
-
-	return post_dict
-	
->>>>>>> 3aa647192bfbf192cfb165d61a4da6c71c6fff4e
