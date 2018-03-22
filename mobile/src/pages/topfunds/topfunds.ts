@@ -2,7 +2,6 @@ import { Component, ApplicationRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams, MenuController, Loading, LoadingController } from 'ionic-angular';
-import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
@@ -29,7 +28,8 @@ export class TopFundsPage {
   	}
 
 	ngOnInit() {
-		this.showLoading()
+		this.showLoading();
+
 		this.fundService.listFunds()
 		.then(fund_meta_list => {
 			var promiseList = [];

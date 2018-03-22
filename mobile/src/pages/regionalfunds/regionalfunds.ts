@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
-import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';

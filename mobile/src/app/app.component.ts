@@ -10,6 +10,7 @@ import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { SecurityPage } from '../pages/security/security';
 import { TopFundsPage } from '../pages/topfunds/topfunds';
+import { MenuPage } from '../pages/menu/menu';
 
 @Component({
   templateUrl: 'app.html'
@@ -40,7 +41,11 @@ export class MyApp {
 
       if(this.token){
         console.log("Here");
-        this.authService.getUser(token).then(user => {if(user.username) this.rootPage = HomePage;});
+        this.authService.getUser(token).then(user => {
+          if(user.username){ 
+            this.rootPage = MenuPage;
+          }
+        });
       }
       else{
         this.rootPage = LoginPage;
