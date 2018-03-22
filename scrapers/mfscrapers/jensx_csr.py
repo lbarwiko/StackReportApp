@@ -151,13 +151,11 @@ def main():
 		post = True
 
 	report = jensx_csr(url, date, m_symbol)
-	print (report)
 	add_mf_report(m_symbol, report, date)
 
 	# TODO FIX FLAG
 	if post:
-		print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-		print(post_to_frontend(m_symbol, report))
+		post_to_frontend(m_symbol, report)
 	# m_symbol, m_date, total_investment, total_net_assets, shares
 
 if __name__ == '__main__':
