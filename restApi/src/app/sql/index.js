@@ -18,7 +18,8 @@ const Fund = {
     list: sql('./fund/fund.list.sql'),
     create: sql('./fund/fund.create.sql'),
     get: sql('./fund/fund.get.sql'),
-    delete: sql('./fund/fund.delete.sql')
+    delete: sql('./fund/fund.delete.sql'),
+    update: sql('./fund/fund.update.sql')
 }
 
 const Holding = {
