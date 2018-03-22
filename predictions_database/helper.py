@@ -289,6 +289,13 @@ def get_db_stock_quote(ticker, date):
     op_string = "SELECT price, s_date FROM stock_history WHERE c_symbol = '%s' AND s_date <= '%s' ORDER BY s_date DESC" % (ticker, date)
     cur.execute(op_string)
     row = cur.fetchone()
+
+    try:
+        ret = float(row[0])
+    except TypeError:
+        print ("Cannot get stock quote %s %s" % (ticker, str(date)))
+        return float(-1)
+        
     return float(row[0])
 
 
