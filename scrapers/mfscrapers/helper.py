@@ -44,8 +44,8 @@ def post_to_frontend(m_symbol, report):
 
 	data = json.dumps(post_dict)
 
-	url = "http://www.stackreport.io:80/api/f/"
-	response = os.popen("curl --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
+	url = "https://www.stackreport.io/api/f/"
+	response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
 
 	return post_dict
 	
