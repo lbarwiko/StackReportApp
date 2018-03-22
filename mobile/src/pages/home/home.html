@@ -1,16 +1,32 @@
-<ion-content class="home-content" padding>
-    <ion-row>
-        <button ion-button class="top100-btn" (click)="navToTop100Page()">Top 100 Mutual Funds</button>
-    </ion-row>
-    <ion-row>
-        <button ion-button class="region-btn" (click)="navToRegionalFunds()">Mutual Funds by Region</button>
-    </ion-row>
-    <ion-row>
-        <button ion-button class="region-btn" (click)="navToUserPage()">User Page</button>
-    </ion-row>
-    <ion-row>
-    	<div class = "watching">
-    		Watching
-    	</div>
-	</ion-row>
+<ion-content>
+        <component-navbar>
+        </component-navbar>
+        <ion-menu [content]="mycontent">
+				<ion-content>
+						<ion-header class="ion-header">
+							<ion-navbar>
+								<ion-buttons start>
+								<button ion-button>
+									<ion-icon name="contact"></ion-icon>
+								</button>
+								</ion-buttons>
+								<ion-title>
+								Title
+								</ion-title>
+							</ion-navbar>
+						</ion-header>
+						<ion-row>
+							<button ion-button class="mainDashboard-btn" (click)="navToTopFunds()" full type="mfundList">Mutual Funds</button>
+						</ion-row>
+					<ion-row>
+						<button ion-button class="mainDashboard-btn" full type="mfundRegion" (click)="navToByRegionPage()" >Mutual Funds By Region</button>
+					</ion-row>
+					<ion-row>
+							<button ion-button class="mainDashboard-btn" full type="userPortfolio" (click)="navPortfolioPage()">My Portfolios</button>
+					</ion-row>
+					<ion-row>
+							<button ion-button class="mainDashboard-btn" full type="logout" (click)="logout()">Logout</button>
+					</ion-row>  
+				</ion-content>
+			</ion-menu>
 </ion-content>

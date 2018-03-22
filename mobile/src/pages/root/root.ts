@@ -58,7 +58,7 @@ export class RootPage {
       subTitle: text,
       buttons: ['OK']
     });
-    alert.present(prompt);
+    alert.present();
   }
 
 }
