@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams } from 'ionic-angular';
 import { Security, Fund, Stock } from '../../models/security';
 import { InvestmentsPage } from '../../pages/investments/investments';
-
+import { ReportsPage } from '../../pages/reports/reports';
 
 @Component({
   selector: 'page-security',
@@ -38,6 +38,12 @@ export class SecurityPage {
 
 	openInvestmentsPage() {
     	this.navCtrl.push(InvestmentsPage, {
+    		param: this.security
+    	});
+	}
+
+	openReportsPage() {
+    	this.navCtrl.push(ReportsPage, {
     		param: this.security
     	});
 	}
