@@ -50,10 +50,10 @@ def get_ticker(cname, name_list, name_dict):
 
     min = 9999999999
     min_name = ""
-    clean_cname = sanitize_company(cname.lower())
+    clean_cname = sanitize_company(cname)
 
     for company in name_list:
-        clean_company = sanitize_company(company.lower())
+        clean_company = sanitize_company(company)
         d = Levenshtein.distance(str(clean_cname), str(clean_company)) 
         if d < min:
             min = d
@@ -61,10 +61,12 @@ def get_ticker(cname, name_list, name_dict):
     return (name_dict[min_name])
 
 def sanitize_company(company_name):
-    output = company_name.replace("(a)", '')
+    output = company_name.lower()
+    output = output.replace("(a)", '')
     output = output.replace("(b)", '')
     output = output.replace(" class ", ' ')
-    output = output.replace(" the ", ' ')
+    output = output.replace("(the)", '')
+    output = output.replace("the ", '')
     output = output.replace("incorporated", 'inc')
     output = re.sub(r'[^\w\s]','',output)
     return output
