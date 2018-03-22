@@ -272,16 +272,24 @@ def follow_mf(ticker_list):
 
 def get_db_mf_nav(ticker):
     cur = db_cursor()
-    op_string = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC" % ticker
+    op_string = "SELECT price, m_date FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC" % ticker
     cur.execute(op_string)
     row = cur.fetchone()
+
+    # TODO ADD date check
+
     return float(row[0])
 
 def get_db_mf_nav(ticker, date):
     cur = db_cursor()
-    op_string = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
+    op_string = "SELECT price, m_date FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
     cur.execute(op_string)
     row = cur.fetchone()
+
+    if row[1].strftime("%Y%m%d") != date:
+        print ("Warning: Using an older date automatically(%s instead of %s)"
+            % (row[1].strftime("%Y%m%d"), date))
+
     return float(row[0])
 
 def get_db_stock_quote(ticker, date):
@@ -290,12 +298,16 @@ def get_db_stock_quote(ticker, date):
     cur.execute(op_string)
     row = cur.fetchone()
 
+    if row[1].strftime("%Y%m%d") != date:
+        print ("Warning: Using an older date automatically(%s instead of %s)"
+            % (row[1].strftime("%Y%m%d"), date))
+
     try:
         ret = float(row[0])
     except TypeError:
         print ("Cannot get stock quote %s %s" % (ticker, str(date)))
         return float(-1)
-        
+
     return float(row[0])
 
 
