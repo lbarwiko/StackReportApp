@@ -22,9 +22,9 @@ page-reports {
       height: 1px;
       border: 0;
       border-top: 1px solid #ccc;
-      margin: 1em 0;
-      padding: 0; 
       border-color: #5E5F63;
+      margin-top: -1px;
+      margin-bottom: -1px;
   }
 
   .label {
@@ -34,5 +34,13 @@ page-reports {
 
   .last-update {
     color: #5E5F63;
+  }
+
+  .col {
+    color: white;
+  }
+
+  .table {
+    margin-bottom: 30px;
   }
 }

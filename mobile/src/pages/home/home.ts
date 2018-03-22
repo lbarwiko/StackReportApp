@@ -52,18 +52,6 @@ export class HomePage {
       });  
   }
 
-  openMenu() {
-    this.menuCtrl.open();
-  }
- 
-  closeMenu() {
-    this.menuCtrl.close();
-  }
- 
-  toggleMenu() {
-    this.menuCtrl.toggle();
-  }
-
   navToTopFunds(){
     this.navCtrl.push(TopFundsPage);
   }
@@ -75,16 +63,4 @@ export class HomePage {
   navUserInfo(){
     this.navCtrl.push(UserPage);
   }
-
-  logout() {
-    this.authService.logout();
-    this.navCtrl.push(LoginPage);
-  }
-
-  navPortfolioPage() {
-    this.menuCtrl.toggle();
-  }
-
-
-
 }
