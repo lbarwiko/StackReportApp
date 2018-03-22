@@ -12,9 +12,12 @@ import json
 import time
 from config import *
 import requests
+from bs4 import BeautifulSoup
+import 
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 from mutual_fund_nav import get_quote
+from scraper.helper import get_soup
 
 def load_stock_historical(ticker):
 	"""

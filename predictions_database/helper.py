@@ -5,7 +5,7 @@ import sys
 import Levenshtein
 import re
 import datetime 
-sys.path.append(sys.path[0]+"../")
+sys.path.append(sys.path[0]+"/../")
 
 # import config causing trouble for scrapers/stock_scraper.py
 DBCONFIG = {
@@ -92,17 +92,14 @@ def add_mf_report(m_symbol, report, date):
     tuple_list=[]
     for holding in report["stocks"]:
         ticker = get_ticker(holding["company"], name_list, name_dict)
+
+        price = get_db_stock_quote(ticker, date)
+
+        if (holding["shares"] * price) == holding["value"]:
+            print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
+
         tuple_list.append((ticker, m_symbol, holding["shares"], date))
-        # cur = db_cursor()
-        # op_string = ("INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) VALUES ('%s','%s','%s','%s');" 
-        #     % (ticker, m_symbol, holding["shares"], date))
-        # try:
-        #     print(op_string)
-        #     cur.execute(op_string)
-        #     print("Successfully Uploaded MF report to DB!")
-        # except psycopg2.Error as e:
-        #     print ("Insert mf holding failed")
-        #     print (e.pgerror)        
+
 
     # A faster way     
     cur = db_cursor()
@@ -301,6 +298,20 @@ def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
         print (e.pgerror)
         print ("Cannot add the following mf other")
         print (m_symbol, m_date, total_investment, total_net_assets, shares)
+
+def get_mf_name(m_symbol):
+    cur = db_cursor()
+    op_string = "SELECT m_name FROM mutual_fund WHERE m_symbol = '%s'" % m_symbol
+    
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Cannot get %s name" % m_symbol)
+
+    row = cur.fetchone()
+
+    return str(row[0])
 
 
 
