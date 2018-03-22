@@ -13,7 +13,7 @@ sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
 if len(sys.argv) != 4:
-		print("Invalid usage, must have two arguments.")
+		print("Invalid usage, must have 3 arguments.")
 		print("Usage: <program> \"url of the jensx report\" date mf_symbol")
 		print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 		exit(1)
