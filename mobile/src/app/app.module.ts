@@ -22,7 +22,8 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    InvestmentsPage
+    InvestmentsPage,
+    ReportsPage
     } from '../pages/main'
 
 import {
@@ -44,6 +45,7 @@ import {
     SecurityPage,
     TopFundsPage,
     InvestmentsPage,
+    ReportsPage,
     PreviewComponent,
     SecurityGraphComponent
   ],
@@ -68,6 +70,7 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
+    ReportsPage,
     InvestmentsPage
   ],
   providers: [
