@@ -1,41 +1,23 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>investments</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-    <ion-row>
-        <ion-col>
-            <button class="hamburger">Left Button</button>
-        </ion-col>
-        <ion-col>
-            <p class="title">Vanguard ITX <!--{{fund-name}}--></p>
-        </ion-col>
-        <ion-col>
-            <button class="elipses">Right Button</button>
-        </ion-col>
+<ion-content class="investments-content" padding>
+    <ion-row class='fund-name'>
+        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>
-    <ion-row>
-        <p class="caption">Stocks</p>
-    </ion-row>
+    <ion-content class = 'table'>
+        <div class="row header">
+          <div class="col">Name</div>
+          <div class="col" style='text-align: right;'>Curent Price</div>
+          <div class="col" style='text-align: right;'>Shares Held</div>
+          <div class="col" style='text-align: right;'>Percent</div>
+        </div>
+        <hr class='line'>
+        <div *ngFor="let holding of security.holdings">
+            <div class="row" (click)="openStockPage(holding.id)">
+              <div class="col">{{holding.name}}</div>
+              <div class="col" style='text-align: right;'>${{holding.current_price}}</div>
+              <div class="col" style='text-align: right;'>{{holding.num_shares}}</div>
+              <div class="col" style='text-align: right;'>{{holding.percent_total}}</div>
+            </div>
+        </div>
 
-    <!--for every stock...-->
-    <ion-row>
-        <button ion-button class="lower-btn" full type="stock">
-            <ion-col> 
-                <p class="title">{{ stock-name }}</p>
-                <p>{{ date }}</p>
-            </ion-col>
-            <ion-col>
-                <p>{{ price }}</p>
-                <p>{{ quarter }}</p>
-            </ion-col>
-        </button>
-    </ion-row>
-    <!--end for-->
-
+    </ion-content>
 </ion-content>

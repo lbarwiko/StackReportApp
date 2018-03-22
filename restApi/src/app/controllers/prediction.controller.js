@@ -115,18 +115,21 @@ export default (db, config) => {
                     if(!predictionMetaResponse && !predictionMetaResponse.prediction_meta_id){
                         return reject({
                             err: 'Unable to insert',
-                            code: 5000
+                            code: 500
                         });
                     }
                     var prediction_meta_id = predictionMetaResponse.prediction_meta_id
                     return db.tx(t => {
                         var queries = [];
                         
-                        payload.securities.forEach(security_id => {
+                        payload.securities.forEach(security => {
+                            console.log(security);
                             queries.push(
                                 t.none(PredictionSql.create, {
                                     prediction_meta_id: prediction_meta_id,
-                                    security_id: security_id
+                                    security_id: security.security_id,
+                                    order_type: security.order_type,
+                                    amount: security.amount
                                 })
                             );
                         });

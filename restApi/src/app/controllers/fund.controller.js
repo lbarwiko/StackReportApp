@@ -1,6 +1,6 @@
 import { Fund as FeedModel} from '../models/';
 import { Fund as FundData} from '../data/';
-import { Fund as FundSql} from '../sql/';
+import { Fund as FundSql, Holding as HoldingSql } from '../sql/';
 import { RestHelpers } from '../lib/';
 
 import { Alphavantage } from '../services/';
@@ -41,8 +41,14 @@ export default (db, config) => {
                 db.one(FundSql.get,{
                     fund_id: fund_id
                 })
-                .then(res=>{
-                    return resolve(res);
+                .then(fund=>{
+                    db.any(HoldingSql.list,{
+                        fund_id: fund_id
+                    }).then(holdings=>{
+                        fund['holdings'] = holdings;
+                        return resolve(fund);
+                    })
+                    .catch(err=> reject(err));
                 })
                 .catch(err => reject(err));
             })
@@ -71,6 +77,7 @@ export default (db, config) => {
                 return res.json({
                     fund_id: req.fund.fund_id,
                     fund_name: req.fund.fund_name,
+                    holdings: req.fund.holdings,
                     price_history: data
                 });
             })
@@ -101,15 +108,39 @@ export default (db, config) => {
 						code: 400
 					})
                 }
-                db.none(FundSql.create, 
+                db.one(FundSql.create, 
                     {
                         fund_id: payload.fund_id,
                         fund_name: payload.fund_name
                     }
                 )
-                .then(res => {
-                    console.log("u good?");
-                    return resolve(true);
+                .then(fundResponse => {
+                    if(!fundResponse && !fundResponse.fund_id){
+                        return reject({
+                            err: 'Unable to insert',
+                            code: 500
+                        });
+                    }
+                    if(!payload.holdings){
+                        return Promise.resolve(true);
+                    }
+                    
+                    var fund_id = fundResponse.fund_id;
+                    return db.tx(t=>{
+                        var queries = [];
+                        payload.holdings.forEach(holding=>{
+                            queries.push(
+                                t.none(HoldingSql.create,{
+                                    fund_id: fund_id,
+                                    security_id: holding
+                                })
+                            );
+                        });
+                        return t.batch(queries);
+                    })
+                })
+                .then(res =>{
+                    resolve(true);
                 })
                 .catch(err => {
                     console.log(err);
