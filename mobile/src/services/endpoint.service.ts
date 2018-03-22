@@ -7,6 +7,7 @@ export class EndpointService {
 	me: string;
 	prediction: string;
 	fund: string;
+	auth: string;
 
     constructor() {
     	let fvariable: boolean = false;
