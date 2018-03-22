@@ -155,7 +155,7 @@ def save_result(symbols, mf_symbol, result):
 	output = '{\n\t"fund_id": "' + mf_symbol + '",\n\t"securities": ['
 	for i in range(len(symbols)):
 		# only send buy predictions
-		if result[i] == 1: output += '\n\t\t{"security_id": "' + symbols[i] + '"}, '
+		if result[i] == 1: output += '\n\t\t{"security_id": "' + symbols[i] + '", "order_type": 1}, '
 	
 	output = output[:-2]
 	output += "\n\t]\n}"
