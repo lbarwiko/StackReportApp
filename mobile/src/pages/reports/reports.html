@@ -1,4 +1,50 @@
 <ion-content class="reports-content" padding>
+
+<component-navbar>
+    </component-navbar>
+    <ion-row>
+        <ion-menu [content]="mycontent">
+            <ion-content>
+                    <ion-header class="ion-header">
+                        <ion-navbar>
+                            <ion-buttons start>
+                            </ion-buttons>
+                            <button ion-button menuToggle>
+                                <ion-icon name="menu"></ion-icon>
+                            </button>
+                            <ion-title>
+                            {{user.username}}
+                            </ion-title>
+                        </ion-navbar>
+                    </ion-header>
+                    <ion-row>
+                        <button ion-button class="" full type=""></button>
+                    </ion-row>
+                    <ion-row>
+                        <button ion-button class="mainDashboard-btn" (click)="navToTopFunds()" full type="mfundList">Mutual Funds</button>
+                    </ion-row>
+                <ion-row>
+                    <button ion-button class="mainDashboard-btn" full type="mfundRegion" (click)="navToByRegionPage()" >Mutual Funds By Region</button>
+                </ion-row>
+                <ion-row>
+                        <button ion-button class="mainDashboard-btn" full type="userPortfolio" (click)="navPortfolioPage()">My Portfolios</button>
+                </ion-row>
+                <ion-row>
+                        <button ion-button class="mainDashboard-btn" full type="userInfo" (click)="navUserInfo()">My Account</button>
+                </ion-row>
+                <ion-row>
+                        <button ion-button class="mainDashboard-btn" full type="logout" (click)="logout()">Logout</button>
+                </ion-row>  
+            </ion-content>
+        </ion-menu>
+        <ion-nav #mycontent [root]="rootPage"></ion-nav>
+    </ion-row>
+
+
+    <button ion-button icon-only menuToggle end>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+	
     <ion-row class='fund-name'>
         {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>

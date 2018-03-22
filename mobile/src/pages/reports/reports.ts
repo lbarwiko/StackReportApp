@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
 import { SecurityPage } from '../../pages/security/security';
 import { Security, Fund, Stock } from '../../models/security';
+import { User } from '../../models/user';
+import { AuthService } from '../../services/auth.service';
+import { TopFundsPage } from '../topfunds/topfunds';
+import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
+import { UserPage } from '../user/user';
+import { LoginPage } from '../login/login';
+import { FollowingService } from '../../services/following.service';
 
 @IonicPage()
 @Component({
@@ -12,11 +19,48 @@ import { Security, Fund, Stock } from '../../models/security';
 export class ReportsPage {
 
   	security: any;
+  	user: User;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService, public menuCtrl:MenuController, public authService: AuthService) {
 		this.security = null;
+		this.user = authService.getLoggedInUser();
 	}
 	ngOnInit() {
 		this.security = this.navParams.get('param');
 	}
+
+
+
+	  openMenu() {
+	    this.menuCtrl.open();
+	  }
+	 
+	  closeMenu() {
+	    this.menuCtrl.close();
+	  }
+	 
+	  toggleMenu() {
+	    this.menuCtrl.toggle();
+	  }
+
+	  navToTopFunds(){
+	    this.navCtrl.push(TopFundsPage);
+	  }
+
+	  navToByRegionPage(){
+	    this.navCtrl.push(RegionalfundsPage);
+	  }
+
+	  navUserInfo(){
+	    this.navCtrl.push(UserPage);
+	  }
+
+	  logout() {
+	    this.authService.logout();
+	    this.navCtrl.push(LoginPage);
+	  }
+
+	  navPortfolioPage() {
+	    this.menuCtrl.toggle();
+	  }
 }

@@ -8,11 +8,6 @@
 				<ion-content>
 						<ion-header class="ion-header">
 							<ion-navbar>
-								<ion-buttons start>
-								<button ion-button>
-									<ion-icon name="contact"></ion-icon>
-								</button>
-								</ion-buttons>
 								<button ion-button menuToggle>
 									<ion-icon name="menu"></ion-icon>
 								</button>
@@ -33,11 +28,21 @@
 					<ion-row>
 							<button ion-button class="mainDashboard-btn" full type="userPortfolio" (click)="navPortfolioPage()">My Portfolios</button>
 					</ion-row>
+	                <ion-row>
+	                        <button ion-button class="mainDashboard-btn" full type="userInfo" (click)="navUserInfo()">My Account</button>
+	                </ion-row>
 					<ion-row>
 							<button ion-button class="mainDashboard-btn" full type="logout" (click)="logout()">Logout</button>
 					</ion-row>  
 				</ion-content>
 			</ion-menu>
+
+
+
+    <button ion-button icon-only menuToggle end>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    
     <ion-row>
     	<div class="title">
         	Top Mutual Funds
