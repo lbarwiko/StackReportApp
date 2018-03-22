@@ -17,7 +17,7 @@ def load_data():
 	mf_symbols_to_data = {}
 
 	for mf_symbol in mf_symbols:
-		with open("~/StackReport/predictions/" + mf_symbol + "_regr.json") as file:
+		with open("/root/StackReport/predictions/" + mf_symbol + "_regr.json") as file:
 			data = json.load(file)
 			mf_symbols_to_data[mf_symbol] = data
 
