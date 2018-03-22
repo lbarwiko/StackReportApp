@@ -42,6 +42,14 @@ export class ReportsPage {
 		this.predictionService.getPredictions(this.security.id)
 		.then(predictionList => {
 			console.log(predictionList);
+			this.lastUpdated = predictionList.data[0].meta.date_predicted;
+			predictionList.data[0].prediction.forEach(pred => {
+				if(pred.order_type == 1) {
+					this.buyPredictions.push(pred);
+				} else if(pred.order_type == -1) {
+					this.sellPredictions.push(pred);
+				}
+			})
 		})
 		.catch(err => {
 			console.log(err);

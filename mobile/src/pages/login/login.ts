@@ -37,7 +37,7 @@ export class LoginPage {
         this.loginCredentials.password = '';
       }}]
     });
-    alert.present(prompt);
+    // alert.present(prompt);
 }
 
   public login(){

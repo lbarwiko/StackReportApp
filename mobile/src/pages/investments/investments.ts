@@ -1,4 +1,4 @@
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, MenuController, LoadingController } from 'ionic-angular';
 import { FundService } from '../../services/fund.service';
 import { Component, ApplicationRef } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
@@ -22,13 +22,17 @@ export class InvestmentsPage {
   	security: any;
   	user: User;
 	totalPrice: number;
+	loading: Loading;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService,
-	public authService:AuthService, public menuCtrl:MenuController, public securityService: SecurityService, public applicationRef: ApplicationRef) {
+	public authService:AuthService, public menuCtrl:MenuController, public securityService: SecurityService, 
+	public applicationRef: ApplicationRef, private loadingCtrl: LoadingController) {
 		this.user = this.authService.getLoggedInUser();
 	}
 
 	ngOnInit() {
+		this.showLoading()
+
 		this.security = this.navParams.get('param');
 		this.totalPrice = 0;
 
@@ -48,15 +52,31 @@ export class InvestmentsPage {
 		.then(securities=>{
 			var i = 0;
 			securities.forEach(security=>{
+				if(!security.price_history || !security.price_history[0]){
+					this.security.holdings[i]['current_price'] = -1;
+					return;
+				}
 				var current_price = parseFloat(security.price_history[0]["4. close"]);
 				this.totalPrice += current_price * this.security.holdings[i]['num_shares'];
 				this.security.holdings[i]['current_price'] = current_price;
 				i+=1;
 			})
+			this.loading.dismiss();
 			this.applicationRef.tick();
 		})
-		.catch(err=>console.log(err));
+		.catch(err=>{
+			this.loading.dismiss();
+			console.log(err)
+		});
 	}
+
+	showLoading() {
+		this.loading = this.loadingCtrl.create({
+		  content: 'Loading...',
+		  dismissOnPageChange: false
+		});
+		this.loading.present();
+	  }
 
 	openStockPage(stock_id) {
 		this.securityService.get(stock_id)
@@ -67,41 +87,5 @@ export class InvestmentsPage {
 			// });
 		})
 	}
-
-
-
-	  openMenu() {
-	    this.menuCtrl.open();
-	  }
-	 
-	  closeMenu() {
-	    this.menuCtrl.close();
-	  }
-	 
-	  toggleMenu() {
-	    this.menuCtrl.toggle();
-	  }
-
-	  navToTopFunds(){
-	    this.navCtrl.push(TopFundsPage);
-	  }
-
-	  navToByRegionPage(){
-	    this.navCtrl.push(RegionalfundsPage);
-	  }
-
-	  navUserInfo(){
-	    this.navCtrl.push(UserPage);
-	  }
-
-	  logout() {
-	    this.authService.logout();
-	    this.navCtrl.push(LoginPage);
-	  }
-
-	  navPortfolioPage() {
-	  	//this.navCtrl.poptoroot(); maybe this?
-	    this.navCtrl.push(HomePage);
-	  }
 
 }
