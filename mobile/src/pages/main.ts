@@ -24,6 +24,6 @@ export {
 	SecurityPage,
 	TopFundsPage,
     InvestmentsPage,
-    ReportsPage
+    ReportsPage,
     RegionalfundsPage,
 }

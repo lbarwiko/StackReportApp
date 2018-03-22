@@ -23,7 +23,7 @@ import {
     SecurityPage,
     TopFundsPage,
     InvestmentsPage,
-    ReportsPage
+    ReportsPage,
     RegionalfundsPage,
     } from '../pages/main'
 
@@ -73,7 +73,7 @@ import {
     SecurityPage,
     TopFundsPage,
     ReportsPage,
-    InvestmentsPage
+    InvestmentsPage,
     RegionalfundsPage,
   ],
   providers: [
