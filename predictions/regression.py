@@ -66,7 +66,7 @@ def load_data(mf_symbol):
 	stock_assets = NAV*N_shares + liabilities, where NAV is assets - liabilities and N_shares 
 	"""
 	
-	# TODO load from db instead
+	# TODO fix return values
 	num_shares_held = []
 	n_shares = 0
 	nav = 0.0
@@ -152,15 +152,15 @@ def save_result(symbols, mf_symbol, result):
 	follows restAPI specification
 	"""
 
-	output = '{\n\t"fund_id: "' + mf_symbol + '",\n\t"securities": ['
+	output = '{\n\t"fund_id": "' + mf_symbol + '",\n\t"securities": ['
 	for i in range(len(symbols)):
 		# only send buy predictions
-		if result[i] == 1: output += '"' + symbols[i] + '", '
+		if result[i] == 1: output += '\n\t\t{"security_id": "' + symbols[i] + '"}, '
 	
 	output = output[:-2]
-	output += "]\n}"
+	output += "\n\t]\n}"
 
-	with open("~/StackReport/predictions/" + mf_symbol + "_regr.json", "w") as file:
+	with open("/root/StackReport/predictions/" + mf_symbol + "_regr.json", "w") as file:
 		file.write(output)
 
 def main():
@@ -173,11 +173,5 @@ def main():
 		#TODO see if ensemble is best prediction to go with
 		save_result(symbols, mf_symbol, result[-1])
 
-# delete
-def test():
-	return 0
-
 if __name__=="__main__":
-	# main()
-	# change
-	test()
+	main()

@@ -8,6 +8,7 @@ import { RegisterPage } from './register/register';
 import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
 import { TopFundsPage } from './topfunds/topfunds';
+import { InvestmentsPage } from './investments/investments'
 
 export {
 	RootPage,
@@ -19,5 +20,6 @@ export {
     LoginPage,
     RegisterPage,
 	SecurityPage,
-	TopFundsPage
+	TopFundsPage,
+    InvestmentsPage
 }
