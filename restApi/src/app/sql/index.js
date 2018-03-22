@@ -37,9 +37,16 @@ const PredictionMeta = {
 }
 
 const Follow = {
-    get: sql('./follow/follow.get.sql'),
+    verify: sql('./follow/follow.verify.sql'),
+    list: sql('./follow/follow.list.sql'),
     create: sql('./follow/follow.create.sql'),
-    delete: sql('./follow/follow.delete.sql')
+    delete: sql('./follow/follow.delete.sql'),
+    count: sql('./follow/follow.count.user.sql')
+}
+
+const Tier = {
+    get: sql('./tier/tier.get.sql'),
+    list: sql('./tier.list.sql')
 }
 
 export {
@@ -48,5 +55,6 @@ export {
     Holding,
     Prediction,
     PredictionMeta,
-    Follow
+    Follow,
+    Tier
 }

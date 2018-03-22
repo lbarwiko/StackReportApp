@@ -22,8 +22,9 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    RegionalfundsPage,
     InvestmentsPage,
+    ReportsPage,
+    RegionalfundsPage,
     } from '../pages/main'
 
 import {
@@ -46,6 +47,7 @@ import {
     TopFundsPage,
     RegionalfundsPage,
     InvestmentsPage,
+    ReportsPage,
     PreviewComponent,
     SecurityGraphComponent
   ],
@@ -70,8 +72,9 @@ import {
     LoginPage,
     SecurityPage,
     TopFundsPage,
-    RegionalfundsPage,
+    ReportsPage,
     InvestmentsPage,
+    RegionalfundsPage,
   ],
   providers: [
     StatusBar,
