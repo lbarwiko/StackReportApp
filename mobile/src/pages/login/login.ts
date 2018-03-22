@@ -4,7 +4,6 @@ import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from './../home/home';
 import { MenuPage } from './../menu/menu';
 
 @IonicPage()
