@@ -5,7 +5,6 @@ import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { TopFundsPage } from '../topfunds/topfunds';
 import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
-import { LoginPage } from '../login/login';
 import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';

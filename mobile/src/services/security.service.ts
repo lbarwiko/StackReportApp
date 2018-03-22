@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
-import { Security } from '../models/security';
+// import { Security } from '../models/security';
 
 @Injectable()
 export class SecurityService {
@@ -30,11 +30,6 @@ export class SecurityService {
             .catch(this.handleErrorPromise);
         })
     } 
-
-    private extractData(res: Response) {
-        let body = res.json();
-        return body;
-    }
 
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);

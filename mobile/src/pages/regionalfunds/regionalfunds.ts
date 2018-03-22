@@ -8,7 +8,6 @@ import { HomePage } from '../home/home';
 import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';
-import { TopFundsPage } from '../topfunds/topfunds';
 
 @Component({
   selector: 'page-regionalfunds',

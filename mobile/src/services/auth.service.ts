@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+// import { Http, Response } from '@angular/http';
+// import { Headers, RequestOptions } from '@angular/http';
 import { RestapiProvider } from '../providers/restapi/restapi';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class AuthService {
     user : User;
-    constructor(private http:Http, public restapiProvider: RestapiProvider, private storage:Storage) { }
+    constructor(public restapiProvider: RestapiProvider, private storage:Storage) { }
 
     public login(loginCredentials): Promise<User>{
         return new Promise((resolve, reject) => {

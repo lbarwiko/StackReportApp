@@ -2,15 +2,8 @@ import { IonicPage, NavController, NavParams, Loading, MenuController, LoadingCo
 import { FundService } from '../../services/fund.service';
 import { Component, ApplicationRef } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
-import { SecurityPage } from '../../pages/security/security';
-import { Security, Fund, Stock } from '../../models/security';
 import { AuthService } from '../../services/auth.service';
-import { UserPage } from '../user/user';
-import { HomePage } from '../home/home';
-import { LoginPage } from '../login/login';
 import { User } from '../../models/user';
-import { TopFundsPage } from '../topfunds/topfunds';
-import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 
 @IonicPage()
 @Component({
