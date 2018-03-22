@@ -100,11 +100,11 @@ void save_result(const MutualFund& mf, const vector<int>& result) {
 	// save data in mf_symbol_comb.json
 	// follows restAPI specification
 	// TODO fix this to save both quantities and securities
-	string output = "{\n\t\"fund_id: \"" + mf.mf_symbol + "\",\n\t\"securities\": [";
+	string output = "{\n\t\"fund_id\": \"" + mf.mf_symbol + "\",\n\t\"securities\": [";
 	for (const auto& symbol : mf.symbols) output += "\"" + symbol + "\", ";
 	output.pop_back();
 	output.pop_back();
-	output += "]\n}"
+	output += "\n\t]\n}"
 
 	ofstream file("/root/StackReport/predictions/" + mf.mf_symbol + "_comb.json");
 	file << output;
