@@ -5,7 +5,7 @@ import time
 from bs4 import BeautifulSoup
 import re
 import json
-from predictions_database.helper import add_tuple_mf_history
+from predictions_database.helper import add_tuple_mf_history, add_tuple_stock_history
 import time
 
 def is_numeric(str_input):
