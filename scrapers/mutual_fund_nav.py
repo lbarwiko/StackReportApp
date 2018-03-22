@@ -43,7 +43,7 @@ def upload_mf_historical(ticker):
 			if each["date"] is not None and each["close"] is not None:
 				date = time.strftime("%Y%m%d", time.gmtime(float(each["date"])))
 				try:
-					tup = (ticker, date, float(each["close"]))
+					tup = (ticker, float(each["close"]), date)
 				except TypeError:
 					print (each)
 
