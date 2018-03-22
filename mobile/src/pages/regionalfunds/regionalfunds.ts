@@ -9,7 +9,6 @@ import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';
 
-
 @Component({
   selector: 'page-regionalfunds',
   templateUrl: 'regionalfunds.html'

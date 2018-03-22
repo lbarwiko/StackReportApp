@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
-import { FundService } from '../../services/fund.service'
+import { Component, Input } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { Security } from '../../models/security';
 import { SecurityPage } from '../../pages/security/security';
 
@@ -22,9 +21,11 @@ export class PreviewComponent {
 
 	ngOnInit() {
 		this.security = this.security_from_front;
-		if(this.security.current_price < this.security.price_history[0]['1. open']) {
+		if(this.security.price_history.length > 0 && 
+			this.security.current_price < this.security.price_history[0]['1. open']) {
 			this.price_color = 'price red';
-		} else if (this.security.current_price > this.security.price_history[0]['1. open']) {
+		} else if (this.security.price_history.length > 0 && 
+					this.security.current_price > this.security.price_history[0]['1. open']) {
 			this.price_color = 'price green';
 		}
 	}
