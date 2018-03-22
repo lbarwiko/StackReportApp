@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Users, Funds, Predictions, Follow } from './controllers/'
+import { Users, Funds, Predictions, Follow, Security } from './controllers/'
 
 export default (db, config, auth) => {
 	const router = Router();
@@ -45,10 +45,19 @@ export default (db, config, auth) => {
 	api.use('/p/', predictionApi);
 
     const followingApi = Router();
-    const Following = Follow(db, config);
-    followingApi.get('/', Following.list);
-    api.use('/following/', followingApi);
+    const Following = Follow(db, config).rest;
+	//followingApi.get('/', Following.list);
+	//followApi.post('/', Following.create);
+	api.use('/following/', followingApi);
+	
+	const securityApi = Router();
+	const Securities = Security(db, config).rest;
+	securityApi.get('/:security_id', Securities.get);
+	api.use('/security/', securityApi);
 
+	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {
+		res.send(req.params.id + '.' + 'HvBmjhjg7Ng9HAGb1bmUtrF4gqOWj8LZ56Gx5HyBBNg');
+	});
 	router.get('/', (req, res)=>{
 		res.send("Fintech Rest Api");
 	})

@@ -5,8 +5,8 @@
     	</div>
 	</ion-row>
 	<ion-row class="previewlist">
-		<ion-row class="preview" *ngFor="let i of fundList">
-			<component-preview  fund_id_in={{i}}>
+		<ion-row class="preview" *ngFor="let fund of fundList">
+			<component-preview *ngIf="fund" [security_in] = "fund">
 			</component-preview>
 		</ion-row>
 	</ion-row>

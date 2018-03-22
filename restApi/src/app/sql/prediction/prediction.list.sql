@@ -1,1 +1,1 @@
-SELECT security_id FROM PREDICTION WHERE prediction_meta_id=${prediction_meta_id}
+SELECT security_id, order_type, amount FROM PREDICTION WHERE prediction_meta_id=${prediction_meta_id}
