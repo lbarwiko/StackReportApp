@@ -43,7 +43,7 @@ def upload_mf_historical(ticker):
 			if each["date"] is not None and each["close"] is not None:
 				date = time.strftime("%Y%m%d", time.gmtime(float(each["date"])))
 				try:
-					tup = (ticker, float(each["close"]), date)
+					tup = (ticker, date, float(each["close"]))
 				except TypeError:
 					print (each)
 
@@ -57,7 +57,7 @@ def upload_mf_historical(ticker):
 def upload_stock_historical(ticker):
 
 	result = get_quote_historical(ticker)
-	# convert into tuple list ((m_symbol, m_date, price), ...)
+	# convert into tuple list ((c_symbol, price, s_date), ...)
 	tuple_list = []
 
 	for each in result:
@@ -65,7 +65,7 @@ def upload_stock_historical(ticker):
 			if each["date"] is not None and each["close"] is not None:
 				date = time.strftime("%Y%m%d", time.gmtime(float(each["date"])))
 				try:
-					tup = (ticker, date, float(each["close"]))
+					tup = (ticker, float(each["close"]), date)
 				except TypeError:
 					print (each)
 
