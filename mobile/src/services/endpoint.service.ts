@@ -13,7 +13,7 @@ export class EndpointService {
 		let fvariable: boolean = false;
 		
 		if (fvariable) {
-			this.base = 'http://stackreport.io';
+			this.base = 'https://stackreport.io';
 		} else {	
 			this.base = 'http://localhost:8000';	
 		}

@@ -10,7 +10,7 @@ HOST_NAME=${2:-localhost}
 
 # Sanity check command line options
 usage() {
-  echo "Usage: $0 (create|destroy|reset|start|stop)"
+  echo "Usage: $0 (create|create-fake|destroy|reset|start|stop)"
 }
 
 if [ $# -ne 1 ]; then
@@ -31,6 +31,22 @@ case $1 in
       psql \
         -h $HOST_NAME \
         -f sql/populate.sql \
+        --echo-all \
+        --set ON_ERROR_STOP=on
+      echo "SUCCESSFULLY CREATED DATABASE"
+    ;;
+
+  "create-fake")
+      echo "CREATING DATABASE"
+      psql \
+        -h $HOST_NAME \
+        -f sql/create.sql \
+        --echo-all \
+        --set ON_ERROR_STOP=on
+      echo "POPULATING DATABASE WITH REAL FAKE DATA"
+      psql \
+        -h $HOST_NAME \
+        -f sql/realFakeData.sql \
         --echo-all \
         --set ON_ERROR_STOP=on
       echo "SUCCESSFULLY CREATED DATABASE"
