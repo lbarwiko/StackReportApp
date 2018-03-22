@@ -173,11 +173,5 @@ def main():
 		#TODO see if ensemble is best prediction to go with
 		save_result(symbols, mf_symbol, result[-1])
 
-# delete
-def test():
-	return 0
-
 if __name__=="__main__":
-	# main()
-	# change
-	test()
+	main()

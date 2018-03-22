@@ -115,7 +115,7 @@ export default (db, config) => {
                     if(!predictionMetaResponse && !predictionMetaResponse.prediction_meta_id){
                         return reject({
                             err: 'Unable to insert',
-                            code: 5000
+                            code: 500
                         });
                     }
                     var prediction_meta_id = predictionMetaResponse.prediction_meta_id
