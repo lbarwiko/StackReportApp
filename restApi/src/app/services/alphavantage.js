@@ -29,12 +29,10 @@ export default ()=>{
                         //     data.push(pricePoint);
                         // }
                         // data = data.sort();
-                        if(body['Error Message']){
-                            return reject({
-                                code: 500,
-                                err: body['Error Message']
-                            });
+                        if(!body || body['Error Message'] || ! body['Time Series (Daily)']){
+                            return resolve([]);
                         }
+                        
                         var output = Object.keys(body['Time Series (Daily)']).map(key => {
                             var pricePoint = body['Time Series (Daily)'][key];
                             pricePoint['date'] = key;
