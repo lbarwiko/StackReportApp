@@ -2,7 +2,6 @@ import { Component, ApplicationRef } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams, MenuController, Loading, LoadingController } from 'ionic-angular';
-import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';

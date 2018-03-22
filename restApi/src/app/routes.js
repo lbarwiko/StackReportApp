@@ -30,6 +30,7 @@ export default (db, config, auth) => {
 	fundApi.get('/', Fund.list);
 	fundApi.post('/', Fund.create);
 	fundApi.get('/:fund_id', Fund.get);
+	fundApi.delete('/:fund_id', Fund.remove)
 	fundApi.param('fund_id', Fund.params.fund_id);
 	api.use('/f/', fundApi);
 
