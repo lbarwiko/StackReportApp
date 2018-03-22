@@ -4,7 +4,7 @@ import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from './../home/home';
+import { MenuPage } from './../menu/menu';
 
 @IonicPage()
 @Component({
@@ -29,16 +29,7 @@ export class LoginPage {
   }
 
   public resetLoginPage(){
-    let alert = this.alertController.create({
-      title: 'Invalid Login',
-      subTitle: 'Username or password incorrect.',
-      buttons: [{text:'OK', handler: () => {
-        this.loading.dismiss();
-        this.loginCredentials.password = '';
-      }}]
-    });
-    // alert.present(prompt);
-}
+  }
 
   public login(){
 
@@ -51,7 +42,7 @@ export class LoginPage {
     this.showLoading();
     console.log('login');
     this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
-    .then(user => {if(user && user.username) this.navCtrl.setRoot(HomePage); else this.resetLoginPage()});
+    .then(user => {if(user && user.username) this.navCtrl.setRoot(MenuPage); else this.resetLoginPage()});
   }
 
   showLoading() {

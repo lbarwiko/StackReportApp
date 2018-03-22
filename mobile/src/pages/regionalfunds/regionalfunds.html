@@ -1,19 +1,16 @@
 <ion-content class="home-content" padding>
-    <button ion-button icon-only menuToggle end>
-        <ion-icon name="menu"></ion-icon>
-    </button>
-	
     <ion-row>
-    	<div class="title">
-        	Mutual Funds by Region
-    	</div>
-	</ion-row>
+        <div class="title">
+            Mutual Funds by Region
+        </div>
+    </ion-row>
+    
     <!-- Currently only support funds from North America -->
     <h2 class="title">North America</h2>
-	<ion-row class="previewlist">
-		<ion-row class="preview" *ngFor="let fund of fundList">
-			<component-preview *ngIf="fund" [security_in] = "fund">
-			</component-preview>
-		</ion-row>
-	</ion-row>
+    <ion-row class="previewlist">
+        <ion-row class="preview" *ngFor="let fund of fundList">
+            <component-preview *ngIf="fund" [security_in] = "fund">
+            </component-preview>
+        </ion-row>
+    </ion-row>    
 </ion-content>

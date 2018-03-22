@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { MenuController, NavController, Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, App } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/main';
 
-import { HomePage } from '../main';
+import { HomePage, RegionalfundsPage, UserPage, TopFundsPage, LoginPage } from '../main';
 
 
 @Component({
@@ -15,25 +15,39 @@ export class MenuPage {
   @ViewChild(Nav) nav: Nav;
 
   user:User;
-
+  hidden:string;
+  authService:AuthService;
+  app:App;
 
   rootPage: any = HomePage;
 
   pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, authService:AuthService, app:App) {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage }
+      { title: 'Home', component: HomePage }, 
+      { title: 'Top Mutual Funds', component: TopFundsPage },
+      { title: 'Funds By Region', component: RegionalfundsPage },
+      { title: 'My account', component: UserPage },
     ];
+    this.authService = authService;
+    this.app = app;
+}
 
+back(){
+  if(this.nav.canGoBack())
+    this.nav.pop();
 }
 
 openPage(page) {
-  // Reset the content nav to have just this page
-  // we wouldn't want the back button to show in this scenario
   this.nav.setRoot(page.component);
+}
+
+logout() {
+    this.authService.logout();
+    this.app.getRootNav().setRoot(LoginPage);
 }
 
 }

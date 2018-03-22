@@ -1,4 +1,4 @@
-page-investments {
+.investments-content {
   .fixed-content {
     background-color: #1A2225;
   }
@@ -6,11 +6,13 @@ page-investments {
   .fund-name {
     color: white;
     font-size: 45px;
+    padding:10px;
   }
 
   .table {
     width: 100%;
     color: white;
+    padding: 10px;
   }
 
   .header {

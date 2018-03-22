@@ -26,8 +26,6 @@ export class FollowingService {
             });
             let options = new RequestOptions({ headers: headers });
 
-            let currentUser = this.authService.user;
-
             this.http.get(this.url + '/' + fund_id + '/follow', options).toPromise()
             .then(res=>{
                 var resJson = res.json();
@@ -45,8 +43,6 @@ export class FollowingService {
             });
             let options = new RequestOptions({ headers: headers });
 
-            let currentUser = this.authService.user;
-
             this.http.post(this.url + '/' + fund_id + '/follow', {}, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
@@ -63,8 +59,6 @@ export class FollowingService {
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });
-
-            let currentUser = this.authService.user;
 
             this.http.delete(this.url + '/' + fund_id + '/follow', options).toPromise()
             .then(res=>{
@@ -96,11 +90,6 @@ export class FollowingService {
             })
             .catch(this.handleErrorPromise);
         })
-    }
-
-    private extractData(res: Response) {
-        let body = res.json();
-        return body;
     }
 
     private handleErrorPromise (error: Response | any) {

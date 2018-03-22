@@ -10,19 +10,28 @@
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
             {{p.title}}
         </button>
+        <button ion-item (click)="logout()">
+            Logout
+        </button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
     
-<ion-header>
-    <ion-navbar>
-        <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-        </button>
-        <ion-title>StackReport</ion-title>
+<ion-header id="nav-bar-super">
+    <ion-navbar class="navigation-bar">
+        <ion-buttons left>
+            <button ion-button icon-only start class="button" id="backButton" (click)="back()">
+                <ion-icon name="arrow-back" class="back-btn"></ion-icon>
+            </button>
+            <button ion-button menuToggle start class="menu-btn">
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title class="title">StackReport</ion-title>
     </ion-navbar>
 </ion-header>
+
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
 <ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">
 </ion-nav>

@@ -15,7 +15,11 @@ class Security {
         this.id = id;
         this.name = name;
         this.price_history = price_history;
-        this.current_price = this.price_history[0]['4. close'];
+        if(price_history && price_history != undefined && price_history.length > 0) {
+            this.current_price = this.price_history[0]['4. close'];
+        } else {
+            this.current_price = 0;
+        }
     }
  } 
  class Fund extends Security{
