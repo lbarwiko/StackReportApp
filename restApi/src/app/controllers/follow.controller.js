@@ -6,12 +6,37 @@ export default (db, config) => {
     const Tier = TierController(db, config);
 
     function list(){
-        function helper(){
-
+        function helper(user){
+            return db.any(FollowSql.list,{
+                user_id: user.user_id
+            })
+            .then(res=>{
+                return Promise.resolve(res);
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
         }
 
         function rest(req, res, next){
-            return res.json(true);
+            if(!req.user){
+                return res.status(403).json({
+                    code: 403,
+                    error: 'Unauthorized'
+                });
+            }
+
+            helper(req.user)
+            .then(results=>{
+                return res.status(200).json(results);
+            })
+            .catch(err=>{
+                if(err && err.code){
+                    return res.status(err.code).json(err);
+                }else{
+                    res.json(err);
+                }
+            })
         }
 
         return {

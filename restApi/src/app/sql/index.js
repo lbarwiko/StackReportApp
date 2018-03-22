@@ -38,6 +38,7 @@ const PredictionMeta = {
 
 const Follow = {
     get: sql('./follow/follow.get.sql'),
+    list: sql('./follow/follow.list.sql'),
     create: sql('./follow/follow.create.sql'),
     delete: sql('./follow/follow.delete.sql'),
     count: sql('./follow/follow.count.user.sql')
