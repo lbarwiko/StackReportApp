@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, App } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/main';
 
@@ -16,22 +16,24 @@ export class MenuPage {
 
   user:User;
   hidden:string;
+  authService:AuthService;
+  app:App;
 
   rootPage: any = HomePage;
 
-  pages: Array<{title: string, component: any, authService:any}>;
+  pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, authService:AuthService) {
+  constructor(public platform: Platform, authService:AuthService, app:App) {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage, authService:'' }, 
-      { title: 'Top Mutual Funds', component: TopFundsPage, authService:''},
-      { title: 'Funds By Region', component: RegionalfundsPage, authService:''},
-      { title: 'My account', component: UserPage, authService:'' },
-      { title: 'Logout', component: LoginPage, authService:authService}
+      { title: 'Home', component: HomePage }, 
+      { title: 'Top Mutual Funds', component: TopFundsPage },
+      { title: 'Funds By Region', component: RegionalfundsPage },
+      { title: 'My account', component: UserPage },
     ];
-
+    this.authService = authService;
+    this.app = app;
 }
 
 back(){
@@ -40,12 +42,12 @@ back(){
 }
 
 openPage(page) {
-  if(page.authService != ''){
-      page.authService.logout();
-  }
-  // Reset the content nav to have just this page
-  // we wouldn't want the back button to show in this scenario
   this.nav.setRoot(page.component);
+}
+
+logout() {
+    this.authService.logout();
+    this.app.getRootNav().setRoot(LoginPage);
 }
 
 }
