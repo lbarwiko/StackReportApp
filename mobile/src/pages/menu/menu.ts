@@ -15,7 +15,7 @@ export class MenuPage {
   @ViewChild(Nav) nav: Nav;
 
   user:User;
-
+  hidden:string;
 
   rootPage: any = HomePage;
 
@@ -32,6 +32,11 @@ export class MenuPage {
       { title: 'Logout', component: LoginPage, authService:authService}
     ];
 
+}
+
+back(){
+  if(this.nav.canGoBack())
+    this.nav.pop();
 }
 
 openPage(page) {
