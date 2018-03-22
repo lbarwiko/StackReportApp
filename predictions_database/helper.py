@@ -63,8 +63,8 @@ def get_ticker(cname, name_list, name_dict):
 def sanitize_company(company_name):
     output = company_name.replace("(a)", '')
     output = output.replace("(b)", '')
-    output = output.replace(" class ", '')
-    output = company_name.replace("the", '')
+    output = output.replace(" class ", ' ')
+    output = output.replace(" the ", ' ')
     output = output.replace("incorporated", 'inc')
     output = re.sub(r'[^\w\s]','',output)
     return output
