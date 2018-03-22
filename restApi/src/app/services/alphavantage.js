@@ -6,6 +6,12 @@ export default ()=>{
     function get(){
         function helper(symbol){
             return new Promise((resolve, reject)=>{
+                if(!symbol){
+                    return reject({
+                        code:404,
+                        err: 'No symbol provided'
+                    });
+                }
                 var url = dailyUrl + '&symbol=' + symbol;
                 console.log("Getting url", url);
                 https.get(url, res=>{
@@ -23,6 +29,12 @@ export default ()=>{
                         //     data.push(pricePoint);
                         // }
                         // data = data.sort();
+                        if(body['Error Message']){
+                            return reject({
+                                code: 500,
+                                err: body['Error Message']
+                            });
+                        }
                         var output = Object.keys(body['Time Series (Daily)']).map(key => {
                             var pricePoint = body['Time Series (Daily)'][key];
                             pricePoint['date'] = key;

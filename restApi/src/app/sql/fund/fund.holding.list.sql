@@ -1,0 +1,1 @@
+SELECT security_id FROM HOLDING WHERE fund_id = ${fund_id}

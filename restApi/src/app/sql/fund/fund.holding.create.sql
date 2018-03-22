@@ -1,0 +1,1 @@
+INSERT INTO HOLDING(fund_id, security_id) VALUES(${fund_id}, ${security_id})
