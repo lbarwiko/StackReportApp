@@ -3,6 +3,7 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams } from 'ionic-angular';
 import { TopFundsPage } from '../topfunds/topfunds';
+import { MainDashboardPage } from '../mainDashboard/mainDashboard';
 
 @Component({
   selector: 'page-home',
@@ -19,4 +20,7 @@ export class HomePage {
     this.navCtrl.push(TopFundsPage);
   }
 
+  navToByRegionPage() {
+    this.navCtrl.push(MainDashboardPage);
+  }
 }
