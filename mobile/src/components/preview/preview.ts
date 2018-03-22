@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angu
 import { IonicPage, NavController, AlertController, NavParams, Loading, LoadingController} from 'ionic-angular';
 import { FundService } from '../../services/fund.service'
 import { Security } from '../../models/security';
+import { SecurityPage } from '../../pages/security/security';
 
 @Component({
   selector: 'component-preview',
@@ -14,7 +15,7 @@ export class PreviewComponent {
 	security: Security;
 	price_color: string;
 
-	constructor() {
+	constructor(public navCtrl: NavController, public navParams: NavParams) {
 		this.security = null;
 		this.price_color = "price white";
 	}
@@ -26,5 +27,11 @@ export class PreviewComponent {
 		} else if (this.security.current_price > this.security.price_history[0]['1. open']) {
 			this.price_color = 'price green';
 		}
+	}
+
+	openPage() {
+    	this.navCtrl.push(SecurityPage, {
+    		param: this.security
+    	});
 	}
 }

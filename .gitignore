@@ -4,7 +4,4 @@ node_modules/
 logfile
 *.pyc
 *.pyc
-*.pyc
-*.pyc
-*.pyc
 predictions_database/__pycache__/helper.cpython-35.pyc

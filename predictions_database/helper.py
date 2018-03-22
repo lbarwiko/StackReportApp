@@ -69,6 +69,17 @@ def sanitize_company(company_name):
     output = re.sub(r'[^\w\s]','',output)
     return output
 
+def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
+    cur = db_cursor()
+    op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" +
+        "  VALUES ('%s', '%s', '%s', '%s', '%s');"
+        % (m_symbol, m_date, total_investment, total_net_assets, shares) )
+    try:
+        cur.execute(op)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Cannot add the following mf other")
+        print (m_symbol, m_date, total_investment, total_net_assets, shares)
 
 def add_mf_report(m_symbol, report, date):
     """
@@ -102,6 +113,10 @@ def add_mf_report(m_symbol, report, date):
         print (e.pgerror)
         print ("Insert mf holding failed")
 
+    # Populate mf_other
+    # m_symbol, m_date, total_investment, total_net_assets, shares
+    add_mf_other(m_symbol, date, report["total_investment"], report["total_net_assets"], int(report["num_shares"]))
+
 
 
 
@@ -131,7 +146,7 @@ def add_tuple_mf_history(tuple_list):
         print ("Insert mf history failed")
     
 
-def get_mf_report_date(m_symbol):
+def get_mf_report_dates(m_symbol):
     """
     Outputs the dates of the reports from most recent to the oldest
     Example: ['20171130', '20170831', '20170531', '20170228']
@@ -152,11 +167,14 @@ def get_mf_report_date(m_symbol):
 
     return out_arr
 
-def get_mf_report(m_symbol, date):
+def get_mf_holdings(m_symbol, date):
+    """
+    Return 2 lists: stocks held, num of shares of the corresponding stock
+    """
 
     cur = db_cursor()
 
-    op_string = ("SELECT * FROM c_symbol, shares WHERE m_symbol = '%s' AND h_date = '%s'"
+    op_string = ("SELECT c_symbol, shares FROM holdings WHERE m_symbol = '%s' AND h_date = '%s'"
         % (m_symbol, date))
 
     try:
@@ -168,11 +186,28 @@ def get_mf_report(m_symbol, date):
     num_shares_held = []
     stocks = []
     for row in rows:
-        stock.append(row[0])
-        num_shares_held.append(row[0])
+        stocks.append(row[0])
+        num_shares_held.append(row[1])
 
     return stocks, num_shares_held
-    
+
+def get_mf_other(m_symbol, date):
+    cur = db_cursor()
+    op_string = ("SELECT total_investment, total_net_assets, shares FROM mutual_fund_other" +
+        " WHERE m_symbol = '%s' AND m_date = '%s'"
+        % (m_symbol, date))
+
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Cannot not get mf_other for the following")
+        print (m_symbol, date)
+
+    row = cur.fetchone()
+
+    # Return total_investment, total_net_assets, shares
+    return row[0], row[1], row[2]
 
 
 def get_company_list():
@@ -214,9 +249,18 @@ def get_mf_list():
     return output_list
 
 def follow_mf(ticker_list):
-    op_string = "UPDATE mutual_fund SET follow = 'True' WHERE False"
-    for ticker in ticker_list:
-        op_string += " or m_symbol = '%s'" % ticker
+    """
+    Follow a mutual fund by change the "follow" in table mutual_fund
+    Input: a ticker and a list of ticker
+    """
+
+    if isinstance(ticker_list, list):
+        op_string = "UPDATE mutual_fund SET follow = 'True' WHERE False"
+        for ticker in ticker_list:
+            op_string += " or m_symbol = '%s'" % ticker
+    else:
+        op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
+            ticker_list)
 
     cur = db_cursor()
     try:
@@ -226,22 +270,37 @@ def follow_mf(ticker_list):
 
 def get_db_mf_nav(ticker):
     cur = db_cursor()
-    op = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC" % ticker
-    cur.execute(op)
+    op_string = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC" % ticker
+    cur.execute(op_string)
     row = cur.fetchone()
     return float(row[0])
 
 def get_db_mf_nav(ticker, date):
     cur = db_cursor()
-    op = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
-    cur.execute(op)
+    op_string = "SELECT price FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
+    cur.execute(op_string)
     row = cur.fetchone()
     return float(row[0])
 
+def get_db_stock_quote(ticker, date):
+    cur = db_cursor()
+    op_string = "SELECT price, s_date FROM stock_history WHERE c_symbol = '%s' AND s_date <= '%s' ORDER BY s_date DESC" % (ticker, date)
+    cur.execute(op_string)
+    row = cur.fetchone()
+    return float(row[0])
+
+
 def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
     cur = db_cursor()
-    op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" )
-    return 0 
+    op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" +
+        "  VALUES ('%s', '%s', '%s', '%s', '%s');"
+        % (m_symbol, m_date, total_investment, total_net_assets, shares) )
+    try:
+        cur.execute(op)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Cannot add the following mf other")
+        print (m_symbol, m_date, total_investment, total_net_assets, shares)
 
 
 

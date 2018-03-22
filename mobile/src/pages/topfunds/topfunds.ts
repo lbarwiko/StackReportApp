@@ -36,9 +36,6 @@ export class TopFundsPage {
 		})
 		.then(fund_list=>{
 			this.fundList = fund_list;
-			this.fundList.forEach((i) => {
-				console.log(i);
-			});
 		})
 		.catch(err => {
 			console.log(err);
