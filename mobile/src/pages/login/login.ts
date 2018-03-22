@@ -29,16 +29,7 @@ export class LoginPage {
   }
 
   public resetLoginPage(){
-    let alert = this.alertController.create({
-      title: 'Invalid Login',
-      subTitle: 'Username or password incorrect.',
-      buttons: [{text:'OK', handler: () => {
-        this.loading.dismiss();
-        this.loginCredentials.password = '';
-      }}]
-    });
-    // alert.present(prompt);
-}
+  }
 
   public login(){
 
