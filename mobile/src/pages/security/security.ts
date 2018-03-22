@@ -3,6 +3,7 @@ import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams } from 'ionic-angular';
 import { Security, Fund, Stock } from '../../models/security';
+import { InvestmentsPage } from '../../pages/investments/investments';
 
 
 @Component({
@@ -33,6 +34,12 @@ export class SecurityPage {
     			node.removeChild(node.lastChild);
 			}
 		}
+	}
+
+	openInvestmentsPage() {
+    	this.navCtrl.push(InvestmentsPage, {
+    		param: this.security
+    	});
 	}
 
 }
