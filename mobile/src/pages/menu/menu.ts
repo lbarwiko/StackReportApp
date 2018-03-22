@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MenuController, NavController, Nav, Platform } from 'ionic-angular';
+import { Nav, Platform } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/main';
 
