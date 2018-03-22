@@ -27,8 +27,8 @@ def post_request(mf_symbol, data):
 	"""
 	send prediction results for mf_symbol to server
 	"""
-	url = "http://www.stackreport.io:80/api/p/"
-	response = os.popen("curl --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
+	url = "https://www.stackreport.io/api/p/"
+	response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
 
 	return response
 	

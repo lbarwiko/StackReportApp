@@ -4,7 +4,6 @@ import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomePage } from './../home/home';
 import { MenuPage } from './../menu/menu';
 
 @IonicPage()
@@ -30,16 +29,7 @@ export class LoginPage {
   }
 
   public resetLoginPage(){
-    let alert = this.alertController.create({
-      title: 'Invalid Login',
-      subTitle: 'Username or password incorrect.',
-      buttons: [{text:'OK', handler: () => {
-        this.loading.dismiss();
-        this.loginCredentials.password = '';
-      }}]
-    });
-    // alert.present(prompt);
-}
+  }
 
   public login(){
 
