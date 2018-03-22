@@ -20,6 +20,11 @@ const Fund = {
     get: sql('./fund/fund.get.sql')
 }
 
+const Holding = {
+    list: sql('./fund/fund.holding.list.sql'),
+    create: sql('./fund/fund.holding.create.sql')
+}
+
 const Prediction = {
     list: sql('./prediction/prediction.list.sql'),
     create: sql('./prediction/prediction.create.sql')
@@ -40,6 +45,7 @@ const Follow = {
 export {
     User,
     Fund,
+    Holding,
     Prediction,
     PredictionMeta,
     Follow
