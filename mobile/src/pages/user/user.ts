@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import  { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 
 @Component({
@@ -9,41 +10,9 @@ import { User } from '../../models/user';
 })
 export class UserPage {
 
-  userList: User[];
-  err: any;
-  userToAdd: User;
-  page: Number;
+  current_user: User;
   
-  constructor(public navCtrl: NavController, private userService: UserService) {
-    this.getUsers();
-    //this.userToAdd = new User();
-    this.page = 0;
-  }
-
-  ngOnInit(): void {
-  }
-
-  getUsers(){
-    this.userService.getUsers()
-      .then(res=>{
-        console.log(res);
-        this.userList = res;
-      })
-      .catch(err=>{
-        this.err = err;
-      })
-  }
-
-  
-  addUser(){
-    this.userService.addUser(this.userToAdd)
-      .then(res=>{
-        console.log(res);
-      })
-      .catch(err=> console.log(err));
-  }
-
-  logForm(){
-    //console.log(this.userToAdd);
+  constructor(public navCtrl: NavController, private userService: UserService, private authService: AuthService) {
+    this.current_user = authService.user;
   }
 }

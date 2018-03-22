@@ -20,7 +20,7 @@ export class RestapiProvider {
 
   Login(loginCredentials){
   	console.log('Logging In');
-  	console.log(loginCredentials);
+		console.log(loginCredentials);
 	return new Promise<User>((resolve, reject) => {
 		this.http.post<User>(this.endpointService.base + this.endpointService.auth, loginCredentials, {headers: {'Content-Type': 'application/json'}})
 			.subscribe(
