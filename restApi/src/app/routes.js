@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { Users, Funds, Predictions, Follow } from './controllers/'
+import { Users, Funds, Predictions, Follow, Security } from './controllers/'
 
 export default (db, config, auth) => {
 	const router = Router();
@@ -25,10 +25,6 @@ export default (db, config, auth) => {
 	authApi.post('/', auth.requireLogin, User.get);
 	api.use('/auth', authApi);
 
-	const meApi = Router();
-	meApi.get('/', auth.requireToken, User.get);
-	api.use('/me/', meApi);
-
 	const fundApi = Router();
 	const Fund = Funds(db, config).rest;
 	fundApi.get('/', Fund.list);
@@ -45,14 +41,25 @@ export default (db, config, auth) => {
 	api.use('/p/', predictionApi);
 
     const followingApi = Router();
-    const Following = Follow(db, config);
-    followingApi.get('/', Following.list);
-    api.use('/following/', followingApi);
+    const Following = Follow(db, config).rest;
+	fundApi.post('/:fund_id/follow', auth.requireToken, Following.create);
+	fundApi.delete('/:fund_id/follow', auth.requireToken, Following.remove);
+	fundApi.get('/:fund_id/follow', auth.requireToken, Following.verify);
+	api.use('/following/', followingApi);
+	
+	const securityApi = Router();
+	const Securities = Security(db, config).rest;
+	securityApi.get('/:security_id', Securities.get);
+	api.use('/security/', securityApi);
+
+	const meApi = Router();
+	meApi.get('/', auth.requireToken, User.get);
+	meApi.get('/following/', auth.requireToken, Following.list);
+	api.use('/me/', meApi);
 
 	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {
 		res.send(req.params.id + '.' + 'HvBmjhjg7Ng9HAGb1bmUtrF4gqOWj8LZ56Gx5HyBBNg');
 	});
-
 	router.get('/', (req, res)=>{
 		res.send("Fintech Rest Api");
 	})

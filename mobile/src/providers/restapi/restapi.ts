@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user';
+import { EndpointService } from '../../services/endpoint.service';
+import { AlertController } from 'ionic-angular';
 
 /*
   Generated class for the RestapiProvider provider.
@@ -12,21 +14,20 @@ import { User } from '../../models/user';
 @Injectable()
 export class RestapiProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, public endpointService: EndpointService, public alertController: AlertController) {
     console.log('Hello RestapiProvider Provider');
   }
 
-  Login(loginCredentials): Promise<User>{
+  Login(loginCredentials){
   	console.log('Logging In');
   	console.log(loginCredentials);
-	return new Promise<User>(resolve => {
-		this.http.post<User>('http://localhost:8000/api/auth', loginCredentials, {headers: {'Content-Type': 'application/json'}})
-			.subscribe(data => {
-	      console.log('provider getting data');
-	      resolve(data);
-	    },err => {
-	      console.log(err);
-	    });
+	return new Promise<User>((resolve, reject) => {
+		this.http.post<User>(this.endpointService.base + this.endpointService.auth, loginCredentials, {headers: {'Content-Type': 'application/json'}})
+			.subscribe(
+			data => {
+	      		console.log('provider getting data');
+	      		resolve(data);
+	      	},err => { resolve(new User({'empty': 'true'}));});
 	});
   }
 
@@ -34,7 +35,7 @@ export class RestapiProvider {
   	console.log('checking token');
   	console.log(token);
   	return new Promise<User>(resolve => {
-  		this.http.get<User>('http://localhost:8000/api/me', {headers: {'Authorization': token}}).subscribe(data => {
+  		this.http.get<User>(this.endpointService.base + this.endpointService.me, {headers: {'Authorization': token}}).subscribe(data => {
 	      console.log('provider getting user');
 	      resolve(data);
 	    },err => {
@@ -48,7 +49,8 @@ export class RestapiProvider {
   	/*console.log('Username: ' + registerCredentials.username);
   	console.log('Password: ' + registerCredentials.password);*/
 	return new Promise(resolve => {
-		this.http.post<User>('http://localhost:8000/api/u', registerCredentials, {headers: {'Content-Type': 'application/json'}})
+		this.http.post<User>(this.endpointService.base + this.endpointService.user, registerCredentials, 
+			{headers: {'Content-Type': 'application/json'}})
 			.subscribe(data => {
 	      console.log('provider getting data');
 	      resolve(data);
@@ -61,7 +63,7 @@ export class RestapiProvider {
   getData() {
   	console.log('getting data <<<');
 	  return new Promise(resolve => {
-			this.http.get('http://localhost:8000/api/f')
+			this.http.get(this.endpointService.base + this.endpointService.fund)
 			.subscribe(data => {
 	      console.log('provider getting data');
 	      resolve(data);
