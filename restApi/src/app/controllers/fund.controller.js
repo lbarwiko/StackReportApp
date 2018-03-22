@@ -8,6 +8,20 @@ import { Alphavantage } from '../services/';
 export default (db, config) => {
     const AlphavantageApi = Alphavantage();
 
+    function upsert(){
+        function rest(req, res, next){
+            if(!req.fund){
+                console.log("here");
+                return create().rest(req, res, next);
+            }else{
+                return update().rest(req, res, next);
+            }
+        }
+        return {
+            rest: rest
+        }
+    }
+
     function update(){
         function helper(fund_id, payload){
             //Delete holdings with fund_id first
@@ -157,6 +171,11 @@ export default (db, config) => {
                 next();
             })
             .catch(err=>{
+                if(err && err.code == 404){
+                    req.fund = null;
+                    next();
+                    return;
+                }
                 return res.json(err);
             })
         }
@@ -295,7 +314,8 @@ export default (db, config) => {
             create: create().rest,
             get: get().rest,
             remove: remove().rest,
-            update: update().rest
+            update: update().rest,
+            upsert: upsert().rest
         },
         list: list().helper,
         create: create().helper,
