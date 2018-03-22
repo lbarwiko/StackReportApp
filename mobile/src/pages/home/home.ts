@@ -59,8 +59,7 @@ export class HomePage {
     this.navCtrl.push(RegionalfundsPage);
   }
 
-
-
-
-
+  navUserInfo(){
+    this.navCtrl.push(UserPage);
+  }
 }

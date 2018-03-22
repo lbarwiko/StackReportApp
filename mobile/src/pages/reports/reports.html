@@ -5,7 +5,7 @@
     <ion-row class = "label">
     	Buys
     </ion-row>
-    <ion-content class = 'table'>
+    <table class = 'table'>
         <div class="row header">
           <div class="col">Name</div>
           <div class="col" style='text-align: right;'>Amount</div>
@@ -13,28 +13,28 @@
         <hr class='line'>
         <div *ngFor="let buyPred of buyPredictions">
             <div class="row">
-              <div class="col">{{buyPred.id}}</div>
+              <div class="col">{{buyPred.security_id | uppercase}}</div>
               <div class="col" style='text-align: right;'>{{buyPred.amount}}</div>
             </div>
         </div>
-    </ion-content>
+    </table>
     <ion-row class = "label">
     	Sells
 	</ion-row>
-	<ion-content class = 'table'>
+	<table class = 'table'>
         <div class="row header">
-          <div class="col">Name</div>
+          <div class="col">Ticker</div>
           <div class="col" style='text-align: right;'>Amount</div>
         </div>
         <hr class='line'>
-        <div *ngFor="let buyPred of buyPredictions">
+        <div *ngFor="let sellPred of sellPredictions">
             <div class="row">
-              <div class="col">{{buyPred.id}}</div>
-              <div class="col" style='text-align: right;'>{{buyPred.amount}}</div>
+              <div class="col">{{sellPred.security_id | uppercase}}</div>
+              <div class="col" style='text-align: right;'>{{sellPred.amount}}</div>
             </div>
         </div>
-    </ion-content>
+    </table>
     <ion-row class='last-update'>
-    	Last Update: {{lastUpdated}}
+    	Last Update: {{lastUpdated | date:'short'}}
 	</ion-row>
 </ion-content>

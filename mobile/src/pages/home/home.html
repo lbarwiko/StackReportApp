@@ -6,8 +6,17 @@
         <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>
     </ion-row>
     <ion-row>
-    	<div class = "watching">
-    		Watching
-    	</div>
-	</ion-row>
+        <button ion-button class="region-btn" (click)="navToUserPage()">User Page</button>
+    </ion-row>
+    <ion-row>
+        <div class = "watching">
+            Watching
+        </div>
+    </ion-row>
+    <ion-row class="previewlist">
+        <ion-row class="preview" *ngFor="let fund of fundList">
+            <component-preview *ngIf="fund" [security_in] = "fund">
+            </component-preview>
+        </ion-row>
+    </ion-row>
 </ion-content>
