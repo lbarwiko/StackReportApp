@@ -72,10 +72,13 @@ if(!PROD){
 }
 
 if(PROD){
-    var httpServer = express.createServer();
-    http.get('*', function(req, res) {  
+    var redirectApp = express();
+    var router = express.Router()
+    router.get('*', (req, res) => {
         res.redirect('https://' + req.headers.host + req.url);
-    })
+    });
+    redirectApp.use(router);
+    var httpServer = http.createServer(redirectApp);
     httpServer.listen(HTTP_PORT, function(){
         console.log("Http redirecting on port" + HTTP_PORT);
     });
