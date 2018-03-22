@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/user';
-import { EndpointService } from '../../services/endpoint.service'
+import { EndpointService } from '../../services/endpoint.service';
+import { AlertController } from 'ionic-angular';
 
 /*
   Generated class for the RestapiProvider provider.
@@ -13,21 +14,20 @@ import { EndpointService } from '../../services/endpoint.service'
 @Injectable()
 export class RestapiProvider {
 
-  constructor(public http: HttpClient, public endpointService: EndpointService) {
+  constructor(public http: HttpClient, public endpointService: EndpointService, public alertController: AlertController) {
     console.log('Hello RestapiProvider Provider');
   }
 
-  Login(loginCredentials): Promise<User>{
+  Login(loginCredentials){
   	console.log('Logging In');
   	console.log(loginCredentials);
-	return new Promise<User>(resolve => {
+	return new Promise<User>((resolve, reject) => {
 		this.http.post<User>(this.endpointService.base + this.endpointService.auth, loginCredentials, {headers: {'Content-Type': 'application/json'}})
-			.subscribe(data => {
-	      console.log('provider getting data');
-	      resolve(data);
-	    },err => {
-	      console.log(err);
-	    });
+			.subscribe(
+			data => {
+	      		console.log('provider getting data');
+	      		resolve(data);
+	      	},err => { resolve(new User({'empty': 'true'}));});
 	});
   }
 

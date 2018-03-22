@@ -5,6 +5,11 @@ export class User {
     tier: string;
     role: string;
     constructor(params) {
+        if(!params|| !params.username){
+            console.log('Returning empty user');
+            return this;
+        }
+
         //Required Params
         if(!params || params.user_id == null || params.username == null || params.token == null){
            throw "Missing required field"; 
