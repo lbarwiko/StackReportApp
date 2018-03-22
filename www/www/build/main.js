@@ -463,11 +463,11 @@ var map = {
 		2
 	],
 	"../pages/reports/reports.module": [
-		501,
+		502,
 		1
 	],
 	"../pages/root/root.module": [
-		502,
+		501,
 		0
 	]
 };
@@ -820,7 +820,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navToUserPage()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navUserInfo()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_6__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_7__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]])
@@ -1202,8 +1202,8 @@ var AppModule = (function () {
                         { loadChildren: '../pages/investments/investments.module#InvestmentsPageModule', name: 'InvestmentsPage', segment: 'investments', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
