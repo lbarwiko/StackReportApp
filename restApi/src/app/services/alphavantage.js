@@ -1,7 +1,7 @@
 import https from 'https';
 
 export default ()=>{
-    const dailyUrl = "https://www.alphavantage.co/query?apikey=U8RRYQ7SOSDVDWVW&function=TIME_SERIES_DAILY";
+    const dailyUrl = "https://www.alphavantage.co/query?apikey=V85COA4EHG4X1KJV&function=TIME_SERIES_DAILY";
 
     function get(){
         function helper(symbol){
