@@ -4,6 +4,8 @@ module for submitting post requests of results to the restAPI
 
 import json
 import requests
+sys.path.append(sys.path[0]+"/../")
+from predictions_database.helper import get_mf_list
 
 def load_data():
 	"""
