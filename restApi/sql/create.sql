@@ -30,6 +30,7 @@ CREATE TABLE FUND(
 
 CREATE TABLE HOLDING(
 	fund_id VARCHAR(16) REFERENCES FUND(fund_id),
+    num_shares INTEGER,
 	security_id VARCHAR(16)
 );
 
