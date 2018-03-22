@@ -21,6 +21,10 @@ export default ()=>{
                         body += data;
                     });
                     res.on("end", () => {
+                        if(body.indexOf('<!DOCTYPE html>') != -1){
+                            return resolve([]);
+                        }
+
                         body = JSON.parse(body);
                         // var data = [];
                         // for(var key in body['Time Series (Daily)']){
