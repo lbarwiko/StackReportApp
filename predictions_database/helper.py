@@ -6,6 +6,7 @@ import Levenshtein
 import re
 import datetime 
 sys.path.append(sys.path[0]+"/../")
+import math
 
 # import config causing trouble for scrapers/stock_scraper.py
 DBCONFIG = {
@@ -97,7 +98,7 @@ def add_mf_report(m_symbol, report, date):
 
         price = get_db_stock_quote(ticker, date)
 
-        if round(holding["shares"] * price) != holding["value"]:
+        if math.ceil(holding["shares"] * price) != holding["value"]:
             print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
 
         tuple_list.append((ticker, m_symbol, holding["shares"], date))
