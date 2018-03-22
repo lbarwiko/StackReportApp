@@ -14,6 +14,7 @@ from config import *
 import requests
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
+from mutual_fund_nav import get_quote
 
 def load_stock_historical(ticker):
 	"""
@@ -136,16 +137,28 @@ def save_all_stocks_daily(tickers):
 	place in database
 	tickers is list of ticker symbol strings
 	"""
-	data = load_stocks_daily(tickers)
 
-	# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
-	tuple_list = []
-	for batch in data:
-		for value in batch["Stock Quotes"]:
-			tup = (value["1. symbol"], value["2. price"], value["4. timestamp"])
-			tuple_list.append(tup)
+	# ORIGINAL
+	# data = load_stocks_daily(tickers)
+
+	# # tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+	# tuple_list = []
+	# for batch in data:
+	# 	for value in batch["Stock Quotes"]:
+	# 		tup = (value["1. symbol"], value["2. price"], value["4. timestamp"])
+	# 		tuple_list.append(tup)
+
+	# add_tuple_stock_history(tuple_list)
+
+	# TEMP SLOW
+	tuple_list = [] 
+	for ticker in tickers:
+		# ATTENTION !!!! The date might not be right, it's inserting the current day
+		tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
+		tuple_list.append(tup)
 
 	add_tuple_stock_history(tuple_list)
+
 
 def main():
 	# load tickers from database

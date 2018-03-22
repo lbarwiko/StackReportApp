@@ -4,18 +4,17 @@ Input: url of the report
 Output: a txt with a json object contains the list of holdings named jensx_<date>.txt
 """
 
-import urllib
 import json
 from bs4 import BeautifulSoup
 import re
 import sys
 from helper import *
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import add_mf_report
+from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
 
-if len(sys.argv) != 3:
-		print("Invalid usage, must have two arguments.")
-		print("Usage: <program> \"url of the jensx report\" date")
+if len(sys.argv) != 4:
+		print("Invalid usage, must have 3 arguments.")
+		print("Usage: <program> \"url of the jensen report\" date mf_symbol")
 		print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 		exit(1)
 
@@ -23,7 +22,7 @@ if not sys.argv[2].isdigit():
 	print("date must be an int(yyyy/mm/dd). E.g. Nov 30 2017 = 20171130")
 	exit(1)
 
-def jensx_nq(url, date):
+def jensx_nq(url, date, m_symbol):
 
 	mutualFund = {"stocks": [], "other": []}
 	temp = {}
@@ -77,7 +76,7 @@ def jensx_nq(url, date):
 			done_with_stocks = True
 
 		elif is_total_investments:
-			mutualFund["total_other"] = int(temp_list[1])
+			mutualFund["total_investment"] = int(temp_list[1])
 
 		elif is_total_net_assets and start_scraping:
 			done_with_all = True
@@ -94,12 +93,20 @@ def jensx_nq(url, date):
 			else:
 				mutualFund["other"].append(temp)
 
+	nav = get_db_mf_nav(m_symbol, date)
+
+	num_shares = float(mutualFund["total_net_assets"]) / float(nav)
+	mutualFund["num_shares"] = num_shares
+
 	return mutualFund
 
 
 def main():
-	dict = jensx_nq(sys.argv[1], sys.argv[2])
-	add_mf_report("JNVIX", dict, sys.argv[2])
+	url = sys.argv[1]
+	date = sys.argv[2]
+	m_symbol = sys.argv[3].upper()
+	dict = jensx_nq(url, date, m_symbol)
+	add_mf_report(m_symbol, dict, date)
 
 if __name__ == '__main__':
 	main()
