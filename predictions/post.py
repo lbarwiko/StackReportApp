@@ -2,7 +2,6 @@
 module for submitting post requests of results to the restAPI
 """
 
-import json
 import requests
 import sys
 sys.path.append(sys.path[0]+"/../")
@@ -18,7 +17,7 @@ def load_data():
 
 	for mf_symbol in mf_symbols:
 		with open("/root/StackReport/predictions/" + mf_symbol + "_regr.json") as file:
-			data = json.load(file)
+			data = file.read()
 			mf_symbols_to_data[mf_symbol] = data
 
 	return mf_symbols_to_data
