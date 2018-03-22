@@ -1,0 +1,8 @@
+{
+	"fund_id": "JENSX",
+	"securities": [
+		{"security_id": "AAPL"}, 
+		{"security_id": "MSFT"}, 
+		{"security_id": "AMZN"}
+	]
+}
