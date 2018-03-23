@@ -111,8 +111,16 @@ def main():
 	url = sys.argv[1]
 	date = sys.argv[2]
 	m_symbol = sys.argv[3].upper()
-	dict = jensx_nq(url, date, m_symbol)
-	add_mf_report(m_symbol, dict, date)
+	post = False
+	if sys.argv[4] == 'p':
+		post = True
+
+	report = jensx_nq(url, date, m_symbol)
+	add_mf_report(m_symbol, report, date)
+
+	# TODO FIX FLAG
+	if post:
+		post_to_frontend(m_symbol, report)
 
 if __name__ == '__main__':
 	main()

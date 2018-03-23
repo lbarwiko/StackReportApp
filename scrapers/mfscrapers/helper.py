@@ -5,6 +5,7 @@ import os
 from bs4 import BeautifulSoup
 import re
 import sys
+import requests
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import get_mf_name, get_ticker
 
@@ -29,23 +30,31 @@ def sanitize_company(company_name):
 
 def post_to_frontend(m_symbol, report):
 
+	m_symbol = m_symbol.upper()
+
 	# DO SOMETHING
+	url = "https://www.stackreport.io/api/f/%s" % m_symbol
 
 	post_dict = {}
-	post_dict["fund_id"] = m_symbol
-	post_dict["fund_name"] = get_mf_name(m_symbol)
+	post_dict["fund_id"] = str(m_symbol)
+	post_dict["fund_name"] = str(get_mf_name(m_symbol))
 	post_dict["holdings"] = []
 
 	for each in report["stocks"]:
 		temp = {}
-		temp["security_id"] = get_ticker(each["company"])
-		temp["amount"] = each["value"]
+		temp["security_id"] = str(get_ticker(each["company"]))
+		temp["amount"] = int(each["value"])
 		post_dict["holdings"].append(temp)
 
 	data = json.dumps(post_dict)
 
-	url = "https://www.stackreport.io/api/f/"
-	response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + data + "'").read()
+	print (data)
+	# print (post_dict)
+	headers = {
+	   'content-type': "application/json",
+	   'cache-control': "no-cache"
+	}
 
-	return post_dict
-	
+	response = requests.request("PUT", url, data=data, headers=headers)
+
+	print(response.text)
