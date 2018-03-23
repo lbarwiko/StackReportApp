@@ -25683,8 +25683,9 @@ ion-navbar.toolbar {
   padding: 0x;
 }
 
-.menu-nav ion-content {
+ion-nav ion-content {
   margin-top: 56px;
+  margin-bottom: 65px;
 }
 
 component-preview {
@@ -25873,6 +25874,40 @@ page-login .login-content .register-btn {
 
 .content-padded {
   padding-top: 100px;
+}
+
+#backButton {
+  padding-top: 5px;
+  background-color: transparent;
+  color: black;
+}
+
+.menu-btn {
+  color: white;
+  margin-top: -30px;
+  margin-left: 20px;
+}
+
+.title {
+  text-align: center;
+}
+
+.toolbar-background {
+  background: #151515;
+}
+
+.toolbar-title {
+  color: white;
+}
+
+.back-btn {
+  color: white;
+}
+
+.logo {
+  height: 24px;
+  width: 20px;
+  margin-bottom: -5px;
 }
 
 page-regionalfunds .fixed-content {
