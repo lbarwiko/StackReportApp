@@ -819,7 +819,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navUserInfo()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_6__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_7__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]])
@@ -2470,15 +2470,16 @@ var MenuPage = (function () {
         this.pages = [
             { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */] },
             { title: 'Top Mutual Funds', component: __WEBPACK_IMPORTED_MODULE_3__main__["l" /* TopFundsPage */] },
-            { title: 'Funds By Region', component: __WEBPACK_IMPORTED_MODULE_3__main__["f" /* RegionalfundsPage */] },
+            { title: 'Mutual Funds By Region', component: __WEBPACK_IMPORTED_MODULE_3__main__["f" /* RegionalfundsPage */] },
             { title: 'My account', component: __WEBPACK_IMPORTED_MODULE_3__main__["m" /* UserPage */] },
         ];
         this.authService = authService;
         this.app = app;
     }
     MenuPage.prototype.back = function () {
-        if (this.nav.canGoBack())
-            this.nav.pop();
+        if (this.nav.canGoBack()) {
+            var page = this.nav.pop();
+        }
     };
     MenuPage.prototype.openPage = function (page) {
         this.nav.setRoot(page.component);
@@ -2493,7 +2494,7 @@ var MenuPage = (function () {
     ], MenuPage.prototype, "nav", void 0);
     MenuPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        <button ion-item (click)="logout()">\n            Logout\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header id="nav-bar-super">\n    <ion-navbar class="navigation-bar">\n        <ion-buttons left>\n            <button ion-button icon-only start class="button" id="backButton" (click)="back()">\n                <ion-icon name="arrow-back" class="back-btn"></ion-icon>\n            </button>\n            <button ion-button menuToggle start class="menu-btn">\n                <ion-icon name="menu"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title class="title">StackReport</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
+            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        <button ion-item (click)="logout()">\n            Logout\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header id="nav-bar-super">\n    <ion-navbar class="navigation-bar">\n        <ion-buttons left>\n            <button ion-button icon-only start class="button" id="backButton" (click)="back()">\n                <ion-icon name="arrow-back" class="back-btn"></ion-icon>\n            </button>\n            <button ion-button menuToggle start class="menu-btn">\n                <ion-icon name="menu"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title class="title">\n            StackReport\n            <img src="../../assets/img/logo-image-for-login-page.png" class="logo"/>\n        </ion-title>\n    </ion-navbar>\n</ion-header>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__services_main__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
     ], MenuPage);

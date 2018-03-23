@@ -25904,6 +25904,12 @@ page-login .login-content .register-btn {
   color: white;
 }
 
+.logo {
+  height: 24px;
+  width: 20px;
+  margin-bottom: -5px;
+}
+
 page-regionalfunds .fixed-content {
   background-color: #1A2225;
 }
