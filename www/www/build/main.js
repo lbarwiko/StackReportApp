@@ -65,8 +65,8 @@ var UserPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-user',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/'<ion-content>\n    <ion-row>\n        <ion-col class="user-data">\n            <ion-icon class="icon" name="md-person" large></ion-icon>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="title">\n            {{ current_user.username }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            user_id: {{ current_user.user_id }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Tier: {{ current_user.tier }}\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col class="user-data">\n            Role: {{ current_user.role }}\n        </ion-col>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/user/user.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */]])
     ], UserPage);
     return UserPage;
 }());
@@ -167,9 +167,9 @@ var InvestmentsPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["Component"])({
             selector: 'page-investments',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/investments/investments.html"*/'<ion-content class="investments-content">\n    <ion-row class=\'fund-name\'>\n        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})\n    </ion-row>\n    <div class = \'table\'>\n        <div class="row header">\n          <div class="col">Ticker</div>\n          <div class="col" style=\'text-align: right;\'>Current Price</div>\n          <div class="col" style=\'text-align: right;\'>Shares Held</div>\n          <div class="col" style=\'text-align: right;\'>Percent</div>\n        </div>\n        <hr class=\'line\'>\n        <div *ngFor="let holding of security.holdings">\n            <div class="row" (click)="openStockPage(holding.id)">\n              <div class="col">{{holding.security_id}}</div>\n              <div class="col" style=\'text-align: right;\'>${{holding.current_price}}</div>\n              <div class="col" style=\'text-align: right;\'>{{holding.num_shares}}</div>\n              <div class="col" style=\'text-align: right;\'>{{(holding.current_price*holding.num_shares)/totalPrice * 100 | number : \'1.2-2\'}}%</div>\n            </div>\n        </div>\n    </div>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/investments/investments.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__services_fund_service__["a" /* FundService */],
-            __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__services_security_service__["a" /* SecurityService */],
-            __WEBPACK_IMPORTED_MODULE_2__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["f" /* LoadingController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1__services_fund_service__["a" /* FundService */],
+            __WEBPACK_IMPORTED_MODULE_4__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__services_security_service__["a" /* SecurityService */],
+            __WEBPACK_IMPORTED_MODULE_2__angular_core__["ApplicationRef"], __WEBPACK_IMPORTED_MODULE_0_ionic_angular__["g" /* LoadingController */]])
     ], InvestmentsPage);
     return InvestmentsPage;
 }());
@@ -201,11 +201,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var RegisterPage = (function () {
-    function RegisterPage(navCtrl, navParams, loadingCtrl, alertCtrl, restapiProvider) {
+    function RegisterPage(navCtrl, navParams, loadingCtrl, restapiProvider) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.loadingCtrl = loadingCtrl;
-        this.alertCtrl = alertCtrl;
         this.restapiProvider = restapiProvider;
         this.registerCredentials = { username: '', password: '', confirm: '' };
     }
@@ -232,7 +231,7 @@ var RegisterPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-register',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/register/register.html"*/'<ion-content class="register-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n      	<h2 id = "SignInHeader"> Sign in! </h2>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n  <div class="register-box">\n    <form (ngSubmit)="register()" #registerForm="ngForm">\n      <ion-row>\n        <ion-col>\n          <ion-list inset>\n            \n            <ion-item>\n              <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="registerCredentials.username" required></ion-input>\n            </ion-item>\n\n            <ion-item>\n              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="registerCredentials.password" required></ion-input>\n            </ion-item>\n            \n            <ion-item>\n              <ion-input type="password" placeholder="Confirm Password" name="confirm" [(ngModel)]="registerCredentials.confirm" required></ion-input>\n            </ion-item>\n                        \n          </ion-list>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col class="signup-col">\n          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Register Account</button>\n        </ion-col>\n      </ion-row>\n    </form>          \n  </div>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/register/register.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__["a" /* RestapiProvider */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1__providers_restapi_restapi__["a" /* RestapiProvider */]])
     ], RegisterPage);
     return RegisterPage;
 }());
@@ -312,8 +311,8 @@ var RootPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-root',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/'<ion-content class="root-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
     ], RootPage);
     return RootPage;
 }());
@@ -420,7 +419,7 @@ var ReportsPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-reports',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/reports/reports.html"*/'<ion-content class="reports-content" padding>	\n    <ion-row class=\'fund-name\'>\n        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})\n    </ion-row>\n    <ion-row class = "label">\n    	Buys\n    </ion-row>\n    <table class = \'table\'>\n        <div class="row header">\n          <div class="col top">Name</div>\n          <div class="col top" style=\'text-align: right;\'>Amount</div>\n        </div>\n        <hr class=\'line\'>\n        <div *ngFor="let buyPred of buyPredictions">\n            <div class="row">\n              <div class="col">{{buyPred.security_id | uppercase}}</div>\n              <div class="col" style=\'text-align: right;\'>{{buyPred.amount}}</div>\n            </div>\n        </div>\n    </table>\n    <ion-row class = "label">\n    	Sells\n	</ion-row>\n	<table class = \'table\'>\n        <div class="row header">\n          <div class="col top">Ticker</div>\n          <div class="col top" style=\'text-align: right;\'>Amount</div>\n        </div>\n        <hr class=\'line\'>\n        <div *ngFor="let sellPred of sellPredictions">\n            <div class="row">\n              <div class="col">{{sellPred.security_id | uppercase}}</div>\n              <div class="col" style=\'text-align: right;\'>{{sellPred.amount}}</div>\n            </div>\n        </div>\n    </table>\n    <ion-row class=\'last-update\'>\n    	Last Update: {{lastUpdated | date:\'short\'}}\n	</ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/reports/reports.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_8__services_prediction_service__["a" /* PredictionService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* MenuController */], __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_8__services_prediction_service__["a" /* PredictionService */]])
     ], ReportsPage);
     return ReportsPage;
 }());
@@ -463,11 +462,11 @@ var map = {
 		2
 	],
 	"../pages/reports/reports.module": [
-		502,
+		501,
 		1
 	],
 	"../pages/root/root.module": [
-		501,
+		502,
 		0
 	]
 };
@@ -822,7 +821,7 @@ var HomePage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-home',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/'<ion-content>\n     <ion-row>\n        <button ion-button class="top100-btn" (click)="navToTopFunds()">Top 100 Mutual Funds</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn"  (click)="navToByRegionPage()">Mutual Funds by Region</button>\n    </ion-row>\n    <ion-row>\n        <button ion-button class="region-btn" (click)="navUserInfo()">User Page</button>\n    </ion-row>\n    <ion-row>\n        <div class = "watching">\n            Watching\n        </div>\n    </ion-row>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_6__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_7__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */]])
     ], HomePage);
     return HomePage;
@@ -928,7 +927,7 @@ var SecurityPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-security',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/security/security.html"*/'<ion-content class="security-content" padding>\n    <ion-row class=\'fund-name\'>\n        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})\n    </ion-row>\n    <ion-row>\n    	<button *ngIf="!follow_status" ion-button class="follow-btn" id = "follow-btn" (click)="postFollow()">\n    		Follow\n    		<ion-icon name="md-add-circle" id="follow-icon" class = "follow-icon"></ion-icon> \n    	</button>\n    	<button *ngIf="follow_status" ion-button class="unfollow-btn" id = "unfollow-btn" (click)="removeFollow()">\n    		Following\n    		<ion-icon name="md-remove-circle" id="unfollow-icon" class = "unfollow-icon"></ion-icon> \n    	</button>\n	</ion-row>\n    <ion-row class=\'info-label\'>\n    	Current Share Price\n	</ion-row>\n	<ion-row class=\'info-value\'>\n		${{security.current_price || "99.99" | number : \'1.2-2\'}}\n	</ion-row>\n	<ion-row class=\'info-label\'>\n    	Volume Traded\n	</ion-row>\n	<ion-row class=\'info-value\'>\n		{{volume_traded || "1000000" | number : \'1.0-0\'}}\n	</ion-row>\n	<ion-row class=\'fund-graph\'>\n		<div class="graph-wrapper">\n			<component-securitygraph fund_id_in={{security.id}}>\n			</component-securitygraph>\n		</div>\n	</ion-row>\n	<ion-row *ngIf="!is_stock" id = "investments-btn-row">\n        <button ion-button class="investments-btn" (click)="openInvestmentsPage()">Investments</button>\n    </ion-row>\n    <ion-row *ngIf="!is_stock" id = "reports-btn-row">\n        <button ion-button class="reports-btn" (click)="openReportsPage()">Reports</button>\n    </ion-row>\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/security/security.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_5__services_following_service__["a" /* FollowingService */]])
     ], SecurityPage);
     return SecurityPage;
@@ -1197,19 +1196,19 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_3__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_1__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_2__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/investments/investments.module#InvestmentsPageModule', name: 'InvestmentsPage', segment: 'investments', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/reports/reports.module#ReportsPageModule', name: 'ReportsPage', segment: 'reports', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/root/root.module#RootPageModule', name: 'RootPage', segment: 'root', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_10__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
                 __WEBPACK_IMPORTED_MODULE_11_ng2_charts__["ChartsModule"]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["b" /* IonicApp */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* MyApp */],
                 __WEBPACK_IMPORTED_MODULE_12__pages_main__["i" /* RootPage */],
@@ -1229,7 +1228,7 @@ var AppModule = (function () {
             providers: [
                 __WEBPACK_IMPORTED_MODULE_6__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_7__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["c" /* IonicErrorHandler */] },
+                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* IonicErrorHandler */] },
                 __WEBPACK_IMPORTED_MODULE_9__services_main__["g" /* UserService */],
                 __WEBPACK_IMPORTED_MODULE_9__services_main__["d" /* FundService */],
                 __WEBPACK_IMPORTED_MODULE_8__providers_restapi_restapi__["a" /* RestapiProvider */],
@@ -1355,7 +1354,7 @@ var AboutPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-about',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>\n      About\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/about/about.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]])
     ], AboutPage);
     return AboutPage;
 }());
@@ -1490,16 +1489,6 @@ var LoginPage = (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__register_register__["a" /* RegisterPage */]);
     };
     LoginPage.prototype.resetLoginPage = function () {
-        var _this = this;
-        var alert = this.alertController.create({
-            title: 'Invalid Login',
-            subTitle: 'Username or password incorrect.',
-            buttons: [{ text: 'OK', handler: function () {
-                        _this.loading.dismiss();
-                        _this.loginCredentials.password = '';
-                    } }]
-        });
-        // alert.present(prompt);
     };
     LoginPage.prototype.login = function () {
         var _this = this;
@@ -1537,8 +1526,8 @@ var LoginPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-login',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/login/login.html"*/'<ion-content class="login-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n      	<h2 id = "SignInHeader"> Sign in! </h2>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n  <div class="login-box">\n    <form (ngSubmit)="login()" #registerForm="ngForm">      \n      <ion-row>\n        <ion-col>\n          <ion-list inset>\n            \n            <ion-item>\n              <ion-input type="text" placeholder="Username" name="username" [(ngModel)]="loginCredentials.username" required></ion-input>\n            </ion-item>\n            \n            <ion-item>\n              <ion-input type="password" placeholder="Password" name="password" [(ngModel)]="loginCredentials.password" required></ion-input>\n            </ion-item>\n            \n          </ion-list>\n        </ion-col>\n      </ion-row>\n      \n      <ion-row>\n        <ion-col class="signup-col">\n          <button ion-button class="submit-btn" full type="submit" [disabled]="!registerForm.form.valid">Login</button>\n        </ion-col>\n      </ion-row>\n    </form>          \n    <button ion-button class="register-btn" block clear (click)="createAccount()">New user? Create an account.</button>\n  </div>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/login/login.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
-            __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
+            __WEBPACK_IMPORTED_MODULE_3__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
     ], LoginPage);
     return LoginPage;
 }());
@@ -1615,7 +1604,7 @@ var MyApp = (function () {
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_6__services_auth_service__["a" /* AuthService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_6__services_auth_service__["a" /* AuthService */]])
     ], MyApp);
     return MyApp;
 }());
@@ -1957,7 +1946,7 @@ var PreviewComponent = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'component-preview',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/components/preview/preview.html"*/'<div>\n	<button *ngIf="security" ion-button class=\'btn\' (click)="openPage()">\n		<div class=\'wrapper\'>\n			<div class = "leftside">\n				<div class = "ticker">\n					{{security.id || "TEST" | uppercase}}\n				</div>\n				<div class = "name">\n					{{security.name || "TEST"}} \n				</div>\n			</div>\n			<div class = "rightside">\n				<div class = {{price_color}}>\n					{{security.current_price || "99.99" | number : \'1.2-2\'}}\n				</div>\n			</div>\n		</div>\n	</button>\n</div>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/components/preview/preview.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
     ], PreviewComponent);
     return PreviewComponent;
 }());
@@ -2253,7 +2242,7 @@ var TopFundsPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-topfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n    	<div class="title">\n        	Top Mutual Funds\n    	</div>\n	</ion-row>\n	<ion-row class="previewlist">\n		<ion-row class="preview" *ngFor="let fund of fundList">\n			<component-preview *ngIf="fund" [security_in] = "fund">\n			</component-preview>\n		</ion-row>\n	</ion-row>\n\n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/topfunds/topfunds.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
     ], TopFundsPage);
@@ -2339,7 +2328,7 @@ var RegionalfundsPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-regionalfunds',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/'<ion-content class="home-content" padding>\n    <ion-row>\n        <div class="title">\n            Mutual Funds by Region\n        </div>\n    </ion-row>\n    \n    <!-- Currently only support funds from North America -->\n    <h2 class="title">North America</h2>\n    <ion-row class="previewlist">\n        <ion-row class="preview" *ngFor="let fund of fundList">\n            <component-preview *ngIf="fund" [security_in] = "fund">\n            </component-preview>\n        </ion-row>\n    </ion-row>    \n</ion-content>\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/regionalfunds/regionalfunds.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["i" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* MenuController */],
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["h" /* MenuController */],
             __WEBPACK_IMPORTED_MODULE_3__services_following_service__["a" /* FollowingService */], __WEBPACK_IMPORTED_MODULE_4__services_fund_service__["a" /* FundService */], __WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_0__angular_core__["ApplicationRef"]])
     ], RegionalfundsPage);
@@ -2474,35 +2463,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MenuPage = (function () {
-    function MenuPage(platform, authService) {
+    function MenuPage(platform, authService, app) {
         this.platform = platform;
         this.rootPage = __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */];
         // used for an example of ngFor and navigation
         this.pages = [
-            { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */], authService: '' },
-            { title: 'Top Mutual Funds', component: __WEBPACK_IMPORTED_MODULE_3__main__["l" /* TopFundsPage */], authService: '' },
-            { title: 'Funds By Region', component: __WEBPACK_IMPORTED_MODULE_3__main__["f" /* RegionalfundsPage */], authService: '' },
-            { title: 'My account', component: __WEBPACK_IMPORTED_MODULE_3__main__["m" /* UserPage */], authService: '' },
-            { title: 'Logout', component: __WEBPACK_IMPORTED_MODULE_3__main__["d" /* LoginPage */], authService: authService }
+            { title: 'Home', component: __WEBPACK_IMPORTED_MODULE_3__main__["b" /* HomePage */] },
+            { title: 'Top Mutual Funds', component: __WEBPACK_IMPORTED_MODULE_3__main__["l" /* TopFundsPage */] },
+            { title: 'Funds By Region', component: __WEBPACK_IMPORTED_MODULE_3__main__["f" /* RegionalfundsPage */] },
+            { title: 'My account', component: __WEBPACK_IMPORTED_MODULE_3__main__["m" /* UserPage */] },
         ];
+        this.authService = authService;
+        this.app = app;
     }
+    MenuPage.prototype.back = function () {
+        if (this.nav.canGoBack())
+            this.nav.pop();
+    };
     MenuPage.prototype.openPage = function (page) {
-        if (page.authService != '') {
-            page.authService.logout();
-        }
-        // Reset the content nav to have just this page
-        // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
     };
+    MenuPage.prototype.logout = function () {
+        this.authService.logout();
+        this.app.getRootNav().setRoot(__WEBPACK_IMPORTED_MODULE_3__main__["d" /* LoginPage */]);
+    };
     __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* Nav */])
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])(__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */]),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Nav */])
     ], MenuPage.prototype, "nav", void 0);
     MenuPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header>\n    <ion-navbar>\n        <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n        </button>\n        <ion-title>StackReport</ion-title>\n    </ion-navbar>\n</ion-header>\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
+            selector: 'menu',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/'<ion-menu [content]="content">\n    <ion-header>\n        <ion-toolbar>\n        <ion-title>Menu</ion-title>\n        </ion-toolbar>\n    </ion-header>\n      \n    <ion-content>\n        <ion-list>\n        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">\n            {{p.title}}\n        </button>\n        <button ion-item (click)="logout()">\n            Logout\n        </button>\n        </ion-list>\n    </ion-content>\n</ion-menu>\n\n    \n<ion-header id="nav-bar-super">\n    <ion-navbar class="navigation-bar">\n        <ion-buttons left>\n            <button ion-button icon-only start class="button" id="backButton" (click)="back()">\n                <ion-icon name="arrow-back" class="back-btn"></ion-icon>\n            </button>\n            <button ion-button menuToggle start class="menu-btn">\n                <ion-icon name="menu"></ion-icon>\n            </button>\n        </ion-buttons>\n        <ion-title class="title">StackReport</ion-title>\n    </ion-navbar>\n</ion-header>\n\n<!-- Disable swipe-to-go-back because it\'s poor UX to combine STGB with side menus -->\n<ion-nav class="menu-nav" [root]="rootPage" #content swipeBackEnabled="false">\n</ion-nav>\n\n'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/menu/menu.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__services_main__["a" /* AuthService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__services_main__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]])
     ], MenuPage);
     return MenuPage;
 }());
