@@ -8,6 +8,7 @@ usage:
 """
 
 import sys
+import os
 import json
 import time
 from config import *
@@ -184,3 +185,9 @@ def main():
 
 if __name__=="__main__":
 	main()
+
+url = "https://finance.yahoo.com/quotes/MSFT,AAPL/view/v1?bypass=true"
+response = os.popen("wget -qO- %s" % url).read()
+soup = BeautifulSoup(response, "lxml")
+
+

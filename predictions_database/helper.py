@@ -7,6 +7,8 @@ import re
 import datetime 
 sys.path.append(sys.path[0]+"/../")
 import math
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
 
 # import config causing trouble for scrapers/stock_scraper.py
 DBCONFIG = {
@@ -64,66 +66,26 @@ def get_ticker(cname):
             min_name = company
     return (name_dict[min_name])
 
+def get_ticker_fuzz(cname):
+
+    name_dict = json.load(open("predictions_database/stock_name_list.json",'r'))
+    name_list = name_dict.keys()
+    min_name = process.extractOne(cname, name_list)[0]
+    return (name_dict[min_name])
+
 def sanitize_company(company_name):
     output = company_name.lower()
-    output = output.replace("(a)", '')
-    output = output.replace("(b)", '')
+    output = re.sub(r'\([^)]*\)', '', output)
+    # output = output.replace("(a)", '')
+    # output = output.replace("(b)", '')
     output = output.replace(" class ", ' ')
-    output = output.replace("(the)", '')
+    # output = output.replace("(the)", '')
     output = output.replace("the ", '')
     output = output.replace("incorporated", 'inc')
     output = output.replace("corporation", 'corp')
     output = output.replace("company", 'co')
     output = re.sub(r'[^\w\s]','',output)
     return output
-
-def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
-    cur = db_cursor()
-    op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" +
-        "  VALUES ('%s', '%s', '%s', '%s', '%s');"
-        % (m_symbol, m_date, total_investment, total_net_assets, shares) )
-    try:
-        cur.execute(op)
-    except psycopg2.Error as e:
-        print (e.pgerror)
-        print ("Cannot add the following mf other")
-        print (m_symbol, m_date, total_investment, total_net_assets, shares)
-
-def add_mf_report(m_symbol, report, date):
-    """
-    input: mf symbol, standard scrapped report, date in yyyymmdd
-    """
-
-    name_dict = json.load(open("predictions_database/stock_name_list.json",'r'))
-    name_list = name_dict.keys()
-
-    tuple_list=[]
-    for holding in report["stocks"]:
-        ticker = get_ticker(holding["company"])
-
-        price = get_db_stock_quote(ticker, date)
-
-        if math.ceil(holding["shares"] * price) != holding["value"]:
-            print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
-
-        tuple_list.append((ticker, m_symbol, holding["shares"], date))
-
-
-    # A faster way     
-    cur = db_cursor()
-    chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
-    try:
-        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain + " ON CONFLICT(c_symbol, m_symbol, h_date) DO UPDATE SET shares = EXCLUDED.shares")
-    except psycopg2.Error as e:
-        print (e.pgerror)
-        print ("Insert mf holding failed")
-
-    # Populate mf_other
-    # m_symbol, m_date, total_investment, total_net_assets, shares
-    add_mf_other(m_symbol, date, report["total_investment"], report["total_net_assets"], int(report["num_shares"]))
-
-
-
 
 
 def add_tuple_stock_history(tuple_list):
@@ -313,7 +275,14 @@ def get_db_stock_quote(ticker, date):
     return float(row[0])
 
 
+
 def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
+    """
+    Upload the other information (total investment, total net assets, and shares) 
+        to the "mutual_fund_other" table in the database
+    Input: m_symbol, m_date, total_investment, total_net_assets, shares
+    Output: None 
+    """
     cur = db_cursor()
     op = ("INSERT INTO mutual_fund_other(m_symbol, m_date, total_investment, total_net_assets, shares)" +
         "  VALUES ('%s', '%s', '%s', '%s', '%s');"
@@ -324,6 +293,82 @@ def add_mf_other(m_symbol, m_date, total_investment, total_net_assets, shares):
         print (e.pgerror)
         print ("Cannot add the following mf other")
         print (m_symbol, m_date, total_investment, total_net_assets, shares)
+
+
+# TODO: DELETE AFTER REWRITING JENSX
+def add_mf_report(m_symbol, report, date):
+    """
+    input: mf symbol, standard scrapped report, date in yyyymmdd
+    """
+
+    name_dict = json.load(open("predictions_database/stock_name_list.json",'r'))
+    name_list = name_dict.keys()
+
+    tuple_list=[]
+    for holding in report["stocks"]:
+        ticker = get_ticker(holding["company"])
+
+        price = get_db_stock_quote(ticker, date)
+
+        if math.ceil(holding["shares"] * price) != holding["value"]:
+            print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
+
+        tuple_list.append((ticker, m_symbol, holding["shares"], date))
+
+
+    # A faster way     
+    cur = db_cursor()
+    chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
+    try:
+        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain + " ON CONFLICT(c_symbol, m_symbol, h_date) DO UPDATE SET shares = EXCLUDED.shares")
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Insert mf holding failed")
+
+    # Populate mf_other
+    # m_symbol, m_date, total_investment, total_net_assets, shares
+    add_mf_other(m_symbol, date, report["total_investment"], report["total_net_assets"], int(report["num_shares"]))
+
+
+def add_mf_report(report):
+    """
+    Upload the report to the database
+    Input: A dictionary (the report)
+    Output: None
+    """
+
+    m_symbol = report["symbol"]
+    date = report["date"]
+
+    name_dict = json.load(open("predictions_database/stock_name_list.json",'r'))
+    name_list = name_dict.keys()
+
+    tuple_list=[]
+    for holding in report["stocks"]:
+        ticker = get_ticker(holding["company"])
+
+        price = get_db_stock_quote(ticker, date)
+
+        if math.ceil(holding["shares"] * price) != holding["value"]:
+            print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
+            print ("%s vs %s" % ( str(math.ceil(holding["shares"] * price)), str(holding["value"])))
+
+        tuple_list.append((ticker, m_symbol, holding["shares"], date))
+
+
+    # A faster way     
+    cur = db_cursor()
+    chain = ','.join(cur.mogrify('(%s,%s,%s,%s)', row).decode('utf-8') for row in tuple_list)
+    try:
+        cur.execute('INSERT INTO holdings(c_symbol, m_symbol, shares, h_date) values ' + chain + " ON CONFLICT(c_symbol, m_symbol, h_date) DO UPDATE SET shares = EXCLUDED.shares")
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Insert mf holding failed")
+
+    # Populate mf_other
+    # m_symbol, m_date, total_investment, total_net_assets, shares
+    add_mf_other(m_symbol, date, report["total_investment"], report["total_net_assets"], int(report["num_shares"]))
+
 
 def get_mf_name(m_symbol):
     cur = db_cursor()
