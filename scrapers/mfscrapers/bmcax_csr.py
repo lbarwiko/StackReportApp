@@ -120,7 +120,7 @@ def main():
 	add_mf_report(report)
 
 	if args.post:
-		print ("UPLOAD")
+		post_to_frontend(report)
 
 if __name__ == '__main__':
 	main()
