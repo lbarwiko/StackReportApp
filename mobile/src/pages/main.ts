@@ -7,6 +7,7 @@ import { RegisterPage } from './register/register';
 import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
 import { TopFundsPage } from './topfunds/topfunds';
+import { AddFundsPage } from './addfunds/addfunds';
 import { MenuPage } from './menu/menu';
 import { ReportsPage } from './reports/reports'
 import { RegionalfundsPage } from './regionalfunds/regionalfunds';
@@ -22,6 +23,7 @@ export {
     RegisterPage,
 	SecurityPage,
     TopFundsPage,
+    AddFundsPage,
     MenuPage,
     InvestmentsPage,
     ReportsPage,

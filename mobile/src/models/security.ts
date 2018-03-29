@@ -2,6 +2,7 @@ class Security {
     id: string;
     name: string;
     current_price: number;
+    volume_traded: number;
     price_history: [number];
 
     constructor(id, name, price_history) {
