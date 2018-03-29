@@ -257,7 +257,7 @@ def get_db_mf_nav(ticker):
 
 def get_db_mf_nav(ticker, date):
     cur = db_cursor()
-    op_string = "SELECT price, m_date FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' ORDER BY m_date DESC" % (ticker, date)
+    op_string = "SELECT price, m_date FROM mutual_fund_history WHERE m_symbol = '%s' AND m_date <= '%s' AND price IS NOT NULL ORDER BY m_date DESC" % (ticker, date)
     cur.execute(op_string)
     row = cur.fetchone()
 
