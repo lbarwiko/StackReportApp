@@ -11,6 +11,10 @@ from predictions_database.helper import get_mf_name, get_ticker, get_db_mf_nav
 
 
 def get_soup(url):
+	"""
+	Return a soup with using html.parser 
+	Input: url
+	"""
 	page = urlopen(url)
 	soup = BeautifulSoup(page, 'html.parser')
 	return soup

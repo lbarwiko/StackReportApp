@@ -37,7 +37,8 @@ CREATE TABLE stock_history(
 CREATE TABLE mutual_fund_history(
     m_symbol VARCHAR(10) NOT NULL,
     m_date DATE NOT NULL,
-    price REAL NOT NULL,
+    price REAL,
+    stock_assets INT,
     PRIMARY KEY(m_symbol, m_date),
     FOREIGN KEY(m_symbol) REFERENCES mutual_fund(m_symbol)
 );
