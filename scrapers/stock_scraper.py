@@ -19,7 +19,6 @@ from predictions_database.helper import add_tuple_stock_history, get_company_lis
 from mutual_fund_nav import get_quote
 from mfscrapers.helper import get_soup
 from selenium import webdriver
-from stock_quote_yahoo import get_stock_daily_yahoo
 
 def load_stock_historical(ticker):
 	"""
@@ -152,13 +151,15 @@ def load_stocks_daily_yahoo(tickers):
 	options.add_argument('headless')
 	options.add_argument('-no-sandbox')
 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
-	
+	idx = 0
+	tuple_list = []
 	for stock_string in split_stocks(tickers):
-		print ("Getting one batch")
 		url = "https://finance.yahoo.com/quotes/%s/view/v1?bypass=true" % stock_string
 		driver.get(url)
-		time.sleep(5)
-		soup = BeautifulSoup(driver.page_source, 'html.parser')
+		print("sleep 4")
+		time.sleep(4)
+		page = driver.page_source
+		soup = BeautifulSoup(page, 'html.parser')
 		try:
 			table = soup.find("table", class_="_2VeNv")
 			tbody = table.find("tbody")
@@ -168,14 +169,18 @@ def load_stocks_daily_yahoo(tickers):
 			print("Cannot fetch stock quote from yahoo")
 			print(e)
 
-
-
-		tuple_list = []
-
 		for row in rows:
 			td_tags = list(row.find_all("td"))
 			tuple_list.append((td_tags[0].get_text(), td_tags[1].get_text()))
-		# driver.close()
+
+		idx += 1
+		print ("Total data retrieved: %d" % len(tuple_list))
+
+		# Reset the webdriver sometimes
+		if idx % 10 == 0 :
+			print("reseting webdriver")
+			driver.quit()
+			driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
 
 	driver.Quit()
 	return tuple_list
@@ -200,14 +205,17 @@ def save_all_stocks_daily(tickers):
 	# add_tuple_stock_history(tuple_list)
 
 	# TEMP SLOW
-	tuple_list = [] 
-	idx = 1
-	for ticker in tickers:
-		# ATTENTION !!!! The date might not be right, it's inserting the current day
-		tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
-		print ("%d. %s" % (idx, ticker))
-		tuple_list.append(tup)
-		idx += 1
+	# tuple_list = [] 
+	# idx = 1
+	# for ticker in tickers:
+	# 	# ATTENTION !!!! The date might not be right, it's inserting the current day
+	# 	tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
+	# 	print ("%d. %s" % (idx, ticker))
+	# 	tuple_list.append(tup)
+	# 	idx += 1
+
+	# FROM YAHOO
+	tuple_list = load_stocks_daily_yahoo(tickers)
 
 	add_tuple_stock_history(tuple_list)
 

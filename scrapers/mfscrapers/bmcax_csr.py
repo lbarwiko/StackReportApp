@@ -13,7 +13,9 @@ sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import *
 
 import argparse
-parser = argparse.ArgumentParser(description='Process some integers.')
+parser = argparse.ArgumentParser(description='Jensen funds scraper')
+parser.add_argument('-nq', action='store_true', help="Scrape from a N-Q report")
+parser.add_argument('-csr', action='store_true', help="Scrape from a N-(N)CSR report")
 parser.add_argument('-p', '--post', action='store_true', help="Posting the data to the frontend")
 parser.add_argument('-u', '--url', nargs=1, required=True, help='Enter the url of the report')
 parser.add_argument('-s', '--symbol', nargs=1, required=True, help='Enter symbol of the mutual fund')
@@ -112,12 +114,16 @@ def bmcax_csr(url, m_symbol):
 
 
 def main():
+	if args.nq is None and args.csr is None:
+		parser.error("Please specify -nq or -csr")
+		exit(1)
 	url = args.url[0]
 	print (url)
 	symbol = args.symbol[0]
 	print (symbol)
 	report = bmcax_csr(url, symbol)
 	add_mf_report(report)
+	add_mf_other(report)
 
 	if args.post:
 		post_to_frontend(report)

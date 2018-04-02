@@ -6,9 +6,16 @@ from bs4 import BeautifulSoup
 import re
 import sys
 import requests
+import time
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import get_mf_name, get_ticker, get_db_mf_nav
 
+def is_numeric(str_input):
+    try:
+        float(str_input)
+        return True
+    except ValueError:
+        return False
 
 def get_soup(url):
 	"""
@@ -47,7 +54,7 @@ def get_sanitized_text_row(soup_list):
 		# Using clean as condition to get rid of string of spaces
 		# company names need spaces back, so don't return clean if it's a company
 		if clean:
-			if clean.isdigit():
+			if is_numeric(clean):
 				text_list.append(clean)
 			else:	
 				text_list.append(text)
@@ -86,15 +93,16 @@ def get_num_in_row(text_list):
 	Loop through a list of string and get the first number in that list
 	Useful for getting non-holdings rows such as total net assets and total investments)
 	Input: a list of string
-	Output: the first integer
+	Output: the first integer *OR -1 if there is no number in it*
 	"""
 	for text in text_list:
-		if text.isdigit():
+		if is_numeric(text):
+			if text == int(float(text)):
+				return int(text)
+			else:
+				return float(text)
+	print("Warning: Cant get num in row, returning -1")
 
-			return int(text)
-
-	print("ERROR: cannot find a number in this row")
-	print("Returning -1")
 	return -1
 
 
@@ -126,7 +134,7 @@ def print_report(report):
 		for stock in report["stocks"]:
 			print (stock["company"], stock["shares"], stock["value"])
 	except KeyError:
-		print("ERROR: The report is not well formatted")
+		print("ERROR: Invalid report format")
 
 
 def post_to_frontend(report):
@@ -204,6 +212,6 @@ def post_to_frontend(m_symbol, report):
 
 	print(response.text)
 
-def get_num_shares(m_symbol, total_net_assets, date):
+def get_num_shares(m_symbol, total_net_assets, date=time.strftime("%Y%m%d")):
 
 	return float(total_net_assets) / float(get_db_mf_nav(m_symbol, date))
