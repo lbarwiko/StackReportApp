@@ -117,7 +117,7 @@ def main():
 
 	report = jensx_nq(url, date, m_symbol)
 	add_mf_report(m_symbol, report, date)
-
+	print (report)
 	# TODO FIX FLAG
 	if post:
 		post_to_frontend(m_symbol, report)

@@ -1,0 +1,29 @@
+<ion-content class="topFund-content" padding>
+    <ion-row>
+    	<div class="title">
+        	Choose Funds to Follow...
+    	</div>
+	</ion-row>
+	<ion-row class="previewlist">
+		<ion-row class="preview" *ngFor="let fund of fundList">
+			<div class="previewWrapper">
+				<component-preview *ngIf="fund" [security_in] = "fund">
+				</component-preview>
+			</div>
+		    	<button *ngIf="!checkFollowing(fund.id)" ion-button class="follow-btn" id = "follow-btn" (click)="postFollow(fund.id)">
+		    		Follow
+		    		<ion-icon name="md-add-circle" id="follow-icon" class = "follow-icon"></ion-icon> 
+		    	</button>
+		    	<button *ngIf="checkFollowing(fund.id)" ion-button class="unfollow-btn" id = "unfollow-btn" (click)="removeFollow(fund.id)">
+		    		Following
+		    		<ion-icon name="md-remove-circle" id="unfollow-icon" class = "unfollow-icon"></ion-icon> 
+		    	</button>
+		</ion-row>
+	</ion-row>
+	<ion-row>
+		<button ion-button class="submit-btn" (click)="submitFollows()">
+			Submit
+		</button>
+	</ion-row>
+
+</ion-content>

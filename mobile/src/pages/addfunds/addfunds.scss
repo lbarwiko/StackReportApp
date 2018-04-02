@@ -1,0 +1,64 @@
+page-addfunds {
+
+	.fixed-content {
+    	background-color: #1A2225;
+  	}
+
+	.title {
+		font-size: 200%;
+		text-align: center;
+		color: white;
+	}
+
+	.preview {
+		width: 100%;
+		padding: 3px;
+	}
+
+	.previewlist {
+		display: inline-block;
+		width: 100%;
+	}
+
+	.previewWrapper {
+		width: 75%;
+	}
+
+	.spinner{
+		color: white;
+		font-size: 3em;
+		margin:0px auto;
+		text-align: center;
+	}
+
+	.submit-btn {
+		border-radius: 18px;
+	    margin-top: 10px;
+	    margin: auto;
+	}
+
+	.follow-btn {
+	    border-radius: 18px;
+	    margin-left: 10px;
+	    margin-top: 10px;
+	}
+
+	.follow-icon {
+	    font-size: 25px;
+	    margin-left: 10px;
+	    margin-right: -5px;
+	}
+
+	.unfollow-btn {
+	    border-radius: 18px;
+	    background-color: gray;
+	    margin-left: 10px;
+	    margin-top: 10px;
+	}
+
+	.unfollow-icon {
+	    font-size: 25px;
+	    margin-left: 10px;
+	    margin-right: -5px;
+	}
+}

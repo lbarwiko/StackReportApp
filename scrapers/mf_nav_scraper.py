@@ -5,8 +5,8 @@ import urllib.request
 import psycopg2
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
-from mutual_fund_nav import 
-
+from mutual_fund_nav import * 
+from mfscrapers.helper import * 
 
 def is_numeric(str_input):
     try:
@@ -26,8 +26,7 @@ def get_nav_historical(ticker):
 	today_time = int(time.time())
 
 	url = "https://finance.yahoo.com/quote/%s/history?period1=0&period2=%d&interval=1d&filter=history&frequency=1d" % (ticker, today_time)
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'html.parser')
+	soup = get_soup(url)
 
 	script = soup.find("script", text=lambda x: x and "root.App.main" in x).text
 	data = json.loads(re.search(pattern, script).group(1))
@@ -40,9 +39,10 @@ def upload_nav_historical(ticker):
 	# convert into tuple list ((m_symbol, m_date, price), ...)
 	tuple_list = []
 	for each in list:
-		tup = (ticker, time.strftime("%Y%m%d", time.gmtime(float(each["date"]))), 
-			float(each["close"]))
-		tuple_list.append(tup)
+		if "close" in each:
+			tup = (ticker, time.strftime("%Y%m%d", time.gmtime(float(each["date"]))), 
+				float(each["close"]))
+			tuple_list.append(tup)
 	add_tuple_mf_history(tuple_list)
 
 

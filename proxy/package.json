@@ -5,6 +5,7 @@
   "main": "proxy.js",
   "scripts": {
     "start": "nodemon ./proxy.js",
+    "err": "ERR=TRUE nodemon ./proxy.js",
     "prod": "PROD=TRUE pm2 start ./proxy.js"
   },
   "author": "",
