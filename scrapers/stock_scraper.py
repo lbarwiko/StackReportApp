@@ -150,7 +150,8 @@ def load_stocks_daily_yahoo(tickers):
 	options = webdriver.ChromeOptions()
 	options.add_argument('headless')
 	options.add_argument('-no-sandbox')
-	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+	#driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+	driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
 	idx = 0
 	tuple_list = []
 	for stock_string in split_stocks(tickers):
@@ -180,7 +181,7 @@ def load_stocks_daily_yahoo(tickers):
 		if idx % 10 == 0 :
 			print("reseting webdriver")
 			driver.quit()
-			driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+			driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
 
 	driver.Quit()
 	return tuple_list
