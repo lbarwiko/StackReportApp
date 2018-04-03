@@ -1,29 +1,30 @@
-import { Alphavantage } from '../services/';
+import { IEX } from '../services/';
 
 export default (db, config) => {
-    const AlphavantageApi = Alphavantage();
+    const IexApi = IEX();
 
     function get(){
         function rest(req, res, next){
-            var security_id = req.params.security_id;
-            if(!security_id){
-                return res.json({
-                    code: 404,
-                    err: 'No security_id provided'
-                });
+            var security_ids = req.params.security_id;
+            if(!security_ids){
+                if(req.param('symbols')){
+                    var unparsed_symbols = req.param('symbols');
+                    security_ids = unparsed_symbols.split(',');
+                    console.log(security_ids);
+                }else{
+                    return res.json({
+                        code: 404,
+                        err: 'No security_id provided'
+                    });
+                }
             }
-            return AlphavantageApi.get(security_id)
+            return IexApi.get(security_ids, req.param('news'))
             .then(data=>{
-                return res.json({
-                    security_id: security_id,
-                    price_history: data
-                });
+                return res.status(200).json(data);
             })
             .catch(err=>{
-                return res.status(500).json({
-                    err: 'Alphavantage sucked. Not our fault.',
-                    code: 500
-                });
+                console.log(err);
+                return res.status(err.code).json(err);
             });
         }
         return {

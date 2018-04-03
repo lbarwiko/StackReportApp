@@ -2,32 +2,31 @@ class Security {
     id: string;
     name: string;
     current_price: number;
-    price_history: [number];
+    volume_traded: number;
+    price_history: any;
 
-    constructor(id, name, price_history) {
+    constructor(id, name, current_price, volume_traded, price_history) {
     	//Required Params
         if(!price_history
         || !name
         || !id
+        || !current_price
+        || !volume_traded
          ){
            throw "Missing required field"; 
         }
         this.id = id;
         this.name = name;
+        this.current_price = current_price;
+        this.volume_traded = volume_traded;
         this.price_history = price_history;
-        if(price_history && price_history != undefined && price_history.length > 0) {
-            this.current_price = this.price_history[0]['4. close'];
-        } else {
-            this.current_price = 0;
-        }
     }
  } 
  class Fund extends Security{
     holdings: [Security];
 
-    constructor(id, name, price_history) {
-        super(id, name, price_history);
-        // this.holdings = holdings;
+    constructor(id, name, current_price, volume_traded, price_history) {
+        super(id, name, current_price, volume_traded, price_history);
     }
 
     setHoldings(holdings){
@@ -36,8 +35,8 @@ class Security {
  } 
 
  class Stock extends Security {
-     constructor(id, name, price_history) {
-        super(id, name, price_history);
+     constructor(id, name, current_price, volume_traded, price_history) {
+        super(id, name, current_price, volume_traded, price_history);
      }
  }
 

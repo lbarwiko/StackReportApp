@@ -18,6 +18,7 @@ sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
 from mutual_fund_nav import get_quote
 from mfscrapers.helper import get_soup
+from selenium import webdriver
 
 def load_stock_historical(ticker):
 	"""
@@ -134,6 +135,71 @@ def load_stocks_daily(tickers):
 
 	return results
 
+
+def load_stocks_daily_yahoo(tickers):
+	"""
+	Return the a list of tuple (stock symbol, live stock quote) contains all daily stock quotes
+	For example:
+	[
+	(AAPL, 53.23),
+	(MSFT, 32.33),
+	(NKE, 23.43),
+	...
+	]
+	"""
+	options = webdriver.ChromeOptions()
+	options.add_argument('headless')
+	options.add_argument('-no-sandbox')
+<<<<<<< HEAD
+	options.add_argument('--disable-application-cache')
+	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+=======
+	#driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+	driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
+>>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
+	idx = 0
+	tuple_list = []
+	for stock_string in split_stocks(tickers):
+		url = "https://finance.yahoo.com/quotes/%s/view/v1?bypass=true" % stock_string
+		driver.get(url)
+		print("sleep 6")
+		time.sleep(6)
+		page = driver.page_source
+		soup = BeautifulSoup(page, 'html.parser')
+
+		try:
+			table = soup.find("table", class_="_2VeNv")
+			tbody = table.find("tbody")
+			rows = tbody.find_all("tr")
+			print ("Got %d data" % len(rows))
+		except Exception as e:
+			print("Cannot fetch stock quote from yahoo")
+			print(e)
+
+		for row in rows:
+			td_tags = list(row.find_all("td"))
+			tuple_list.append((td_tags[0].get_text(), td_tags[1].get_text()))
+
+		idx += 1
+		print ("Total data retrieved: %d" % len(tuple_list))
+		driver.manage().deleteAllCookies();
+
+		# Reset the webdriver sometimes
+<<<<<<< HEAD
+		# if idx % 10 == 0 :
+		# 	print("reseting webdriver")
+		# 	driver.quit()
+		# 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+=======
+		if idx % 10 == 0 :
+			print("reseting webdriver")
+			driver.quit()
+			driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
+>>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
+
+	driver.quit()
+	return tuple_list
+
 def save_all_stocks_daily(tickers):
 	"""
 	load all available historical price data for each ticker in tickers (up to 20 years)
@@ -154,14 +220,17 @@ def save_all_stocks_daily(tickers):
 	# add_tuple_stock_history(tuple_list)
 
 	# TEMP SLOW
-	tuple_list = [] 
-	idx = 1
-	for ticker in tickers:
-		# ATTENTION !!!! The date might not be right, it's inserting the current day
-		tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
-		print ("%d. %s" % (idx, ticker))
-		tuple_list.append(tup)
-		idx += 1
+	# tuple_list = [] 
+	# idx = 1
+	# for ticker in tickers:
+	# 	# ATTENTION !!!! The date might not be right, it's inserting the current day
+	# 	tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
+	# 	print ("%d. %s" % (idx, ticker))
+	# 	tuple_list.append(tup)
+	# 	idx += 1
+
+	# FROM YAHOO
+	tuple_list = load_stocks_daily_yahoo(tickers)
 
 	add_tuple_stock_history(tuple_list)
 
@@ -186,8 +255,5 @@ def main():
 if __name__=="__main__":
 	main()
 
-url = "https://finance.yahoo.com/quotes/MSFT,AAPL/view/v1?bypass=true"
-response = os.popen("wget -qO- %s" % url).read()
-soup = BeautifulSoup(response, "lxml")
 
 

@@ -45,15 +45,38 @@ export class FundService {
 
             this.http.get(this.url + '/' + fund_id, options).toPromise()
             .then(res=>{
-                var resJson = res.json();
-                var fundToReturn = new Fund(resJson.fund_id, resJson.fund_name, resJson.price_history);
-                // console.log(resJson.holdings);
-                fundToReturn.setHoldings(resJson.holdings);
-                return resolve(fundToReturn);
+                let data = this.extractData(res);
+                let fund_to_return = new Fund(data.fund_id, data.fund_name,
+                                            data.current_price, data.volume_traded,
+                                            data.price_history);
+                return resolve(fund_to_return);
             })
             .catch(this.handleErrorPromise);
         })
     } 
+
+    private extractData(res: Response) {
+        let body = res.json();
+        // alphavantage data parsing
+        let fund_id = body.fund_id;
+        let fund_name = body.fund_name;
+        let current_price = body.price_history[0]["4. close"];
+        let volume_traded = body.price_history[0]["5. volume"];
+        let price_history = [];
+        for(let i in body.price_history) {
+            let new_price = {"date": body.price_history[i]["date"],
+                             "price": body.price_history[i]["4. close"]};
+            price_history.push(new_price);
+        }
+        let data = {
+            "fund_id": fund_id,
+            "fund_name": fund_name,
+            "current_price": current_price,
+            "volume_traded": volume_traded,
+            "price_history": price_history
+        }
+        return data;
+    }
 
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);

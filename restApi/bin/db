@@ -30,6 +30,21 @@ case $1 in
       echo "POPULATING DATABASE"
       psql \
         -h $HOST_NAME \
+        --echo-all \
+        --set ON_ERROR_STOP=on \
+        < var/dump_clean
+      echo "SUCCESSFULLY CREATED DATABASE"
+    ;;
+  "create")
+      echo "CREATING DATABASE"
+      psql \
+        -h $HOST_NAME \
+        -f sql/create.sql \
+        --echo-all \
+        --set ON_ERROR_STOP=on
+      echo "POPULATING DATABASE"
+      psql \
+        -h $HOST_NAME \
         -f sql/populate.sql \
         --echo-all \
         --set ON_ERROR_STOP=on
@@ -66,7 +81,7 @@ case $1 in
 
   "reset")
       bin/db destroy
-      bin/db create-fake
+      bin/db create
     ;;
 
   "start")

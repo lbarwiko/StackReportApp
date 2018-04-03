@@ -51,7 +51,8 @@ MutualFund load_data(const string& mf_symbol) {
 	mf.prices = {121.4500, 121.4500, 45.7700, 116.5200, 135.9200, 153.9200, 64.8200, 90.5900, 228.2100, 156.0000, 228.1700, 89.9900, 243.1400, 1036.1700, 148.0100, 90.2600, 72.2800, 150.4700, 197.1700, 71.4400, 139.3300, 157.2200, 84.1700, 49.0600, 75.5500, 171.8500, 60.4200};
 	mf.num_shares_held = {2609000, 1326000, 2344000, 3163000, 2080000, 2069000, 2187000, 1892000, 1834000, 2004000, 1403000, 2434000, 1154600, 191000, 1638000, 872000, 2355000, 1287000, 813987, 3253000, 2078000, 885000, 4453000, 6095000, 2712000, 1087000, 3135000};
 	mf.nav = 47.86;
-	mf.stock_assets = 6378548241;
+	//mf.stock_assets = 6378548241;
+	mf.stock_assets = 6378547241;
 	mf.n_shares = 138789534;
 	
 	return mf;
@@ -121,68 +122,6 @@ void gen_search_space(double p, int n, double k, int& max_value, int& min_value,
 	if (!min_value) min_value = step_size;
 }
 
-/*
-//non-recursive
-//TODO add vector.reserve for known sizes
-//TODO create struct to contain parameters
-void ilp_solve(const MutualFund& mf, const vector<int>& combination, double k, int step_size, const double percent_range,
-	double& min_error, vector<int>& best_num_shares_held, int current_index, const double initial_k, 
-	const vector<int>& initial_combination, vector<int>& num_shares_acc) {
-	// solve the integer linear programming problem to minimize the error function
-	// error = |k - P'N'|
-	// modifies min_error and min_weights (these are essentially the return values)
-	for (int ind = 0; ind < combination.size(); ++ind) {
-		int max_n_value;
-		int min_n_value;
-		gen_search_space(mf, combination, k, max_n_values, min_n_values, percent_range);
-		for (int current_n = max_n_value; current_n >= min_n_value; current_n -= step_size) {
-			// hold current_n constant and solve subproblem without current_n, then repeat with decremented current_n
-			double new_k = k - mf.prices[combination[ind]]*current_n;
-			weights_acc.push_back(current_n);
-			ilp_solve(mf, combination, k, step_size, percent_range,	min_error, best_num_shares_held, 
-				current_index, initial_k, initial_combination, num_shares_acc);
-		}
-
-	}
-	// base case, trivial solution for only 1 variable
-	if (combination.size() == 1) {
-		int last_n = static_cast<int>(round(k/mf.prices[initial_combination.back()]));
-		double current_error = 0;
-		for (int i = 0; i < num_shares_acc.size(); ++i) current_error += mf.prices[initial_combination[i]]*num_shares_acc[i];
-		current_error = initial_k - current_error - mf.prices[initial_combination.back()]*last_n;
-
-		// if current_error is new min, reassign min_error and min_weights
-		// strictly less for reassignment to reflect the idea that
-		// combinations with fewer trades are simpler and more likely
-		if (current_error < min_error) {
-			min_error = current_error;
-			best_num_shares_held = mf.num_shares_held;
-			for (int i = 0; i < initial_combination.size() - 1; ++i) 
-				best_num_shares_held[initial_combination[i]] = num_shares_acc[i];
-
-			best_num_shares_held[initial_combination.back()] = last_n;
-			// remove last accumulated weight so we can later try a different one
-			num_shares_acc.pop_back();
-			//TODO keep track of prev error and pop twice if error increased? not sure if this works
-		}
-		
-		return;
-	}
-
-	//TODO only calculate first variable limits?
-	vector<int> max_n_values;
-	vector<int> min_n_values;
-	gen_search_space(mf, combination, k, max_n_values, min_n_values, percent_range);
-	for (int n1 = max_n_values[0]; n1 >= min_n_values[0]; n1 -= step_size) {
-		// hold n1 constant and solve subproblem without n1, then repeat with decremented n1
-		double new_k = k - p_prime[0]*n1;
-		weights_acc.push_back(n1);
-		ilp_solve(mf, combination, k, step_size, percent_range,	min_error, best_num_shares_held, 
-			current_index, initial_k, 	initial_combination, num_shares_acc);
-	}
-}
-*/
-
 //TODO add vector.reserve for known sizes
 //TODO create struct to contain parameters
 void ilp_solve(const MutualFund& mf, vector<int>& combination, double k, int step_size, 
@@ -194,6 +133,7 @@ void ilp_solve(const MutualFund& mf, vector<int>& combination, double k, int ste
 	// base case, trivial solution for only 1 variable
 	if (combination.size() == 1) {
 		int last_n = static_cast<int>(round(k/mf.prices[initial_combination.back()]));
+		last_n = (last_n + step_size/2) / step_size * step_size;
 		double current_error = 0;
 		for (size_t i = 0; i < num_shares_acc.size(); ++i) current_error += mf.prices[initial_combination[i]]*num_shares_acc[i];
 		current_error = abs(initial_k - current_error - mf.prices[initial_combination.back()]*last_n);
@@ -214,8 +154,7 @@ void ilp_solve(const MutualFund& mf, vector<int>& combination, double k, int ste
 		return;
 	}
 
-	//TODO only calculate last variable limits?
-	// start from the back
+	// start from the last variable
 	int max_value;
 	int min_value;
 	int last_index = combination.back();
@@ -277,39 +216,33 @@ void save_result(const MutualFund& mf, const vector<int>& result) {
 	output.pop_back();
 	output += "\n\t]\n}";
 
-	//TODO change
-	//ofstream file("/root/StackReport/predictions/" + mf.mf_symbol + "_comb.json");
-	ofstream file("/home/dasokol/Projects/EECS441/StackReport/predictions/" + mf.mf_symbol + "_comb.json");
+	ofstream file("/root/StackReport/predictions/Output/" + mf.mf_symbol + "_comb.json");
 	file << output;
 	file.close();
 }
 
 int main(int argc, char** argv) {
+	string mf_symbol;
 	int search_depth;
 	int step_size;
 	double percent_range;
+
 	// read in clargs
-	try {
-		search_depth = atoi(argv[1]);
-		step_size = atoi(argv[2]);
-		percent_range = atof(argv[3]);
-	}
-	catch (...) {
+	if (argc != 5) {
 		cout << "Error reading arguments." << endl;
-		cout << "Usage: ./combexe search_depth step_size percent_range" << endl;
+		cout << "Usage: ./combexe mf_symbol search_depth step_size percent_range" << endl;
 		return 1;
 	}
+	mf_symbol = argv[1];
+	search_depth = atoi(argv[2]);
+	step_size = atoi(argv[3]);
+	percent_range = atof(argv[4]);
 	
-	// TODO load mf_symbols from db. can we call python function from C++ or should we save the data in python and load it here?
-	vector<string> mf_symbols = {"JENSX"};
-	
-	for (const auto& mf_symbol : mf_symbols) {
-		MutualFund mf = load_data(mf_symbol);
-		double min_error;
-		vector<int> result;
-		tie(min_error, result) = predict(mf, search_depth, step_size, percent_range);
-		save_result(mf, result);
-	}
+	MutualFund mf = load_data(mf_symbol);
+	double min_error;
+	vector<int> result;
+	tie(min_error, result) = predict(mf, search_depth, step_size, percent_range);
+	save_result(mf, result);
 		
 	return 0;
 }

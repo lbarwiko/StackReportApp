@@ -11,6 +11,7 @@ bodyParser = require('body-parser'),
 cors = require('cors');
 
 var PROD = process.env.PROD == 'TRUE';
+var ERR = process.env.ERR == 'TRUE';
 
 var HTTP_PORT   = PROD ? 80     : 8000;
 var HTTPS_PORT  = PROD ? 443    : 4443;
@@ -42,6 +43,12 @@ app.use(function (req, res) {
     try{
         var target = proxyRules.match(req);
         if (target) {
+
+            if(ERR){
+                if (Math.random() > 0.5){
+                    return res.sendStatus(404);
+                }
+            }
                 //console.log("TARGET", target, req.url)
             return proxy.web(req, res, {
                 target: target

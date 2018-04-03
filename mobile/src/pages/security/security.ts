@@ -14,7 +14,7 @@ import { FollowingService } from '../../services/following.service';
 export class SecurityPage {
 
 	security: Security;
-	volume_traded: string;
+	volume_traded: number;
 	follow_status: boolean;
 	is_stock: boolean;
 
@@ -26,9 +26,7 @@ export class SecurityPage {
 
 	ngOnInit() {
 		this.security = this.navParams.get('param');
-		console.log("this.security",this.security);
-		this.volume_traded = this.security.price_history[0]['5. volume'];
-		console.log(' on init ');
+		this.volume_traded = this.security.volume_traded;
 		this.checkFollowing();
 		// this will remove the investments and reports buttons if the security is a stock
 		if(this.security instanceof Stock) {

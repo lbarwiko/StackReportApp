@@ -22,10 +22,10 @@ export class PreviewComponent {
 	ngOnInit() {
 		this.security = this.security_from_front;
 		if(this.security.price_history.length > 0 && 
-			this.security.current_price < this.security.price_history[0]['1. open']) {
+			this.security.current_price < this.security.price_history[1]['price']) {
 			this.price_color = 'price red';
 		} else if (this.security.price_history.length > 0 && 
-					this.security.current_price > this.security.price_history[0]['1. open']) {
+					this.security.current_price > this.security.price_history[1]['price']) {
 			this.price_color = 'price green';
 		}
 	}

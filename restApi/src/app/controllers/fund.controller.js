@@ -193,7 +193,8 @@ export default (db, config) => {
                     fund_id: req.fund.fund_id,
                     fund_name: req.fund.fund_name,
                     holdings: req.fund.holdings,
-                    price_history: data
+                    price_history: data.price_history,
+                    quote: data.quote
                 });
             })
             .catch(err=>{

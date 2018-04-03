@@ -40,7 +40,7 @@ export default (db, config) => {
     const strategyUsername = new LocalStrategy(
         {usernameField: 'username', passwordField: 'password'}, 
         (username, password, done) => {
-            User.getByUsername(username)
+            User.getByUsername(username.toLowerCase())
                 .then((user)=>{
                     // Check if the password matches the hash
                     return bcrypt.compare(password, user.password)

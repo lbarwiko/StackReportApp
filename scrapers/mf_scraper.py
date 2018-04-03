@@ -13,7 +13,7 @@ import time
 from config import *
 import requests
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_mf_history, get_mf_list
+from predictions_database.helper import add_tuple_mf_history, get_mf_list, get_mf_parent_nav
 
 def load_mf_historical(ticker):
 	"""
@@ -52,16 +52,16 @@ def save_all_mf_historical(tickers):
 	tickers is list of ticker symbol strings
 	"""
 	for ticker in tickers:
-		data = load_mf_historical(ticker)
-		# TODO place in database
+		if len(ticker) < 6:
+			data = load_mf_historical(ticker)
 
-		# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
-		tuple_list = []
-		for key, value in data["Time Series (Daily)"].items():
-			tup = (ticker, key, value["4. close"])
-			tuple_list.append(tup)
+			# tuple_list is a list of tuples [(m_symbol, m_date, price),...,]
+			tuple_list = []
+			for key, value in data["Time Series (Daily)"].items():
+				tup = (ticker, key, value["4. close"])
+				tuple_list.append(tup)
 
-		add_tuple_mf_history(tuple_list)
+			add_tuple_mf_history(tuple_list)
 
 
 def split_stocks(tickers):
@@ -127,6 +127,7 @@ def load_mf_daily(ticker):
 
 	return str(lastest), str(data["Time Series (Daily)"][lastest]["4. close"])
 
+# TODO FIX SPECIAL CASE
 def save_all_mf_daily(tickers):
 	"""
 	load all available historical price data for each ticker in tickers (up to 20 years)
@@ -135,11 +136,21 @@ def save_all_mf_daily(tickers):
 	"""
 	tuple_list = []
 	for ticker in tickers:
-		date, price = load_mf_daily(ticker)
-		tup = (ticker, date, price)
-		tuple_list.append(tup)
+		if len(ticker) < 6:
+			date, price = load_mf_daily(ticker)
+			tup = (ticker, date, price)
+			tuple_list.append(tup)
 
 	add_tuple_mf_history(tuple_list)
+
+	tuple_list = []
+	for ticker in tickers:
+		if len(ticker) >= 6:
+			tuple_list.append((ticker, time.strftime("%Y%m%d"), get_mf_parent_nav(ticker)))
+
+	add_tuple_mf_history(tuple_list)
+
+
 
 def main():
 	# TODO load tickers from database

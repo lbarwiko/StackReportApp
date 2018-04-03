@@ -52,6 +52,7 @@ export default (db, config, auth) => {
 	const securityApi = Router();
 	const Securities = Security(db, config).rest;
 	securityApi.get('/:security_id', Securities.get);
+	securityApi.get('/', Securities.get);
 	api.use('/security/', securityApi);
 
 	const meApi = Router();
