@@ -1,7 +1,7 @@
-import { Alphavantage } from '../services/';
+import { IEX } from '../services/';
 
 export default (db, config) => {
-    const AlphavantageApi = Alphavantage();
+    const IexApi = IEX();
 
     function get(){
         function rest(req, res, next){
@@ -18,7 +18,7 @@ export default (db, config) => {
                     });
                 }
             }
-            return AlphavantageApi.get(security_ids, req.param('news'))
+            return IexApi.get(security_ids, req.param('news'))
             .then(data=>{
                 return res.status(200).json(data);
             })

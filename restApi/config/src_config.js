@@ -14,7 +14,10 @@ const dev_config = {
         saltRounds: 10
     },
     port:8080,
-    sslport:4443
+    sslport:4443,
+    stripe: {
+        key: 'sk_test_Ell1lUxLTqJcLuQWWWCMXXdd'
+    }
 }
 
 let data = dev_config;
