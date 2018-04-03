@@ -43,8 +43,6 @@ CREATE TABLE public.follow (
 );
 
 
-ALTER TABLE public.follow OWNER TO root;
-
 --
 -- Name: follow_user_id_seq; Type: SEQUENCE; Schema: public; Owner: root
 --
@@ -56,8 +54,6 @@ CREATE SEQUENCE public.follow_user_id_seq
     NO MAXVALUE
     CACHE 1;
 
-
-ALTER TABLE public.follow_user_id_seq OWNER TO root;
 
 --
 -- Name: follow_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
@@ -76,7 +72,6 @@ CREATE TABLE public.fund (
 );
 
 
-ALTER TABLE public.fund OWNER TO root;
 
 --
 -- Name: holding; Type: TABLE; Schema: public; Owner: root
@@ -89,7 +84,6 @@ CREATE TABLE public.holding (
 );
 
 
-ALTER TABLE public.holding OWNER TO root;
 
 --
 -- Name: prediction; Type: TABLE; Schema: public; Owner: root
@@ -103,7 +97,6 @@ CREATE TABLE public.prediction (
 );
 
 
-ALTER TABLE public.prediction OWNER TO root;
 
 --
 -- Name: prediction_meta; Type: TABLE; Schema: public; Owner: root
@@ -116,7 +109,6 @@ CREATE TABLE public.prediction_meta (
 );
 
 
-ALTER TABLE public.prediction_meta OWNER TO root;
 
 --
 -- Name: prediction_meta_prediction_meta_id_seq; Type: SEQUENCE; Schema: public; Owner: root
@@ -130,7 +122,6 @@ CREATE SEQUENCE public.prediction_meta_prediction_meta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.prediction_meta_prediction_meta_id_seq OWNER TO root;
 
 --
 -- Name: prediction_meta_prediction_meta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
@@ -151,7 +142,6 @@ CREATE SEQUENCE public.prediction_prediction_meta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.prediction_prediction_meta_id_seq OWNER TO root;
 
 --
 -- Name: prediction_prediction_meta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
@@ -174,7 +164,6 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO root;
 
 --
 -- Name: public_users; Type: VIEW; Schema: public; Owner: root
@@ -187,7 +176,6 @@ CREATE VIEW public.public_users AS
    FROM public.users;
 
 
-ALTER TABLE public.public_users OWNER TO root;
 
 --
 -- Name: tier; Type: TABLE; Schema: public; Owner: root
@@ -199,7 +187,6 @@ CREATE TABLE public.tier (
 );
 
 
-ALTER TABLE public.tier OWNER TO root;
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE; Schema: public; Owner: root
@@ -213,7 +200,6 @@ CREATE SEQUENCE public.users_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_user_id_seq OWNER TO root;
 
 --
 -- Name: users_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root

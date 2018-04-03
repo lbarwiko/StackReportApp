@@ -187,15 +187,14 @@ export default (db, config) => {
                     err: 'No fund found'
                 })
             }
-            return AlphavantageApi.get(req.fund.fund_id, req.param('news'))
+            return AlphavantageApi.get(req.fund.fund_id)
             .then(data=>{
                 return res.json({
                     fund_id: req.fund.fund_id,
-                    fund_name: data.security_name,
+                    fund_name: req.fund.fund_name,
                     holdings: req.fund.holdings,
                     price_history: data.price_history,
-                    quote: data.quote,
-                    news: data.news || null
+                    quote: data.quote
                 });
             })
             .catch(err=>{

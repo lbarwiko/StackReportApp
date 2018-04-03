@@ -7,6 +7,32 @@ import { UsernameConstraint, PasswordConstraint } from '../constraints/';
 
 export default (db, config) => {
     
+    function updateTier(){
+        function helper(){
+            
+        }
+        function rest(){
+
+        }
+        return {
+            helper: helper,
+            rest, rest
+        }
+    }
+
+    function updatePayment(){
+        function helper(){
+
+        }
+        function rest(){
+
+        }
+        return {
+            helper: helper,
+            rest: rest,
+        }
+    }
+
     function create(){
         /* 
             Create a user 
