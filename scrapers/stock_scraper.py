@@ -150,17 +150,23 @@ def load_stocks_daily_yahoo(tickers):
 	options = webdriver.ChromeOptions()
 	options.add_argument('headless')
 	options.add_argument('-no-sandbox')
+<<<<<<< HEAD
+	options.add_argument('--disable-application-cache')
+	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+=======
 	#driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
 	driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
+>>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
 	idx = 0
 	tuple_list = []
 	for stock_string in split_stocks(tickers):
 		url = "https://finance.yahoo.com/quotes/%s/view/v1?bypass=true" % stock_string
 		driver.get(url)
-		print("sleep 4")
-		time.sleep(4)
+		print("sleep 6")
+		time.sleep(6)
 		page = driver.page_source
 		soup = BeautifulSoup(page, 'html.parser')
+
 		try:
 			table = soup.find("table", class_="_2VeNv")
 			tbody = table.find("tbody")
@@ -176,14 +182,22 @@ def load_stocks_daily_yahoo(tickers):
 
 		idx += 1
 		print ("Total data retrieved: %d" % len(tuple_list))
+		driver.manage().deleteAllCookies();
 
 		# Reset the webdriver sometimes
+<<<<<<< HEAD
+		# if idx % 10 == 0 :
+		# 	print("reseting webdriver")
+		# 	driver.quit()
+		# 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+=======
 		if idx % 10 == 0 :
 			print("reseting webdriver")
 			driver.quit()
 			driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
+>>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
 
-	driver.Quit()
+	driver.quit()
 	return tuple_list
 
 def save_all_stocks_daily(tickers):

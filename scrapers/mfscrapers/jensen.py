@@ -147,6 +147,8 @@ def main():
 
 	add_mf_report(report)
 	add_mf_other(report)
+	if args.post:
+		post_to_frontend(report)
 
 
 	return
