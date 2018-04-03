@@ -172,45 +172,45 @@ def post_to_frontend(report):
 
 	response = requests.request("PUT", url, data=data, headers=headers)
 
-	# print(response.text)
-
-
-# TODO: DELETE AFTER REWRITING 
-def post_to_frontend(m_symbol, report):
-	"""
-	Send the report to the frontend
-	Input: a dictionary (the report)
-	Output: None
-	"""
-
-	m_symbol = m_symbol.upper()
-
-	# DO SOMETHING
-	url = "https://www.stackreport.io/api/f/%s" % m_symbol
-
-	post_dict = {}
-	post_dict["fund_id"] = str(m_symbol)
-	post_dict["fund_name"] = str(get_mf_name(m_symbol))
-	post_dict["holdings"] = []
-
-	for each in report["stocks"]:
-		temp = {}
-		temp["security_id"] = str(get_ticker(each["company"]))
-		temp["amount"] = int(each["value"])
-		post_dict["holdings"].append(temp)
-
-	data = json.dumps(post_dict)
-
-	print (data)
-
-	headers = {
-	   'content-type': "application/json",
-	   'cache-control': "no-cache"
-	}
-
-	response = requests.request("PUT", url, data=data, headers=headers)
-
 	print(response.text)
+
+
+# # TODO: DELETE AFTER REWRITING 
+# def post_to_frontend(m_symbol, report):
+# 	"""
+# 	Send the report to the frontend
+# 	Input: a dictionary (the report)
+# 	Output: None
+# 	"""
+
+# 	m_symbol = m_symbol.upper()
+
+# 	# DO SOMETHING
+# 	url = "https://www.stackreport.io/api/f/%s" % m_symbol
+
+# 	post_dict = {}
+# 	post_dict["fund_id"] = str(m_symbol)
+# 	post_dict["fund_name"] = str(get_mf_name(m_symbol))
+# 	post_dict["holdings"] = []
+
+# 	for each in report["stocks"]:
+# 		temp = {}
+# 		temp["security_id"] = str(get_ticker(each["company"]))
+# 		temp["amount"] = int(each["value"])
+# 		post_dict["holdings"].append(temp)
+
+# 	data = json.dumps(post_dict)
+
+# 	print (data)
+
+# 	headers = {
+# 	   'content-type': "application/json",
+# 	   'cache-control': "no-cache"
+# 	}
+
+# 	response = requests.request("PUT", url, data=data, headers=headers)
+
+# 	print(response.text)
 
 def get_num_shares(m_symbol, total_net_assets, date=time.strftime("%Y%m%d")):
 
