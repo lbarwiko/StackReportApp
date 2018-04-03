@@ -35,4 +35,13 @@ export class SecurityService {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
     }    
+
+    private extractData(res: Response) {
+        let body = res.json();
+
+        // implement this
+
+        return body.data || [];
+    }
+
 } 

@@ -44,9 +44,11 @@ export class SecurityGraphComponent {
   	private populateGraph():void {
   		// populate graph (last 5 days))
 		[0, 1, 2, 3, 4].forEach((i) => {
-			this.lineChartData[0].data[4 - i] = this.fund.price_history[i]['4. close'];
-
+			this.lineChartData[0].data[4 - i] = this.fund.price_history[i]['price'];
+			console.log(this.fund.price_history[i]['date']);
+			// on 4/3/18 this was somehow subtracting a day...?
 			let date = new Date(this.fund.price_history[i]['date']);
+			console.log(date);
 	  		let month = date.getMonth() + 1;
 	  		let formatted = month + "/" + date.getDate();
 			this.lineChartLabels[4 - i] = formatted;
