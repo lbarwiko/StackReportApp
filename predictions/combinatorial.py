@@ -75,6 +75,7 @@ def run_prediction(mf_symbol, date):
 	os.system("rm /root/StackReport/predictions/tmp/" + mf_symbol + ".txt")
 
 def main():
+	# date is yyyymmdd
 	date = sys.argv[1]
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
