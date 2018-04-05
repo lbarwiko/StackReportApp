@@ -28,7 +28,6 @@ export class InvestmentsPage {
 
 	ngOnInit() {
 		this.showLoading()
-
 		this.fund = this.navParams.get('param');
 		this.totalPrice = 0;
 

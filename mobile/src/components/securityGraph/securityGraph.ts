@@ -42,27 +42,30 @@ export class SecurityGraphComponent {
   	public lineChartType:string = 'line';
 
   	private populateGraph():void {
+		  console.log(this.security);
+		  console.log(this.lineChartData);
+		  console.log(this.lineChartLabels);
   		// populate graph (last 5 days))
 		[0, 1, 2, 3, 4].forEach((i) => {
 			this.lineChartData[0].data[4 - i] = this.security.price_history[i]['price'];
 			console.log(this.security.price_history[i]['date']);
 			// on 4/3/18 this was somehow subtracting a day...?
 			let date = new Date(this.security.price_history[i]['date']);
-			console.log(date);
+			//console.log(date);
 	  		let month = date.getMonth() + 1;
 	  		let formatted = month + "/" + date.getDate();
 			this.lineChartLabels[4 - i] = formatted;
 		});
-		//this.applicationRef.tick();
+		this.applicationRef.tick();
 
 		console.log("populated");
   	}
 
   	ngOnInit() {
 		// this.fund = null; //new Fund(this.fund_id_from_front);
-		// this.fundService.getFund(this.fund_id_from_front)
+		// this.fundService.getFund(this.security_in.id)
 		// .then(fundReturned => {
-		// 	this.fund = fundReturned;
+		// 	this.security = fundReturned;
 		// 	this.populateGraph();		
 		// })
 		// .catch(err => {
@@ -72,6 +75,8 @@ export class SecurityGraphComponent {
 		console.log("FUND BELOW");
 		console.log(this.security);
 		this.populateGraph();
+		this.applicationRef.tick();
+
 	}
 
   	// events 
