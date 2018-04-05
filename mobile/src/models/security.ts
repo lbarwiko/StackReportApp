@@ -31,6 +31,13 @@ class Security {
     }
 
     setHoldings(holdings){
+        var totalPrice = 0;
+		holdings.forEach(holding=>{
+            totalPrice += holding.security.current_price * holding.num_shares;
+        });
+        holdings.forEach(holding=>{
+            holding.setPercent(holding.num_shares * holding.security.current_price / totalPrice * 100);
+        });
         this.holdings = holdings;
     }
  } 

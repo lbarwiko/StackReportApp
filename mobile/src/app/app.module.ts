@@ -7,7 +7,7 @@ import { MyApp } from './app.component';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { RestapiProvider } from '../providers/restapi/restapi';
-import { UserService, FundService, AuthService, EndpointService, FollowingService, SecurityService, PredictionService } from '../services/main';
+import { UserService, FundService, AuthService, EndpointService, FollowingService, SecurityService, PredictionService, HoldingService } from '../services/main';
 import { IonicStorageModule } from '@ionic/storage';
 import { ChartsModule } from 'ng2-charts';
 
@@ -91,7 +91,8 @@ import {
     EndpointService,
     FollowingService,
     PredictionService,
-    SecurityService
+    SecurityService,
+    HoldingService
   ]
 })
 export class AppModule {}

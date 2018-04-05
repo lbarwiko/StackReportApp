@@ -5,7 +5,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
-// import { Security } from '../models/security';
+import { Security } from '../models/security';
+//import { Holding } from '../models/holding.model';
+
 
 @Injectable()
 export class SecurityService {
@@ -31,20 +33,25 @@ export class SecurityService {
         })
     }
 
-    getBatch(security_ids:any): Promise<any> {
+    getBatch(holding_metas:any): Promise<any> {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json' });
             let options = new RequestOptions({ headers: headers });
             var reqUrl = this.url + '?symbols='
-            security_ids.forEach(security_id=>{
-                this.url += security_id + ',';
+            holding_metas.forEach(holding_meta=>{
+                reqUrl += holding_meta.security_id + ',';
             })
-            console.log(this.url);
+            console.log(reqUrl);
             this.http.get(reqUrl, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
                 console.log("Reponse", resJson);
-                return resolve(resJson);
+                var securities = [];
+                for(var i=0; i<resJson.length; i+=1){
+                    securities.push(this.parseSecurity(resJson[i]));
+                }
+                console.log("New response", securities);
+                return resolve(securities);
             })
             .catch(this.handleErrorPromise);
         });
@@ -54,6 +61,19 @@ export class SecurityService {
         console.error(error.message || error);
         return Promise.reject(error.message || error);
     }    
+
+    private parseSecurity(res){
+        var price_history = [];
+        for(var i=0; i<res.price_history.length; i++){
+            price_history.push({
+                "date": res.price_history[i].date,
+                "price": res.price_history[i].close
+            });
+        }
+        return new Security(res.security_id, res.security_name, 
+            res.quote.latestPrice, res.quote.latestVolume, 
+            price_history);
+    }
 
     private extractData(res: Response) {
         let body = res.json();

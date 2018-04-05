@@ -1,21 +1,22 @@
 <ion-content class="investments-content">
     <ion-row class='fund-name'>
-        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
+        {{fund.name || "TEST"}} ({{fund.id || "TEST" | uppercase}})
     </ion-row>
     <div class = 'table'>
         <div class="row header">
-          <div class="col">Ticker</div>
+          <div class="col">Security</div>
           <div class="col" style='text-align: right;'>Current Price</div>
           <div class="col" style='text-align: right;'>Shares Held</div>
           <div class="col" style='text-align: right;'>Percent</div>
         </div>
         <hr class='line'>
-        <div *ngFor="let holding of security.holdings">
-            <div class="row" (click)="openStockPage(holding.id)">
-              <div class="col">{{holding.security_id}}</div>
-              <div class="col" style='text-align: right;'>${{holding.current_price}}</div>
+        <div *ngFor="let holding of fund.holdings">
+            <div *ngIf="holding.security" class="row" (click)="openStockPage(holding.id)">
+              <div class="col">{{holding.security.name}}({{holding.security.id}})</div>
+              <div class="col" style='text-align: right;'>${{holding.security.current_price}}</div>
               <div class="col" style='text-align: right;'>{{holding.num_shares}}</div>
-              <div class="col" style='text-align: right;'>{{(holding.current_price*holding.num_shares)/totalPrice * 100 | number : '1.2-2'}}%</div>
+              <div class="col" style='text-align: right;'>{{holding.percent_share | number : '1.2-2'}}%
+              </div>
             </div>
         </div>
     </div>
