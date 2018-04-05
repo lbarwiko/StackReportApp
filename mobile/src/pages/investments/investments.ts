@@ -30,18 +30,9 @@ export class InvestmentsPage {
 		this.totalPrice = 0;
 
 		var promiseList = [];
-		this.security.holdings.forEach(holding=>{
-			promiseList.push(
-				new Promise((resolve, reject)=>{
-					this.securityService.get(holding.security_id)
-					.then(holdingRes=>{
-						return resolve(holdingRes);
-					})
-					.catch(err=>reject(err))
-				})
-			);
-		})
-		Promise.all(promiseList)
+		console.log("holdings", this.security.holdings);
+		console.log(this.security);
+		this.securityService.getBatch(this.security.holdings)
 		.then(securities=>{
 			var i = 0;
 			securities.forEach(security=>{

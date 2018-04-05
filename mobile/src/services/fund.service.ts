@@ -48,7 +48,7 @@ export class FundService {
                 let data = this.extractData(res);
                 let fund_to_return = new Fund(data.fund_id, data.fund_name,
                                             data.current_price, data.volume_traded,
-                                            data.price_history);
+                                            data.price_history, data.holdings);
                 return resolve(fund_to_return);
             })
             .catch(this.handleErrorPromise);
@@ -57,25 +57,28 @@ export class FundService {
 
     private extractData(res: Response) {
         let body = res.json();
+        console.log(body);
         // alphavantage data parsing
-        let fund_id = body.fund_id;
-        let fund_name = body.fund_name;
-        let current_price = body.price_history[0]["4. close"];
-        let volume_traded = body.price_history[0]["5. volume"];
         let price_history = [];
         for(let i in body.price_history) {
             let new_price = {"date": body.price_history[i]["date"],
                              "price": body.price_history[i]["4. close"]};
             price_history.push(new_price);
         }
-        let data = {
-            "fund_id": fund_id,
-            "fund_name": fund_name,
+        var current_price = -1, volume_traded = -1;
+        if(price_history.length > 0){
+            current_price = price_history[0]['price'];
+            volume_traded = body.price_history[0]["5. volume"];
+        }
+
+        return {
+            "fund_id": body.fund_id,   
+            "fund_name": body.fund_name,
+            "holdings": body.holdings,
+            "price_history": price_history,
             "current_price": current_price,
             "volume_traded": volume_traded,
-            "price_history": price_history
-        }
-        return data;
+        };
     }
 
     private handleErrorPromise (error: Response | any) {

@@ -23,10 +23,11 @@ class Security {
     }
  } 
  class Fund extends Security{
-    holdings: [Security];
+    holdings: [any];
 
-    constructor(id, name, current_price, volume_traded, price_history) {
+    constructor(id, name, current_price, volume_traded, price_history, holdings) {
         super(id, name, current_price, volume_traded, price_history);
+        this.holdings = holdings;
     }
 
     setHoldings(holdings){

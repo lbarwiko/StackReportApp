@@ -84,4 +84,5 @@
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-keyboard" spec="^1.2.0" />
     <engine name="browser" spec="5.0.3" />
+    <engine name="ios" spec="~4.5.4" />
 </widget>
