@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ApplicationRef } from '@angular/core';
 import { FundService } from '../../services/fund.service'
-import { Fund } from '../../models/security';
+import { Fund, Security } from '../../models/security';
 
 // !!! this code heavily inspired by https://valor-software.com/ng2-charts/ (chart library example)
 
@@ -10,14 +10,14 @@ import { Fund } from '../../models/security';
 })
 export class SecurityGraphComponent {
 
-	@Input('fund_id_in') fund_id_from_front;
+	@Input() security_in: Security;
 
-	fund: Fund;
+	security: Security;
 	fundGraphHistory: [number];
 
-	constructor(public fundService: FundService) {
+	constructor(public fundService: FundService, public applicationRef: ApplicationRef) {
 		//this.fund = new Fund("fund_id");
-		this.fund = null;
+		this.security = null;
 	}
 
   	public lineChartData:Array<any> = [
@@ -44,25 +44,23 @@ export class SecurityGraphComponent {
   	private populateGraph():void {
   		// populate graph (last 5 days))
 		[0, 1, 2, 3, 4].forEach((i) => {
-			this.lineChartData[0].data[4 - i] = this.fund.price_history[i]['4. close'];
-
-			let date = new Date(this.fund.price_history[i]['date']);
+			this.lineChartData[0].data[4 - i] = this.security.price_history[i]['price'];
+			let utcDate = new Date(this.security.price_history[i]['date']);
+			let date = new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
 	  		let month = date.getMonth() + 1;
 	  		let formatted = month + "/" + date.getDate();
 			this.lineChartLabels[4 - i] = formatted;
 		});
+		this.applicationRef.tick();
+
+		console.log("populated");
   	}
 
   	ngOnInit() {
-		this.fund = null; //new Fund(this.fund_id_from_front);
-		this.fundService.getFund(this.fund_id_from_front)
-		.then(fundReturned => {
-			this.fund = fundReturned;
-			this.populateGraph();		
-		})
-		.catch(err => {
-			console.log(err);
-		});		
+		this.security = this.security_in;
+		this.populateGraph();
+		this.applicationRef.tick();
+
 	}
 
   	// events 

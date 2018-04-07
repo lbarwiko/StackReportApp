@@ -5,6 +5,7 @@ import { EndpointService } from './endpoint.service';
 import { FollowingService } from './following.service';
 import { PredictionService } from './prediction.service';
 import { SecurityService } from './security.service';
+import { HoldingService } from './holding.service';
 
 export {
     UserService,
@@ -13,5 +14,6 @@ export {
     EndpointService,
     FollowingService,
     PredictionService,
-    SecurityService
+    SecurityService,
+    HoldingService
 }

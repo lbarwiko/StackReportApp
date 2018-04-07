@@ -31,6 +31,7 @@
     "browser": "^0.2.6",
     "chart.js": "^2.7.2",
     "cordova-browser": "5.0.3",
+    "cordova-ios": "4.5.4",
     "cordova-plugin-app-event": "^1.2.1",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-ionic-webview": "^1.1.16",
@@ -63,7 +64,8 @@
       "cordova-plugin-ionic-webview": {}
     },
     "platforms": [
-      "browser"
+      "browser",
+      "ios"
     ]
   }
 }
