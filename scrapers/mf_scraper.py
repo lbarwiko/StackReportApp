@@ -15,6 +15,24 @@ import requests
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_mf_history, get_mf_list, get_mf_parent_nav
 
+def get_single_mf_nav(ticker):
+	"""
+	return the nav of ticker as a float
+	"""
+	url = "https://finance.yahoo.com/quote/%s/" % (ticker)
+	soup = get_soup(url)
+	soup = soup.find("div", id="quote-header-info")
+	soup = soup.find_all("span")
+
+	for s in soup:
+		s = s.get_text()
+		if is_numeric(s):
+			return float(s)
+
+
+	raise ValueError('Cannot get %s quote from yahoo' % ticker)
+	return float(-1)
+
 def load_mf_historical(ticker):
 	"""
 	load all available historical price data for ticker (up to 20 years)

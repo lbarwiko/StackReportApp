@@ -45,7 +45,7 @@ CREATE TABLE mutual_fund_history(
 CREATE TABLE mutual_fund_other(
     m_symbol VARCHAR(10) NOT NULL,
     m_date DATE NOT NULL,
-    total_stocks BIGINT,
+    total_stock BIGINT,
     total_investment BIGINT,
     total_net_assets BIGINT,
     shares INT,

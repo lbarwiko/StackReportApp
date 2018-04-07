@@ -15,7 +15,7 @@ def is_numeric(str_input):
     except ValueError:
         return False
 
-def get_nav_historical(ticker):
+def get_nav_historical_yahoo(ticker):
 	"""
 	get all the historical data (including the newest)
 	example. {"date":718896600,"open":9.630000114440918,"high":9.630000114440918,
@@ -35,7 +35,7 @@ def get_nav_historical(ticker):
 
 def upload_nav_historical(ticker):
 
-	list = get_nav_historical(ticker)
+	list = get_nav_historical_yahoo(ticker)
 	# convert into tuple list ((m_symbol, m_date, price), ...)
 	tuple_list = []
 	for each in list:
@@ -46,7 +46,7 @@ def upload_nav_historical(ticker):
 	add_tuple_mf_history(tuple_list)
 
 
-def get_nav(ticker):
+def get_nav_yahoo(ticker):
 	"""
 	return the nav of ticker as a float
 	"""

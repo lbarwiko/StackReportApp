@@ -5,7 +5,7 @@ def generate_populate_stock_sql():
     """
     input: dict of {"AAPL": "apple, inc.", ... }
     """
-    dict = json.load(open("scrapers/stock_symbol_list.json",'r'))
+    dict = json.load(open("predictions_database/stock_symbol_list.json",'r'))
 
     f = open("predictions_database/sql/populate_stock.sql",'w+')
 
@@ -27,7 +27,7 @@ def generate_populate_mutual_fund_sql():
     """
     input: dict of {"AAPL": "apple, inc.", ... }
     """
-    dict = json.load(open("scrapers/mutual_fund_symbol_list.json",'r'))
+    dict = json.load(open("predictions_database/mutual_fund_symbol_list.json",'r'))
 
     f = open("predictions_database/sql/populate_mutual_fund.sql",'w+')
 

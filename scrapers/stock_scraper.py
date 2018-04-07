@@ -16,8 +16,8 @@ import requests
 from bs4 import BeautifulSoup
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_stock_history, get_company_list
-from mutual_fund_nav import get_quote
 from mfscrapers.helper import get_soup
+from urllib.request import urlopen
 from selenium import webdriver
 
 def load_stock_historical(ticker):
@@ -134,6 +134,10 @@ def load_stocks_daily(tickers):
 			print("Error message: " + str(e))
 
 	return results
+def load_stocks_daily_iex(tickers):
+	"""
+	"""
+	for ticker in tickers:
 
 
 def load_stocks_daily_yahoo(tickers):
@@ -150,13 +154,9 @@ def load_stocks_daily_yahoo(tickers):
 	options = webdriver.ChromeOptions()
 	options.add_argument('headless')
 	options.add_argument('-no-sandbox')
-<<<<<<< HEAD
 	options.add_argument('--disable-application-cache')
 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
-=======
-	#driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
-	driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
->>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
+
 	idx = 0
 	tuple_list = []
 	for stock_string in split_stocks(tickers):
@@ -182,20 +182,12 @@ def load_stocks_daily_yahoo(tickers):
 
 		idx += 1
 		print ("Total data retrieved: %d" % len(tuple_list))
-		driver.manage().deleteAllCookies();
 
 		# Reset the webdriver sometimes
-<<<<<<< HEAD
-		# if idx % 10 == 0 :
-		# 	print("reseting webdriver")
-		# 	driver.quit()
-		# 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
-=======
 		if idx % 10 == 0 :
 			print("reseting webdriver")
 			driver.quit()
-			driver = webdriver.Chrome('/usr/bin/chromedriver', options=options)
->>>>>>> 37eb7d8212eb62ddad9fd4bad9521e1d7badc364
+			driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
 
 	driver.quit()
 	return tuple_list

@@ -106,10 +106,9 @@ def bmcax_csr(url, m_symbol):
 			report["total_net_assets"] = int(get_num_in_row(td_text_row))
 			break
 
-	report["num_shares"] = 45
-	#report["num_shares"] = get_num_shares(m_symbol, report["total_net_assets"], report["date"])
+	report["num_shares"] = int(get_num_shares(m_symbol, report["total_net_assets"], report["date"]))
 
-	print_report(report)
+
 
 	return report
 
@@ -123,6 +122,7 @@ def main():
 	symbol = args.symbol[0]
 	print (symbol)
 	report = bmcax_csr(url, symbol)
+	print_report(report)
 	add_mf_report(report)
 	add_mf_other(report)
 
