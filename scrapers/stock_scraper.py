@@ -173,6 +173,8 @@ def load_stocks_daily_yahoo(tickers):
 	options = webdriver.ChromeOptions()
 	options.add_argument('headless')
 	options.add_argument('-no-sandbox')
+
+	#driver = webdriver.Chrome('/usr/local/share/chromedriver', options=options)
 	options.add_argument('--disable-application-cache')
 	driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
 
@@ -206,7 +208,7 @@ def load_stocks_daily_yahoo(tickers):
 		if idx % 10 == 0 :
 			print("reseting webdriver")
 			driver.quit()
-			driver = webdriver.Chrome('/mnt/c/Users/Roy/Desktop/StackReport/chromedriver', options=options)
+			driver = webdriver.Chrome('/usr/local/share/chromedriver', options=options)
 
 	driver.quit()
 	return tuple_list
