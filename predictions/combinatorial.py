@@ -19,16 +19,16 @@ def save_tmp_data(mf_symbol, date):
 	# load symbols, prices, num_shares_held, stock_assets
 	# if beginning of quarter, get holdings from db
 	if mf_symbol + "_comb.json" not in list(os.walk("/root/StackReport/predictions/Output"))[0][2]:
-		# find most recent quarter date
+		# find quarter date closest to date
+		min_day_count = 500
+		query_date = ""
 		for quarter in get_mf_report_dates(mf_symbol):
 			quarter_begin = dt.datetime(int(quarter[:4]), int(quarter[4:6]), int(quarter[6:]))
 			day_count = (date - quarter_begin).days
-			# most recent quarter should be last day markets were open
-			# so difference in dates should be between 0 and 10
-			if day_count > 0 and day_count < 10:
+			if day_count < min_day_count:
+				min_day_count = day_count
 				query_date = quarter_begin
-				break
-
+			
 		symbols, num_shares_held = get_mf_holdings(mf_symbol, query_date)
 	# otherwise load from last day's prediction
 	else:
@@ -60,7 +60,7 @@ def run_prediction(mf_symbol, date):
 	run a prediction for mf_symbol on date
 	"""
 	# no need to make a prediction on days we have the answer
-	if date in get_mf_report_dates(mf_symbol):
+	if (str(date.year)+str(date.month)+str(date.day)) in get_mf_report_dates(mf_symbol):
 		# clear output for mf_symbol
 		os.system("rm /root/StackReport/predictions/Output/" + mf_symbol + "_comb.json")
 		return
