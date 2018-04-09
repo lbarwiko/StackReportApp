@@ -9,7 +9,7 @@ import sys
 import json
 import datetime as dt
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, get_db_mf_stock_assets
+from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, estimate_stock_assets
 
 def save_tmp_data(mf_symbol, date):
 	"""
@@ -38,12 +38,13 @@ def save_tmp_data(mf_symbol, date):
 		
 		symbols = [security["security_id"] for security in prediction]
 		num_shares_held = [str(security["amount"]) for security in prediction]
-		
+	
+	date = str(date)[:10].replace("-", "")	
 	prices = []
 	for symbol in symbols:
 		prices.append(str(get_db_stock_quote(symbol, date)))
 
-	stock_assets = str(get_db_mf_stock_assets(mf_symbol, date))
+	stock_assets = str(estimate_stock_assets(mf_symbol, date))
 
 	output_string = str(len(symbols)) + "\n"
 	output_string += "\n".join(symbols) + "\n"
@@ -60,7 +61,7 @@ def run_prediction(mf_symbol, date):
 	run a prediction for mf_symbol on date
 	"""
 	# no need to make a prediction on days we have the answer
-	if (str(date.year)+str(date.month)+str(date.day)) in get_mf_report_dates(mf_symbol):
+	if str(date)[:10].replace("-", "") in get_mf_report_dates(mf_symbol):
 		# clear output for mf_symbol
 		os.system("rm /root/StackReport/predictions/Output/" + mf_symbol + "_comb.json")
 		return
