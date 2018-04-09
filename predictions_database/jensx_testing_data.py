@@ -46,7 +46,7 @@ def generate_testing():
 
 
 def main():
-	print(generate_testing())
+	generate_testing()
 
 
 

@@ -33,7 +33,7 @@ def get_nav_historical_yahoo(ticker):
 	return data["context"]["dispatcher"]["stores"]["HistoricalPriceStore"]["prices"]
 
 
-def upload_nav_historical(ticker):
+def upload_nav_historical_yahoo(ticker):
 
 	list = get_nav_historical_yahoo(ticker)
 	# convert into tuple list ((m_symbol, m_date, price), ...)

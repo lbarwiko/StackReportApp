@@ -134,11 +134,30 @@ def load_stocks_daily(tickers):
 			print("Error message: " + str(e))
 
 	return results
+
+
 def load_stocks_daily_iex(tickers):
 	"""
+	Scrape stock quotes from IEX
 	"""
-	for ticker in tickers:
+	tuple_list=[]
+	date = time.strftime("%Y%m%d")
+	for stock_string in split_stocks(tickers):
+		url = "https://api.iextrading.com/1.0/stock/market/batch?symbols=%s&types=price" % stock_string
+		try:
+			response = requests.get(url)
+			data = json.loads(response.text)
+			for key, val in data.items():
+				try:
+					tuple_list.append((str(key),float(val["price"]), date))
+				except Exception as e:
+					print("Cannot get %s from IEX" % str(key))
+					print(e)
+		except Exception as e:
+			print("Loading stock quote fomr IEX failed")
+			print(e)
 
+	return tuple_list
 
 def load_stocks_daily_yahoo(tickers):
 	"""
@@ -222,7 +241,7 @@ def save_all_stocks_daily(tickers):
 	# 	idx += 1
 
 	# FROM YAHOO
-	tuple_list = load_stocks_daily_yahoo(tickers)
+	tuple_list = load_stocks_daily_iex(tickers)
 
 	add_tuple_stock_history(tuple_list)
 
