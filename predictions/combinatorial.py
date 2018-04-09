@@ -21,7 +21,7 @@ def save_tmp_data(mf_symbol, date):
 	if mf_symbol + "_comb.json" not in list(os.walk("/root/StackReport/predictions/Output"))[0][2]:
 		# find most recent quarter date
 		for quarter in get_mf_report_dates(mf_symbol):
-			quarter_begin = dt.datetime(quarter[:4], quarter[4:6], quarter[6:])
+			quarter_begin = dt.datetime(int(quarter[:4]), int(quarter[4:6]), int(quarter[6:]))
 			day_count = (date - quarter_begin).days
 			# most recent quarter should be last day markets were open
 			# so difference in dates should be between 0 and 10
