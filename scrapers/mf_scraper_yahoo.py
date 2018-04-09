@@ -77,9 +77,9 @@ def main():
 	mode = sys.argv[1]
 
 	if mode == "historical":
-		save_all_mf_nav_historical(tickers)
+		save_all_nav_historical(tickers)
 	elif mode == "daily":
-		save_all_mf_nav_daily(tickers)
+		save_all_nav_daily(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
 
