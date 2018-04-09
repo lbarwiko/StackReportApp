@@ -1,5 +1,6 @@
 import sys
 import json
+import time
 from config import *
 import urllib.request
 import psycopg2
@@ -62,6 +63,19 @@ def get_nav_yahoo(ticker):
 			return float(s)
 
 	return float(-1)
+
+
+def save_all_nav_daily(tickers):
+	"""
+	Update all mutual fund nav using yahoo
+	"""
+	tuple_list = []
+	for ticker in tickers:
+		nav = get_nav_yahoo(ticker)
+		date = time.strftime("%Y%m%d")
+		tuple_list.append((ticker, date, nav))
+
+	add_tuple_mf_history(tuple_list)
 
 def main():
 	# TODO load tickers from database
