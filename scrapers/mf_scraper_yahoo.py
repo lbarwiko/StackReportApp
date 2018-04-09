@@ -52,8 +52,7 @@ def get_nav_yahoo(ticker):
 	return the nav of ticker as a float
 	"""
 	url = "https://finance.yahoo.com/quote/%s/" % (ticker)
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'html.parser')
+	soup = get_soup(url)
 	soup = soup.find("div", id="quote-header-info")
 	soup = soup.find_all("span")
 
