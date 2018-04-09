@@ -16,7 +16,7 @@ export class AddFundsPage {
 	loading: Loading;
 	fundList: Security[];
 	user: User;
-	requestList: [string];
+	requestList: any;
 
 	constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
 			 public followService: FollowingService, public fundService: FundService, public authService: AuthService,
@@ -57,7 +57,7 @@ export class AddFundsPage {
 	}
 
 	checkFollowing(fund_id) {
-		if(this.requestList.indexOf(fund_id) != -1) {
+		if(this.requestList && this.requestList.indexOf(fund_id) != -1) {
 			return true;
 		} else {
 			return false;
@@ -66,7 +66,7 @@ export class AddFundsPage {
 
 	postFollow(fund_id) {
 		// IMPORTANT! This 3 number is hard coded in and should be based upon the user's actual subscription eventually.
-		if(this.requestList.length >= 3) {
+		if(this.requestList && 	this.requestList.length >= 3) {
 			alert('You\'ve already selected 3 funds. Please unfollow one before you choose another.');
 			return;
 		}

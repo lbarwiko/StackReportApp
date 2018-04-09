@@ -10,7 +10,7 @@ import re
 import sys
 from helper import *
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import add_mf_report, get_db_mf_nav, add_mf_other
+from predictions_database.helper import *
 
 # TODO FIX FLAG
 if len(sys.argv) != 5:
@@ -103,6 +103,8 @@ def jensx_nq(url, date, m_symbol):
 
 	num_shares = float(mutualFund["total_net_assets"]) / float(nav)
 	mutualFund["num_shares"] = num_shares
+	mutualFund["symbol"] = m_symbol
+	mutualFund["date"] = date
 
 	return mutualFund
 
@@ -116,11 +118,11 @@ def main():
 		post = True
 
 	report = jensx_nq(url, date, m_symbol)
-	add_mf_report(m_symbol, report, date)
-	print (report)
+	add_mf_report(report)
+	print_report(report)
 	# TODO FIX FLAG
 	if post:
-		post_to_frontend(m_symbol, report)
+		post_to_frontend(report)
 
 if __name__ == '__main__':
 	main()

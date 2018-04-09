@@ -64,9 +64,7 @@ def load_data(mf_symbol):
 	stock_assets is the total value of stock assets held by mf_symbol, placed into a np array
 	num_shares_held[i] = number of shares of symbols[i] stock mf_symbol held last market day
 	stock_assets = NAV*N_shares + liabilities, where NAV is assets - liabilities and N_shares 
-	"""
-	
-	# TODO fix return values
+	"""	
 	num_shares_held = []
 	n_shares = 0
 	nav = 0.0
@@ -160,7 +158,7 @@ def save_result(symbols, mf_symbol, result):
 	output = output[:-2]
 	output += "\n\t]\n}"
 
-	with open("/root/StackReport/predictions/" + mf_symbol + "_regr.json", "w") as file:
+	with open("/root/StackReport/predictions/Output/" + mf_symbol + "_regr.json", "w") as file:
 		file.write(output)
 
 def main():

@@ -2,7 +2,7 @@ import https from 'https';
 
 export default ()=>{
     const dailyUrl = "https://www.alphavantage.co/query?apikey=V85COA4EHG4X1KJV&function=TIME_SERIES_DAILY";
-
+    
     function get(){
         function helper(symbol){
             return new Promise((resolve, reject)=>{
@@ -36,13 +36,18 @@ export default ()=>{
                         if(!body || body['Error Message'] || ! body['Time Series (Daily)']){
                             return resolve([]);
                         }
-                        
-                        var output = Object.keys(body['Time Series (Daily)']).map(key => {
+                        console.log(body);
+                        var price_history = Object.keys(body['Time Series (Daily)']).map(key => {
                             var pricePoint = body['Time Series (Daily)'][key];
                             pricePoint['date'] = key;
                             return pricePoint;
                         })
-                        return resolve(output);
+
+                        return resolve({
+                            fund_id: symbol,
+                            quote: price_history[0],
+                            price_history: price_history,
+                        });
                     });
                 });
             })

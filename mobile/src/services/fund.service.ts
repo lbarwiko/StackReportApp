@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
 import { Fund } from '../models/security';
+import { HoldingMeta } from '../models/holding.model';
 
 @Injectable()
 export class FundService {
@@ -45,15 +46,45 @@ export class FundService {
 
             this.http.get(this.url + '/' + fund_id, options).toPromise()
             .then(res=>{
-                var resJson = res.json();
-                var fundToReturn = new Fund(resJson.fund_id, resJson.fund_name, resJson.price_history);
-                // console.log(resJson.holdings);
-                fundToReturn.setHoldings(resJson.holdings);
-                return resolve(fundToReturn);
+                let data = this.extractData(res);
+                let fund_to_return = new Fund(data.fund_id, data.fund_name,
+                                            data.current_price, data.volume_traded,
+                                            data.price_history, data.holdings);
+                return resolve(fund_to_return);
             })
             .catch(this.handleErrorPromise);
         })
     } 
+
+    private extractData(res: Response) {
+        let body = res.json();
+        console.log(body);
+        // alphavantage data parsing
+        let price_history = [];
+        for(let i in body.price_history) {
+            price_history.push({
+                "date": body.price_history[i]["date"],
+                "price": body.price_history[i]["4. close"]
+            });
+        }
+        var current_price = -1, volume_traded = -1;
+        if(price_history.length > 0){
+            current_price = price_history[0]['price'];
+            volume_traded = body.price_history[0]["5. volume"];
+        }
+        var holdings = [];
+        for(var i=0; i<body.holdings.length; i+=1){
+            holdings[i] = new HoldingMeta(body.holdings[i].security_id, body.holdings[i].num_shares);
+        }
+        return {
+            "fund_id": body.fund_id,   
+            "fund_name": body.fund_name,
+            "holdings": holdings,
+            "price_history": price_history,
+            "current_price": current_price,
+            "volume_traded": volume_traded,
+        };
+    }
 
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);

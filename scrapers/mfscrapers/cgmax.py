@@ -85,10 +85,7 @@ def bmcax_csr(url, m_symbol):
 			report["stocks"].append(temp)
 
 		elif consist(td_text_row, "Total Common Stocks"):
-			report["total_stock"] = get_num_in_row(td_text_row)
-			print (tr_tags[idx].get_text())
-
-			idx += 1
+			report["total_stock"] = int(get_num_in_row(td_text_row))
 			break
 
 		idx += 1
@@ -97,12 +94,16 @@ def bmcax_csr(url, m_symbol):
 	for tr_tag in tr_tags[idx:]:
 		td_tags = tr_tag.find_all("td")
 		td_text_row = get_sanitized_text_row(td_tags)
-		
-		if consist(td_text_row, "Total Investments"):
-			report["total_investment"] = get_num_in_row(td_text_row)
+
+		if consist(td_text_row, "Schedule of Investments"):
+			# Do nothing
+			continue
+
+		elif consist(td_text_row, "Total Investments"):
+			report["total_investment"] = int(get_num_in_row(td_text_row))
 
 		elif consist(td_text_row, "Net Assets"):
-			report["total_net_assets"] = get_num_in_row(td_text_row)
+			report["total_net_assets"] = int(get_num_in_row(td_text_row))
 			break
 
 	report["num_shares"] = 45

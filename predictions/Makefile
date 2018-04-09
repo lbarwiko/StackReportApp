@@ -30,5 +30,4 @@ clean:
 	rm -f *.o $(PROG) $(DPROG)
 
 valgrind:
-	valgrind ./$(PROG) < normal_in.txt > normal.out
-
+	valgrind ./$(PROG) < normal_in.txt > normal.out# usage: if this file is named "Makefile", then the commands are:
