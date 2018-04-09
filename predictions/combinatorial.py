@@ -9,7 +9,7 @@ import sys
 import json
 import datetime as dt
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, estimate_stock_assets
+from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, estimate_stock_asset
 
 def save_tmp_data(mf_symbol, date):
 	"""
@@ -44,7 +44,7 @@ def save_tmp_data(mf_symbol, date):
 	for symbol in symbols:
 		prices.append(str(get_db_stock_quote(symbol, date)))
 
-	stock_assets = str(estimate_stock_assets(mf_symbol, date))
+	stock_assets = str(estimate_stock_asset(mf_symbol, date))
 
 	output_string = str(len(symbols)) + "\n"
 	output_string += "\n".join(symbols) + "\n"
