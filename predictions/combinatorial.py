@@ -78,6 +78,7 @@ def run_prediction(mf_symbol, date):
 def main():
 	# date is yyyymmdd
 	date = sys.argv[1]
+	date = dt.datetime(int(date[:4]), int(date[4:6]), int(date[6:]))
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
 		run_prediction(mf_symbol, date)
