@@ -65,8 +65,8 @@ def get_nav_yahoo(ticker):
 
 def main():
 	# TODO load tickers from database
-	#with open("stock_symbol_list.json") as file:
-		#tickers = json.loads(file.read()).keys()
+	# with open("stock_symbol_list.json") as file:
+	# tickers = json.loads(file.read()).keys()
 
 	tickers = get_company_list()
 
@@ -82,3 +82,7 @@ def main():
 		save_all_mf_nav_daily(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
+
+
+if __name__ == '__main__':
+	main()

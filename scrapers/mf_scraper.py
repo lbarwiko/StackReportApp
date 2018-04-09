@@ -135,7 +135,12 @@ def load_mf_daily(ticker):
 
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&apikey=" + API_KEY
 	response = requests.get(url)
-	data = json.loads(response.text)
+	try:
+		data = json.loads(response.text)
+	except Exception as e:
+		print(e)
+		print(response)
+
 	# don't query alphavantage too quickly
 	time.sleep(5)
 	if "Error Message" in data or "Information" in data:
