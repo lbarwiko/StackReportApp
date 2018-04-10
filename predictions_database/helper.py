@@ -239,6 +239,27 @@ def get_mf_list():
 
     return output_list
 
+
+def get_pred_mf_list():
+
+    cur = db_cursor()
+    op_string = ("""SELECT DISTINCT m.m_symbol FROM mutual_fund m 
+        LEFT JOIN children c 
+        ON c.child_symbol = m.m_symbol
+         WHERE follow = 'True' 
+         AND c.parent_symbol IS NULL;""")
+
+    try: 
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
+    rows = cur.fetchall()
+    assert(rows is not None)
+    
+    output_list = [row[0] for row in rows]
+
+    return output_list
 def follow_mf(ticker_list):
     """
     Follow a mutual fund by change the "follow" in table mutual_fund
