@@ -260,24 +260,40 @@ def follow_mf(ticker_list):
         print (e.pgerror)
 
 
+def follow_mf(ticker_list):
+    """
+    Follow a mutual fund by change the "follow" in table mutual_fund
+    Input: a ticker and a list of ticker
+    """
+
+    if isinstance(ticker_list, list):
+        op_string = "UPDATE mutual_fund SET follow = 'False' WHERE False"
+        for ticker in ticker_list:
+            op_string += " or m_symbol = '%s'" % ticker
+    else:
+        op_string = ("UPDATE mutual_fund SET follow = 'False' WHERE m_symbol = '%s'" %
+            ticker_list)
+
+    cur = db_cursor()
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+
+
 
 def get_db_mf_nav(ticker, date=time.strftime("%Y%m%d")):
     cur = db_cursor()
     symbol = ticker.upper()
-    if date:
-        op_string = ("""SELECT price, m_date FROM mutual_fund_history 
-            WHERE m_symbol = '%s' AND m_date <= '%s' AND price IS NOT NULL 
-            ORDER BY m_date DESC LIMIT 1""" % (symbol, date))
-    else:
-        op_string = "SELECT price, m_date FROM mutual_fund_history WHERE m_symbol = '%s' ORDER BY m_date DESC LIMIT 1" % ticker
-        date = time.strftime("%Y%m%d")
+
+    op_string = ("""SELECT price, m_date FROM mutual_fund_history 
+        WHERE m_symbol = '%s' AND m_date <= '%s' AND price IS NOT NULL 
+        ORDER BY m_date DESC LIMIT 1""" % (symbol, date))
 
     cur.execute(op_string)
     row = cur.fetchone()
 
     if row:
-        
-
         if row[1].strftime("%Y%m%d") != str(date):
             print ("Warning: Using an older date automatically for %s (%s instead of %s)"
                 % (ticker, row[1].strftime("%Y%m%d"), date))
@@ -307,23 +323,23 @@ def get_db_stock_quote(ticker, date):
     return ret
 
 
-def get_db_mf_stock_assets(ticker, date):
-    cur = db_cursor()
-    op_string = ("""SELECT stock_assets, m_date FROM mutual_fund_history 
-        WHERE m_symbol = '%s' AND m_date <= '%s' AND stock_assets IS NOT NULL 
-        ORDER BY m_date DESC""" % (ticker, date))
-    cur.execute(op_string)
-    try:
-        row = cur.fetchone()
-    except psycopg2.Error as e:
-        print("Cannot get stock assets")
-        print(e)
+# def get_db_mf_stock_assets(ticker, date):
+#     cur = db_cursor()
+#     op_string = ("""SELECT stock_assets, m_date FROM mutual_fund_history 
+#         WHERE m_symbol = '%s' AND m_date <= '%s' AND stock_assets IS NOT NULL 
+#         ORDER BY m_date DESC""" % (ticker, date))
+#     cur.execute(op_string)
+#     try:
+#         row = cur.fetchone()
+#     except psycopg2.Error as e:
+#         print("Cannot get stock assets")
+#         print(e)
 
-    if row[1].strftime("%Y%m%d") != str(date):
-        print("Warning: Using an older stock assets automatically(%s instead of %s"
-            % (row[1].strftime("%Y%m%d"),str(date)))
+#     if row[1].strftime("%Y%m%d") != str(date):
+#         print("Warning: Using an older stock assets automatically(%s instead of %s"
+#             % (row[1].strftime("%Y%m%d"),str(date)))
     
-    return int(row[0])
+#     return int(row[0])
 
 
 def add_mf_stock_assets(ticker, date, stock_assets):
@@ -471,12 +487,17 @@ def get_mf_parent_nav(ticker):
     return nav
 
 
-def estimate_stock_asset(ticker, date=0):
+def estimate_stock_asset(ticker, date=time.stftime("%Y%m%d")):
+    """
+    Estiamte the stock asset of a given ticker and a date
+    date=0 by default and it means getting the most recent result
+    """
+
     # Return total_stock, total_investment, total_net_assets, shares
-    total_stock, _, total_net_assets, shares = get_mf_other(ticker)
+    total_stock, _, total_net_assets, shares = get_mf_other(ticker, date)
     other_assets = total_net_assets - total_stock
 
-    nav = float(get_db_mf_nav(ticker, date=0))
+    nav = float(get_db_mf_nav(ticker, date))
     return ((nav * shares) - other_assets)
 
 

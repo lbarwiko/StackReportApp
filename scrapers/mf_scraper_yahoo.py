@@ -5,7 +5,7 @@ from config import *
 import urllib.request
 import psycopg2
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
+from predictions_database.helper import add_tuple_stock_history, db_cursor, get_mf_list
 from mutual_fund_nav import * 
 from mfscrapers.helper import * 
 
@@ -81,7 +81,7 @@ def main():
 	# with open("stock_symbol_list.json") as file:
 	# tickers = json.loads(file.read()).keys()
 
-	tickers = get_company_list()
+	tickers = get_mf_list()
 
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")

@@ -57,7 +57,11 @@ def load_mf_historical(ticker):
 	"""
 	url = ALPHA_BASE_URL + "TIME_SERIES_DAILY&symbol=" + ticker + "&outputsize=full&apikey=" + API_KEY
 	response = requests.get(url)
-	data = json.loads(response.text)
+	try:
+		data = json.loads(response.text)
+	except Exception as e:
+		print("Loading historical nav failed")
+		print(e)
 	# don't query alphavantage too quickly
 	time.sleep(5)
 
@@ -181,7 +185,6 @@ def main():
 		#tickers = json.loads(file.read()).keys()
 
 	tickers = get_mf_list()
-
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")
 		return
