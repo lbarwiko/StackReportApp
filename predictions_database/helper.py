@@ -487,7 +487,7 @@ def get_mf_parent_nav(ticker):
     return nav
 
 
-def estimate_stock_asset(ticker, date=time.stftime("%Y%m%d")):
+def estimate_stock_asset(ticker, date=time.strftime("%Y%m%d")):
     """
     Estiamte the stock asset of a given ticker and a date
     date=0 by default and it means getting the most recent result

@@ -12,7 +12,7 @@ def generate_populate_stock_sql():
     f.write("\c %s \n" % DBCONFIG['dbname'])
     f.write("INSERT INTO company(c_symbol, c_name) VALUES\n")
     first = True
-    for key, value in dict.iteritems():
+    for key, value in dict.items():
         if first:
             f.write("('%s', '%s')" % (str(key).replace(" ",""), str(value).replace("'","''")))
             first = False
@@ -34,7 +34,7 @@ def generate_populate_mutual_fund_sql():
     f.write("\c %s \n" % DBCONFIG['dbname'])
     f.write("INSERT INTO mutual_fund(m_symbol, m_name, follow) VALUES\n")
     first = True
-    for key, value in dict.iteritems():
+    for key, value in dict.items():
         if first:
             f.write("('%s', '%s', 'False')" % (str(key).replace(" ",""), str(value).replace("'","''")))
             first = False
