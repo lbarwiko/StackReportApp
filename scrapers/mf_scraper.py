@@ -13,7 +13,8 @@ import time
 from config import *
 import requests
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_mf_history, get_mf_list, get_mf_parent_nav
+from predictions_database.helper import add_tuple_mf_history, get_mf_list_scraper, get_mf_parent_nav
+from mf_scraper_yahoo import get_nav_yahoo
 
 def get_single_mf_nav(ticker):
 	"""
@@ -154,6 +155,16 @@ def load_mf_daily(ticker):
 
 	return str(lastest), str(data["Time Series (Daily)"][lastest]["4. close"])
 
+
+def load_mf_daily_yahoo(ticker):
+	"""
+	"""
+	price = get_nav_yahoo(ticker)
+	date = time.strftime("%Y%m%d")
+
+	return date, price
+
+
 # TODO FIX SPECIAL CASE
 def save_all_mf_daily(tickers):
 	"""
@@ -164,7 +175,7 @@ def save_all_mf_daily(tickers):
 	tuple_list = []
 	for ticker in tickers:
 		if len(ticker) < 6:
-			date, price = load_mf_daily(ticker)
+			date, price = load_mf_daily_yahoo(ticker)
 			tup = (ticker, date, price)
 			tuple_list.append(tup)
 
@@ -184,7 +195,7 @@ def main():
 	#with open("stock_symbol_list.json") as file:
 		#tickers = json.loads(file.read()).keys()
 
-	tickers = get_mf_list()
+	tickers = get_mf_list_scraper()
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")
 		return

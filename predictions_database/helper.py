@@ -221,7 +221,7 @@ def get_company_list():
     return output_list
 
 
-def get_mf_list():
+def get_mf_list_scraper():
 
     cur = db_cursor()
     op_string = "SELECT m_symbol FROM mutual_fund WHERE follow = 'True'"
@@ -240,7 +240,7 @@ def get_mf_list():
     return output_list
 
 
-def get_pred_mf_list():
+def get_mf_list():
 
     cur = db_cursor()
     op_string = ("""SELECT DISTINCT m.m_symbol FROM mutual_fund m 
