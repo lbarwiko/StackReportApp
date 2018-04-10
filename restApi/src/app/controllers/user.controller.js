@@ -4,9 +4,11 @@ import { User as UserModel} from '../models/';
 import { User as UserSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 import { UsernameConstraint, PasswordConstraint } from '../constraints/';
+import { Follow as FollowController } from './index.js';
 
 export default (db, config) => {
-    
+    const Follow = FollowController(db, config);
+
     function updateTier(){
         function helper(){
             
@@ -53,7 +55,7 @@ export default (db, config) => {
                 }
                 var username = 'anon' + username_serial_response.nextval;
                 var password = generatePassword();
-                console.log("About to insert", username, password);
+                //console.log("About to insert", username, password);
                 return helper({
                     username: username,
                     password: password
@@ -160,7 +162,6 @@ export default (db, config) => {
                     {
                         public: true/false
                     }
-                    
         */
         function helper(user_id, options){
             return new Promise((resolve, reject)=>{

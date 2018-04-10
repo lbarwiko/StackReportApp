@@ -45,7 +45,8 @@ const Follow = {
     list: sql('./follow/follow.list.sql'),
     create: sql('./follow/follow.create.sql'),
     delete: sql('./follow/follow.delete.sql'),
-    count: sql('./follow/follow.count.user.sql')
+    count: sql('./follow/follow.count.user.sql'),
+    default: sql('./follow/follow.default.sql')
 }
 
 const Tier = {

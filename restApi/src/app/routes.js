@@ -1,8 +1,15 @@
 import express, { Router } from 'express';
-import { Users, Funds, Predictions, Follow, Security } from './controllers/'
+import { Users, Funds, Predictions, Follow, Security, Tier } from './controllers/'
 
 export default (db, config, auth) => {
 	const router = Router();
+
+	const User = Users(db, config).rest;
+	const Fund = Funds(db, config).rest;
+	const Prediction = Predictions(db, config).rest;
+    const Following = Follow(db, config).rest;
+	const Securities = Security(db, config).rest;
+	const Tiers = Tier(db, config).rest;
 
 	const api = Router();
 	api.get('/', (req, res) => {
@@ -14,9 +21,8 @@ export default (db, config, auth) => {
 	router.use('/api', api);
 
 	const userApi = Router();
-	const User = Users(db, config).rest;
 	userApi.get('/', User.list);
-	userApi.post('/', User.create, auth.requireLogin, User.get);
+	userApi.post('/', User.create, auth.requireLogin, Following.followDefault, User.get);
 	userApi.get('/:user_id', User.get);
 	userApi.param('user_id', User.params.user_id);
 	api.use('/u/', userApi);
@@ -26,7 +32,6 @@ export default (db, config, auth) => {
 	api.use('/auth', authApi);
 
 	const fundApi = Router();
-	const Fund = Funds(db, config).rest;
 	fundApi.get('/', Fund.list);
 	fundApi.post('/', Fund.create);
 	fundApi.get('/:fund_id', Fund.get);
@@ -36,21 +41,19 @@ export default (db, config, auth) => {
 	api.use('/f/', fundApi);
 
 	const predictionApi = Router();
-	const Prediction = Predictions(db, config).rest;
 	predictionApi.get('/', Prediction.list);
 	predictionApi.post('/', Prediction.create);
 	fundApi.get('/:fund_id/p/', Prediction.list);
 	api.use('/p/', predictionApi);
 
     const followingApi = Router();
-    const Following = Follow(db, config).rest;
 	fundApi.post('/:fund_id/follow', auth.requireToken, Following.create);
 	fundApi.delete('/:fund_id/follow', auth.requireToken, Following.remove);
 	fundApi.get('/:fund_id/follow', auth.requireToken, Following.verify);
+	followingApi.get('/', Following.default);
 	api.use('/following/', followingApi);
 	
 	const securityApi = Router();
-	const Securities = Security(db, config).rest;
 	securityApi.get('/:security_id', Securities.get);
 	securityApi.get('/', Securities.get);
 	api.use('/security/', securityApi);
@@ -58,6 +61,7 @@ export default (db, config, auth) => {
 	const meApi = Router();
 	meApi.get('/', auth.requireToken, User.get);
 	meApi.get('/following/', auth.requireToken, Following.list);
+	meApi.get('/following/count/', auth.requireToken, Following.count);
 	api.use('/me/', meApi);
 
 	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {

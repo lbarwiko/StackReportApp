@@ -28,8 +28,18 @@ export default (db, config) => {
                 .catch(err => reject(err));
             })
         }
+        function rest(req, res, next){
+            helper()
+            .then(data=>{
+                return res.json(data);
+            })
+            .catch(err=>{
+                return res.json(err);
+            })
+        }
         return {
             helper: helper,
+            rest: rest
         }
     }
 
