@@ -47,6 +47,7 @@ def save_tmp_data(mf_symbol, date):
 		# find quarter date closest to date
 		query_date = find_closest_quarter(mf_symbol, date)			
 		symbols, num_shares_held = get_mf_holdings(mf_symbol, query_date)
+		num_shares_held = [str(num) for num in num_shares_held]
 	# otherwise load from last day's prediction
 	else:
 		# load data from file
@@ -80,7 +81,7 @@ def run_prediction(mf_symbol, date):
 	# no need to make a prediction on days we have the answer
 	if str(date)[:10].replace("-", "") in get_mf_report_dates(mf_symbol):
 		# clear output for mf_symbol
-		os.system("rm /root/StackReport/predictions/Output/" + mf_symbol + "_comb.json")
+		os.system("rm /root/StackReport/predictions/Output/" + mf_symbol + "_comb.json 2> /dev/null")
 		return
 	
 	# read in command line options for mf_symbol
