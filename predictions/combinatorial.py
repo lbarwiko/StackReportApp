@@ -9,7 +9,7 @@ import sys
 import json
 import datetime as dt
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, get_db_mf_stock_assets
+from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf_holdings, get_db_stock_quote, estimate_stock_asset
 
 def save_tmp_data(mf_symbol, date):
 	"""
@@ -19,16 +19,16 @@ def save_tmp_data(mf_symbol, date):
 	# load symbols, prices, num_shares_held, stock_assets
 	# if beginning of quarter, get holdings from db
 	if mf_symbol + "_comb.json" not in list(os.walk("/root/StackReport/predictions/Output"))[0][2]:
-		# find most recent quarter date
+		# find quarter date closest to date
+		min_day_count = 500
+		query_date = ""
 		for quarter in get_mf_report_dates(mf_symbol):
 			quarter_begin = dt.datetime(int(quarter[:4]), int(quarter[4:6]), int(quarter[6:]))
 			day_count = (date - quarter_begin).days
-			# most recent quarter should be last day markets were open
-			# so difference in dates should be between 0 and 10
-			if day_count > 0 and day_count < 10:
+			if day_count < min_day_count:
+				min_day_count = day_count
 				query_date = quarter_begin
-				break
-
+			
 		symbols, num_shares_held = get_mf_holdings(mf_symbol, query_date)
 	# otherwise load from last day's prediction
 	else:
@@ -38,12 +38,13 @@ def save_tmp_data(mf_symbol, date):
 		
 		symbols = [security["security_id"] for security in prediction]
 		num_shares_held = [str(security["amount"]) for security in prediction]
-		
+	
+	date = str(date)[:10].replace("-", "")	
 	prices = []
 	for symbol in symbols:
 		prices.append(str(get_db_stock_quote(symbol, date)))
 
-	stock_assets = str(get_db_mf_stock_assets(mf_symbol, date))
+	stock_assets = str(estimate_stock_asset(mf_symbol, date))
 
 	output_string = str(len(symbols)) + "\n"
 	output_string += "\n".join(symbols) + "\n"
@@ -60,7 +61,7 @@ def run_prediction(mf_symbol, date):
 	run a prediction for mf_symbol on date
 	"""
 	# no need to make a prediction on days we have the answer
-	if date in get_mf_report_dates(mf_symbol):
+	if str(date)[:10].replace("-", "") in get_mf_report_dates(mf_symbol):
 		# clear output for mf_symbol
 		os.system("rm /root/StackReport/predictions/Output/" + mf_symbol + "_comb.json")
 		return
@@ -78,6 +79,7 @@ def run_prediction(mf_symbol, date):
 def main():
 	# date is yyyymmdd
 	date = sys.argv[1]
+	date = dt.datetime(int(date[:4]), int(date[4:6]), int(date[6:]))
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
 		run_prediction(mf_symbol, date)
