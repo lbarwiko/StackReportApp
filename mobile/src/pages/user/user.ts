@@ -4,8 +4,6 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
-import { TopFundsPage } from '../topfunds/topfunds';
-import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 
 @Component({
   selector: 'page-user',
@@ -29,14 +27,6 @@ export class UserPage {
  
   toggleMenu() {
     this.menuCtrl.toggle();
-  }
-
-  navToTopFunds(){
-    this.navCtrl.push(TopFundsPage);
-  }
-
-  navToByRegionPage(){
-    this.navCtrl.push(RegionalfundsPage);
   }
 
   navUserInfo(){

@@ -21,12 +21,11 @@ import {
     TabsPage,
     LoginPage,
     SecurityPage,
-    TopFundsPage,
+    AllFundsPage,
     AddFundsPage,
     MenuPage,
     InvestmentsPage,
     ReportsPage,
-    RegionalfundsPage
     } from '../pages/main'
 
 import {
@@ -45,9 +44,8 @@ import {
     TabsPage,
     LoginPage,
     SecurityPage,
-    TopFundsPage,
+    AllFundsPage,
     AddFundsPage,
-    RegionalfundsPage,
     InvestmentsPage,
     ReportsPage,
     PreviewComponent,
@@ -73,12 +71,11 @@ import {
     TabsPage,
     LoginPage,
     SecurityPage,
-    TopFundsPage,
+    AllFundsPage,
     AddFundsPage,
     MenuPage,
     ReportsPage,
     InvestmentsPage,
-    RegionalfundsPage
   ],
   providers: [
     StatusBar,

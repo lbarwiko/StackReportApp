@@ -1,4 +1,4 @@
-page-regionalfunds {
+page-allfunds {
 
 	.fixed-content {
     	background-color: #1A2225;
@@ -17,5 +17,10 @@ page-regionalfunds {
 
 	.previewlist {
 	}
-
+	.spinner{
+		color: white;
+		font-size: 3em;
+		margin:0px auto;
+		text-align: center;
+	}
 }

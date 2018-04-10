@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams, MenuController } from 'ionic-angular';
-import { TopFundsPage } from '../topfunds/topfunds';
 import { AddFundsPage } from '../addfunds/addfunds';
-import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
@@ -49,17 +47,5 @@ export class HomePage {
       .catch(err => {
         console.log(err);
       });  
-  }
-
-  navToTopFunds(){
-    this.navCtrl.push(TopFundsPage);
-  }
-
-  navToByRegionPage(){
-    this.navCtrl.push(RegionalfundsPage);
-  }
-
-  navUserInfo(){
-    this.navCtrl.push(UserPage);
   }
 }

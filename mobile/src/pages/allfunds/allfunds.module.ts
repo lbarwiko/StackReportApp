@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { TopFundsPage } from './topfunds';
+import { AllFundsPage } from './allfunds';
 
 @NgModule({
   declarations: [
-    TopFundsPage,
+    AllFundsPage,
   ],
   imports: [
   ],
 })
-export class TopFundsPageModule {}
+export class AllFundsPageModule {}

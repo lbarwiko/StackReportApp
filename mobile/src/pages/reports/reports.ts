@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 import { FundService } from '../../services/fund.service'
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { TopFundsPage } from '../topfunds/topfunds';
-import { RegionalfundsPage } from '../regionalfunds/regionalfunds';
 import { UserPage } from '../user/user';
 import { LoginPage } from '../login/login';
 import { PredictionService } from '../../services/prediction.service'
@@ -64,14 +62,6 @@ export class ReportsPage {
 	 
 	  toggleMenu() {
 	    this.menuCtrl.toggle();
-	  }
-
-	  navToTopFunds(){
-	    this.navCtrl.push(TopFundsPage);
-	  }
-
-	  navToByRegionPage(){
-	    this.navCtrl.push(RegionalfundsPage);
 	  }
 
 	  navUserInfo(){
