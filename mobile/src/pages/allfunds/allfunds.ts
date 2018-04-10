@@ -7,11 +7,11 @@ import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';
 
 @Component({
-  selector: 'page-topfunds',
-  templateUrl: 'topfunds.html'
+  selector: 'page-allfunds',
+  templateUrl: 'allfunds.html'
 })
 
-export class TopFundsPage {
+export class AllFundsPage {
 	loading: Loading;
 	fundList: Security[];
 	user: User;

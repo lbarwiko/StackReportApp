@@ -11,7 +11,8 @@ const User = {
     create: sql('./user/user.create.sql'),
     getById: sql('./user/user.get.id.sql'),
     getByUsername: sql('./user/user.get.username.sql'),
-    getByIdPublic: sql('./user/user.get.id.public.sql')
+    getByIdPublic: sql('./user/user.get.id.public.sql'),
+    anonSerial: sql('./user/user.anon.serial.sql')
 }
 
 const Fund = {
@@ -44,7 +45,8 @@ const Follow = {
     list: sql('./follow/follow.list.sql'),
     create: sql('./follow/follow.create.sql'),
     delete: sql('./follow/follow.delete.sql'),
-    count: sql('./follow/follow.count.user.sql')
+    count: sql('./follow/follow.count.user.sql'),
+    default: sql('./follow/follow.default.sql')
 }
 
 const Tier = {

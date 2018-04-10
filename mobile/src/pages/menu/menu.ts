@@ -3,7 +3,7 @@ import { Nav, Platform, App } from 'ionic-angular';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/main';
 
-import { HomePage, RegionalfundsPage, UserPage, TopFundsPage, LoginPage } from '../main';
+import { HomePage, UserPage, AllFundsPage, LoginPage } from '../main';
 
 
 @Component({
@@ -26,27 +26,26 @@ export class MenuPage {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home', component: HomePage }, 
-      { title: 'Top Mutual Funds', component: TopFundsPage },
-      { title: 'Mutual Funds By Region', component: RegionalfundsPage },
+      { title: 'Offered Funds', component: AllFundsPage },
       { title: 'My account', component: UserPage },
     ];
     this.authService = authService;
     this.app = app;
-}
-
-back(){
-  if(this.nav.canGoBack()){
-      let page:any = this.nav.pop();
   }
-}
 
-openPage(page) {
-  this.nav.setRoot(page.component);
-}
+  back(){
+    if(this.nav.canGoBack()){
+        let page:any = this.nav.pop();
+    }
+  }
 
-logout() {
-    this.authService.logout();
-    this.app.getRootNav().setRoot(LoginPage);
-}
+  openPage(page) {
+    this.nav.setRoot(page.component);
+  }
+
+  logout() {
+      this.authService.logout();
+      this.app.getRootNav().setRoot(LoginPage);
+  }
 
 }

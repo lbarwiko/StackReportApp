@@ -6,11 +6,10 @@ import { LoginPage } from './login/login';
 import { RegisterPage } from './register/register';
 import { RootPage } from './root/root';
 import { SecurityPage } from './security/security';
-import { TopFundsPage } from './topfunds/topfunds';
+import { AllFundsPage } from './allfunds/allfunds';
 import { AddFundsPage } from './addfunds/addfunds';
 import { MenuPage } from './menu/menu';
 import { ReportsPage } from './reports/reports'
-import { RegionalfundsPage } from './regionalfunds/regionalfunds';
 import { InvestmentsPage } from './investments/investments';
 
 export {
@@ -22,10 +21,9 @@ export {
     LoginPage,
     RegisterPage,
 	SecurityPage,
-    TopFundsPage,
+    AllFundsPage,
     AddFundsPage,
     MenuPage,
     InvestmentsPage,
     ReportsPage,
-    RegionalfundsPage,
 }

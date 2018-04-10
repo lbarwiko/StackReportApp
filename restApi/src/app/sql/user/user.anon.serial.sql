@@ -1,0 +1,1 @@
+SELECT nextval('anon_username');

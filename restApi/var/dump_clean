@@ -22,6 +22,7 @@ COPY public.users (user_id, username, password, role, tier) FROM stdin;
 15	user11	$2a$10$uhPts6h.htsIokciFYINO.hRrD/4uP2zGQlEan/74zeA5VsXunxa.	USER	FREE
 \.
 
+
 --
 -- Data for Name: fund; Type: TABLE DATA; Schema: public; Owner: root
 --
@@ -46,6 +47,16 @@ JNVIX	12	2018-04-02 17:46:06.057424
 CMGIX	12	2018-04-03 09:21:16.183633
 JNVIX	1	2018-04-03 13:25:36.13515
 JENIX	1	2018-04-03 17:29:55.146425
+\.
+
+--
+-- Data for Name: default_follow; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY DEFAULT_FOLLOW (fund_id) FROM stdin;
+JENSX
+JNVIX
+CMGIX
 \.
 
 
@@ -113,9 +124,9 @@ JNVIX	720116	VFC
 JNVIX	668808	VGR
 JNVIX	495734	GWW
 CMGIX	14596602	TDG
-CMGIX	19480484	FRC^D
+CMGIX	19480484	FRC-D
 CMGIX	23932905	SIVB
-CMGIX	17502748	STZ.B
+CMGIX	17502748	STZ
 CMGIX	12019425	DPS
 CMGIX	16265734	AOS
 CMGIX	10377971	JELD
@@ -147,7 +158,7 @@ CMGIX	22067577	ROP
 CMGIX	11242650	LIVE
 CMGIX	17864374	NFLX
 CMGIX	25540966	CSGP
-CMGIX	5132493	DTK.CL
+CMGIX	5132493	DTK
 CMGIX	12439976	GDDY
 CMGIX	21957330	IAC
 CMGIX	14823633	MELI
@@ -334,3 +345,12 @@ COPY PREDICTION (prediction_meta_id, security_id, order_type, amount) FROM stdin
 13	GWW	1	\N
 14	GOOGL	1	\N
 \.
+
+--
+-- Set sequence to correct value
+--
+
+SELECT pg_catalog.setval('public.users_user_id_seq', 15, true);
+SELECT pg_catalog.setval('public.follow_user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.prediction_meta_prediction_meta_id_seq', 14, true);
+SELECT pg_catalog.setval('public.prediction_prediction_meta_id_seq', 1, false);
