@@ -90,7 +90,7 @@ def run_prediction(mf_symbol, date):
 
 	save_tmp_data(mf_symbol, date)
 	# run prediction
-	os.system("./root/StackReport/predictions/combexe " + mf_symbol + " " + options)
+	os.system("/root/StackReport/predictions/combexe " + mf_symbol + " " + options)
 	# delete temp file
 	os.system("rm /root/StackReport/predictions/tmp/" + mf_symbol + ".txt")
 
