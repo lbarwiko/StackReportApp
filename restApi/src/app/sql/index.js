@@ -11,7 +11,8 @@ const User = {
     create: sql('./user/user.create.sql'),
     getById: sql('./user/user.get.id.sql'),
     getByUsername: sql('./user/user.get.username.sql'),
-    getByIdPublic: sql('./user/user.get.id.public.sql')
+    getByIdPublic: sql('./user/user.get.id.public.sql'),
+    anonSerial: sql('./user/user.anon.serial.sql')
 }
 
 const Fund = {

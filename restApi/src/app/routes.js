@@ -16,7 +16,7 @@ export default (db, config, auth) => {
 	const userApi = Router();
 	const User = Users(db, config).rest;
 	userApi.get('/', User.list);
-	userApi.post('/', User.create);
+	userApi.post('/', User.create, auth.requireLogin, User.get);
 	userApi.get('/:user_id', User.get);
 	userApi.param('user_id', User.params.user_id);
 	api.use('/u/', userApi);
