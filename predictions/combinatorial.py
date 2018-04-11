@@ -94,13 +94,23 @@ def run_prediction(mf_symbol, date):
 	# delete temp file
 	os.system("rm /root/StackReport/predictions/tmp/" + mf_symbol + ".txt")
 
-def is_market_open(date):
+def curl_iex():
+	"""
+	run curl on iex 2 yr history so we can tell which days markets were open
+	return curl_result
+	"""
+	#TODO don't make this completely reliant on aapl
+	query_string = 'curl -sL "https://api.iextrading.com/1.0/stock/aapl/chart/2y"'
+	curl_result = os.popen(query_string).read()
+
+	return curl_result
+
+def is_market_open(date, curl_result):
 	"""
 	return True if markets were open on date, false otherwise
 	"""
-	#TODO don't make this completely reliant on aapl
 	date_str = str(date)[:10]
-	query_string = 'curl -sL "https://api.iextrading.com/1.0/stock/aapl/chart/2y" | grep -sc ' + date_str
+	query_string = curl_result + " | grep -sc " + date_str
 	num = int(os.popen(query_string).read())
 
 	return True if num == 1 else False
@@ -109,15 +119,16 @@ def main():
 	# date is yyyymmdd
 	date = sys.argv[1]
 	date = dt.datetime(int(date[:4]), int(date[4:6]), int(date[6:]))
+	curl_result = curl_iex()
 	# do nothing if market was closed that day
-	if not is_market_open(date): return
+	if not is_market_open(date, curl_result): return
 	
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
 		if mf_symbol + "_comb.json" not in list(os.walk("/root/StackReport/predictions/Output"))[0][2]:
 			prediction_date = find_closest_quarter(mf_symbol, date)
 			while prediction_date != date:
-				if is_market_open(prediction_date): run_prediction(mf_symbol, prediction_date)
+				if is_market_open(prediction_date, curl_result): run_prediction(mf_symbol, prediction_date)
 				prediction_date = prediction_date + dt.timedelta(1)
 
 		run_prediction(mf_symbol, date)
