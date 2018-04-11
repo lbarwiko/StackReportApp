@@ -130,6 +130,23 @@ def jensen_csr(url, symbol):
 	return report
 
 
+def jensx_nq(url, symbol):
+
+	soup = get_soup(url)
+	# Get soup
+	soup = get_soup(url)
+
+	report = {}
+	report["symbol"] = symbol
+
+	# Get Date
+	date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
+	date = time.strptime(date_string, "%B %d, %Y")
+	date = time.strftime("%Y%m%d", date)
+	report["date"] = date
+
+
+
 def main():
 	print(args.nq, args.csr)
 	if not args.nq and not args.csr:
@@ -143,7 +160,7 @@ def main():
 		report = jensen_csr(url, symbol)
 	else:
 		print("TO BE IMPLEMENTED")
-		exit(0)
+		return
 
 	add_mf_report(report)
 	add_mf_other(report)
@@ -155,3 +172,20 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
+# =============================================
+
+print("=====-TESTING AREA-=====")
+url = args.url[0]
+symbol = args.symbol[0]
+
+
+soup = get_soup(url)
+
+report = {}
+report["symbol"] = symbol
+date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
+date = time.strptime(date_string, "%B %d, %Y")
+date = time.strftime("%Y%m%d", date)
+report["date"] = date
+

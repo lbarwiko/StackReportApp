@@ -429,7 +429,7 @@ def add_mf_report(report):
 
         if math.ceil(holding["shares"] * price) != holding["value"]:
             print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
-            print ("%s vs %s" % ( str(math.ceil(holding["shares"] * price)), str(holding["value"])))
+            # print ("%s vs %s" % ( str(math.ceil(holding["shares"] * price)), str(holding["value"])))
 
         tuple_list.append((ticker, m_symbol, holding["shares"], date))
 

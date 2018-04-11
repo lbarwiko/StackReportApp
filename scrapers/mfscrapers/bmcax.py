@@ -21,18 +21,12 @@ parser.add_argument('-u', '--url', nargs=1, required=True, help='Enter the url o
 parser.add_argument('-s', '--symbol', nargs=1, required=True, help='Enter symbol of the mutual fund')
 args = parser.parse_args()
 
-
 urll = "https://www.sec.gov/Archives/edgar/data/844779/000119312517192557/d323069dncsrs.htm"
 
 def bmcax_csr(url, m_symbol):
-	print ("Getting soup... ")
+
 	soup = get_soup(url)
-
-	print ("Finding tr tags...")
 	tr_tags = soup.find_all("tr")
-
-	print("Begin scraping...")
-
 	report = {}
 	report["symbol"] = m_symbol
 	report["stocks"] = []
@@ -114,17 +108,20 @@ def bmcax_csr(url, m_symbol):
 
 
 def main():
+
 	if args.nq is None and args.csr is None:
 		parser.error("Please specify -nq or -csr")
 		exit(1)
+
 	url = args.url[0]
-	print (url)
 	symbol = args.symbol[0]
-	print (symbol)
 	report = bmcax_csr(url, symbol)
+
 	print_report(report)
-	add_mf_report(report)
-	add_mf_other(report)
+
+
+	# add_mf_report(report)
+	# add_mf_other(report)
 
 	if args.post:
 		post_to_frontend(report)

@@ -49,7 +49,8 @@ def load_stock_historical(ticker):
 	time.sleep(5)
 
 	return data
-	
+
+
 def save_all_stocks_historical(tickers):
 	"""
 	load all available historical price data for each ticker in tickers (up to 20 years)
@@ -70,6 +71,68 @@ def save_all_stocks_historical(tickers):
 		except Exception as e:
 			print("Error loading data for " + ticker)
 			print("Error message: " + str(e))
+
+def load_stock_historical_iex(ticker):
+	"""
+	load all available historical price data for ticker (up to 5 years)
+	tickers is a string such as "MSFT"
+	return json
+	[
+		{
+		  "date": "2013-04-11",
+		  "open": 56.4027,
+		  "high": 56.9579,
+		  "low": 56.0749,
+		  "close": 56.482,
+		  "volume": 82073628,
+		  "unadjustedVolume": 11724804,
+		  "change": -0.176859,
+		  "changePercent": -0.312,
+		  "vwap": 56.4891,
+		  "label": "Apr 11, 13",
+		  "changeOverTime": 0
+		},	
+
+	]
+	"""
+	url = "https://api.iextrading.com/1.0/stock/%s/chart/5y" % ticker
+	response = requests.get(url)
+
+	try:
+		data = json.loads(response.text)
+	except Exception as e:
+		print("Loading %s historcal data from IEX failed" % ticker)
+		print(e)
+		return []
+	# don't query alphavantage too quickly
+
+	return data
+
+def save_all_stocks_historical_iex(tickers):
+	"""
+	load all available historical price data for each ticker in tickers (up to 5 years)
+	place in database
+	tickers is list of ticker symbol strings
+	"""
+	idx = 1
+	for ticker in tickers:
+		try:
+			data = load_stock_historical_iex(ticker)
+			if data:
+			# tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
+				tuple_list = []
+				for each in data:
+					price = each["close"]
+					date = each["date"]
+					tuple_list.append((ticker, price, date))
+
+			add_tuple_stock_history(tuple_list)
+			print("%d: %s" % (idx, ticker))
+		except Exception as e:
+			print("Error loading data for " + ticker)
+			print("Error message: " + str(e))
+		idx += 1
+
 
 def split_stocks(tickers):
 	"""
@@ -219,30 +282,17 @@ def save_all_stocks_daily(tickers):
 	place in database
 	tickers is list of ticker symbol strings
 	"""
+	tuple_list = load_stocks_daily(tickers)
 
-	# ORIGINAL
-	# data = load_stocks_daily(tickers)
+	add_tuple_stock_history(tuple_list)
 
-	# # tuple_list is a list of tuples [(c_symbol, price, c_date),...,]
-	# tuple_list = []
-	# for batch in data:
-	# 	for value in batch["Stock Quotes"]:
-	# 		tup = (value["1. symbol"], value["2. price"], value["4. timestamp"])
-	# 		tuple_list.append(tup)
 
-	# add_tuple_stock_history(tuple_list)
-
-	# TEMP SLOW
-	# tuple_list = [] 
-	# idx = 1
-	# for ticker in tickers:
-	# 	# ATTENTION !!!! The date might not be right, it's inserting the current day
-	# 	tup = (ticker, get_quote(ticker), time.strftime('%Y%m%d'))
-	# 	print ("%d. %s" % (idx, ticker))
-	# 	tuple_list.append(tup)
-	# 	idx += 1
-
-	# FROM YAHOO
+def save_all_stocks_daily_iex(tickers):
+	"""
+	load all available historical price data for each ticker in tickers (up to 20 years)
+	place in database
+	tickers is list of ticker symbol strings
+	"""
 	tuple_list = load_stocks_daily_iex(tickers)
 
 	add_tuple_stock_history(tuple_list)
@@ -259,9 +309,9 @@ def main():
 	mode = sys.argv[1]
 
 	if mode == "historical":
-		save_all_stocks_historical(tickers)
+		save_all_stocks_historical_iex(tickers)
 	elif mode == "daily":
-		save_all_stocks_daily(tickers)
+		save_all_stocks_daily_iex(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
 
