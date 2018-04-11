@@ -32,12 +32,8 @@ struct MutualFund {
 	vector<double> prices;
 	// number of shares of each stock held in order of symbols
 	vector<int> num_shares_held;
-	// current net asset value of mf
-	double nav;
 	// total value of mf stock assets
 	double stock_assets;
-	// number of shares outstanding for the mf
-	int n_shares;
 };
 
 MutualFund load_data(const string& mf_symbol) {
@@ -46,15 +42,41 @@ MutualFund load_data(const string& mf_symbol) {
 	MutualFund mf;
 	mf.mf_symbol = mf_symbol;
 		
-	// TODO load data from db
+	/*
 	mf.symbols = {"UTX", "UPS", "KO", "PEP", "ECL", "PX", "EMR", "APH", "BDX", "SYK", "UNH", "PG", "MMM", "GOOGL", "ACN", "BR", "CTSH", "MA", "WAT", "OMC", "JNJ", "INTU", "MSFT", "ORCL", "TJX", "AAPL", "NKE"};
 	mf.prices = {121.4500, 121.4500, 45.7700, 116.5200, 135.9200, 153.9200, 64.8200, 90.5900, 228.2100, 156.0000, 228.1700, 89.9900, 243.1400, 1036.1700, 148.0100, 90.2600, 72.2800, 150.4700, 197.1700, 71.4400, 139.3300, 157.2200, 84.1700, 49.0600, 75.5500, 171.8500, 60.4200};
 	mf.num_shares_held = {2609000, 1326000, 2344000, 3163000, 2080000, 2069000, 2187000, 1892000, 1834000, 2004000, 1403000, 2434000, 1154600, 191000, 1638000, 872000, 2355000, 1287000, 813987, 3253000, 2078000, 885000, 4453000, 6095000, 2712000, 1087000, 3135000};
-	mf.nav = 47.86;
-	//mf.stock_assets = 6378548241;
-	mf.stock_assets = 6378547241;
-	mf.n_shares = 138789534;
-	
+	mf.stock_assets = 6378548241;
+	//mf.stock_assets = 6378547241;
+	*/
+
+	// load data from tmp file
+	ifstream infile("/root/StackReport/predictions/tmp/" + mf_symbol + ".txt");
+	int num_holdings;
+	infile >> num_holdings;
+	for (int i = 0; i < num_holdings; ++i) {
+		string symbol;
+		infile >> symbol;
+		mf.symbols.push_back(symbol);
+	}
+
+	for (int i = 0; i < num_holdings; ++i) {
+		int num_shares_held;
+		infile >> num_shares_held;
+		mf.num_shares_held.push_back(num_shares_held);
+	}
+
+	for (int i = 0; i < num_holdings; ++i) {
+		double price;
+		infile >> price;
+		mf.prices.push_back(price);
+	}
+
+	double stock_assets;
+	infile >> stock_assets;
+	mf.stock_assets = stock_assets;
+	infile.close();
+
 	return mf;
 }
 
@@ -64,6 +86,7 @@ double get_error(const vector<double>& prices, const vector<int>& num_shares_hel
 	// stock_assets = p1n1 + p2n2 + ... + pdnd + error, where p's are prices and n's 
 	// are hypothesized num_shares_held
 	double prod = inner_product(prices.begin(), prices.end(), num_shares_held.begin(), 0.0);
+
 	return abs(stock_assets - prod);
 }
 
