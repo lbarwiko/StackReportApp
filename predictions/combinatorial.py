@@ -110,7 +110,7 @@ def is_market_open(date, curl_result):
 	return True if markets were open on date, false otherwise
 	"""
 	date_str = str(date)[:10]
-	query_string = curl_result + " | grep -sc " + date_str
+	query_string = "echo '" + curl_result + "' | grep -sc " + date_str
 	num = int(os.popen(query_string).read())
 
 	return True if num == 1 else False
