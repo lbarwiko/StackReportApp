@@ -215,8 +215,8 @@ def get_company_list():
     output_list = []
     for row in rows:
         # Ignore weird ass symbols
-        if row[0].isalpha():
-            output_list.append(row[0])
+        # if row[0].isalpha():
+        output_list.append(row[0])
 
     return output_list
 
