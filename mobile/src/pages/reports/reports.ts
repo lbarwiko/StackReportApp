@@ -22,7 +22,7 @@ export class ReportsPage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService, public menuCtrl:MenuController, public authService: AuthService, public predictionService: PredictionService) {
 		this.security = null;
-		this.user = authService.getLoggedInUser();
+		this.user = authService.user;
 		this.buyPredictions = [];
 		this.sellPredictions = [];
 		this.lastUpdated = "1/1/2000";

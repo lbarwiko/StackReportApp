@@ -4,6 +4,10 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { MenuPage } from './../menu/menu';
+import { RegisterPage } from './../register/register';
+import { LoginPage } from './../login/login';
+
 @IonicPage()
 @Component({
   selector: 'page-root',
@@ -14,10 +18,27 @@ export class RootPage {
   user: User;
 
   constructor(private loadingCtrl: LoadingController, private alertCtrl: AlertController,
-   public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {}
+   public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {
+    this.navigateToStartPage();
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RootPage');
+  }
+
+  navigateToStartPage(){
+    this.authService.flow()
+    .then(user=>{
+      console.log(user);
+      if(user){
+        this.navCtrl.setRoot(MenuPage);
+      }else{
+        this.navCtrl.setRoot(LoginPage);
+      }
+    })
+    .catch(err=>{
+      this.navCtrl.setRoot(LoginPage);
+    })
+
   }
 
   /*public createAccount(){

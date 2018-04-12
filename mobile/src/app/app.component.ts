@@ -22,33 +22,30 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-
-      this.getUserToken();
-
       statusBar.styleDefault();
       splashScreen.hide();
     });
   }
 
-  getUserToken(){
-    this.storage.get('token').then((token) => {
-      console.log('Is Logged in : ', token);
-      this.token = token;
-      console.log(token);
+  // getUserToken(){
+  //   this.storage.get('token').then((token) => {
+  //     console.log('Is Logged in : ', token);
+  //     this.token = token;
+  //     console.log(token);
 
-      if(this.token){
-        console.log("Here");
-        this.authService.getUser(token).then(user => {
-          if(user.username){ 
-            this.rootPage = MenuPage;
-          }
-        });
-      }
-      else{
-        this.rootPage = LoginPage;
-      }
-  });
+  //     if(this.token){
+  //       console.log("Here");
+  //       this.authService.getUser(token).then(user => {
+  //         if(user.username){ 
+  //           this.rootPage = MenuPage;
+  //         }
+  //       });
+  //     }
+  //     else{
+  //       this.rootPage = LoginPage;
+  //     }
+  //   });
 
-  }
+  // }
 
 }
