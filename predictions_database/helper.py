@@ -215,8 +215,8 @@ def get_company_list():
     output_list = []
     for row in rows:
         # Ignore weird ass symbols
-        if row[0].isalpha():
-            output_list.append(row[0])
+        # if row[0].isalpha():
+        output_list.append(row[0])
 
     return output_list
 
@@ -260,6 +260,8 @@ def get_mf_list():
     output_list = [row[0] for row in rows]
 
     return output_list
+
+
 def follow_mf(ticker_list):
     """
     Follow a mutual fund by change the "follow" in table mutual_fund
@@ -281,7 +283,7 @@ def follow_mf(ticker_list):
         print (e.pgerror)
 
 
-def follow_mf(ticker_list):
+def unfollow_mf(ticker_list):
     """
     Follow a mutual fund by change the "follow" in table mutual_fund
     Input: a ticker and a list of ticker
