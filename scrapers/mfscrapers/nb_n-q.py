@@ -1,16 +1,15 @@
 import re
+from bs4 import Comment
 import time
 import pprint
 from helper import get_soup
 
 
-nb_qr_url = "https://www.sec.gov/Archives/edgar/data/44402/000089843218000111/nq.htm"
+NB_QR_URL = "https://www.sec.gov/Archives/edgar/data/44402/000089843218000111/nq.htm"
+NB_CSR_URL = "https://www.sec.gov/Archives/edgar/data/44402/000089843217001017/n-csr.htm"
 
 
-# TODO: Where does total investment come from?
-def nb_qr(url, m_symbol, m_name):
-    soup = get_soup(url)
-
+def nb_qr(soup, m_symbol, m_name):
     report = {}
     report["symbol"] = m_symbol
     report["stocks"] = []
@@ -49,12 +48,87 @@ def nb_qr(url, m_symbol, m_name):
                     net_assets = int(divs[2].string.replace(',', ''))
                     report["total_net_assets"] = net_assets
                 else: # Just a regular entry
-                    stock = clean_data(divs)
+                    stock = clean_data([divs[0].string, divs[1].string, divs[2].string])
                     report['total_stock'] += stock['value']
                     report['num_shares'] += stock['shares']
                     report["stocks"].append(stock)
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(report)
+
+
+def nb_csr(soup, m_symbol, m_name):
+    report = {}
+    report["symbol"] = m_symbol
+    report["stocks"] = []
+    report['total_stock'] = 0
+    report['num_shares'] = 0
+
+    #Get Date
+    text = "Schedule of Investments " + m_name
+    pattern = re.compile(text)
+    tag = soup.find("p", text=pattern)
+    date = tag.string.replace(text, '')
+    date = re.sub('[/\t\n\s,\xa0]', '', date)
+    date = time.strptime(date, "%B%d%Y")
+    date = time.strftime("%Y%m%d", date)
+    report["date"] = date
+
+    div = tag.parent#.next_sibling.next_sibling
+    more_stocks = True
+    while more_stocks:
+        table = find_next_table(div)
+        for row in table.find_all("tr"):
+            # Magic number - actual data entries have 21 columns
+            if (len(row) == 21):
+                data = extract_data(row)
+                # TODO this no longer catches what I want it to
+                # excludes last thing in table which is not a stock
+                if len(data) < 8 :
+                    stock = clean_data(data) 
+                    report['total_stock'] += stock['value']
+                    report['num_shares'] += stock['shares']
+                    report["stocks"].append(stock)
+                    print(stock)
+            if row.find("p", text=re.compile(r"Net Assets ")) is not None:
+                more_stocks = False
+        # Update div
+        div = div.next_sibling.next_sibling
+
+    pp = pprint.PrettyPrinter(indent=4)
+    pp.pprint(report)
+
+
+def find_next_table(div):
+    div = div.next_sibling.next_sibling
+    table = div.find("table")
+    # If next table is not on this page
+    while table is None:
+        div = div.next_sibling.next_sibling
+        if div.find("table") == -1:
+            div = div.next_element.next_element.next_element
+            div = div.next_sibling.next_sibling
+        table = div.find("table")
+    return table
+
+
+def extract_data(row):
+    name_inc = re.compile(r"[A-Za-z]+(\.|,)?")
+    number = re.compile(r"[1-9]+")
+    data = []
+    for col in row.stripped_strings:
+        num = number.search(col)
+        name = name_inc.search(col) 
+        if num is not None:
+            data.append(col)
+        elif name is not None: 
+            data.append(col)
+    # Company name can span multiple divs, need to get all of it
+    company = ""
+    shares = data.pop(len(data) - 2)
+    value = data.pop(len(data) - 1)
+    for string in data:
+        company += string
+    return [company, shares, value]
 
 
 def is_valid(divs):
@@ -80,9 +154,9 @@ def clean_data(data):
             "(e)",
             ]
 
-    company = data[0].string
-    shares = int(data[1].string.replace(',', ''))
-    value = int(data[2].string.replace(',', '').replace('$', ''))
+    company = data[0]
+    shares = int(data[1].replace(',', ''))
+    value = int(data[2].replace(',', '').replace('$', ''))
 
     # Remove undesired symbols from company name
     for substring in substrings:
@@ -97,8 +171,15 @@ def clean_data(data):
 
 
 def main():
-    nb_qr(nb_qr_url, "nbssx", "Focus Fund")
-    nb_qr(nb_qr_url, "nbmix", "Small Cap Growth Fund")
+    """
+    soup = get_soup(NB_QR_URL)
+    nb_qr(soup, "nbssx", "Focus Fund")
+    nb_qr(soup, "nbmix", "Small Cap Growth Fund")
+    """
+
+    soup = get_soup(NB_CSR_URL)
+    nb_csr(soup, "nbssx", "Focus Fund")
+    nb_csr(soup, "nbmix", "Small Cap Growth Fund")
 
 
 if __name__ == "__main__":
