@@ -525,6 +525,26 @@ def get_children(ticker):
     return result
 
 
+def get_children(ticker):
+    cur = db_cursor()
+    op_string = ("""SELECT C2.child_symbol FROM children C1 JOIN children C2 ON C1.parent_symbol = C2.parent_s
+ymbol WHERE C1.child_symbol = '%s'""" % ticker)
+
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print(e.pgerror)
+        print("Cannot can sibling funds")
+
+    rows = cur.fetchall()
+
+    result = []
+    if rows:
+        result = [row[0] for row in rows]
+
+    return result
+
+
 
 
 

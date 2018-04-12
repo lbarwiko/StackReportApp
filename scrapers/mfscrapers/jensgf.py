@@ -130,7 +130,7 @@ def jensen_csr(url, symbol):
 	return report
 
 
-def jensx_nq(url, symbol):
+def jensen_nq(url, symbol):
 
 	soup = get_soup(url)
 	# Get soup
