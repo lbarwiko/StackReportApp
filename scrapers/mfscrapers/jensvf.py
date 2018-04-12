@@ -16,7 +16,7 @@ parser.add_argument('-u', '--url', nargs=1, required=True, help='Enter the url o
 parser.add_argument('-s', '--symbol', nargs=1, required=True, help='Enter symbol of the mutual fund')
 args = parser.parse_args()
 
-def jensen_csr(url, symbol):
+def jensvf_csr(url, symbol):
 	soup = get_soup(url)
 	report = {}
 	report["symbol"] = symbol
@@ -33,7 +33,7 @@ def jensen_csr(url, symbol):
 
 	# SPECIAL CASE FOR JENSGF
 	# It has children funds
-	if symbol.upper() == "JENSGF":
+	if symbol.upper() == "JENSVF":
 		# Look for Shares, Net Assets, and NAV of the overall fund
 		for tr_tag in tr_tags[idx:]:
 			td_tags = tr_tag.find_all("td")
@@ -114,14 +114,13 @@ def jensen_csr(url, symbol):
 			break
 
 	nav = 0
-	if symbol == "JENSGF":
-		class_dict = ({"Class J Shares": "JENSX", "Class R Shares" : "JENRX",
-			"Class I Shares" : "JENIX", "Class Y Shares" : "JENYX"})
+	if symbol == "JENSVF":
+		class_dict = ({"Class J Shares:": "JNVSX", "Class I Shares:" : "JNVIX"})
 		for i in range(0, len(class_name)):
 			symbol = class_dict[class_name[i]]
 			ratio = float(class_net_assets[i])/float(report["total_net_assets"])
 			nav += ratio * class_nav[i]
-			add_children_fund("JENSGF", symbol, ratio)
+			add_children_fund("JENSVF", symbol, ratio)
 
 	else:
 		nav = get_db_mf_nav(symbol)
@@ -130,7 +129,7 @@ def jensen_csr(url, symbol):
 	return report
 
 
-def jensx_nq(url, symbol):
+def jensvf_nq(url, symbol):
 
 	soup = get_soup(url)
 	# Get soup
@@ -157,11 +156,12 @@ def main():
 
 	report = {}
 	if args.csr:
-		report = jensen_csr(url, symbol)
+		report = jensvf_csr(url, symbol)
 	else:
 		print("TO BE IMPLEMENTED")
 		return
 
+	print_report(report)
 	add_mf_report(report)
 	add_mf_other(report)
 	if args.post:
@@ -174,18 +174,4 @@ if __name__ == '__main__':
 	main()
 
 # =============================================
-
-print("=====-TESTING AREA-=====")
-url = args.url[0]
-symbol = args.symbol[0]
-
-
-soup = get_soup(url)
-
-report = {}
-report["symbol"] = symbol
-date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
-date = time.strptime(date_string, "%B %d, %Y")
-date = time.strftime("%Y%m%d", date)
-report["date"] = date
 
