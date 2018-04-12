@@ -20,14 +20,18 @@ export class RestapiProvider {
 
   Login(loginCredentials){
   	console.log('Logging In');
-		console.log(loginCredentials);
+	console.log(loginCredentials);
 	return new Promise<User>((resolve, reject) => {
 		this.http.post<User>(this.endpointService.base + this.endpointService.auth, loginCredentials, {headers: {'Content-Type': 'application/json'}})
 			.subscribe(
 			data => {
 	      		console.log('provider getting data');
 	      		resolve(data);
-	      	},err => { resolve(new User({'empty': 'true'}));});
+	      	},err => { 
+	      		alert('Invalid credentials. Try again.');
+	      		location.reload();
+	      		resolve(new User({'empty': 'true'}));
+	      	});
 	});
   }
 
@@ -46,8 +50,6 @@ export class RestapiProvider {
 
   CreateAccount(registerCredentials){
   	console.log('Creating Account');
-  	/*console.log('Username: ' + registerCredentials.username);
-  	console.log('Password: ' + registerCredentials.password);*/
 	return new Promise(resolve => {
 		this.http.post<User>(this.endpointService.base + this.endpointService.user, registerCredentials, 
 			{headers: {'Content-Type': 'application/json'}})

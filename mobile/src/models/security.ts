@@ -23,13 +23,21 @@ class Security {
     }
  } 
  class Fund extends Security{
-    holdings: [Security];
+    holdings: [any];
 
-    constructor(id, name, current_price, volume_traded, price_history) {
+    constructor(id, name, current_price, volume_traded, price_history, holdings) {
         super(id, name, current_price, volume_traded, price_history);
+        this.holdings = holdings;
     }
 
     setHoldings(holdings){
+        var totalPrice = 0;
+		holdings.forEach(holding=>{
+            totalPrice += holding.security.current_price * holding.num_shares;
+        });
+        holdings.forEach(holding=>{
+            holding.setPercent(holding.num_shares * holding.security.current_price / totalPrice * 100);
+        });
         this.holdings = holdings;
     }
  } 

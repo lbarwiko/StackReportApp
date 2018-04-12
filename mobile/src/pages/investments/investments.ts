@@ -3,7 +3,9 @@ import { FundService } from '../../services/fund.service';
 import { Component, ApplicationRef } from '@angular/core';
 import { SecurityService } from '../../services/security.service';
 import { AuthService } from '../../services/auth.service';
+import { HoldingService } from '../../services/holding.service';
 import { User } from '../../models/user';
+import { Holding } from '../../models/holding.model';
 
 @IonicPage()
 @Component({
@@ -12,55 +14,54 @@ import { User } from '../../models/user';
 })
 export class InvestmentsPage {
 
-  	security: any;
+  	fund: any;
   	user: User;
 	totalPrice: number;
 	loading: Loading;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public fundService: FundService,
 	public authService:AuthService, public menuCtrl:MenuController, public securityService: SecurityService, 
-	public applicationRef: ApplicationRef, private loadingCtrl: LoadingController) {
+	public applicationRef: ApplicationRef, private loadingCtrl: LoadingController,
+	public holdingService: HoldingService) {
 		this.user = this.authService.getLoggedInUser();
 	}
 
 	ngOnInit() {
 		this.showLoading()
-
-		this.security = this.navParams.get('param');
+		this.fund = this.navParams.get('param');
 		this.totalPrice = 0;
 
 		var promiseList = [];
-		this.security.holdings.forEach(holding=>{
-			promiseList.push(
-				new Promise((resolve, reject)=>{
-					this.securityService.get(holding.security_id)
-					.then(holdingRes=>{
-						return resolve(holdingRes);
-					})
-					.catch(err=>reject(err))
-				})
-			);
-		})
-		Promise.all(promiseList)
-		.then(securities=>{
-			var i = 0;
-			securities.forEach(security=>{
-				if(!security.price_history || !security.price_history[0]){
-					this.security.holdings[i]['current_price'] = -1;
-					return;
-				}
-				var current_price = parseFloat(security.price_history[0]["4. close"]);
-				this.totalPrice += current_price * this.security.holdings[i]['num_shares'];
-				this.security.holdings[i]['current_price'] = current_price;
-				i+=1;
+		console.log("holdings", this.fund.holdings);
+		console.log(this.fund);
+		if(this.fund.holdings && (!this.fund.holdings[0] || !this.fund.holdings[0].security)){
+			this.securityService.getBatch(this.fund.holdings)
+			.then(securities=>{
+				this.fund.setHoldings(
+					this.holdingService.holdingMetaToHolding(this.fund.holdings, securities)
+				);
+				this.calculateTotalPrice();
+				console.log("totalPrice", this.totalPrice);
+				console.log("this.fund", this.fund);
+				this.applicationRef.tick();
+				this.loading.dismiss();
 			})
-			this.loading.dismiss();
+			.catch(err=>{
+				this.loading.dismiss();
+				console.log(err)
+			});
+		}else{
+			this.calculateTotalPrice();
 			this.applicationRef.tick();
-		})
-		.catch(err=>{
 			this.loading.dismiss();
-			console.log(err)
-		});
+		}
+	}
+
+	calculateTotalPrice(){
+		this.totalPrice = 0;
+		this.fund.holdings.forEach(holding=>{
+			this.totalPrice += holding.security.current_price*holding.num_shares;
+		})
 	}
 
 	showLoading() {

@@ -214,4 +214,7 @@ def post_to_frontend(report):
 
 def get_num_shares(m_symbol, total_net_assets, date=time.strftime("%Y%m%d")):
 
-	return float(total_net_assets) / float(get_db_mf_nav(m_symbol, date))
+
+	nav = float(get_db_mf_nav(m_symbol, date))
+	print (total_net_assets, nav)
+	return float(total_net_assets) / nav

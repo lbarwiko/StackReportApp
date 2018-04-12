@@ -4,9 +4,11 @@ import { User as UserModel} from '../models/';
 import { User as UserSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 import { UsernameConstraint, PasswordConstraint } from '../constraints/';
+import { Follow as FollowController } from './index.js';
 
 export default (db, config) => {
-    
+    const Follow = FollowController(db, config);
+
     function updateTier(){
         function helper(){
             
@@ -34,6 +36,35 @@ export default (db, config) => {
     }
 
     function create(){
+        function anon(){
+            function generatePassword(){
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                for (var i = 0; i < 8; i++)
+                  text += possible.charAt(Math.floor(Math.random() * possible.length));
+                return text;
+            }
+
+            return db.one(UserSql.anonSerial)
+            .then(username_serial_response=>{
+                if(!username_serial_response || !username_serial_response.nextval){
+                    return Promise.reject({
+                        err: 'Err creating anon user',
+                        code: 500
+                    });
+                }
+                var username = 'anon' + username_serial_response.nextval;
+                var password = generatePassword();
+                //console.log("About to insert", username, password);
+                return helper({
+                    username: username,
+                    password: password
+                })
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
+        }
         /* 
             Create a user 
             1) Check and make sure we have a valid username
@@ -70,31 +101,48 @@ export default (db, config) => {
                 .then(res => {
                     // TODO: Return a token
                     console.log("INSERTING USER");
-                    return resolve(true);
+                    return resolve(payload);
                 })
                 .catch(err => {
                     if(err && err.code == "23505"){
-                        reject({
+                        return reject({
                             err: 'Username already taken',
                             code: 409
                         })
                     }else{
-                        reject(err);
+                        return reject(err);
                     }
                 });
 			})
         }
 
         function rest(req, res, next){
-			helper(req.body)
+            if(req.body['anon']){
+                anon()
 				.then(data => {
 					if(data){
-						res.status(201).json({message: 'User successfully created', code: 201});
+                        console.log("Successful insert");
+                        req.body.username = data.username;
+                        req.body.password = data.password;
+                        next();
+						//res.status(201).json({message: 'User successfully created', code: 201});
 					}else{
-						res.status(400).json({err: 'User not created', code: 400});
+						return res.status(400).json({err: 'User not created', code: 400});
 					}
 				})
-				.catch(err => res.json(err));
+                .catch(err => res.json(err));
+            }else{
+			    helper(req.body)
+				.then(data => {
+					if(data){
+                        next();
+						//res.status(201).json({message: 'User successfully created', code: 201});
+					}else{
+						return res.status(400).json({err: 'User not created', code: 400});
+					}
+				})
+                .catch(err => res.json(err));
+            }
 		}
 		return {
 			rest: rest,
@@ -114,7 +162,6 @@ export default (db, config) => {
                     {
                         public: true/false
                     }
-                    
         */
         function helper(user_id, options){
             return new Promise((resolve, reject)=>{

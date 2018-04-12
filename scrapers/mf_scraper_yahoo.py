@@ -1,10 +1,11 @@
 import sys
 import json
+import time
 from config import *
 import urllib.request
 import psycopg2
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, db_cursor, get_company_list
+from predictions_database.helper import add_tuple_stock_history, db_cursor, get_mf_list
 from mutual_fund_nav import * 
 from mfscrapers.helper import * 
 
@@ -15,7 +16,7 @@ def is_numeric(str_input):
     except ValueError:
         return False
 
-def get_nav_historical(ticker):
+def get_nav_historical_yahoo(ticker):
 	"""
 	get all the historical data (including the newest)
 	example. {"date":718896600,"open":9.630000114440918,"high":9.630000114440918,
@@ -33,9 +34,9 @@ def get_nav_historical(ticker):
 	return data["context"]["dispatcher"]["stores"]["HistoricalPriceStore"]["prices"]
 
 
-def upload_nav_historical(ticker):
+def upload_nav_historical_yahoo(ticker):
 
-	list = get_nav_historical(ticker)
+	list = get_nav_historical_yahoo(ticker)
 	# convert into tuple list ((m_symbol, m_date, price), ...)
 	tuple_list = []
 	for each in list:
@@ -46,13 +47,12 @@ def upload_nav_historical(ticker):
 	add_tuple_mf_history(tuple_list)
 
 
-def get_nav(ticker):
+def get_nav_yahoo(ticker):
 	"""
 	return the nav of ticker as a float
 	"""
 	url = "https://finance.yahoo.com/quote/%s/" % (ticker)
-	page = urllib2.urlopen(url)
-	soup = BeautifulSoup(page, 'html.parser')
+	soup = get_soup(url)
 	soup = soup.find("div", id="quote-header-info")
 	soup = soup.find_all("span")
 
@@ -63,12 +63,25 @@ def get_nav(ticker):
 
 	return float(-1)
 
+
+def save_all_nav_daily(tickers):
+	"""
+	Update all mutual fund nav using yahoo
+	"""
+	tuple_list = []
+	for ticker in tickers:
+		nav = get_nav_yahoo(ticker)
+		date = time.strftime("%Y%m%d")
+		tuple_list.append((ticker, date, nav))
+
+	add_tuple_mf_history(tuple_list)
+
 def main():
 	# TODO load tickers from database
-	#with open("stock_symbol_list.json") as file:
-		#tickers = json.loads(file.read()).keys()
+	# with open("stock_symbol_list.json") as file:
+	# tickers = json.loads(file.read()).keys()
 
-	tickers = get_company_list()
+	tickers = get_mf_list()
 
 	if len(sys.argv) != 2:
 		print("Invalid usage, must have exactly one argument")
@@ -77,8 +90,12 @@ def main():
 	mode = sys.argv[1]
 
 	if mode == "historical":
-		save_all_mf_nav_historical(tickers)
+		save_all_nav_historical(tickers)
 	elif mode == "daily":
-		save_all_mf_nav_daily(tickers)
+		save_all_nav_daily(tickers)
 	else:
 		print("Invalid usage, argument must be historical or daily")
+
+
+if __name__ == '__main__':
+	main()

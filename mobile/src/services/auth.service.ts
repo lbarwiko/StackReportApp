@@ -15,7 +15,13 @@ export class AuthService {
     public login(loginCredentials): Promise<User>{
         return new Promise((resolve, reject) => {
                 this.restapiProvider.Login(loginCredentials)
-                .then(user => {if(user && user.username) resolve(this.authenticate(user)); else resolve(user);});
+                .then(user => {
+                    if(user && user.username) {
+                        resolve(this.authenticate(user)); 
+                    } else {
+                        resolve(user);
+                    }
+                });
         });
     }
 
@@ -26,7 +32,14 @@ export class AuthService {
     public getUser(token): Promise<User>{
         return new Promise((resolve, reject) => {
             this.restapiProvider.getUser(token)
-            .then(user => {if(user) resolve(this.assign(user, token)); else reject(user);});
+            .then(user => {
+                if(user) {
+                   resolve(this.assign(user, token)); 
+                } else {
+                   reject(user);
+                }
+            })
+            .catch(this.handleErrorPromise);;
         });
     }
 
@@ -35,8 +48,6 @@ export class AuthService {
     }
 
     public assign(user, token): Promise<User>{
-        console.log('Got a User');
-        console.log(user);
         user.token = token;
         return new Promise((resolve, reject) => {
             this.user = new User(user);
@@ -45,18 +56,15 @@ export class AuthService {
     }
 
     public authenticate(res): Promise<User>{
-        console.log('WE SHOULD NOT BE HERE. GET TO THE CHOPPER;');
         return new Promise((resolve, reject) => {
             this.user = new User(res);
-            console.log('User Set');
-            console.log(this.user);
             this.storage.set('token', this.user.token);
-            console.log(this.user.token);
-            console.log('This is a promise?');
             resolve(this.user);
         });
     }
 
-
-
+    private handleErrorPromise (error: Response | any) {
+        console.error(error.message || error);
+        return Promise.reject(error.message || error);
+    }    
 } 

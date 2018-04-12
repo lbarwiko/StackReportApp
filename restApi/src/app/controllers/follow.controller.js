@@ -5,6 +5,77 @@ import { Tier as TierController } from './index.js';
 export default (db, config) => {
     const Tier = TierController(db, config);
 
+    function listDefault(){
+        function helper(){
+            return db.any(FollowSql.default)
+            .then(res=>{
+                var results = [];
+                res.forEach(fund_id_obj=>{
+                    results.push(fund_id_obj.fund_id);
+                })
+                return Promise.resolve(results);
+            })
+            .catch(err=>Promise.reject(err));
+        }
+        function rest(req, res, next){
+            helper()
+            .then(data=>{
+                res.json(data);
+            })
+            .catch(err=>res.json(err));
+        }
+        return {
+            helper: helper,
+            rest: rest
+        }
+    }
+
+    function followDefault(){
+        function helper(user){
+            return listDefault().helper()
+            .then(default_list=>{
+                var promises = [];
+                default_list.forEach(default_fund=>{
+                    promises.push(
+                        create().helper(user, {fund_id: default_fund})
+                    );
+                });
+                return Promise.all(promises)
+            })
+            .then(success=>{
+                if(success){
+                    return Promise.resolve(true);
+                }else{
+                    return Promise.reject({
+                        err:'Did not follow default funds',
+                        code: 400
+                    });
+                }
+            })
+            .catch(err=>Promise.reject(err));
+        }
+
+        function rest(req, res, next){
+            if(!req.user){
+                return res.status(403).json({
+                    err: 'No user provided',
+                    code: 403
+                });
+            }
+            helper(req.user)
+            .then(data=>{
+                console.log("Followed default");
+                next();
+            })
+            .catch(err=>res.json(err));
+        }
+
+        return {
+            helper: helper,
+            rest: rest
+        }
+    }
+
     function list(){
         function helper(user){
             return db.any(FollowSql.list,{
@@ -61,15 +132,30 @@ export default (db, config) => {
                     user_id: user_id
                 })
                 .then(res=>{
-                    console.log("count_res", res);
+                    //console.log("count_res", res);
                     return resolve(res.count);
                 })
                 .catch(err=>reject(err));
             })
         }
 
+        function rest(req, res, next){
+            if(!req.user){
+                return res.status(403).json({
+                    err:'Not authorized',
+                    code: 403
+                });
+            }
+            helper(req.user.user_id)
+            .then(data=>{
+                res.json(data);
+            })
+            .catch(err=>res.json(err));
+        }
+
         return {
-            helper: helper
+            helper: helper,
+            rest: rest
         }
     }
 
@@ -240,11 +326,17 @@ export default (db, config) => {
             verify: verify().rest,
             create: create().rest,
             remove: remove().rest,
-            list: list().rest
+            list: list().rest,
+            count: count().rest,
+            default: listDefault().rest,
+            followDefault: followDefault().rest
         },
         list: list().rest,
         verify: verify().helper,
         create: create().helper,
-        remove: remove().helper
+        remove: remove().helper,
+        count: count().helper,
+        default: listDefault().helper,
+        followDefault: followDefault().helper
     }
 }

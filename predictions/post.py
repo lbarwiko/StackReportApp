@@ -17,7 +17,7 @@ def load_data():
 	mf_symbols_to_data = {}
 
 	for mf_symbol in mf_symbols:
-		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_regr.json") as file:
+		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_comb.json") as file:
 			data = json.dumps(json.load(file))
 			mf_symbols_to_data[mf_symbol] = data
 
