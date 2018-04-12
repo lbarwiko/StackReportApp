@@ -67,7 +67,7 @@ def add_mf(m_symbol, m_name, follow_bool):
     """
     cur = db_cursor()
     op_string = ("INSERT INTO mutual_fund(m_symbol, m_name, follow) VALUES ('%s', '%s', '%s');" 
-        % (m_symbol, c_symbol, date))
+        % (m_symbol, m_name, follow_bool))
     try:
         cur.execute(op_string)
     except:
