@@ -524,6 +524,24 @@ def estimate_stock_asset(ticker, date=time.strftime("%Y%m%d")):
     return ((nav * shares) - other_assets)
 
 
+def get_children(ticker):
+    cur = db_cursor()
+    op_string = ("""SELECT child_symbol FROM children WHERE parent_symbol = '%s'""" % ticker)
+
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print(e.pgerror)
+        print("Cannot can children funds")
+
+    rows = cur.fetchall()
+
+    result = []
+    if rows:
+        result = [row[0] for row in rows]
+
+    return result
+
 
 
 

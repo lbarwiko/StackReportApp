@@ -17,6 +17,28 @@ from predictions_database.helper import add_tuple_mf_history, get_mf_list_scrape
 from mf_scraper_yahoo import get_nav_yahoo
 
 
+def split_stocks(tickers):
+	"""
+	returns a list of strings of 100 ticker symbols, delimited by commas
+	["ABC,AAC,AFC,...", "CDE,CCE,CGE,...", ...]
+	"""
+	strings = []
+	string = ""
+	for i in range(len(tickers)):
+		# every 100 stocks, append string
+		if i % 100 == 0:
+			if string != "": 
+				strings.append(string[:-1])
+				
+			string = ""
+
+		string += tickers[i] + ","
+
+	strings.append(string[:-1])
+
+	return strings
+
+
 def load_mf_historical(ticker):
 	"""
 	load all available historical price data for ticker (up to 20 years)
@@ -69,27 +91,6 @@ def save_all_mf_historical(tickers):
 
 			add_tuple_mf_history(tuple_list)
 
-
-def split_stocks(tickers):
-	"""
-	returns a list of strings of 100 ticker symbols, delimited by commas
-	["ABC,AAC,AFC,...", "CDE,CCE,CGE,...", ...]
-	"""
-	strings = []
-	string = ""
-	for i in range(len(tickers)):
-		# every 100 stocks, append string
-		if i % 100 == 0:
-			if string != "": 
-				strings.append(string[:-1])
-				
-			string = ""
-
-		string += tickers[i] + ","
-
-	strings.append(string[:-1])
-
-	return strings
 		
 def load_mf_daily(ticker):
 	"""
