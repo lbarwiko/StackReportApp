@@ -285,7 +285,7 @@ def follow_mf(ticker_list):
 
 def unfollow_mf(ticker_list):
     """
-    Follow a mutual fund by change the "follow" in table mutual_fund
+    Unfollow a mutual fund by change the "follow" in table mutual_fund
     Input: a ticker and a list of ticker
     """
 
