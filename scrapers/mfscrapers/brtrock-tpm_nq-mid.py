@@ -23,8 +23,12 @@ args = parser.parse_args()
 
 
 urll = "https://www.sec.gov/Archives/edgar/data/1141819/000089418916010379/brtrock-tpm_nq.htm"
+#bqmgx ticker symbol
 
-def bmcax_csr(url, m_symbol):
+
+def get_report(url, m_symbol):
+
+	mid = False
 
 	# Get the Soup
 	soup = get_soup(url)
@@ -62,7 +66,9 @@ def bmcax_csr(url, m_symbol):
 
 		if (consist(td_text_row, "Unaudited")):
 			idx += 1
-			break
+			if mid:
+				break
+			mid = True
 
 		idx += 1
 
@@ -124,7 +130,7 @@ def main():
 	print (url)
 	symbol = args.symbol[0]
 	print (symbol)
-	report = bmcax_csr(url, symbol)
+	report = get_report(url, symbol)
 	add_mf_report(report)
 	add_mf_other(report)
 
