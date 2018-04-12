@@ -16,23 +16,28 @@ sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_mf_history, get_mf_list_scraper, get_mf_parent_nav
 from mf_scraper_yahoo import get_nav_yahoo
 
-def get_single_mf_nav(ticker):
+
+def split_stocks(tickers):
 	"""
-	return the nav of ticker as a float
+	returns a list of strings of 100 ticker symbols, delimited by commas
+	["ABC,AAC,AFC,...", "CDE,CCE,CGE,...", ...]
 	"""
-	url = "https://finance.yahoo.com/quote/%s/" % (ticker)
-	soup = get_soup(url)
-	soup = soup.find("div", id="quote-header-info")
-	soup = soup.find_all("span")
+	strings = []
+	string = ""
+	for i in range(len(tickers)):
+		# every 100 stocks, append string
+		if i % 100 == 0:
+			if string != "": 
+				strings.append(string[:-1])
+				
+			string = ""
 
-	for s in soup:
-		s = s.get_text()
-		if is_numeric(s):
-			return float(s)
+		string += tickers[i] + ","
 
+	strings.append(string[:-1])
 
-	raise ValueError('Cannot get %s quote from yahoo' % ticker)
-	return float(-1)
+	return strings
+
 
 def load_mf_historical(ticker):
 	"""
@@ -86,27 +91,6 @@ def save_all_mf_historical(tickers):
 
 			add_tuple_mf_history(tuple_list)
 
-
-def split_stocks(tickers):
-	"""
-	returns a list of strings of 100 ticker symbols, delimited by commas
-	["ABC,AAC,AFC,...", "CDE,CCE,CGE,...", ...]
-	"""
-	strings = []
-	string = ""
-	for i in range(len(tickers)):
-		# every 100 stocks, append string
-		if i % 100 == 0:
-			if string != "": 
-				strings.append(string[:-1])
-				
-			string = ""
-
-		string += tickers[i] + ","
-
-	strings.append(string[:-1])
-
-	return strings
 		
 def load_mf_daily(ticker):
 	"""

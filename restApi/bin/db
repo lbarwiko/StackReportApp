@@ -20,6 +20,15 @@ fi
 
 # Parse argument.  $1 is the first argument
 case $1 in
+  "create-clean")
+      echo "CREATING DATABASE"
+      psql \
+        -h $HOST_NAME \
+        -f sql/create.sql \
+        --echo-all \
+        --set ON_ERROR_STOP=on
+      echo "SUCCESSFULLY CREATED DATABASE"
+    ;;
   "create")
       echo "CREATING DATABASE"
       psql \
@@ -35,7 +44,7 @@ case $1 in
         < var/dump_clean
       echo "SUCCESSFULLY CREATED DATABASE"
     ;;
-  "create")
+  "create-old")
       echo "CREATING DATABASE"
       psql \
         -h $HOST_NAME \
@@ -78,7 +87,10 @@ case $1 in
       psql -c "DROP DATABASE stackreport"
       echo "DROPPED DATABASE"
     ;;
-
+  "reset-prod")
+      bin/db destroy
+      bin/db create-clean
+    ;;
   "reset")
       bin/db destroy
       bin/db create
