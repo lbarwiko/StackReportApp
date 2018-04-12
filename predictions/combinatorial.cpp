@@ -216,6 +216,7 @@ pair<double, vector<int>> predict(const MutualFund& mf, int search_depth, int st
 			// k is goal value for this combination, found in error = |k - P'N'|
 			// it is the approximate value of the traded stocks, if this combination is the correct guess
 			double k = mf.stock_assets - p_dot_n + get_comb_value(mf, combination);
+			if (k < 0) continue;
 			ilp_solve(mf, combination, k, step_size, percent_range, min_error, best_num_shares_held,
 				mf.stock_assets, combination, num_shares_acc);
 		}
