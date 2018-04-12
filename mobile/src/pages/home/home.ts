@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams, MenuController, Loading, LoadingController } from 'ionic-angular';
 import { AddFundsPage } from '../addfunds/addfunds';
 import { UserPage } from '../user/user';
 import { FollowingService } from '../../services/following.service';
@@ -17,14 +17,17 @@ export class HomePage {
 
   fundList: Security[];
   user: User;
+	loading: Loading;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
-              public followService: FollowingService, public fundService: FundService, public authService: AuthService) {
+              public followService: FollowingService, public fundService: FundService, 
+              public authService: AuthService, private loadingCtrl: LoadingController,) {
     this.fundList = [];
     this.user = authService.getLoggedInUser();
   }
 
   ngOnInit() {
+      this.showLoading();
       this.followService.getAllFollowing()
       .then(fund_meta_list => {
         var promiseList = [];
@@ -43,9 +46,17 @@ export class HomePage {
       })
       .then(fund_list=>{
         this.fundList = fund_list;
+        this.loading.dismiss();
       })
       .catch(err => {
+        this.loading.dismiss();
         console.log(err);
       });  
   }
+  showLoading() {
+		this.loading = this.loadingCtrl.create({
+		  content: 'Loading Watchlist...',
+		});
+		this.loading.present();
+	  }
 }
