@@ -4,11 +4,19 @@
         	Offered Funds
     	</div>
 	</ion-row>
-	<ion-row class="previewlist">
-		<ion-row class="preview" *ngFor="let fund of fundList">
-			<component-preview *ngIf="fund" [security_in] = "fund">
-			</component-preview>
+
+	<ion-scroll scrollY = "true" zooming = "true" direction = "xy" class = "scroll">
+		<ion-row class="previewlist">
+			<ion-row class="preview" *ngFor="let fund of fundList">
+				<component-preview *ngIf="fund" [security_in] = "fund">
+				</component-preview>
+			</ion-row>
 		</ion-row>
-	</ion-row>
+	</ion-scroll>
+
+	<ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+   		<ion-infinite-scroll-content>
+   		</ion-infinite-scroll-content>
+ 	</ion-infinite-scroll>
 
 </ion-content>
