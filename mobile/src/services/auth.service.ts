@@ -29,7 +29,7 @@ export class AuthService {
             var resJson = res.json();
             console.log(resJson);
             if(resJson.err){
-                return this.handleErrorPromise(resJson);
+                return this.handleServerError(resJson);
             }
             this.user = new User(resJson);
             return this.storage.set('token', this.user.token);
@@ -111,10 +111,13 @@ export class AuthService {
         let options = new RequestOptions({ headers: headers });
         return this.http.get(this.endpointService.base + this.endpointService.me, options).toPromise()
         .then(res=>{
+            console.log(res);
+            if(res.status == 401){
+                return this.handleInvalidCredentials;
+            }
             var resJson = res.json();
-            console.log(resJson);
             if(resJson.err){
-                return this.handleErrorPromise(resJson);
+                return this.handleServerError(resJson);
             }
             resJson['token'] = this.token;
             this.user = new User(resJson);
@@ -136,9 +139,16 @@ export class AuthService {
     }
 
     private handleInvalidCredentials(): any{
-        return this.handleErrorPromise({
+        return this.handleServerError({
             err: 'Invalid username or password'
         });
+    }
+
+    private handleServerError(error: any): any{
+        console.log(error);
+        alert(error.err);
+        location.reload();
+        return Promise.reject(error);
     }
 
     private handleTokenErrorPromise(error: Response | any){
@@ -153,7 +163,7 @@ export class AuthService {
 
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);
-        alert(error.message || error.err);
+        alert(error.message || error);
 	    location.reload();
         return Promise.reject(error.message || error);
     }    
