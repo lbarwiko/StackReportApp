@@ -39,7 +39,8 @@ def post_request(datum):
 
 	for d in data:
 		url = "https://www.stackreport.io/api/p/"
-		response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" + d + "'").read()
+		response = os.popen("curl -s --request POST --url " + url + " --header 'Content-Type: application/json' --data '" \
+			+ json.dumps(d) + "'").read()
 
 	#TODO check if response good, if not then print error for logs
 	return response
