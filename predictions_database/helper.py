@@ -528,7 +528,8 @@ def get_children(ticker):
 """
 def get_children(ticker):
     cur = db_cursor()
-    #op_string = ("""SELECT C2.child_symbol FROM children C1 JOIN children C2 ON C1.parent_symbol = C2.parent_symbol WHERE C1.child_symbol = '%s'""" % ticker)
+    #TODO add triple quotes to op_string
+    op_string = (SELECT C2.child_symbol FROM children C1 JOIN children C2 ON C1.parent_symbol = C2.parent_symbol WHERE C1.child_symbol = '%s' % ticker)
 
     try:
         cur.execute(op_string)
