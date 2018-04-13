@@ -19,7 +19,7 @@ def load_data():
 
 	for mf_symbol in mf_symbols:
 		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_comb.json") as file:
-			data = json.dumps(json.load(file))
+			data = json.load(file)
 			mf_symbols_to_data[mf_symbol] = data
 
 	return mf_symbols_to_data
