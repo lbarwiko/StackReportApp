@@ -524,7 +524,8 @@ def get_children(ticker):
 
     return result
 
-
+#TODO Roy probably wants to fix this
+"""
 def get_children(ticker):
     cur = db_cursor()
     op_string = ("""SELECT C2.child_symbol FROM children C1 JOIN children C2 ON C1.parent_symbol = C2.parent_s
@@ -543,7 +544,7 @@ ymbol WHERE C1.child_symbol = '%s'""" % ticker)
         result = [row[0] for row in rows]
 
     return result
-
+"""
 
 
 
