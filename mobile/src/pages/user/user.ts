@@ -14,7 +14,7 @@ export class UserPage {
   current_user: User;
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private authService: AuthService, public menuCtrl: MenuController) {
-    this.current_user = authService.getLoggedInUser();
+    this.current_user = authService.user;
   }
 
   openMenu() {

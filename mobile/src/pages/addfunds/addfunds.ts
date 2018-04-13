@@ -23,7 +23,7 @@ export class AddFundsPage {
 			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
 	    this.requestList = [];
-	    this.user = this.authService.getLoggedInUser();
+	    this.user = this.authService.user;
   	}
 
 	ngOnInit() {

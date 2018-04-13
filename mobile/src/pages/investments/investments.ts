@@ -23,7 +23,7 @@ export class InvestmentsPage {
 	public authService:AuthService, public menuCtrl:MenuController, public securityService: SecurityService, 
 	public applicationRef: ApplicationRef, private loadingCtrl: LoadingController,
 	public holdingService: HoldingService) {
-		this.user = this.authService.getLoggedInUser();
+		this.user = this.authService.user;
 	}
 
 	ngOnInit() {

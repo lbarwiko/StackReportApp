@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-angular';
-import { RegisterPage } from './../register/register';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
+
 import { MenuPage } from './../menu/menu';
+import { RegisterPage } from './../register/register';
 
 @IonicPage()
 @Component({
@@ -42,7 +43,14 @@ export class LoginPage {
     this.showLoading();
     console.log('login');
     this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
-    .then(user => {if(user && user.username) this.navCtrl.setRoot(MenuPage); else this.resetLoginPage()});
+    .then(user => {
+      if(user && user.username){ 
+        this.navCtrl.setRoot(MenuPage);
+      }
+      else {
+        this.resetLoginPage();
+      }
+    });
   }
 
   showLoading() {
