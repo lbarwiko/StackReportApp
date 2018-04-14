@@ -14,14 +14,17 @@ export class SecurityService {
 
     url: string;
     
-    constructor(private http:Http, public endpointService: EndpointService) { 
+    constructor(private http:Http, public endpointService: EndpointService, 
+                private authService: AuthService) { 
         this.url = this.endpointService.base + '/api/security';
     }
     
 
     get(security_id:String): Promise<any> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let headers = new Headers({ 'Content-Type': 'application/json',
+                'Authorization': this.authService.user.getToken()
+            });
             let options = new RequestOptions({ headers: headers });
 
             this.http.get(this.url + '/' + security_id, options).toPromise()

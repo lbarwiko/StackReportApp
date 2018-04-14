@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { EndpointService } from './endpoint.service';
 import { Fund } from '../models/security';
 import { HoldingMeta } from '../models/holding.model';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class FundService {
@@ -14,14 +15,17 @@ export class FundService {
 
     url: string;
     
-    constructor(private http:Http, public endpointService: EndpointService) { 
+    constructor(private http:Http, public endpointService: EndpointService, 
+                private authService: AuthService) { 
         this.url = this.endpointService.base + '/api/f';
     }
     
 
     listFunds(): Promise<string[]> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let headers = new Headers({ 'Content-Type': 'application/json',
+                'Authorization': this.authService.user.getToken()
+            });
             let options = new RequestOptions({ headers: headers });
 
             this.http.get(this.url, options).toPromise()
@@ -41,7 +45,9 @@ export class FundService {
 
     getFund(fund_id:string): Promise<Fund> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let headers = new Headers({ 'Content-Type': 'application/json'
+                'Authorization': this.authService.user.getToken()
+            });
             let options = new RequestOptions({ headers: headers });
 
             this.http.get(this.url + '/' + fund_id, options).toPromise()
