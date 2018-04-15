@@ -8,7 +8,7 @@ import sys
 import requests
 import time
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import get_mf_name, get_ticker, get_db_mf_nav
+from predictions_database.helper import *
 
 def is_numeric(str_input):
     try:
@@ -173,6 +173,13 @@ def post_to_frontend(report):
 	response = requests.request("PUT", url, data=data, headers=headers)
 
 	print(response.text)
+
+
+def post_to_frontend_composite(report):
+	"""
+	"""
+	siblings = get_sibling(report["symbol"])
+	return
 
 
 # # TODO: DELETE AFTER REWRITING 

@@ -4,7 +4,7 @@ import time
 from config import *
 import urllib.request
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, db_cursor, get_mf_list, add_tuple_mf_history
+from predictions_database.helper import *
 from scrapers.mfscrapers.helper import * 
 
 def is_numeric(str_input):
