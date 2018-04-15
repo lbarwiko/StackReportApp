@@ -1,0 +1,1 @@
+UPDATE FUND SET accuracy = ${accuracy} WHERE fund_id = ${fund_id}
