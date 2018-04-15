@@ -58,6 +58,11 @@ export default (db, config, auth) => {
 	securityApi.get('/', Securities.get);
 	api.use('/security/', securityApi);
 
+	const tierApi = Router();
+	tierApi.get('/:tier_type', Tiers.get);
+	tierApi.get('/', Tiers.list);
+	api.use('/t/', tierApi);
+
 	const meApi = Router();
 	meApi.get('/', auth.requireToken, User.get);
 	meApi.get('/following/', auth.requireToken, Following.list);
