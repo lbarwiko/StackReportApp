@@ -3,7 +3,7 @@ from helper import *
 
 def generate_testing():
 
-	end_date = datetime.date(2018, 4, 12)
+	end_date = datetime.datetime.now()
 	start_date = datetime.date(2016, 11, 30)
 	delta = datetime.timedelta(days=1)
 	ratio = {}

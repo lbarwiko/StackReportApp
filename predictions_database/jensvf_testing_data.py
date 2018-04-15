@@ -29,7 +29,7 @@ def generate_testing():
 
 		print (nav)
 		start_date += delta
-		tuple_list.append(("JENSGF", date, nav))
+		tuple_list.append(("JENSVF", date, nav))
 
 	add_tuple_mf_history(tuple_list)
 
