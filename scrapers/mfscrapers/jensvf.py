@@ -114,6 +114,7 @@ def jensvf_csr(url, symbol):
 			break
 
 	nav = 0
+
 	if symbol == "JENSVF":
 		class_dict = ({"Class J Shares:": "JNVSX", "Class I Shares:" : "JNVIX"})
 		for i in range(0, len(class_name)):
@@ -124,6 +125,7 @@ def jensvf_csr(url, symbol):
 
 	else:
 		nav = get_db_mf_nav(symbol)
+
 	report["num_shares"] = int(report["total_net_assets"]/nav)
 	
 	return report
@@ -165,7 +167,12 @@ def main():
 	add_mf_report(report)
 	add_mf_other(report)
 	if args.post:
-		post_to_frontend(report)
+		if len(symbol) >= 6:
+			print("posting composite")
+			print_report(report)
+			post_to_frontend_composite(report)
+		else:
+			post_to_frontend(report)
 
 
 	return

@@ -51,8 +51,7 @@ def nb_qr(soup, m_symbol, m_name):
             key, data = extract_meta(row) # Add common stocks stuff
             if key is not None:
                 report[key] = data
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(report)
+    return report
 
 
 def nb_csr(soup, m_symbol, m_name):
@@ -93,8 +92,7 @@ def nb_csr(soup, m_symbol, m_name):
                 if key == 'total_net_assets':
                     report[key] = data
                     done = True
-    pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(report)
+    return report
 
 
 def find_next_table(div):
@@ -203,12 +201,16 @@ def clean_data(data):
 
 def main():
     soup = get_soup(NB_QR_URL)
-    nb_qr(soup, "nbssx", "Focus Fund")
-    nb_qr(soup, "nbmix", "Small Cap Growth Fund")
+    report1 = nb_qr(soup, "nbssx", "Focus Fund")
+    report2 = nb_qr(soup, "nbmix", "Small Cap Growth Fund")
 
     soup = get_soup(NB_CSR_URL)
-    nb_csr(soup, "nbssx", "Focus Fund")
-    nb_csr(soup, "nbmix", "Small Cap Growth Fund")
+    report3 = nb_csr(soup, "nbssx", "Focus Fund")
+    report4 = nb_csr(soup, "nbmix", "Small Cap Growth Fund")
+
+    for report in [report1, report2, report3, report4]:
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(report)
 
 
 if __name__ == "__main__":

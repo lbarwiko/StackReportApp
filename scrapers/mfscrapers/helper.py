@@ -178,8 +178,10 @@ def post_to_frontend(report):
 def post_to_frontend_composite(report):
 	"""
 	"""
-	siblings = get_sibling(report["symbol"])
-	return
+	siblings = get_children(report["symbol"])
+	for sibling in siblings:
+		report["symbol"] = sibling
+		post_to_frontend(report)
 
 
 # # TODO: DELETE AFTER REWRITING 
