@@ -271,8 +271,9 @@ def follow_mf(ticker):
     Follow a mutual fund by change the "follow" in table mutual_fund
     Input: a ticker and a list of ticker
     """
+    ticker = ticker.upper()
     op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
-        ticker)
+        ticker.upper())
 
     cur = db_cursor()
     try:
@@ -292,7 +293,7 @@ def unfollow_mf(ticker_list):
     if isinstance(ticker_list, list):
         op_string = "UPDATE mutual_fund SET follow = 'False' WHERE False"
         for ticker in ticker_list:
-            op_string += " or m_symbol = '%s'" % ticker
+            op_string += " or m_symbol = '%s'" % ticker.upper()
     else:
         op_string = ("UPDATE mutual_fund SET follow = 'False' WHERE m_symbol = '%s'" %
             ticker_list)
@@ -319,7 +320,7 @@ def get_db_mf_nav(ticker, date=time.strftime("%Y%m%d")):
     if row:
         if row[1].strftime("%Y%m%d") != str(date):
             print ("Warning: Using an older date automatically for %s (%s instead of %s)"
-                % (ticker, row[1].strftime("%Y%m%d"), date))
+                % (ticker.upper(), row[1].strftime("%Y%m%d"), date))
     else:
         print("Error: DB has no data of %s" % ticker)
         return -1
@@ -330,7 +331,7 @@ def get_db_mf_nav(ticker, date=time.strftime("%Y%m%d")):
 
 def get_db_stock_quote(ticker, date):
     cur = db_cursor()
-    op_string = "SELECT price, s_date FROM stock_history WHERE c_symbol = '%s' AND s_date <= '%s' ORDER BY s_date DESC" % (ticker, date)
+    op_string = "SELECT price, s_date FROM stock_history WHERE c_symbol = '%s' AND s_date <= '%s' ORDER BY s_date DESC" % (ticker.upper(), date)
     cur.execute(op_string)
     row = cur.fetchone()
 

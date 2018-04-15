@@ -226,4 +226,4 @@ def get_num_shares(m_symbol, total_net_assets, date=time.strftime("%Y%m%d")):
 
 	nav = float(get_db_mf_nav(m_symbol, date))
 	print (total_net_assets, nav)
-	return float(total_net_assets) / nav
+	return int(float(total_net_assets) / nav)

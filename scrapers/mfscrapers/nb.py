@@ -2,11 +2,22 @@ import re
 from bs4 import Comment
 import time
 import pprint
-from helper import get_soup
-
+from helper import get_soup, get_num_shares
+import sys
+sys.path.append(sys.path[0]+"/../../")
+from predictions_database.helper import *
 
 NB_QR_URL = "https://www.sec.gov/Archives/edgar/data/44402/000089843218000111/nq.htm"
 NB_CSR_URL = "https://www.sec.gov/Archives/edgar/data/44402/000089843217001017/n-csr.htm"
+
+import argparse
+parser = argparse.ArgumentParser(description='Jensen funds scraper')
+parser.add_argument('-nq', action='store_true', help="Scrape from a N-Q report")
+parser.add_argument('-csr', action='store_true', help="Scrape from a N-(N)CSR report")
+parser.add_argument('-p', '--post', action='store_true', help="Posting the data to the frontend")
+parser.add_argument('-u', '--url', nargs=1, required=True, help='Enter the url of the report')
+parser.add_argument('-s', '--symbol', nargs=1, required=True, help='Enter symbol of the mutual fund')
+args = parser.parse_args()
 
 
 def nb_qr(soup, m_symbol, m_name):
@@ -51,6 +62,9 @@ def nb_qr(soup, m_symbol, m_name):
             key, data = extract_meta(row) # Add common stocks stuff
             if key is not None:
                 report[key] = data
+
+    report["num_shares"] = get_num_shares(report["symbol"], report["total_net_assets"],
+        report["date"])
     return report
 
 
@@ -131,7 +145,7 @@ def extract_meta(row):
     if total_inv is not None:
         key = "total_investment"
     elif total_com is not None:
-        key = "common_stocks"
+        key = "total_stock"
     elif net_ass is not None:
         key = "total_net_assets"
 
@@ -200,17 +214,35 @@ def clean_data(data):
 
 
 def main():
-    soup = get_soup(NB_QR_URL)
-    report1 = nb_qr(soup, "nbssx", "Focus Fund")
-    report2 = nb_qr(soup, "nbmix", "Small Cap Growth Fund")
 
-    soup = get_soup(NB_CSR_URL)
-    report3 = nb_csr(soup, "nbssx", "Focus Fund")
-    report4 = nb_csr(soup, "nbmix", "Small Cap Growth Fund")
+    if args.nq is None and args.csr is None:
+        parser.error("Please specify -nq or -csr")
+        exit(1)
 
-    for report in [report1, report2, report3, report4]:
-        pp = pprint.PrettyPrinter(indent=4)
-        pp.pprint(report)
+    # Read arguments
+    url = args.url[0]
+    symbol = args.symbol[0].upper()
+
+    # Scrape Report
+    soup = get_soup(url)
+
+    m_name = ""
+    if symbol == "NBSSX":
+        m_name = "Focus Fund"        
+    elif symbol == "NBMIX":
+        m_name = "Small Cap Growth Fund"
+    else:
+        print("Unrecognized MF ticker")
+        exit(1)
+
+    if args.nq:
+        report = nb_qr(soup, symbol, m_name)
+    else:
+        report = nb_csr(soup, symbol, m_name)
+
+    add_mf_report(report)
+    add_mf_other(report)
+
 
 
 if __name__ == "__main__":
