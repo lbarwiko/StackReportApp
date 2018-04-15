@@ -3,7 +3,6 @@ import { Users, Funds, Predictions, Follow, Security, Tier } from './controllers
 
 export default (db, config, auth) => {
 	const router = Router();
-
 	const User = Users(db, config).rest;
 	const Fund = Funds(db, config).rest;
 	const Prediction = Predictions(db, config).rest;

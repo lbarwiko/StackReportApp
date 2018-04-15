@@ -11,8 +11,8 @@ import { Stripe as StripeService } from '../services/';
 export default (db, config) => {
     const Tier = TierController(db, config);
     const Follow = FollowController(db, config);
-    const Stripe = StripeService();
-
+    const Stripe = StripeService(db, config);
+    
     function updateTier(){
         function helper(user, tier){
             if(!user || !tier){

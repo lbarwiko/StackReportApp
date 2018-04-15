@@ -33,6 +33,7 @@
     "passport-jwt": "^3.0.1",
     "passport-local": "^1.0.0",
     "pg-promise": "^7.3.3",
-    "pm2": "^2.10.1"
+    "pm2": "^2.10.1",
+    "stripe": "^5.8.0"
   }
 }
