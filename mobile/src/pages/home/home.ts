@@ -23,7 +23,7 @@ export class HomePage {
               public followService: FollowingService, public fundService: FundService, 
               public authService: AuthService, private loadingCtrl: LoadingController,) {
     this.fundList = [];
-    this.user = authService.getLoggedInUser();
+    this.user = authService.user;
   }
 
   ngOnInit() {

@@ -20,7 +20,7 @@ export class AllFundsPage {
 			 public followService: FollowingService, public fundService: FundService, public authService: AuthService,
 			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
-	    this.user = this.authService.getLoggedInUser();
+	    this.user = this.authService.user;
   	}
 
 	ngOnInit() {
