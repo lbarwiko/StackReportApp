@@ -4,19 +4,82 @@ import { User as UserModel} from '../models/';
 import { User as UserSql} from '../sql/';
 import { RestHelpers } from '../lib/';
 import { UsernameConstraint, PasswordConstraint } from '../constraints/';
-import { Follow as FollowController } from './index.js';
+import { Follow as FollowController, Tier as TierController } from './index.js';
+
+import { Stripe as StripeService } from '../services/';
 
 export default (db, config) => {
+    const Tier = TierController(db, config);
     const Follow = FollowController(db, config);
+    const Stripe = StripeService();
 
     function updateTier(){
-        function helper(){
-            
+        function helper(user, tier){
+            if(!user || !tier){
+                return Promise.reject({
+                    err: 'User or tier not provided',
+                    code: 400
+                });
+            }
+            if(user.tier == tier){
+                return Promise.reject({
+                    err: 'Already at this tier',
+                    code: 400
+                });
+            }
+            return Tier.get(tier)
+            .then(res=>{
+                if(user.role != 'ADMIN'){
+                    return Stripe.charge(user.stripe_id)
+                }else{
+                    console.log("Skipped paying");
+                    return Promise.resolve(true);
+                }
+            })
+            .then(res=>{
+                return db.none(UserSql.updateTier, {
+                    user_id: user.user_id,
+                    tier: tier
+                })
+            })
+            .then(res=>{
+                return Promise.resolve(true);
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
         }
         function rest(req, res, next){
-            res.status(200).json({
-                message: 'Tier updated!'
+            if(!req.user){
+                return res.status(403).json({
+                    err: 'No user provided',
+                    code: 403
+                })
+            }
+            if(!req.body.tier){
+                return res.status(400).json({
+                    err: 'No tier provided',
+                    code: 200
+                })
+            }
+            helper(req.user, req.body.tier)
+            .then(data=>{
+                if(data){
+                    return res.status(201).json({
+                        message: 'Successfully updated tier',
+                        code: 201
+                    });
+                }else{
+                    return res.status(400).json({
+                        err: 'Unable to update tier',
+                        code: 400
+                    });
+                }
             })
+            .catch(err=>{
+                return res.status(500).json(err);
+            })
+            
         }
         return {
             helper: helper,

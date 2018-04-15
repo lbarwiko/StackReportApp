@@ -12,7 +12,9 @@ const User = {
     getById: sql('./user/user.get.id.sql'),
     getByUsername: sql('./user/user.get.username.sql'),
     getByIdPublic: sql('./user/user.get.id.public.sql'),
-    anonSerial: sql('./user/user.anon.serial.sql')
+    anonSerial: sql('./user/user.anon.serial.sql'),
+    updateTier: sql('./user/user.update.tier.sql'),
+    updatePayment: sql('./user/user.update.payment.sql')
 }
 
 const Fund = {
