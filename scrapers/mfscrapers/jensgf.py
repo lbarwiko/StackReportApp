@@ -164,9 +164,12 @@ def main():
 
 	add_mf_report(report)
 	add_mf_other(report)
+
 	if args.post:
+		if symbol.upper() == "JENSGF":
+			return 
 		post_to_frontend(report)
-		
+
 
 
 	return
