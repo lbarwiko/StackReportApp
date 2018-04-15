@@ -56,43 +56,46 @@ export class AllFundsPage {
 	}
 
 	showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Loading...',
-      dismissOnPageChange: false
-    });
-    this.loading.present();
-  }
+	    this.loading = this.loadingCtrl.create({
+	      content: 'Loading...',
+	      dismissOnPageChange: false
+	    });
+	    this.loading.present();
+  	}
 
-  doInfinite(infiniteScroll): Promise<any> {
-  	return new Promise((resolve) => {
-	    this.fundService.listFunds(this.next)
-		.then(fund_meta_list => {
-			console.log("calling again");
-			var promiseList = [];
-			this.next = fund_meta_list.next;
-			fund_meta_list.idList.forEach(fund=>{
-				promiseList.push(
-					new Promise((resolve, reject)=>{
-						this.fundService.getFund(fund)
-						.then(currentFund=>{
-							return resolve(currentFund);
-						})
-						.catch(err=> reject(err));
-					}
-				))
+  	doInfinite(infiniteScroll) {
+  		console.log('Begin async operation');
+
+	    setTimeout(() => {
+	      this.fundService.listFunds(this.next)
+			.then(fund_meta_list => {
+				console.log("calling again");
+				var promiseList = [];
+				this.next = fund_meta_list.next;
+				fund_meta_list.idList.forEach(fund=>{
+					promiseList.push(
+						new Promise((resolve, reject)=>{
+							this.fundService.getFund(fund)
+							.then(currentFund=>{
+								return resolve(currentFund);
+							})
+							.catch(err=> reject(err));
+						}
+					))
+				})
+				return Promise.all(promiseList);
 			})
-			return Promise.all(promiseList);
-		})
-		.then(fund_list=>{
-			fund_list.forEach(fund=>{
-				this.fundList.push(fund)
+			.then(fund_list=>{
+				fund_list.forEach(fund=>{
+					this.fundList.push(fund)
+				})
 			})
-			resolve();
-		})
-		.catch(err => {
-			console.log(err);
-		});
-		infiniteScroll.complete();
-	})
-  }
+			.catch(err => {
+				console.log(err);
+			});
+
+	      console.log('Async operation has ended');
+	      infiniteScroll.complete();
+	    }, 500);
+	}
 }
