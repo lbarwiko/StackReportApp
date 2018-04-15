@@ -22,9 +22,7 @@ parser.add_argument('-s', '--symbol', nargs=1, required=True, help='Enter symbol
 args = parser.parse_args()
 
 
-urll = "https://www.sec.gov/Archives/edgar/data/844779/000119312517192557/d323069dncsrs.htm"
-
-def bmcax_csr(url, m_symbol):
+def cmgix_csr(url, m_symbol):
 
 	# Get the Soup
 	soup = get_soup(url)
@@ -112,6 +110,9 @@ def bmcax_csr(url, m_symbol):
 	return report
 
 
+def cmgix_nq(url, symbol)
+	return 0 
+
 def main():
 
 	# Actually it doesn't matter
@@ -119,14 +120,24 @@ def main():
 		parser.error("Please specify -nq or -csr")
 		exit(1)
 
+	# Read arguments
 	url = args.url[0]
-	print (url)
 	symbol = args.symbol[0]
-	print (symbol)
-	report = bmcax_csr(url, symbol)
+
+	# Scrape Report
+	if args.csr:
+		report = cmgix_csr(url, symbol)
+	else:
+		print("TO BE IMPLEMENTED GOOBYE")
+		return 
+		
+		report = cmgix_nq(url, symbol)
+
+	# Upload to Database
 	add_mf_report(report)
 	add_mf_other(report)
 
+	# Upload to frontend if specified
 	if args.post:
 		post_to_frontend(report)
 
