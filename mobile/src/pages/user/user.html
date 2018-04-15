@@ -24,4 +24,27 @@
             Role: {{ current_user.role }}
         </ion-col>
     </ion-row>
+    <ion-row *ngIf="current_user.tier == 'FREE'">
+        <ion-col class="user-data-inline">
+            Upgrade to Premium:
+            <ion-item class="selector">
+                <ion-label>
+                    Tier:
+                </ion-label>
+                <ion-select [(ngModel)]="selected_value">
+                    <ion-option *ngFor="let tier of tier_options">{{tier}}</ion-option>
+                </ion-select>
+            </ion-item>
+            <button class="confirm-btn" (click)="showConfirm()">
+                Confirm
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="current_user.tier != 'FREE'">
+        <ion-col class="user-data">
+            <button class="confirm-btn" (click)="showCancelConfirm()">
+                Cancel Subscription
+            </button>
+        </ion-col>
+    </ion-row>
 </ion-content>

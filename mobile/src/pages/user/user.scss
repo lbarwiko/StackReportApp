@@ -10,20 +10,47 @@ page-user {
     color: white;
   }
 
-    .user-data {
-        color: white;
-        text-align: center;
-    }
+  .user-data {
+      color: white;
+      text-align: center;
+  }
+
+  .user-data-inline {
+      color: white;
+      text-align: center;
+      display: inline-block;
+  }
 
   .preview {
     width: 100%;
     padding: 3px;
   }
 
-    .icon {
-        font-size: 100px;
-        color: white;
-    }
+  .icon {
+      font-size: 100px;
+      color: white;
+  }
 
+  .confirm-btn {
+    border-radius: 10px;
+    height: 30px;
+    width: 300px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #2A2F33;
+    color: white;
+    font-size: 17px;
+  }
+  .confirm-btn:active {
+    background-color: gray;
+  }
 
+  .selector {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
