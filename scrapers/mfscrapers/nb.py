@@ -13,8 +13,6 @@ def nb_qr(soup, m_symbol, m_name):
     report = {}
     report["symbol"] = m_symbol
     report["stocks"] = []
-    report['total_stock'] = 0
-    report['num_shares'] = 0
 
     # GET DATE
     pattern = re.compile(r"Date of reporting period")
@@ -49,9 +47,10 @@ def nb_qr(soup, m_symbol, m_name):
                     report["total_net_assets"] = net_assets
                 else: # Just a regular entry
                     stock = clean_data([divs[0].string, divs[1].string, divs[2].string])
-                    report['total_stock'] += stock['value']
-                    report['num_shares'] += stock['shares']
                     report["stocks"].append(stock)
+            key, data = extract_meta(row) # Add common stocks stuff
+            if key is not None:
+                report[key] = data
     pp = pprint.PrettyPrinter(indent=4)
     pp.pprint(report)
 
@@ -116,16 +115,20 @@ def extract_meta(row):
     common_stocks = re.compile(r"Total Common Stocks")
     net_assets = re.compile(r"Net Assets")
 
+    value = 0
+    key = None
+
     line = []
     for item in row.stripped_strings:
         line.append(item)
+    
+    if len(line) == 0:
+        return key, value
 
     total_inv = total_investments.search(line[0])
     total_com = common_stocks.search(line[0])
     net_ass = net_assets.search(line[0])
 
-    value = 0
-    key = None
 
     if total_inv is not None:
         key = "total_investment"
@@ -199,11 +202,9 @@ def clean_data(data):
 
 
 def main():
-    """
     soup = get_soup(NB_QR_URL)
     nb_qr(soup, "nbssx", "Focus Fund")
     nb_qr(soup, "nbmix", "Small Cap Growth Fund")
-    """
 
     soup = get_soup(NB_CSR_URL)
     nb_csr(soup, "nbssx", "Focus Fund")
