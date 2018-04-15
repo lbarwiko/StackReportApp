@@ -24,6 +24,12 @@ export default (db, config) => {
 
     function update(){
         function helper(fund_id, payload){
+            if(payload.accuracy){
+                return db.none(FundSql.updateAccuracy,{
+                    accuracy: payload.accuracy,
+                    fund_id: fund_id
+                })
+            }
             //Delete holdings with fund_id first
             return db.none(HoldingSql.delete,{
                 fund_id: fund_id
@@ -39,7 +45,7 @@ export default (db, config) => {
                 })
             })
             .then(res=>{
-                console.log("Updatedname");
+                console.log("Updated name");
                 //Create new list of holdings
                 return createHoldings(fund_id, payload.holdings)
             })
@@ -143,6 +149,7 @@ export default (db, config) => {
                     fund_id: fund_id
                 })
                 .then(fund=>{
+                    console.log(fund);
                     db.any(HoldingSql.list,{
                         fund_id: fund_id
                     }).then(holdings=>{
@@ -192,9 +199,10 @@ export default (db, config) => {
                 return res.json({
                     fund_id: req.fund.fund_id,
                     fund_name: req.fund.fund_name,
+                    accuracy: req.fund.accuracy,
                     holdings: req.fund.holdings,
                     price_history: data.price_history,
-                    quote: data.quote
+                    quote: data.quote,
                 });
             })
             .catch(err=>{
