@@ -19,7 +19,7 @@ args = parser.parse_args()
 def jensvf_csr(url, symbol):
 	soup = get_soup(url)
 	report = {}
-	report["symbol"] = symbol
+	report["symbol"] = symbol.upper()
 
 	# Get Date
 	date_string = soup.find(text=re.compile("Date of reporting")).parent.next_sibling.text
