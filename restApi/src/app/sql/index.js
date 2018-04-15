@@ -51,7 +51,7 @@ const Follow = {
 
 const Tier = {
     get: sql('./tier/tier.get.sql'),
-    list: sql('./tier.list.sql')
+    list: sql('./tier/tier.list.sql')
 }
 
 export {
