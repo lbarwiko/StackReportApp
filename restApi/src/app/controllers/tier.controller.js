@@ -29,7 +29,7 @@ export default (db, config) => {
             })
         }
         function rest(req, res, next){
-            helper()
+            helper(req.params.tier_type)
             .then(data=>{
                 return res.json(data);
             })
@@ -43,7 +43,35 @@ export default (db, config) => {
         }
     }
 
+    function list(){
+        function helper(){
+            return db.any(TierSql.list)
+            .then(res=>{
+                return Promise.resolve(res);
+            })
+            .catch(err=>{
+                return Promise.reject(err);
+            })
+        }
+        function rest(req, res, next){
+            helper()
+            .then(data=>{
+                return res.status(200).json(data);
+            })
+            .catch(err=> res.status(500).json(err));
+        }
+        return {
+            rest: rest,
+            helper: helper
+        }
+    }
+
     return {
-        get: get().helper
+        rest: {
+           get: get().rest,
+           list: list().rest
+        },
+        get: get().helper,
+        list: list().helper
     }
 }

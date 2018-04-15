@@ -10,11 +10,11 @@ export default (db, config) => {
     const User = Users(db);
 
     function createToken(user){
-        console.log("Creating token for user", user);
+        //console.log("Creating token for user", user);
         var payload = {
             user_id: user.user_id,
         }
-        console.log(config);
+        //console.log(config);
         return new Promise((resolve, reject) => {
             var token = jwt.sign(payload, config.auth.secret, {
                 expiresIn: config.auth.expiresIn //Days to minutes
@@ -51,6 +51,9 @@ export default (db, config) => {
                                 return done(null, false, { err: 'Invalid username or password', code: 401});
                             }
                             return createToken(user)
+                            .then(userWithToken=>{
+                                return done(userWithToken);
+                            })
                         }, err => { 
                             return done(null, false, { err: 'Error validating login', code: 401}) 
                         })
@@ -61,7 +64,9 @@ export default (db, config) => {
                 .then(user => {
                     // We created a valid token and attached it to the user. We're done.
                     return done(null, user);
-                }, err => done(err, false, {err: 'Error creating token', code:500}))
+                }, err => {
+                    return done(err, false, {err: 'Error creating token', code:500})
+                })
                 .catch(err => {
                     return done(err);
                 })

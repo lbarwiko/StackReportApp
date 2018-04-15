@@ -23,13 +23,13 @@ export class AddFundsPage {
 			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
 	    this.requestList = [];
-	    this.user = this.authService.getLoggedInUser();
+	    this.user = this.authService.user;
   	}
 
 	ngOnInit() {
 		this.showLoading();
 
-		this.fundService.listFunds()
+		this.fundService.listFunds("")
 		.then(fund_meta_list => {
 			var promiseList = [];
 			fund_meta_list.forEach(fund=>{

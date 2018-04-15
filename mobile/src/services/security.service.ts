@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
+import { AuthService } from './auth.service';
 import { Security } from '../models/security';
 //import { Holding } from '../models/holding.model';
 
@@ -14,19 +15,23 @@ export class SecurityService {
 
     url: string;
     
-    constructor(private http:Http, public endpointService: EndpointService) { 
+    constructor(private http:Http, public endpointService: EndpointService, 
+                private authService: AuthService) { 
         this.url = this.endpointService.base + '/api/security';
     }
     
 
     get(security_id:String): Promise<any> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json' });
+            let headers = new Headers({ 'Content-Type': 'application/json', 
+                'Authorization': this.authService.user.getToken()
+            });
             let options = new RequestOptions({ headers: headers });
 
             this.http.get(this.url + '/' + security_id, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
+                console.log("response: ", resJson);
                 return resolve(resJson);
             })
             .catch(this.handleErrorPromise);
@@ -70,6 +75,8 @@ export class SecurityService {
                 "price": res.price_history[i].close
             });
         }
+        // must be reversed because IEX has least recent first
+        price_history = price_history.reverse();    
         return new Security(res.security_id, res.security_name, 
             res.quote.latestPrice, res.quote.latestVolume, 
             price_history);

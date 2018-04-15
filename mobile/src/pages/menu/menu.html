@@ -21,7 +21,7 @@
 <ion-header id="nav-bar-super">
     <ion-navbar class="navigation-bar">
         <ion-buttons left>
-            <button ion-button icon-only start class="button" id="backButton" (click)="back()">
+            <button *ngIf="checkHome()" ion-button icon-only start class="button" id="backButton" (click)="back()">
                 <ion-icon name="arrow-back" class="back-btn"></ion-icon>
             </button>
             <button ion-button menuToggle start class="menu-btn">

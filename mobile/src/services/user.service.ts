@@ -17,7 +17,7 @@ export class UserService {
         this.url = this.endpointService.base + '/api/security';
     }
 
-    getUsers(page:Number = 0, size:Number = 10): Promise<User[]> {
+    public getUsers(page:Number = 0, size:Number = 10): Promise<User[]> {
         return new Promise((resolve, reject)=>{
             let options = new RequestOptions({
                 params: {
@@ -35,7 +35,7 @@ export class UserService {
         })
     }
 
-    addUser(user:User): Promise<User> {
+    public registerUser(user:User): Promise<User> {
 	    let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
 
@@ -49,7 +49,7 @@ export class UserService {
         })
     }		
     
-    registerAnon(): Promise<User> {
+    public registerAnon(): Promise<User> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         let payload = {

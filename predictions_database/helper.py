@@ -10,6 +10,7 @@ import math
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import time
+import scrapers.mf_scraper_yahoo
 
 # import config causing trouble for scrapers/stock_scraper.py
 DBCONFIG = {
@@ -35,7 +36,7 @@ def db_cursor():
     
     return conn.cursor()
 
-def add_single_stock(symbol, name):
+def add_stock(symbol, name):
     """
     Add a stock to the database
     (Slow to add a lot of stocks with this function)
@@ -66,12 +67,15 @@ def add_mf(m_symbol, m_name, follow_bool):
     Add a mutuful holding to the database
     """
     cur = db_cursor()
-    op_string = ("INSERT INTO mutual_fund(m_symbol, m_name, follow) VALUES ('%s', '%s', '%s', '%s');" 
-        % (m_symbol, c_symbol, date, shares))
+    op_string = ("INSERT INTO mutual_fund(m_symbol, m_name, follow) VALUES ('%s', '%s', '%s');" 
+        % (m_symbol, m_name, follow_bool))
     try:
         cur.execute(op_string)
     except:
         print ("Insert mf holding failed")
+
+    if follow_bool and len(m_symbol) < 6:
+        scrapers.mf_scraper_yahoo.upload_nav_historical_yahoo('m_symbol')
 
 
 def get_ticker(cname):
@@ -262,25 +266,21 @@ def get_mf_list():
     return output_list
 
 
-def follow_mf(ticker_list):
+def follow_mf(ticker):
     """
     Follow a mutual fund by change the "follow" in table mutual_fund
     Input: a ticker and a list of ticker
     """
-
-    if isinstance(ticker_list, list):
-        op_string = "UPDATE mutual_fund SET follow = 'True' WHERE False"
-        for ticker in ticker_list:
-            op_string += " or m_symbol = '%s'" % ticker
-    else:
-        op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
-            ticker_list)
+    op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
+        ticker)
 
     cur = db_cursor()
     try:
         cur.execute(op_string)
     except psycopg2.Error as e:
         print (e.pgerror)
+
+    scrapers.mf_scraper_yahoo.upload_nav_historical_yahoo(ticker)
 
 
 def unfollow_mf(ticker_list):
@@ -346,25 +346,6 @@ def get_db_stock_quote(ticker, date):
     return ret
 
 
-# def get_db_mf_stock_assets(ticker, date):
-#     cur = db_cursor()
-#     op_string = ("""SELECT stock_assets, m_date FROM mutual_fund_history 
-#         WHERE m_symbol = '%s' AND m_date <= '%s' AND stock_assets IS NOT NULL 
-#         ORDER BY m_date DESC""" % (ticker, date))
-#     cur.execute(op_string)
-#     try:
-#         row = cur.fetchone()
-#     except psycopg2.Error as e:
-#         print("Cannot get stock assets")
-#         print(e)
-
-#     if row[1].strftime("%Y%m%d") != str(date):
-#         print("Warning: Using an older stock assets automatically(%s instead of %s"
-#             % (row[1].strftime("%Y%m%d"),str(date)))
-    
-#     return int(row[0])
-
-
 def add_mf_stock_assets(ticker, date, stock_assets):
     cur = db_cursor()
     op_string = ("""INSERT INTO mutual_fund_history(m_symbol, m_date, stock_assets) 
@@ -377,6 +358,7 @@ def add_mf_stock_assets(ticker, date, stock_assets):
     except psycopg2.Error as e:
         print (e.pgerror)
         print ("Insert stocks prices failed")
+
 
 def add_mf_other(report):
     """
@@ -525,6 +507,9 @@ def estimate_stock_asset(ticker, date=time.strftime("%Y%m%d")):
 
 
 def get_children(ticker):
+    """
+    Get the children fund of a collection fund
+    """
     cur = db_cursor()
     op_string = ("""SELECT child_symbol FROM children WHERE parent_symbol = '%s'""" % ticker)
 
@@ -533,6 +518,32 @@ def get_children(ticker):
     except psycopg2.Error as e:
         print(e.pgerror)
         print("Cannot can children funds")
+
+    rows = cur.fetchall()
+
+    result = []
+    if rows:
+        result = [row[0] for row in rows]
+
+    return result
+
+
+def get_sibling(ticker):
+    """
+    Get the sibling funds in the collection fund
+    """
+    cur = db_cursor()
+    op_string = ("""SELECT C2.child_symbol FROM children C1 
+        JOIN children C2 
+        ON C1.parent_symbol = C2.parent_symbol 
+        WHERE C1.child_symbol = '%s'"""
+        % ticker)
+
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print(e.pgerror)
+        print("Cannot can sibling funds")
 
     rows = cur.fetchall()
 

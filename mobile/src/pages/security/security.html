@@ -2,14 +2,10 @@
     <ion-row class='fund-name'>
         {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>
-    <ion-row>
-    	<button *ngIf="!follow_status" ion-button class="follow-btn" id = "follow-btn" (click)="postFollow()">
+    <ion-row *ngIf="!is_stock">
+    	<button *ngIf="!follow_status" ion-button class="follow-btn" id = "follow-btn" (click)="showConfirm()">
     		Follow
     		<ion-icon name="md-add-circle" id="follow-icon" class = "follow-icon"></ion-icon> 
-    	</button>
-    	<button *ngIf="follow_status" ion-button class="unfollow-btn" id = "unfollow-btn" (click)="removeFollow()">
-    		Following
-    		<ion-icon name="md-remove-circle" id="unfollow-icon" class = "unfollow-icon"></ion-icon> 
     	</button>
 	</ion-row>
     <ion-row class='info-label'>
@@ -29,7 +25,7 @@
 			<component-securitygraph [security_in]="security">
 			</component-securitygraph>
 		</div>
-	</ion-row>
+	</div>
 	<ion-row *ngIf="!is_stock" id = "investments-btn-row">
         <button ion-button class="investments-btn" (click)="openInvestmentsPage()">Investments</button>
     </ion-row>
