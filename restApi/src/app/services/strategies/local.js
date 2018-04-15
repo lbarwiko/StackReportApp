@@ -10,11 +10,11 @@ export default (db, config) => {
     const User = Users(db);
 
     function createToken(user){
-        console.log("Creating token for user", user);
+        //console.log("Creating token for user", user);
         var payload = {
             user_id: user.user_id,
         }
-        console.log(config);
+        //console.log(config);
         return new Promise((resolve, reject) => {
             var token = jwt.sign(payload, config.auth.secret, {
                 expiresIn: config.auth.expiresIn //Days to minutes
