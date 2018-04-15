@@ -11,7 +11,7 @@
         </div>
         <hr class='line'>
         <div *ngFor="let holding of fund.holdings">
-            <div *ngIf="holding.security" class="row" (click)="openStockPage(holding.id)">
+            <div *ngIf="holding.security" class="row" (click)="openStockPage(holding.security)">
               <div class="col">{{holding.security.name}}({{holding.security.id}})</div>
               <div class="col" style='text-align: right;'>${{holding.security.current_price}}</div>
               <div class="col" style='text-align: right;'>{{holding.num_shares}}</div>

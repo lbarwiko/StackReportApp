@@ -4,7 +4,7 @@ import { Security, /*Fund,*/ Stock } from '../../models/security';
 import { InvestmentsPage } from '../../pages/investments/investments';
 import { ReportsPage } from '../../pages/reports/reports';
 import { FollowingService } from '../../services/following.service';
-
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-security',
@@ -19,7 +19,7 @@ export class SecurityPage {
 	is_stock: boolean;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams,
-				private followService: FollowingService) {
+				private followService: FollowingService, private alertCtrl: AlertController) {
 		this.security = null;
 		this.follow_status = false;
 	}
@@ -27,13 +27,38 @@ export class SecurityPage {
 	ngOnInit() {
 		this.security = this.navParams.get('param');
 		this.volume_traded = this.security.volume_traded;
-		this.checkFollowing();
 		// this will remove the investments and reports buttons if the security is a stock
 		if(this.security instanceof Stock) {
 			this.is_stock = true;
 		} else {
 			this.is_stock = false;
 		}
+		if(!this.is_stock) {
+			this.checkFollowing();
+		}
+	}
+
+	showConfirm() {
+		let confirm = this.alertCtrl.create({
+	  		title: 'Follow this fund?',
+	      	message: 'Are you sure you want to follow this fund? Doing so will allow you to follow one fewer fund for this quarter.',
+	      	buttons: [
+	        	{
+	      			text: 'Cancel',
+	          		handler: () => {
+	            		console.log('Disagree clicked');
+	          		}
+	        	},
+	        	{
+	         	 	text: 'Confirm',
+	          		handler: () => {
+	          			this.postFollow()
+	            		console.log('Agree clicked');
+	      			}	
+	       		}
+	      	]
+    	});
+    	confirm.present();
 	}
 
 	openInvestmentsPage() {
@@ -63,18 +88,6 @@ export class SecurityPage {
 		.then(status => {
 			if(status) {
 				this.follow_status = true;
-			}
-		})
-		.catch(err => {
-			console.log(err);
-		});	
-	}
-
-	removeFollow() {
-		this.followService.deleteFollow(this.security.id)
-		.then(status => {
-			if(status) {
-				this.follow_status = false;
 			}
 		})
 		.catch(err => {
