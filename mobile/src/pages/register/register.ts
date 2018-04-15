@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RestapiProvider } from '../../providers/restapi/restapi';
+import { UserService } from '../../services/user.service';
 import { LoginPage } from '../login/login';
 import { IonicPage, NavController, NavParams, Loading, LoadingController} from 'ionic-angular';
 
@@ -10,8 +10,8 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController} from '
 })
 export class RegisterPage {
   loading: Loading;
-  registerCredentials = {username: '', password: '', confirm: ''};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, public restapiProvider: RestapiProvider) {}
+  registerCredentials = {username: '', email:'', password: '', confirm: ''};
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, public userService: UserService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -20,8 +20,16 @@ export class RegisterPage {
   public register(){
   	console.log('Register');
     this.showLoading();
-    console.log(this.restapiProvider.CreateAccount({username: this.registerCredentials.username, password: this.registerCredentials.password}));
-    this.navCtrl.setRoot(LoginPage);
+    let registerCredentials = {
+      username: this.registerCredentials.username,
+      email:this.registerCredentials.email,
+      password: this.registerCredentials.password
+    };
+    this.userService.registerUser(registerCredentials)
+    .then(user => console.log(user))
+    .catch(err => console.log(err));
+    //this.restapiProvider.CreateAccount(registerCredentials);
+    //;
   }
 
   public showLoading() {
@@ -32,8 +40,15 @@ export class RegisterPage {
     this.loading.present();
   }
 
-  public anothetFunction(){
-  	console.log('a');
+
+  private extractData(res: Response) {
+    let body = res.json();
+      return body.data || [];
+  }
+
+  private handleErrorPromise (error: Response | any) {
+      console.error(error.message || error);
+      return Promise.reject(error.message || error);
   }
 
 }

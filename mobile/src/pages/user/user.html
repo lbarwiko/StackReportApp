@@ -24,6 +24,11 @@
             Role: {{ current_user.role }}
         </ion-col>
     </ion-row>
+    <ion-row *ngIf="current_user.email">
+        <ion-col class="user-data">
+            Email: {{ current_user.email }}
+        </ion-col>
+    </ion-row>
     <ion-row *ngIf="current_user.tier == 'FREE'">
         <ion-col class="user-data-inline">
             Upgrade to Premium:
