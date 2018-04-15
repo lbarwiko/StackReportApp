@@ -507,6 +507,9 @@ def estimate_stock_asset(ticker, date=time.strftime("%Y%m%d")):
 
 
 def get_children(ticker):
+    """
+    Get the children fund of a collection fund
+    """
     cur = db_cursor()
     op_string = ("""SELECT child_symbol FROM children WHERE parent_symbol = '%s'""" % ticker)
 
@@ -524,12 +527,17 @@ def get_children(ticker):
 
     return result
 
-#TODO Roy probably wants to fix this
-"""
-def get_children(ticker):
+
+def get_sibling(ticker):
+    """
+    Get the sibling funds in the collection fund
+    """
     cur = db_cursor()
-    #TODO add triple quotes to op_string
-    op_string = (SELECT C2.child_symbol FROM children C1 JOIN children C2 ON C1.parent_symbol = C2.parent_symbol WHERE C1.child_symbol = '%s' % ticker)
+    op_string = ("""SELECT C2.child_symbol FROM children C1 
+        JOIN children C2 
+        ON C1.parent_symbol = C2.parent_symbol 
+        WHERE C1.child_symbol = '%s'"""
+        % ticker)
 
     try:
         cur.execute(op_string)
@@ -544,7 +552,7 @@ def get_children(ticker):
         result = [row[0] for row in rows]
 
     return result
-"""
+
 
 
 

@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-
 import { EndpointService } from './endpoint.service';
 import { Fund } from '../models/security';
 import { HoldingMeta } from '../models/holding.model';

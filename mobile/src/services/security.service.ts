@@ -5,6 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 
 import { EndpointService } from './endpoint.service';
+import { AuthService } from './auth.service';
 import { Security } from '../models/security';
 import { AuthService } from './auth.service';
 //import { Holding } from '../models/holding.model';

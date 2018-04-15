@@ -166,6 +166,7 @@ def main():
 	add_mf_other(report)
 	if args.post:
 		post_to_frontend(report)
+		
 
 
 	return
@@ -175,17 +176,17 @@ if __name__ == '__main__':
 
 # =============================================
 
-print("=====-TESTING AREA-=====")
-url = args.url[0]
-symbol = args.symbol[0]
+# print("=====-TESTING AREA-=====")
+# url = args.url[0]
+# symbol = args.symbol[0]
 
 
-soup = get_soup(url)
+# soup = get_soup(url)
 
-report = {}
-report["symbol"] = symbol
-date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
-date = time.strptime(date_string, "%B %d, %Y")
-date = time.strftime("%Y%m%d", date)
-report["date"] = date
+# report = {}
+# report["symbol"] = symbol
+# date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
+# date = time.strptime(date_string, "%B %d, %Y")
+# date = time.strftime("%Y%m%d", date)
+# report["date"] = date
 
