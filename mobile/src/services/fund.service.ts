@@ -3,7 +3,6 @@ import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
-
 import { EndpointService } from './endpoint.service';
 import { Fund } from '../models/security';
 import { HoldingMeta } from '../models/holding.model';
@@ -45,7 +44,7 @@ export class FundService {
 
     getFund(fund_id:string): Promise<Fund> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json'
+            let headers = new Headers({ 'Content-Type': 'application/json',
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });
