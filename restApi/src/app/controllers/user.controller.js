@@ -13,8 +13,10 @@ export default (db, config) => {
         function helper(){
             
         }
-        function rest(){
-
+        function rest(req, res, next){
+            res.status(200).json({
+                message: 'Tier updated!'
+            })
         }
         return {
             helper: helper,
@@ -283,11 +285,13 @@ export default (db, config) => {
             },
             list: list().rest,
             create: create().rest,
-            get: get().rest
+            get: get().rest,
+            updateTier: updateTier().rest
         },
         list: list().helper,
         create: create().helper,
         getByUsername: getByUsername().helper,
-        getById: getById().helper
+        getById: getById().helper,
+        updateTier: updateTier().helper
     }
 }

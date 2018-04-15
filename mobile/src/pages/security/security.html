@@ -1,41 +1,29 @@
 <ion-content class="security-content" padding>
-	<div>
-		<ion-row class='fund-name'>
-			{{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
-		</ion-row>
-		<ion-row>
-			<button *ngIf="!follow_status" ion-button class="follow-btn" id = "follow-btn" (click)="postFollow()">
-				Follow
-				<ion-icon name="md-add-circle" id="follow-icon" class = "follow-icon"></ion-icon> 
-			</button>
-			<button *ngIf="follow_status" ion-button class="unfollow-btn" id = "unfollow-btn" (click)="removeFollow()">
-				Following
-				<ion-icon name="md-remove-circle" id="unfollow-icon" class = "unfollow-icon"></ion-icon> 
-			</button>
-		</ion-row>
-	</div>
-	<div>
-		<div>
-			<ion-row class='info-label'>
-				Current Share Price
-			</ion-row>
-			<ion-row class='info-value'>
-				${{security.current_price || "99.99" | number : '1.2-2'}}
-			</ion-row>
-			<ion-row class='info-label'>
-				Volume Traded
-			</ion-row>
-			<ion-row class='info-value'>
-				{{volume_traded || "1000000" | number : '1.0-0'}}
-			</ion-row>
-		</div>
-		<div>
-			<ion-row class='fund-graph' *ngIf="security && security.price_history && security.price_history[0]">
-				<div class="graph-wrapper">
-					<component-securitygraph [security_in]="security">
-					</component-securitygraph>
-				</div>
-			</ion-row>
+    <ion-row class='fund-name'>
+        {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
+    </ion-row>
+    <ion-row *ngIf="!is_stock">
+    	<button *ngIf="!follow_status" ion-button class="follow-btn" id = "follow-btn" (click)="showConfirm()">
+    		Follow
+    		<ion-icon name="md-add-circle" id="follow-icon" class = "follow-icon"></ion-icon> 
+    	</button>
+	</ion-row>
+    <ion-row class='info-label'>
+    	Current Share Price
+	</ion-row>
+	<ion-row class='info-value'>
+		${{security.current_price || "99.99" | number : '1.2-2'}}
+	</ion-row>
+	<ion-row class='info-label'>
+    	Volume Traded
+	</ion-row>
+	<ion-row class='info-value'>
+		{{volume_traded || "1000000" | number : '1.0-0'}}
+	</ion-row>
+	<ion-row class='fund-graph' *ngIf="security && security.price_history && security.price_history[0]">
+		<div class="graph-wrapper">
+			<component-securitygraph [security_in]="security">
+			</component-securitygraph>
 		</div>
 	</div>
 	<ion-row *ngIf="!is_stock" id = "investments-btn-row">

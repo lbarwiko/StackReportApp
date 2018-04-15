@@ -6,6 +6,7 @@ import { AuthService } from '../../services/auth.service';
 import { HoldingService } from '../../services/holding.service';
 import { User } from '../../models/user';
 import { Holding } from '../../models/holding.model';
+import { SecurityPage } from '../../pages/security/security';
 
 @IonicPage()
 @Component({
@@ -72,14 +73,10 @@ export class InvestmentsPage {
 		this.loading.present();
 	  }
 
-	openStockPage(stock_id) {
-		this.securityService.get(stock_id)
-		.then(securityRes=>{
-			console.log(securityRes);
-			// this.navCtrl.push(SecurityPage, {
-			// 	param: this.security
-			// });
-		})
+	openStockPage(stock) {
+		this.navCtrl.push(SecurityPage, {
+			param: stock
+		});
 	}
 
 }

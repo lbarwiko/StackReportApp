@@ -10,6 +10,7 @@ import math
 from fuzzywuzzy import fuzz
 from fuzzywuzzy import process
 import time
+import scrapers.mf_scraper_yahoo
 
 # import config causing trouble for scrapers/stock_scraper.py
 DBCONFIG = {
@@ -72,6 +73,9 @@ def add_mf(m_symbol, m_name, follow_bool):
         cur.execute(op_string)
     except:
         print ("Insert mf holding failed")
+
+    if follow_bool and len(m_symbol) < 6:
+        scrapers.mf_scraper_yahoo.upload_nav_historical_yahoo('m_symbol')
 
 
 def get_ticker(cname):
@@ -262,25 +266,21 @@ def get_mf_list():
     return output_list
 
 
-def follow_mf(ticker_list):
+def follow_mf(ticker):
     """
     Follow a mutual fund by change the "follow" in table mutual_fund
     Input: a ticker and a list of ticker
     """
-
-    if isinstance(ticker_list, list):
-        op_string = "UPDATE mutual_fund SET follow = 'True' WHERE False"
-        for ticker in ticker_list:
-            op_string += " or m_symbol = '%s'" % ticker
-    else:
-        op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
-            ticker_list)
+    op_string = ("UPDATE mutual_fund SET follow = 'True' WHERE m_symbol = '%s'" %
+        ticker)
 
     cur = db_cursor()
     try:
         cur.execute(op_string)
     except psycopg2.Error as e:
         print (e.pgerror)
+
+    scrapers.mf_scraper_yahoo.upload_nav_historical_yahoo(ticker)
 
 
 def unfollow_mf(ticker_list):

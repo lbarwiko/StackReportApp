@@ -67,6 +67,8 @@ export default (db, config, auth) => {
 	meApi.get('/', auth.requireToken, User.get);
 	meApi.get('/following/', auth.requireToken, Following.list);
 	meApi.get('/following/count/', auth.requireToken, Following.count);
+	meApi.post('/t/', auth.requireToken, User.updateTier);
+	meApi.put('/t/', auth.requireToken, User.updateTier);
 	api.use('/me/', meApi);
 
 	api.get('/.well-known/acme-challenge/:id', function(req, res, next) {
