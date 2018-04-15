@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class FundService {
     // url = ApiEndpoint.base + ApiEndpoint.fund;
-
     url: string;
     
     constructor(private http:Http, public endpointService: EndpointService, 
@@ -20,14 +19,20 @@ export class FundService {
     }
     
 
-    listFunds(): Promise<string[]> {
+    listFunds(next): Promise<any> {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json',
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });
 
-            this.http.get(this.url, options).toPromise()
+            let apiUrl = this.url;
+
+            if(next.length > 0) {
+                apiUrl = this.endpointService.base + next;
+            }
+
+            this.http.get(apiUrl, options).toPromise()
             .then(res=>{
                 var resJson = res.json();
                 var idList: string[] = [];
@@ -36,7 +41,9 @@ export class FundService {
                     idList.push(resJson.data[i]['fund_id']);
                 }
 
-                return resolve(idList);
+                var toReturn = {'idList': idList, 'next': resJson.next};
+
+                return resolve(toReturn);
             })
             .catch(this.handleErrorPromise);
         })

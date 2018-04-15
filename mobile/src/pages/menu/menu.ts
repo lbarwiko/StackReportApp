@@ -40,12 +40,27 @@ export class MenuPage {
   }
 
   openPage(page) {
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 
   logout() {
       this.authService.logout();
       this.app.getRootNav().setRoot(LoginPage);
+  }
+
+  // check if the user is on the home page so that the back button can be hidden if needed
+  checkHome() {
+    var menuBtn = document.getElementsByClassName('menu-btn');
+    if(typeof this.nav.last() == "undefined") {
+      menuBtn[0].setAttribute("style", "margin-top: -3px");
+      return false;
+    } else if (this.nav.last().component.name == "HomePage") {
+      menuBtn[0].setAttribute("style", "margin-top: -3px");
+      return false;
+    } else {
+      menuBtn[0].setAttribute("style", "margin-top: -30px");
+      return true;
+    }
   }
 
 }

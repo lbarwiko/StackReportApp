@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { EndpointService } from './endpoint.service';
 import { AuthService } from './auth.service';
 import { Security } from '../models/security';
+import { AuthService } from './auth.service';
 //import { Holding } from '../models/holding.model';
 
 
@@ -23,7 +24,7 @@ export class SecurityService {
 
     get(security_id:String): Promise<any> {
         return new Promise((resolve, reject)=>{
-            let headers = new Headers({ 'Content-Type': 'application/json',
+            let headers = new Headers({ 'Content-Type': 'application/json', 
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });

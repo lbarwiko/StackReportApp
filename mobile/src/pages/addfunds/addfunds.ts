@@ -29,7 +29,7 @@ export class AddFundsPage {
 	ngOnInit() {
 		this.showLoading();
 
-		this.fundService.listFunds()
+		this.fundService.listFunds("")
 		.then(fund_meta_list => {
 			var promiseList = [];
 			fund_meta_list.forEach(fund=>{
