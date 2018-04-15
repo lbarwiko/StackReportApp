@@ -3,11 +3,9 @@ import json
 import time
 from config import *
 import urllib.request
-import psycopg2
 sys.path.append(sys.path[0]+"/../")
-from predictions_database.helper import add_tuple_stock_history, db_cursor, get_mf_list
-from mutual_fund_nav import * 
-from mfscrapers.helper import * 
+from predictions_database.helper import add_tuple_stock_history, db_cursor, get_mf_list, add_tuple_mf_history
+from scrapers.mfscrapers.helper import * 
 
 def is_numeric(str_input):
     try:

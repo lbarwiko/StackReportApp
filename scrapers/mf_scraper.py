@@ -14,7 +14,7 @@ from config import *
 import requests
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import add_tuple_mf_history, get_mf_list_scraper, get_mf_parent_nav
-from mf_scraper_yahoo import get_nav_yahoo
+from scrapers.mf_scraper_yahoo import get_nav_yahoo
 
 
 def split_stocks(tickers):
