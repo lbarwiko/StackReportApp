@@ -5,6 +5,7 @@ import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { MenuPage } from './../menu/menu';
+import { OnboardingPage } from './../onboarding/onboarding';
 import { RegisterPage } from './../register/register';
 import { LoginPage } from './../login/login';
 
@@ -29,7 +30,11 @@ export class RootPage {
     this.authService.flow()
     .then(user=>{
       if(user){
-        this.navCtrl.setRoot(MenuPage);
+        if(user.username.indexOf('anon') == 0){
+          this.navCtrl.setRoot(OnboardingPage);
+        }else{
+          this.navCtrl.setRoot(MenuPage);
+        }
       }else{
         this.navCtrl.setRoot(LoginPage);
       }

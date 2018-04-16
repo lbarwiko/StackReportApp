@@ -204,10 +204,25 @@ export class AuthService {
 
         return this.storage.get('stackreportEntry')
         .then(isFirstTime=>{
-            return Promise.resolve(!isFirstTime);
+            if(isFirstTime){
+                return Promise.resolve(false);
+            }
+            return this.storage.set('stackreportEntry', true)
+        })
+        .then(res=>{
+            if(!res){
+                return Promise.resolve(false);
+            }
+            return Promise.resolve(true);
         })
         .catch(err=>{
-            return Promise.resolve(null);
+            return this.storage.set('stackreportEntry', true)
+            .then(res=>{
+                return Promise.resolve(true);
+            })
+            .catch(err=>{
+                return Promise.resolve(true);
+            })
         })
     }
 
