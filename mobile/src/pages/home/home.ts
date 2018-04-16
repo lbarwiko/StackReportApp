@@ -24,10 +24,11 @@ export class HomePage {
               public authService: AuthService, private loadingCtrl: LoadingController,) {
     this.fundList = [];
     this.user = authService.user;
+    this.showLoading();
+
   }
 
   ngOnInit() {
-      this.showLoading();
       this.followService.getAllFollowing()
       .then(fund_meta_list => {
         var promiseList = [];
