@@ -8,7 +8,7 @@ import sys
 import requests
 import time
 sys.path.append(sys.path[0]+"/../../")
-from predictions_database.helper import get_mf_name, get_ticker, get_db_mf_nav
+from predictions_database.helper import *
 
 def is_numeric(str_input):
     try:
@@ -175,6 +175,15 @@ def post_to_frontend(report):
 	print(response.text)
 
 
+def post_to_frontend_composite(report):
+	"""
+	"""
+	siblings = get_children(report["symbol"])
+	for sibling in siblings:
+		report["symbol"] = sibling
+		post_to_frontend(report)
+
+
 # # TODO: DELETE AFTER REWRITING 
 # def post_to_frontend(m_symbol, report):
 # 	"""
@@ -217,4 +226,4 @@ def get_num_shares(m_symbol, total_net_assets, date=time.strftime("%Y%m%d")):
 
 	nav = float(get_db_mf_nav(m_symbol, date))
 	print (total_net_assets, nav)
-	return float(total_net_assets) / nav
+	return int(float(total_net_assets) / nav)

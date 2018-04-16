@@ -23,7 +23,6 @@ const db = pgp(config.db);
 // Load our authorization once.
 const Auth = Authorizer(db, config);
 app.use(Auth.init());
-
 //Initialize Router
 app.use('/', router(db, config, Auth));
 

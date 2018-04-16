@@ -16,7 +16,8 @@ const dev_config = {
     port:8080,
     sslport:4443,
     stripe: {
-        key: 'sk_test_Ell1lUxLTqJcLuQWWWCMXXdd'
+        secret_key: 'sk_test_Ell1lUxLTqJcLuQWWWCMXXdd',
+        publishable_key: 'pk_test_Hg7xrR3ioghTDatNfRvtiDVD'
     }
 }
 

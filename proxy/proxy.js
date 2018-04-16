@@ -69,6 +69,7 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 
+
 // TODO: Change this to https !VERY IMPORTANT
 // TODO: Create Options
 if(!PROD){

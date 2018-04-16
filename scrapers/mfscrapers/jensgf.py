@@ -164,9 +164,13 @@ def main():
 
 	add_mf_report(report)
 	add_mf_other(report)
+
 	if args.post:
-		post_to_frontend(report)
-		
+		if len(symbol) >= 6:
+			post_to_frontend_composite(report)
+		else:
+			post_to_frontend(report)
+
 
 
 	return

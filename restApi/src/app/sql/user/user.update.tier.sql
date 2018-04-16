@@ -1,0 +1,1 @@
+UPDATE USERS SET tier = ${tier} WHERE user_id = ${user_id}

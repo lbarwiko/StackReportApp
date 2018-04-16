@@ -15,23 +15,20 @@ export class AllFundsPage {
 	loading: Loading;
 	fundList: Security[];
 	user: User;
-	next: string;
 
 	constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
 			 public followService: FollowingService, public fundService: FundService, public authService: AuthService,
 			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
 	    this.user = this.authService.user;
-	    this.next = "";
   	}
 
 	ngOnInit() {
 		this.showLoading();
 
-		this.fundService.listFunds(this.next)
+		this.fundService.listFunds()
 		.then(fund_meta_list => {
 			var promiseList = [];
-			this.next = fund_meta_list.next;
 			fund_meta_list.idList.forEach(fund=>{
 				promiseList.push(
 					new Promise((resolve, reject)=>{
@@ -56,43 +53,10 @@ export class AllFundsPage {
 	}
 
 	showLoading() {
-    this.loading = this.loadingCtrl.create({
-      content: 'Loading...',
-      dismissOnPageChange: false
-    });
-    this.loading.present();
-  }
-
-  doInfinite(infiniteScroll): Promise<any> {
-  	return new Promise((resolve) => {
-	    this.fundService.listFunds(this.next)
-		.then(fund_meta_list => {
-			console.log("calling again");
-			var promiseList = [];
-			this.next = fund_meta_list.next;
-			fund_meta_list.idList.forEach(fund=>{
-				promiseList.push(
-					new Promise((resolve, reject)=>{
-						this.fundService.getFund(fund)
-						.then(currentFund=>{
-							return resolve(currentFund);
-						})
-						.catch(err=> reject(err));
-					}
-				))
-			})
-			return Promise.all(promiseList);
-		})
-		.then(fund_list=>{
-			fund_list.forEach(fund=>{
-				this.fundList.push(fund)
-			})
-			resolve();
-		})
-		.catch(err => {
-			console.log(err);
-		});
-		infiniteScroll.complete();
-	})
-  }
+	    this.loading = this.loadingCtrl.create({
+	      content: 'Loading...',
+	      dismissOnPageChange: false
+	    });
+	    this.loading.present();
+  	}
 }
