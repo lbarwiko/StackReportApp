@@ -73,7 +73,7 @@ export class FollowingService {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 
                 'Content-Type': 'application/json',
-                'Authorization': this.authService.user.getToken()
+                'Authorization': this.authService.token
             });
             let options = new RequestOptions({ headers: headers });
 

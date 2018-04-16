@@ -32,6 +32,7 @@ export default (db, config) => {
 
     function followDefault(){
         function helper(user){
+            console.log("in follow default");
             return listDefault().helper()
             .then(default_list=>{
                 var promises = [];

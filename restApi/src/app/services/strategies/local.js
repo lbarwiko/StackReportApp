@@ -10,11 +10,11 @@ export default (db, config) => {
     const User = Users(db, config);
 
     function createToken(user){
-        //console.log("Creating token for user", user);
+        console.log("Creating token for user", user);
         var payload = {
             user_id: user.user_id,
         }
-        //console.log(config);
+        console.log(config);
         return new Promise((resolve, reject) => {
             var token = jwt.sign(payload, config.auth.secret, {
                 expiresIn: config.auth.expiresIn //Days to minutes
@@ -40,33 +40,31 @@ export default (db, config) => {
     const strategyUsername = new LocalStrategy(
         {usernameField: 'username', passwordField: 'password'}, 
         (username, password, done) => {
-            User.getByUsername(username.toLowerCase())
+            console.log("Logging in");
+            console.log(username, password);
+            User.getByUsername(username)
                 .then((user)=>{
+                    console.log("Got user:", user);
                     // Check if the password matches the hash
                     return bcrypt.compare(password, user.password)
                     //return testCompare()
                         .then(res => {
                             // If the password is wrong return false, else create a jwt
                             if(!res){
+                                console.log("Bad");
                                 return done(null, false, { err: 'Invalid username or password', code: 401});
                             }
+                            console.log("Password matches");
                             return createToken(user)
-                            .then(userWithToken=>{
-                                return done(userWithToken);
-                            })
-                        }, err => { 
-                            return done(null, false, { err: 'Error validating login', code: 401}) 
-                        })
+                        }, err => { return done(null, false, { err: 'Error validating login', code: 401}) })
                 }, err => {
                     // Were not able to find a matching user_id
+                    console.log("Did not findmatching username");
                     return done(null, false)
                 }) 
                 .then(user => {
-                    // We created a valid token and attached it to the user. We're done.
                     return done(null, user);
-                }, err => {
-                    return done(err, false, {err: 'Error creating token', code:500})
-                })
+                }, err => done(err, false, {err: 'Error creating token', code:500}))
                 .catch(err => {
                     return done(err);
                 })

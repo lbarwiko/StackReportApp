@@ -16,14 +16,14 @@ export class PredictionService {
         this.url = this.endpointService.base + '/api/f';
     }
     
-    getPredictions(fund_id:string): Promise<any> {
+    getPredictions(fund_id:string, page_number: number): Promise<any> {
     	return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json',
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });
 
-            this.http.get(this.url + '/' + fund_id + '/p/', options).toPromise()
+            this.http.get(this.url + '/' + fund_id + '/p/?page=' + page_number + '&size=1', options).toPromise()
             .then(res=>{
                 var resJson = res.json();
                 return resolve(resJson);
