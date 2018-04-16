@@ -122,7 +122,7 @@ def main():
 
 	# Read arguments
 	url = args.url[0]
-	symbol = args.symbol[0]
+	symbol = args.symbol[0].upper()
 
 	# Scrape Report
 	if args.csr:
