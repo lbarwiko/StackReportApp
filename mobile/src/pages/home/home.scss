@@ -1,6 +1,10 @@
 page-home {
-
+  .page-content{
+    padding: 20px;
+  }
+  padding: 10px;
   .fixed-content {
+    padding: 20px;
     background-color: #1A2225;
   }
 
@@ -19,12 +23,16 @@ page-home {
   } 
 
   .watching {
+    padding:20px;
     color: white;
     font-size: 200%;
   }
 
   .preview {
     width: 100%;
-    padding: 3px;
+    padding:10px 20px;
+  }
+  .preview-list{
+    padding: 20px;
   }
 }

@@ -1,13 +1,15 @@
-<ion-content>
-    <ion-row>
-        <div class = "watching">
-            Watching
-        </div>
-    </ion-row>
-    <ion-row class="previewlist">
-        <ion-row class="preview" *ngFor="let fund of fundList">
-            <component-preview *ngIf="fund" [security_in] = "fund">
-            </component-preview>
+<ion-content class="page-home">
+    <div classs="page-content">
+        <ion-row>
+            <div class = "watching">
+                Watching
+            </div>
         </ion-row>
-    </ion-row>
+        <ion-row class="previewlist">
+            <ion-row class="preview" *ngFor="let fund of fundList">
+                <component-preview *ngIf="fund" [security_in] = "fund">
+                </component-preview>
+            </ion-row>
+        </ion-row>
+    </div>
 </ion-content>
