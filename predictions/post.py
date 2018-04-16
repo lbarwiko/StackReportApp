@@ -6,10 +6,11 @@ import os
 import sys
 import json
 import copy
+import datetime as dt
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import get_mf_list, get_children
 
-def load_data():
+def load_data(date):
 	"""
 	return dictionary mapping mf_symbols to their predicted data
 	"""
@@ -20,6 +21,7 @@ def load_data():
 	for mf_symbol in mf_symbols:
 		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_comb.json") as file:
 			data = json.load(file)
+			data["date"] = '"' + date + '"'
 			mf_symbols_to_data[mf_symbol] = data
 
 	return mf_symbols_to_data
@@ -46,7 +48,7 @@ def post_request(datum):
 	return response
 	
 def main():
-	mf_symbols_to_data = load_data()
+	mf_symbols_to_data = load_data(sys.argv[1])
 
 	for mf_symbol in mf_symbols_to_data.keys():
 		post_request(mf_symbols_to_data[mf_symbol])

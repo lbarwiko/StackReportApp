@@ -18,5 +18,4 @@ then
 	# use prev date since we don't get current day nav data right away
 	prev_date=$(date -d '1 day ago' +%Y%m%d)
 	python3 ~/StackReport/predictions/combinatorial.py $prev_date >> ~/StackReport/logs/combinatorial.log 2>&1
-	python3 ~/StackReport/predictions/post.py >> ~/StackReport/logs/post.log 2>&1
 fi
