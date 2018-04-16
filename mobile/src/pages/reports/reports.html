@@ -2,6 +2,21 @@
     <ion-row class='fund-name'>
         {{security.name || "TEST"}} ({{security.id || "TEST" | uppercase}})
     </ion-row>
+
+    <ion-row class="buttons">
+      <button *ngIf="has_prev_page" class='btn prev' (click)="prevButton()">
+        Previous
+      </button>
+      <button *ngIf="current_page != 0" class= 'btn most-recent' (click)="mostRecentButton()">
+        Most Recent
+      </button>
+      <button *ngIf="current_page != 0" class="btn next" (click)="nextButton()">
+        Next
+      </button>
+    </ion-row>
+    <ion-row class='last-update'>
+      {{lastUpdated | date:'shortDate'}}
+    </ion-row>
     <ion-row class = "label">
     	Buys
     </ion-row>
@@ -34,7 +49,4 @@
             </div>
         </div>
     </table>
-    <ion-row class='last-update'>
-    	Last Update: {{lastUpdated | date:'short'}}
-	</ion-row>
 </ion-content>

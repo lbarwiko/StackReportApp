@@ -3,7 +3,7 @@ import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-ang
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-
+import { OnboardingPage } from './../onboarding/onboarding';
 import { MenuPage } from './../menu/menu';
 import { RegisterPage } from './../register/register';
 
