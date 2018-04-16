@@ -555,6 +555,35 @@ def get_sibling(ticker):
     return result
 
 
+def is_followed(ticker):
+    """
+    Get the sibling funds in the collection fund
+    """
+    ticker = ticker.upper()
+    cur = db_cursor()
+    op_string = ("""SELECT follow FROM mutual_fund WHERE m_symbol = '%s'"""
+        % ticker)
+
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print(e.pgerror)
+        print("Cannot find is_followed of %s" % ticker)
+
+    row = cur.fetchone()
+
+    if row:
+        if row[0] == "t":
+            return True
+        elif row[0] == "f":
+            return False
+        else:
+            print("is_followed error out")
+            
+    return False
+
+
+
 
 
 
