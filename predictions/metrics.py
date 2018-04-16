@@ -86,7 +86,7 @@ def get_magnitude_accuracy(labels, comb_predictions):
 	# calculate overall magnitude accuracy, so use only final day's prediction
 	comb_accuracy = 0
 	for symbol in labels.keys():
-		if (symbol, labels[symbol][0]) in comb_predictions[-1]): comb_accuracy += 1
+		if (symbol, labels[symbol][0]) in comb_predictions[-1]: comb_accuracy += 1
 
 	comb_accuracy = float(comb_accuracy)/float(len(labels.keys()))
 

@@ -15,17 +15,17 @@ export class OnboardingPage {
     {
       title: "Invest Smarter, Not Harder",
       description: "Make a strategy like a mutual fund by getting <b>predictions</b> on their holdings.",
-      image: "../../assets/img/piggy@3x.svg",
+      image: "https://i.imgur.com/aA09N0k.png",
     },
     {
       title: "Get Reports With Predictions",
       description: "Stack reports give you a prediction on what stocks or other investments were bought or sold by a Mutual Fund.",
-      image: "../../assets/img/reports@3x.svg",
+      image: "https://i.imgur.com/d0qkPMe.png",
     },
     {
       title: "3 Free Stack Reports Per Quarter",
       description: "The first three Stack Reports are on us! With Stack Report Gold a user can gain access to 10 reports or more every quarter.",
-      image: "../../assets/img/gold@3x.svg",
+      image: "https://i.imgur.com/8gC0qRX.png",
     }
   ];
 
