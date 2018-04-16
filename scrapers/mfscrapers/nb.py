@@ -2,7 +2,7 @@ import re
 from bs4 import Comment
 import time
 import pprint
-from helper import get_soup, get_num_shares
+from helper import get_soup, get_num_shares, post_to_frontend
 import sys
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import *
@@ -244,6 +244,9 @@ def main():
 
     add_mf_report(report)
     add_mf_other(report)
+
+    if args.post:
+    	post_to_frontend(report)
 
 
 
