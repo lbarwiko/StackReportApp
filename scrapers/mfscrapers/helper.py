@@ -10,6 +10,15 @@ import time
 sys.path.append(sys.path[0]+"/../../")
 from predictions_database.helper import *
 
+
+def get_next_text_row(tr_tag):
+	
+	ret_row = tr_tag.find_next_sibling("tr").find_all("td")
+	ret_row = get_sanitized_text_row(ret_row)
+	
+	return ret_row
+
+
 def is_numeric(str_input):
     try:
         float(str_input)
@@ -182,6 +191,11 @@ def post_to_frontend_composite(report):
 	for sibling in siblings:
 		report["symbol"] = sibling
 		post_to_frontend(report)
+
+
+def get_num_in_next_row(tr_tag):
+	ret_row = get_next_text_row(tr_tag)
+	return get_num_in_row(ret_row)
 
 
 # # TODO: DELETE AFTER REWRITING 
