@@ -1,6 +1,6 @@
 import { Component, Input, ApplicationRef } from '@angular/core';
 import { FundService } from '../../services/fund.service'
-import { Fund, Security } from '../../models/security';
+import {  Security } from '../../models/security';
 
 // !!! this code heavily inspired by https://valor-software.com/ng2-charts/ (chart library example)
 

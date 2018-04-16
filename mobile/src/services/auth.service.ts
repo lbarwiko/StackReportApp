@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
-import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
@@ -204,10 +203,25 @@ export class AuthService {
 
         return this.storage.get('stackreportEntry')
         .then(isFirstTime=>{
-            return Promise.resolve(!isFirstTime);
+            if(isFirstTime){
+                return Promise.resolve(false);
+            }
+            return this.storage.set('stackreportEntry', true)
+        })
+        .then(res=>{
+            if(!res){
+                return Promise.resolve(false);
+            }
+            return Promise.resolve(true);
         })
         .catch(err=>{
-            return Promise.resolve(null);
+            return this.storage.set('stackreportEntry', true)
+            .then(res=>{
+                return Promise.resolve(true);
+            })
+            .catch(err=>{
+                return Promise.resolve(true);
+            })
         })
     }
 

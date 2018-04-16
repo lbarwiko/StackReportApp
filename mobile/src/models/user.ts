@@ -5,6 +5,7 @@ export class User {
     tier: string;
     role: string;
     email: string;
+    anon: boolean;
     constructor(params) {
         if(!params|| !params.username){
             console.log('Returning empty user');
@@ -20,7 +21,8 @@ export class User {
         this.token = params.token;
         this.tier = params.tier;
         this.role = params.role;
-        this.email = params.email
+        this.email = params.email;
+        this.anon = params.anon;
         return this;
     }
     getToken():string{
