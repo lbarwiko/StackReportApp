@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Security, /*Fund,*/ Stock } from '../../models/security';
+import { Security, Fund, Stock } from '../../models/security';
 import { InvestmentsPage } from '../../pages/investments/investments';
 import { ReportsPage } from '../../pages/reports/reports';
 import { FollowingService } from '../../services/following.service';
@@ -22,18 +22,20 @@ export class SecurityPage {
 				private followService: FollowingService, private alertCtrl: AlertController) {
 		this.security = null;
 		this.follow_status = false;
+		this.is_stock = true;
 	}
 
 	ngOnInit() {
 		this.security = this.navParams.get('param');
 		this.volume_traded = this.security.volume_traded;
 		// this will remove the investments and reports buttons if the security is a stock
-		if(this.security instanceof Stock) {
-			this.is_stock = true;
-		} else {
+		if(this.security instanceof Fund) {
 			this.is_stock = false;
+		} else {
+			this.is_stock = true;
 		}
 		if(!this.is_stock) {
+			console.log('this is not a stock');
 			this.checkFollowing();
 		}
 	}
