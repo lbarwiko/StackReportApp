@@ -403,7 +403,7 @@ var RootPage = (function () {
     };
     RootPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-root',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/'<ion-content class="root-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="../../assets/img/logo-image-for-login-page.png"/>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/,
+            selector: 'page-root',template:/*ion-inline-start:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/'<ion-content class="root-content" padding>\n  <ion-row class="logo-row">\n    <ion-col></ion-col>\n    <ion-col width-67>\n    	<h1 id = "StackReportTitle"> StackReport! </h1>\n      	<img id = "logo" src="https://i.imgur.com/CovHht9.png"/>\n    </ion-col>\n    <ion-col></ion-col>\n  </ion-row>\n</ion-content>'/*ion-inline-end:"/Users/Luke/Documents/Fintech/mobile/src/pages/root/root.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */],
             __WEBPACK_IMPORTED_MODULE_2__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
