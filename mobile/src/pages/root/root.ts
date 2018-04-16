@@ -6,7 +6,6 @@ import { NavController, NavParams } from 'ionic-angular';
 
 import { MenuPage } from './../menu/menu';
 import { OnboardingPage } from './../onboarding/onboarding';
-import { RegisterPage } from './../register/register';
 import { LoginPage } from './../login/login';
 
 @IonicPage()

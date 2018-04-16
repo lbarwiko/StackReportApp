@@ -5,7 +5,6 @@ import { SecurityService } from '../../services/security.service';
 import { AuthService } from '../../services/auth.service';
 import { HoldingService } from '../../services/holding.service';
 import { User } from '../../models/user';
-import { Holding } from '../../models/holding.model';
 import { SecurityPage } from '../../pages/security/security';
 
 @IonicPage()
@@ -32,7 +31,6 @@ export class InvestmentsPage {
 		this.fund = this.navParams.get('param');
 		this.totalPrice = 0;
 
-		var promiseList = [];
 		console.log("holdings", this.fund.holdings);
 		console.log(this.fund);
 		if(this.fund.holdings && (!this.fund.holdings[0] || !this.fund.holdings[0].security)){

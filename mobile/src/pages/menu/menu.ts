@@ -35,7 +35,7 @@ export class MenuPage {
 
   back(){
     if(this.nav.canGoBack()){
-        let page:any = this.nav.pop();
+        this.nav.pop();
     }
   }
 
