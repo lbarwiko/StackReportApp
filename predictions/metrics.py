@@ -199,7 +199,7 @@ def get_kappa(labels, regr_predictions, comb_predictions, quarter_begin):
 		if (i+1)%5 == 0:
 			print("Daily kappa after " + str(i+1) + " days: regression = " + \
 				str((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr)) + ", combinatorial = " + \
-				str((comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
+				str((comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb)))
 
 	return ((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr), (comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
 	
