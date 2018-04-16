@@ -46,7 +46,7 @@ def get_directional_comb(comb_prediction, quarter_begin):
 		symbol = tup[0]
 		if tup[1] > begin_labels[symbol]: pred = (symbol, 1)
 		elif tup[1] < begin_labels[symbol]: pred = (symbol, -1)
-		else: pred = (symobl, 0)
+		else: pred = (symbol, 0)
 
 		directional_comb_predictions.append(pred)
 
@@ -86,7 +86,7 @@ def get_magnitude_accuracy(labels, comb_predictions):
 	# calculate overall magnitude accuracy, so use only final day's prediction
 	comb_accuracy = 0
 	for symbol in labels.keys():
-		if (symbol, labels[symbol][0]) in comb_predictions[-1]): comb_accuracy += 1
+		if (symbol, labels[symbol][0]) in comb_predictions[-1]: comb_accuracy += 1
 
 	comb_accuracy = float(comb_accuracy)/float(len(labels.keys()))
 
@@ -199,7 +199,7 @@ def get_kappa(labels, regr_predictions, comb_predictions, quarter_begin):
 		if (i+1)%5 == 0:
 			print("Daily kappa after " + str(i+1) + " days: regression = " + \
 				str((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr)) + ", combinatorial = " + \
-				str((comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
+				str((comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb)))
 
 	return ((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr), (comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
 	
@@ -254,15 +254,15 @@ def predict_quarter(mf_symbol, quarter_begin, quarter_end):
 	"""
 	regr_predictions = []
 	comb_predictions = []
-	start_date = dt.datetime(quarter_begin[:4], quarter_begin[4:6], quarter_begin[6:])
-	end_date = dt.datetime(quarter_end[:4], quarter_end[4:6], quarter_end[6:])
+	start_date = dt.datetime(int(quarter_begin[:4]), int(quarter_begin[4:6]), int(quarter_begin[6:]))
+	end_date = dt.datetime(int(quarter_end[:4]), int(quarter_end[4:6]), int(quarter_end[6:]))
 	day_count = (end_date - start_date).days
 
 	# iterate through each day, run the prediction for that day, then gather results
 	for current_date in (start_date + dt.timedelta(i) for i in range(day_count)):
 		date_string = str(current_date.timetuple()[0]) + str(current_date.timetuple()[1]) + str(current_date.timetuple()[2])
-		os.system("python3 /root/StackReport/prediction/regression.py " + date_string)
-		os.system("python3 /root/StackReport/prediction/combinatorial.py " + date_string)
+		os.system("python3 /root/StackReport/predictions/regression.py " + date_string)
+		os.system("python3 /root/StackReport/predictions/combinatorial.py " + date_string)
 		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_regr.json") as file:
 			prediction = json.load(file)["securities"]
 			symbols = [security["security_id"] for security in prediction]
@@ -279,7 +279,8 @@ def predict_quarter(mf_symbol, quarter_begin, quarter_end):
 def main():
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
-		quarters = get_mf_report_dates(mf_symbol).reverse()
+		quarters = get_mf_report_dates(mf_symbol)
+		quarters.reverse()
 		for i in range(len(quarters)-1):
 			prediction = predict_quarter(mf_symbol, quarters[i], quarters[i+1])
 			print_metrics(prediction, mf_symbol, quarters[i], quarters[i+1])

@@ -80,8 +80,8 @@ def poagx_nq(url, symbol):
 			report["total_net_assets"] = int(get_num_in_row(text_row))
 			break
 
-	nav = 23.23
-	report["num_shares"] = int(report["total_net_assets"]/nav)
+	report["num_shares"] = int(get_num_shares(report["symbol"], report["total_net_assets"],
+        report["date"]))
 
 	print_report(report)
 	

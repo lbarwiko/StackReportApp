@@ -75,7 +75,7 @@ def load_data(mf_symbol):
 	date = get_mf_report_dates(mf_symbol)[0]
 	symbols, num_shares_held = get_mf_holdings(mf_symbol, date)
 	nav = get_db_mf_nav(mf_symbol, date)
-	_, _, n_shares = get_mf_other(mf_symbol, date)
+	_, _, _, n_shares = get_mf_other(mf_symbol, date)
 
 	# get prices
 	for symbol in symbols:
