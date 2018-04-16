@@ -22,7 +22,8 @@ const Fund = {
     create: sql('./fund/fund.create.sql'),
     get: sql('./fund/fund.get.sql'),
     delete: sql('./fund/fund.delete.sql'),
-    update: sql('./fund/fund.update.sql')
+    update: sql('./fund/fund.update.sql'),
+    updateAccuracy: sql('./fund/fund.update.accuracy.sql'),
 }
 
 const Holding = {
@@ -39,7 +40,8 @@ const Prediction = {
 const PredictionMeta = {
     list: sql('./prediction/prediction.meta.list.sql'),
     create: sql('./prediction/prediction.meta.create.sql'),
-    get: sql('./prediction/prediction.meta.get.sql')
+    get: sql('./prediction/prediction.meta.get.sql'),
+    createDate: sql('./prediction/prediction.meta.create.date.sql')
 }
 
 const Follow = {

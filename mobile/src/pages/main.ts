@@ -11,6 +11,7 @@ import { AddFundsPage } from './addfunds/addfunds';
 import { MenuPage } from './menu/menu';
 import { ReportsPage } from './reports/reports'
 import { InvestmentsPage } from './investments/investments';
+import { OnboardingPage } from './onboarding/onboarding';
 
 export {
 	RootPage,
@@ -26,4 +27,5 @@ export {
     MenuPage,
     InvestmentsPage,
     ReportsPage,
+    OnboardingPage,
 }

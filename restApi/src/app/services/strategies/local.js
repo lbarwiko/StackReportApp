@@ -7,7 +7,7 @@ import { Users } from '../../controllers';
 var LocalStrategy = require('passport-local').Strategy;
 
 export default (db, config) => {
-    const User = Users(db);
+    const User = Users(db, config);
 
     function createToken(user){
         //console.log("Creating token for user", user);

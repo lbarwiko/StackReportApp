@@ -3,9 +3,7 @@ const dev_config = {
     db:{
 	    host: 'localhost', // 'localhost' is the default;
 	    port: 5432, // 5432 is the default;
-        database: 'stackreport',
-        username: 'root',
-        password: 'FinTech123'
+	    database: 'stackreport',
     },
     auth:{
         secret: 'lkas3l2kj42l3k4jamq22114',
@@ -16,7 +14,11 @@ const dev_config = {
         saltRounds: 10
     },
     port:8080,
-    sslport:4443
+    sslport:4443,
+    stripe: {
+        secret_key: 'sk_test_Ell1lUxLTqJcLuQWWWCMXXdd',
+        publishable_key: 'pk_test_Hg7xrR3ioghTDatNfRvtiDVD'
+    }
 }
 
 let data = dev_config;
@@ -26,5 +28,6 @@ const db             = data.db;
 const auth           = data.auth;
 const port           = data.port;
 const sslport        = data.sslport;
+const stripe         = data.stripe;
 
-export default {prefix, db, auth, port, sslport};
+export default {prefix, db, auth, port, sslport, stripe};

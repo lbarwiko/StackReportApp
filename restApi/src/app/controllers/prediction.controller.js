@@ -8,6 +8,7 @@ export default (db, config) => {
             return new Promise((resolve, reject)=>{
                 var requestSql = PredictionMetaSql.get;
                 if(!fund_id){
+                    console.log("not fund_id");
                     requestSql = PredictionMetaSql.list;
                 }
                 db.any(requestSql,{
@@ -16,6 +17,7 @@ export default (db, config) => {
                     offset: page*size
                 })
                 .then(prediction_metas=>{
+                    console.log(prediction_metas);
                     var predictionPromises = [];
                     prediction_metas.forEach(prediction_meta=>{
                         predictionPromises.push(
@@ -108,10 +110,18 @@ export default (db, config) => {
 					})
                 }
                 console.log(payload);
-                return db.one(PredictionMetaSql.create,{
-                    fund_id: payload.fund_id
+                var createSql = PredictionMetaSql.create;
+                if(payload.date){
+                    console.log("PAYLOAD DATE", payload.date);
+                    createSql = PredictionMetaSql.createDate;
+                }
+                return db.one(createSql,{
+                    fund_id: payload.fund_id,
+                    date_predicted: payload.date
                 })
                 .then(predictionMetaResponse =>{
+                    console.log("IN");
+                    console.log(predictionMetaResponse);
                     if(!predictionMetaResponse && !predictionMetaResponse.prediction_meta_id){
                         return reject({
                             err: 'Unable to insert',
@@ -137,6 +147,7 @@ export default (db, config) => {
                     })
                 })
                 .then(res => {
+                    console.log(res);
                     return resolve(true);
                 })
                 .catch(err => {

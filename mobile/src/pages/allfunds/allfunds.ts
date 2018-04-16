@@ -15,23 +15,20 @@ export class AllFundsPage {
 	loading: Loading;
 	fundList: Security[];
 	user: User;
-	next: string;
 
 	constructor(private loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public menuCtrl: MenuController,
 			 public followService: FollowingService, public fundService: FundService, public authService: AuthService,
 			 public applicationRef: ApplicationRef) {
 	    this.fundList = [];
 	    this.user = this.authService.user;
-	    this.next = "";
   	}
 
 	ngOnInit() {
 		this.showLoading();
 
-		this.fundService.listFunds(this.next)
+		this.fundService.listFunds()
 		.then(fund_meta_list => {
 			var promiseList = [];
-			this.next = fund_meta_list.next;
 			fund_meta_list.idList.forEach(fund=>{
 				promiseList.push(
 					new Promise((resolve, reject)=>{
@@ -62,40 +59,4 @@ export class AllFundsPage {
 	    });
 	    this.loading.present();
   	}
-
-  	doInfinite(infiniteScroll) {
-  		console.log('Begin async operation');
-
-	    setTimeout(() => {
-	      this.fundService.listFunds(this.next)
-			.then(fund_meta_list => {
-				console.log("calling again");
-				var promiseList = [];
-				this.next = fund_meta_list.next;
-				fund_meta_list.idList.forEach(fund=>{
-					promiseList.push(
-						new Promise((resolve, reject)=>{
-							this.fundService.getFund(fund)
-							.then(currentFund=>{
-								return resolve(currentFund);
-							})
-							.catch(err=> reject(err));
-						}
-					))
-				})
-				return Promise.all(promiseList);
-			})
-			.then(fund_list=>{
-				fund_list.forEach(fund=>{
-					this.fundList.push(fund)
-				})
-			})
-			.catch(err => {
-				console.log(err);
-			});
-
-	      console.log('Async operation has ended');
-	      infiniteScroll.complete();
-	    }, 500);
-	}
 }

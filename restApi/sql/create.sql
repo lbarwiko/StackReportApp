@@ -5,7 +5,8 @@ CREATE DATABASE stackreport;
 
 CREATE TABLE TIER(
 	tier_type VARCHAR(16) PRIMARY KEY NOT NULL,
-	max_reports INTEGER
+	max_reports INTEGER,
+	price FLOAT
 );
 
 INSERT INTO TIER(tier_type, max_reports)
@@ -18,6 +19,7 @@ VALUES
 CREATE TABLE USERS(
 	user_id SERIAL PRIMARY KEY NOT NULL,
 	username VARCHAR(24) UNIQUE NOT NULL,
+	email VARCHAR(70),
 	password VARCHAR(70) NOT NULL,
 	role VARCHAR(16) DEFAULT 'USER',
 	tier VARCHAR(16) REFERENCES TIER(tier_type) DEFAULT 'FREE',

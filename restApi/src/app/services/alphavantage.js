@@ -13,7 +13,7 @@ export default ()=>{
                     });
                 }
                 var url = dailyUrl + '&symbol=' + symbol;
-                console.log("Getting url", url);
+                //console.log("Getting url", url);
                 https.get(url, res=>{
                     res.setEncoding("utf8");
                     let body = "";
@@ -36,7 +36,7 @@ export default ()=>{
                         if(!body || body['Error Message'] || ! body['Time Series (Daily)']){
                             return resolve([]);
                         }
-                        console.log(body);
+                        //console.log(body);
                         var price_history = Object.keys(body['Time Series (Daily)']).map(key => {
                             var pricePoint = body['Time Series (Daily)'][key];
                             pricePoint['date'] = key;
