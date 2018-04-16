@@ -26,7 +26,7 @@ def cmgix_csr(url, m_symbol):
 
 	# Get the Soup
 	soup = get_soup(url)
-
+	print("Got Soup")
 	# Find all tr tags
 	tr_tags = soup.find_all("tr")
 
