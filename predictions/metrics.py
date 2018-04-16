@@ -46,7 +46,7 @@ def get_directional_comb(comb_prediction, quarter_begin):
 		symbol = tup[0]
 		if tup[1] > begin_labels[symbol]: pred = (symbol, 1)
 		elif tup[1] < begin_labels[symbol]: pred = (symbol, -1)
-		else: pred = (symobl, 0)
+		else: pred = (symbol, 0)
 
 		directional_comb_predictions.append(pred)
 
@@ -254,8 +254,8 @@ def predict_quarter(mf_symbol, quarter_begin, quarter_end):
 	"""
 	regr_predictions = []
 	comb_predictions = []
-	start_date = dt.datetime(quarter_begin[:4], quarter_begin[4:6], quarter_begin[6:])
-	end_date = dt.datetime(quarter_end[:4], quarter_end[4:6], quarter_end[6:])
+	start_date = dt.datetime(int(quarter_begin[:4]), int(quarter_begin[4:6]), int(quarter_begin[6:]))
+	end_date = dt.datetime(int(quarter_end[:4]), int(quarter_end[4:6]), int(quarter_end[6:]))
 	day_count = (end_date - start_date).days
 
 	# iterate through each day, run the prediction for that day, then gather results
