@@ -73,8 +73,18 @@ def get_report_csr(url, m_symbol):
     print('idx:' + str(idx))
 
     # Find stocks
-    is_total_common_stock = False
+    something_special = False
+    next_text = ''
     for tr_tag in tr_tags[idx:]:
+
+        if something_special:
+            td_tags = tr_tag.find_all("td")
+            td_text_row = get_sanitized_text_row(td_tags)
+            print(td_text_row)
+            report[next_text] = int(td_text_row[1])
+            something_special = False
+
+
         # when idx is at the start index of the stock data
         td_tags = tr_tag.find_all("td")
         td_text_row = get_sanitized_text_row(td_tags)
@@ -89,21 +99,22 @@ def get_report_csr(url, m_symbol):
             report["stocks"].append(temp)
 
         elif consist(td_text_row, "Total Common Stocks"):
-            report["total_stock"] = int(get_num_in_row(td_text_row))
-            break
+            something_special = True
+            next_text = "total_stock"
+            total_common_stock_next = True
 
-        idx += 1
-
-    # Find the rest
-    for tr_tag in tr_tags[idx:]:
         td_tags = tr_tag.find_all("td")
         td_text_row = get_sanitized_text_row(td_tags)
 
         if consist(td_text_row, "Total Temporary Cash Investments"):
-            report["total_cash_investment"] = int(get_num_in_row(td_text_row))
+            something_special = True
+            next_text = "total_cash_investment"
+            continue
 
         elif consist(td_text_row, "Total Investments"):
-            report["total_investment"] = int(get_num_in_row(td_text_row))
+            something_special = True
+            next_text = "total_investment"
+            continue
 
         elif consist(td_text_row, "Net Assets"):
             report["total_net_assets"] = int(get_num_in_row(td_text_row))
