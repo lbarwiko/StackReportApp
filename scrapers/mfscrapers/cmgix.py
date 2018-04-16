@@ -110,7 +110,7 @@ def cmgix_csr(url, m_symbol):
 	return report
 
 
-def cmgix_nq(url, symbol)
+def cmgix_nq(url, symbol):
 	return 0 
 
 def main():
