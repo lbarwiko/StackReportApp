@@ -15,7 +15,8 @@ def load_data(date):
 	return dictionary mapping mf_symbols to their predicted data
 	"""
 	# load mf_symbols from db
-	mf_symbols = get_mf_list()
+	files = os.listdir("/root/StackReport/predictions/Output/")
+	mf_symbols = [file.replace("_comb.json", '') for file in files if file.endswith("_comb.json")]
 	mf_symbols_to_data = {}
 
 	for mf_symbol in mf_symbols:
