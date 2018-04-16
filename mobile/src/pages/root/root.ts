@@ -28,7 +28,6 @@ export class RootPage {
   navigateToStartPage(){
     this.authService.flow()
     .then(user=>{
-      console.log(user);
       if(user){
         this.navCtrl.setRoot(MenuPage);
       }else{

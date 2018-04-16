@@ -164,8 +164,6 @@ export default (db, config) => {
                     )
                 })
                 .then(res => {
-                    // TODO: Return a token
-                    console.log("INSERTING USER");
                     return resolve(payload);
                 })
                 .catch(err => {

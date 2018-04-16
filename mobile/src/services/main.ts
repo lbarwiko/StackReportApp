@@ -6,7 +6,6 @@ import { FollowingService } from './following.service';
 import { PredictionService } from './prediction.service';
 import { SecurityService } from './security.service';
 import { HoldingService } from './holding.service';
-import { RequestService } from './request.service';
 
 export {
     UserService,
@@ -17,5 +16,4 @@ export {
     PredictionService,
     SecurityService,
     HoldingService,
-    RequestService
 }
