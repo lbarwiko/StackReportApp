@@ -1,7 +1,6 @@
 import sys
 import json
 import time
-from config import *
 import urllib.request
 sys.path.append(sys.path[0]+"/../")
 from predictions_database.helper import *
