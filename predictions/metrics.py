@@ -261,8 +261,8 @@ def predict_quarter(mf_symbol, quarter_begin, quarter_end):
 	# iterate through each day, run the prediction for that day, then gather results
 	for current_date in (start_date + dt.timedelta(i) for i in range(day_count)):
 		date_string = str(current_date.timetuple()[0]) + str(current_date.timetuple()[1]) + str(current_date.timetuple()[2])
-		os.system("python3 /root/StackReport/prediction/regression.py " + date_string)
-		os.system("python3 /root/StackReport/prediction/combinatorial.py " + date_string)
+		os.system("python3 /root/StackReport/predictions/regression.py " + date_string)
+		os.system("python3 /root/StackReport/predictions/combinatorial.py " + date_string)
 		with open("/root/StackReport/predictions/Output/" + mf_symbol + "_regr.json") as file:
 			prediction = json.load(file)["securities"]
 			symbols = [security["security_id"] for security in prediction]
