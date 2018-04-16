@@ -26,6 +26,7 @@ import {
     MenuPage,
     InvestmentsPage,
     ReportsPage,
+    OnboardingPage,
     } from '../pages/main'
 
 import {
@@ -40,6 +41,7 @@ import {
     AboutPage,
     UserPage,
     HomePage,
+    OnboardingPage,
     RegisterPage,
     TabsPage,
     LoginPage,
@@ -70,6 +72,7 @@ import {
     RegisterPage,
     TabsPage,
     LoginPage,
+    OnboardingPage,
     SecurityPage,
     AllFundsPage,
     AddFundsPage,
