@@ -81,13 +81,4 @@ export class SecurityService {
             res.quote.latestPrice, res.quote.latestVolume, 
             price_history);
     }
-
-    private extractData(res: Response) {
-        let body = res.json();
-
-        // implement this
-
-        return body.data || [];
-    }
-
 } 

@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { User } from '../../models/user';
 import { AuthService } from '../../services/auth.service';
 import { NavController, NavParams, MenuController, Loading, LoadingController } from 'ionic-angular';
-import { AddFundsPage } from '../addfunds/addfunds';
-import { UserPage } from '../user/user';
 import { FollowingService } from '../../services/following.service';
 import { FundService } from '../../services/fund.service';
 import { Security } from '../../models/security';
@@ -24,10 +22,10 @@ export class HomePage {
               public authService: AuthService, private loadingCtrl: LoadingController,) {
     this.fundList = [];
     this.user = authService.user;
+    this.showLoading();
   }
 
   ngOnInit() {
-      this.showLoading();
       this.followService.getAllFollowing()
       .then(fund_meta_list => {
         var promiseList = [];

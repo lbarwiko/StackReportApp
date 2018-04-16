@@ -106,6 +106,8 @@ def nb_csr(soup, m_symbol, m_name):
                 if key == 'total_net_assets':
                     report[key] = data
                     done = True
+    report["num_shares"] = get_num_shares(report["symbol"], report["total_net_assets"],
+        report["date"])
     return report
 
 

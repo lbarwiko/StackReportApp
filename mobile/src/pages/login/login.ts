@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-angular';
+import { IonicPage, Loading, LoadingController} from 'ionic-angular';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
-import { OnboardingPage } from './../onboarding/onboarding';
 import { MenuPage } from './../menu/menu';
 import { RegisterPage } from './../register/register';
 
@@ -17,7 +16,7 @@ export class LoginPage {
   loginCredentials = {username: '', password: ''};
   user: User;
 
-  constructor(private loadingCtrl: LoadingController, private alertController: AlertController,
+  constructor(private loadingCtrl: LoadingController,
    public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {}
 
   ionViewDidLoad() {
@@ -45,12 +44,22 @@ export class LoginPage {
     this.authService.login({username: this.loginCredentials.username, password: this.loginCredentials.password})
     .then(user => {
       if(user && user.username){ 
+        console.log("Succesful login");
+        this.loading.dismiss();
         this.navCtrl.setRoot(MenuPage);
       }
       else {
-        this.resetLoginPage();
+        this.loading.dismiss();
+        alert("Bad username or password");
       }
-    });
+    })
+    .catch(err=>{
+      console.log("HERE2");
+      console.log(err);
+      this.loading.dismiss();
+      alert(err);
+      location.reload();
+    })
   }
 
   showLoading() {
@@ -61,15 +70,5 @@ export class LoginPage {
     this.loading.present();
   }
 
-  showError(text) {
-    this.loading.dismiss();
- 
-    let alert = this.alertController.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    });
-    alert.present(prompt);
-  }
 
 }

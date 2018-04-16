@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { Headers, RequestOptions } from '@angular/http';
+import { RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
 import { EndpointService } from './endpoint.service';
@@ -14,7 +14,7 @@ export class UserService {
     }*/
     url: string;
     constructor(private http:Http, public endpointService: EndpointService) { 
-        this.url = this.endpointService.base + '/api/security';
+        this.url = this.endpointService.base + '/api/u/';
     }
 
     public getUsers(page:Number = 0, size:Number = 10): Promise<User[]> {
@@ -35,39 +35,11 @@ export class UserService {
         })
     }
 
-    public registerUser(user:any): Promise<any> {
-	    let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        // TODO: Consider changing this to an observable.
-        return new Promise((resolve, reject) =>{
-            this.http.post(this.url, user, options).toPromise()
-	        .then(res=>{
-                return resolve(this.extractData(res));
-            })
-            .catch(this.handleErrorPromise);
-        })
-    }		
-    
-    public registerAnon(): Promise<User> {
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-        let payload = {
-            anon: true
-        };
-        return new Promise((resolve, reject) =>{
-            this.http.post(this.url, payload, options).toPromise()
-	        .then(res=>{
-                return resolve(this.extractData(res));
-            })
-            .catch(this.handleErrorPromise);
-        })
-    }
-
     private extractData(res: Response) {
 	    let body = res.json();
         return body.data || [];
     }
+
     private handleErrorPromise (error: Response | any) {
         console.error(error.message || error);
         return Promise.reject(error.message || error);

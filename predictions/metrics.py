@@ -12,14 +12,14 @@ from predictions_database.helper import get_mf_list, get_mf_report_dates, get_mf
 def get_labels(mf_symbol, quarter_begin, quarter_end):
 	"""
 	get true labels of mf_symbol for quarter
-	labels = [{"symbol": (end_num_shares, 1)}, ...]
+	labels = {"symbol": (end_num_shares, 1), ...}
 	"""
 	begin_labels = get_mf_holdings(mf_symbol, quarter_begin)
 	begin_labels = dict(zip(begin_labels[0], begin_labels[1]))
 	end_labels = get_mf_holdings(mf_symbol, quarter_end)
 	end_labels = dict(zip(end_labels[0], end_labels[1]))
 	# labels maps a symbol to a tuple of final num_shares and buy/hold/sell status
-	labels = []
+	labels = {}
 	for symbol in end_labels.keys():
 		# set direction to 1 if end holdings > begin holdings
 		# 0 if they are equal
@@ -30,13 +30,13 @@ def get_labels(mf_symbol, quarter_begin, quarter_end):
 			else: direction = 0
 		else: direction = 1
 
-		labels.append({symbol: (end_labels[symbol], direction)})
+		labels[symbol] = (end_labels[symbol], direction)
 
 	return labels
 
 def get_directional_comb(comb_prediction, quarter_begin):
 	"""
-	calculates directional combinatorial predictions for one day
+	gets directional combinatorial predictions for one day
 	return [(symbol, 1)]
 	"""
 	begin_labels = get_mf_holdings(mf_symbol, quarter_begin)
@@ -92,6 +92,117 @@ def get_magnitude_accuracy(labels, comb_predictions):
 
 	return comb_accuracy
 
+def get_daily_accuracy(labels, regr_predictions, comb_predictions):
+	"""
+	return accuracy taking into consideration each day's prediction
+	for each day's prediction, look at each change (buy or sell) and check
+	print intermediate accuracies so we can see how prediction performs throughout the quarter
+	return (regr_accuracy, comb_accuracy, comb_magnitude_accuracy)
+	"""
+	regr_accuracy = 0
+	comb_accuracy = 0
+	comb_magnitude_accuracy = 0
+	num_regr = 0
+	num_comb = 0
+	for i in range(len(regr_predictions)):
+		for symbol in regr_predictions[i]:
+			num_regr += 1
+			if symbol in labels.keys() and labels[symbol][1] == 1: regr_accuracy += 1
+
+		for tup in comb_predictions[i]:
+			num_comb += 1
+			symbol = tup[0]
+			if symbol in labels.keys() and labels[symbol][1] == tup[1]: 
+				comb_accuracy += 1
+				if labels[symbol][0] == tup[0]: comb_magnitude_accuracy += 1
+
+		# print intermediate accuracies so we can see how accuracies vary throughout the quarter
+		if (i+1)%5 == 0:
+			print("Daily accuracy after " + str(i+1) + " days: regression = " + \
+				str(regr_accuracy/num_regr) + ", combinatorial = " + str(comb_accuracy/num_comb) + \
+				", combinatorial magnitude = " + str(comb_magnitude_accuracy/num_comb))
+
+	return (regr_accuracy/num_regr, comb_accuracy/num_comb, comb_magnitude_accuracy/num_comb)
+
+def calc_random_accuracy(labels, regr_predictions, comb_predictions, quarter_begin):
+	"""
+	calculate expected probability of getting correct prediction with a random classifier
+	return (p_rand_regr, p_rand_comb)
+	"""
+	labels_buy_count = 0
+	labels_hold_count = 0
+	labels_sell_count = 0
+	# count labels directions
+	for symbol in labels:
+		direction = labels[symbol][1]
+		if direction == 1: labels_buy_count += 1
+		if direction == 0: labels_hold_count += 1
+		if direction == -1: labels_sell_count += 1
+
+	# count regr directions
+	regr_buy_count = 0
+	# comb_pred has length of all predictions, not just buys. regr_predictions only has buys, so we need to use comb_pred here
+	num_pred_total = len(comb_predictions[0])
+	for regr_prediction in regr_predictions:
+		regr_buy_count += len(regr_prediction)
+		regr_not_buy_count += num_pred_total-len(regr_prediction)
+
+	comb_buy_count = 0
+	comb_hold_count = 0
+	comb_sell_count = 0
+	# count comb directions
+	for comb_prediction in comb_predictions:
+		directional_comb_pred = get_directional_comb(comb_prediction, quarter_begin)
+		for tup in directional_comb_pred:
+			direction = tup[1]
+			if direction == 1: comb_buy_count += 1
+			if direction == 0: comb_hold_count += 1
+			if direction == -1: comb_sell_count += 1
+
+	# calculate directional probabilities
+	p_buy_label = labels_buy_count/len(labels)
+	p_hold_label = labels_hold_count/len(labels)
+	p_sell_label = labels_sell_count/len(labels)
+	p_buy_regr = regr_buy_count/(regr_buy_count + regr_not_buy_count)
+	p_not_buy_regr = regr_not_buy_count/(regr_buy_count + regr_not_buy_count)
+	p_buy_comb = comb_buy_count/(comb_buy_count + comb_hold_count + comb_sell_count)
+	p_hold_comb = comb_hold_count/(comb_buy_count + comb_hold_count + comb_sell_count)
+	p_sell_comb = comb_sell_count/(comb_buy_count + comb_hold_count + comb_sell_count)
+
+	# calculate random change probabilities
+	p_rand_regr = p_buy_regr*p_buy_label + p_not_buy_regr*(p_hold_label+p_sell_label)
+	p_rand_comb = p_buy_comb*p_buy_label + p_hold_comb*p_hold_label + p_sell_comb*p_sell_label
+	
+	return (p_rand_regr, p_rand_comb)
+
+def get_kappa(labels, regr_predictions, comb_predictions, quarter_begin):
+	"""
+	compute cohen's kappa statistic for each day of the quarter, then return average
+	kappa = (accuracy-random_guess_accuracy)/(1-random_guess_accuracy)
+	"""
+	p_rand_regr, p_rand_comb = calc_random_accuracy(labels, regr_predictions, comb_predictions, quarter_begin)
+	regr_accuracy = 0
+	comb_accuracy = 0
+	num_regr = 0
+	num_comb = 0
+	for i in range(len(regr_predictions)):
+		for symbol in regr_predictions[i]:
+			num_regr += 1
+			if symbol in labels.keys() and labels[symbol][1] == 1: regr_accuracy += 1
+
+		for tup in comb_predictions[i]:
+			num_comb += 1
+			symbol = tup[0]
+			if symbol in labels.keys() and labels[symbol][1] == tup[1]: comb_accuracy += 1
+
+		# print intermediate kappas so we can see how they vary throughout the quarter
+		if (i+1)%5 == 0:
+			print("Daily kappa after " + str(i+1) + " days: regression = " + \
+				str((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr)) + ", combinatorial = " + \
+				str((comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
+
+	return ((regr_accuracy/num_regr-p_rand_regr)/(1-p_rand_regr), (comb_accuracy/num_comb-p_rand_comb)/(1-p_rand_comb))
+	
 def print_metrics(prediction, mf_symbol, quarter_begin, quarter_end):
 	"""
 	print performance metrics for quarter for mf_symbol
@@ -115,6 +226,23 @@ def print_metrics(prediction, mf_symbol, quarter_begin, quarter_end):
 		+ "-" + quarter_end + ":")
 	print("Combinatorial: " + str(comb_accuracy))
 	
+	# daily accuracy
+	regr_accuracy, comb_accuracy, comb_magnitude_accuracy = get_daily_accuracy( \
+		labels, regr_predictions, comb_predictions)
+	print("Final daily accuracy for " + mf_symbol + " for quarter " + quarter_begin \
+		+ "-" + quarter_end + ":")
+	print("Regression: " + str(regr_accuracy))
+	print("Combinatorial: " + str(comb_accuracy))
+	print("Combinatorial magnitude: " + str(comb_magnitude_accuracy))
+
+	# kappa statistic
+	regr_kappa, comb_kappa = get_daily_accuracy(labels, regr_predictions, comb_predictions)
+	print("Final kappa statistic for " + mf_symbol + " for quarter " + quarter_begin \
+		+ "-" + quarter_end + ":")
+	print("Regression: " + str(regr_kappa))
+	print("Combinatorial: " + str(comb_kappa))
+	print("Combinatorial magnitude: " + str(comb_magnitude_accuracy))
+
 	return
 
 def predict_quarter(mf_symbol, quarter_begin, quarter_end):

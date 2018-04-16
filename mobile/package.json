@@ -30,6 +30,7 @@
     "angular-font-awesome": "^3.1.2",
     "browser": "^0.2.6",
     "chart.js": "^2.7.2",
+    "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.4",
     "cordova-plugin-app-event": "^1.2.1",
@@ -65,7 +66,8 @@
     },
     "platforms": [
       "browser",
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

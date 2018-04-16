@@ -412,7 +412,7 @@ def add_mf_report(report):
 
         price = get_db_stock_quote(ticker, date)
 
-        if math.ceil(holding["shares"] * price) != holding["value"]:
+        if abs(holding["shares"] * price - holding["value"]) < 100:
             print ("OMG!! Incorrect Stock Data %s %s" % (holding["company"], ticker))
             # print ("%s vs %s" % ( str(math.ceil(holding["shares"] * price)), str(holding["value"])))
 

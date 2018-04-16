@@ -1,16 +1,15 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { User } from '../../models/user';
 import { NavController, NavParams } from 'ionic-angular';
 import { MenuPage } from './../menu/menu';
-import { IonicPage, AlertController, Loading, LoadingController} from 'ionic-angular';
+import { Loading, LoadingController} from 'ionic-angular';
 
 @Component({
   templateUrl: 'onboarding.html'
 })
 export class OnboardingPage {
   loading: Loading;
-  constructor(private loadingCtrl: LoadingController, private alertController: AlertController,
+  constructor(private loadingCtrl: LoadingController,
               public authService: AuthService, public navCtrl: NavController, public navParams: NavParams ) {}
   slides = [
     {

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { UserService } from '../../services/user.service';
-import { LoginPage } from '../login/login';
+import { AuthService } from '../../services/auth.service';
 import { IonicPage, NavController, NavParams, Loading, LoadingController} from 'ionic-angular';
+
+import { MenuPage } from './../menu/menu';
 
 @IonicPage()
 @Component({
@@ -11,7 +12,7 @@ import { IonicPage, NavController, NavParams, Loading, LoadingController} from '
 export class RegisterPage {
   loading: Loading;
   registerCredentials = {username: '', email:'', password: '', confirm: ''};
-  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, public userService: UserService) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, public authService: AuthService) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
@@ -25,9 +26,19 @@ export class RegisterPage {
       email:this.registerCredentials.email,
       password: this.registerCredentials.password
     };
-    this.userService.registerUser(registerCredentials)
-    .then(user => console.log(user))
-    .catch(err => console.log(err));
+    this.authService.registerUser(registerCredentials)
+    .then(user => {
+      console.log("Here");
+
+      this.loading.dismiss();
+      this.navCtrl.setRoot(MenuPage);   
+    })
+    .catch(err => {
+      this.loading.dismiss();
+      alert(err);
+      location.reload();
+      console.log(err)
+    });
     //this.restapiProvider.CreateAccount(registerCredentials);
     //;
   }
@@ -38,17 +49,6 @@ export class RegisterPage {
       dismissOnPageChange: true
     });
     this.loading.present();
-  }
-
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body.data || [];
-  }
-
-  private handleErrorPromise (error: Response | any) {
-      console.error(error.message || error);
-      return Promise.reject(error.message || error);
   }
 
 }

@@ -26,7 +26,7 @@ def cmgix_csr(url, m_symbol):
 
 	# Get the Soup
 	soup = get_soup(url)
-
+	print("Got Soup")
 	# Find all tr tags
 	tr_tags = soup.find_all("tr")
 
@@ -110,7 +110,7 @@ def cmgix_csr(url, m_symbol):
 	return report
 
 
-def cmgix_nq(url, symbol)
+def cmgix_nq(url, symbol):
 	return 0 
 
 def main():
@@ -122,7 +122,7 @@ def main():
 
 	# Read arguments
 	url = args.url[0]
-	symbol = args.symbol[0]
+	symbol = args.symbol[0].upper()
 
 	# Scrape Report
 	if args.csr:

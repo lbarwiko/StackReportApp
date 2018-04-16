@@ -51,9 +51,10 @@ import {
     AddFundsPage,
     InvestmentsPage,
     ReportsPage,
-    PreviewComponent,
     SecurityGraphComponent,
     MenuPage,
+    PreviewComponent,
+
   ],
   imports: [
     BrowserModule,

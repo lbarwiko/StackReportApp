@@ -25742,7 +25742,105 @@ component-preview .white {
   color: white;
 }
 
+page-addfunds .fixed-content {
+  background-color: #1A2225;
+}
+
+page-addfunds .title {
+  font-size: 200%;
+  text-align: center;
+  color: white;
+}
+
+page-addfunds .preview {
+  width: 100%;
+  padding: 3px;
+}
+
+page-addfunds .previewlist {
+  display: inline-block;
+  width: 100%;
+}
+
+page-addfunds .previewWrapper {
+  width: 75%;
+}
+
+page-addfunds .spinner {
+  color: white;
+  font-size: 3em;
+  margin: 0px auto;
+  text-align: center;
+}
+
+page-addfunds .submit-btn {
+  border-radius: 18px;
+  margin-top: 10px;
+  margin: auto;
+}
+
+page-addfunds .follow-btn {
+  border-radius: 18px;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-addfunds .follow-icon {
+  font-size: 25px;
+  margin-left: 10px;
+  margin-right: -5px;
+}
+
+page-addfunds .unfollow-btn {
+  border-radius: 18px;
+  background-color: gray;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+page-addfunds .unfollow-icon {
+  font-size: 25px;
+  margin-left: 10px;
+  margin-right: -5px;
+}
+
+page-allfunds .fixed-content {
+  background-color: #1A2225;
+}
+
+page-allfunds .title {
+  font-size: 200%;
+  text-align: center;
+  color: white;
+}
+
+page-allfunds .preview {
+  width: 100%;
+  padding: 3px;
+}
+
+page-allfunds .spinner {
+  color: white;
+  font-size: 3em;
+  margin: 0px auto;
+  text-align: center;
+}
+
+page-allfunds .scroll {
+  height: 100%;
+  width: 100%;
+}
+
+page-home {
+  padding: 10px;
+}
+
+page-home .page-content {
+  padding: 20px;
+}
+
 page-home .fixed-content {
+  padding: 20px;
   background-color: #1A2225;
 }
 
@@ -25761,13 +25859,18 @@ page-home .region-btn {
 }
 
 page-home .watching {
-  color: #5E5F63;
+  padding: 20px;
+  color: white;
   font-size: 200%;
 }
 
 page-home .preview {
   width: 100%;
-  padding: 3px;
+  padding: 10px 20px;
+}
+
+page-home .preview-list {
+  padding: 20px;
 }
 
 .investments-content .fixed-content {
@@ -25810,16 +25913,17 @@ page-login #SignInHeader {
 
 page-login .login-content {
   background: #151A1D;
+  margin-top: 0px;
 }
 
 page-login .login-content .logo-row {
-  padding-top: 50px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 10px;
 }
 
 page-login .login-content #logo {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 40%;
+  max-height: 40%;
   width: auto;
   height: auto;
 }
@@ -25910,19 +26014,42 @@ page-login .login-content .register-btn {
   margin-bottom: -5px;
 }
 
-page-regionalfunds .fixed-content {
-  background-color: #1A2225;
+.tutorial-page .toolbar-background {
+  background: white;
+  border-color: transparent;
 }
 
-page-regionalfunds .title {
-  font-size: 200%;
-  text-align: center;
-  color: white;
+.tutorial-page .slide-zoom {
+  height: 100%;
 }
 
-page-regionalfunds .preview {
-  width: 100%;
-  padding: 3px;
+.tutorial-page .slide-title {
+  margin-top: 2.8rem;
+}
+
+.tutorial-page .slide-image {
+  max-height: 50%;
+  max-width: 60%;
+  margin: 18px 0;
+}
+
+.tutorial-page b {
+  font-weight: 500;
+}
+
+.tutorial-page p {
+  padding: 0 40px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #60646B;
+}
+
+.tutorial-page p b {
+  color: #000000;
+}
+
+page-register {
+  margin-top: -60px;
 }
 
 page-register #StackReportTitle {
@@ -25938,20 +26065,15 @@ page-register .register-content {
 }
 
 page-register .register-content .logo-row {
-  padding-top: 50px;
-  padding-bottom: 20px;
+  padding-top: 30px;
+  padding-bottom: 10px;
 }
 
 page-register .register-content #logo {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 40%;
+  max-height: 40%;
   width: auto;
   height: auto;
-}
-
-page-register .register-content .register-box {
-  padding: 20px 20px 0px 20px;
-  margin-top: 30px;
 }
 
 page-register .register-content ion-row {
@@ -26031,7 +26153,8 @@ page-reports .label {
 }
 
 page-reports .last-update {
-  color: #5E5F63;
+  color: white;
+  font-size: 200%;
 }
 
 page-reports .col {
@@ -26044,6 +26167,44 @@ page-reports .table {
 
 page-reports .top {
   font-weight: bold;
+}
+
+page-reports .btn {
+  border-radius: 10px;
+  height: 30px;
+  width: 150px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #2A2F33;
+  color: white;
+  font-size: 17px;
+}
+
+page-reports .btn:active {
+  background-color: gray;
+}
+
+page-reports .next {
+  float: right;
+}
+
+page-reports .prev {
+  float: left;
+}
+
+page-reports .most-recent {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+page-reports .buttons {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+}
+
+page-root {
+  margin-top: -60px;
 }
 
 page-root #StackReportTitle {
@@ -26187,28 +26348,6 @@ page-security .unfollow-icon {
   margin-right: -5px;
 }
 
-page-topfunds .fixed-content {
-  background-color: #1A2225;
-}
-
-page-topfunds .title {
-  font-size: 200%;
-  text-align: center;
-  color: white;
-}
-
-page-topfunds .preview {
-  width: 100%;
-  padding: 3px;
-}
-
-page-topfunds .spinner {
-  color: white;
-  font-size: 3em;
-  margin: 0px auto;
-  text-align: center;
-}
-
 page-user .fixed-content {
   background-color: #1A2225;
 }
@@ -26224,6 +26363,12 @@ page-user .user-data {
   text-align: center;
 }
 
+page-user .user-data-inline {
+  color: white;
+  text-align: center;
+  display: inline-block;
+}
+
 page-user .preview {
   width: 100%;
   padding: 3px;
@@ -26232,4 +26377,28 @@ page-user .preview {
 page-user .icon {
   font-size: 100px;
   color: white;
+}
+
+page-user .confirm-btn {
+  border-radius: 10px;
+  height: 30px;
+  width: 300px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #2A2F33;
+  color: white;
+  font-size: 17px;
+}
+
+page-user .confirm-btn:active {
+  background-color: gray;
+}
+
+page-user .selector {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 15px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
 }

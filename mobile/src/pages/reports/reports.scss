@@ -33,7 +33,8 @@ page-reports {
   }
 
   .last-update {
-    color: #5E5F63;
+    color: white;
+    font-size: 200%;
   }
 
   .col {
@@ -46,5 +47,39 @@ page-reports {
 
   .top {
     font-weight: bold;
+  }
+
+  .btn {
+    border-radius: 10px;
+    height: 30px;
+    width: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background-color: #2A2F33;
+    color: white;
+    font-size: 17px;
+  }
+
+  .btn:active {
+    background-color: gray;
+  }
+
+  .next {
+    float: right;
+  }
+
+  .prev{
+    float: left;
+  }
+
+  .most-recent {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .buttons {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
   }
 }
