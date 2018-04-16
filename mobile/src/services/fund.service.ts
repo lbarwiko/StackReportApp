@@ -19,18 +19,14 @@ export class FundService {
     }
     
 
-    listFunds(next): Promise<any> {
+    listFunds(): Promise<any> {
         return new Promise((resolve, reject)=>{
             let headers = new Headers({ 'Content-Type': 'application/json',
                 'Authorization': this.authService.user.getToken()
             });
             let options = new RequestOptions({ headers: headers });
 
-            let apiUrl = this.url;
-
-            if(next.length > 0) {
-                apiUrl = this.endpointService.base + next;
-            }
+            let apiUrl = this.url + "?size=1000";
 
             this.http.get(apiUrl, options).toPromise()
             .then(res=>{
@@ -41,7 +37,7 @@ export class FundService {
                     idList.push(resJson.data[i]['fund_id']);
                 }
 
-                var toReturn = {'idList': idList, 'next': resJson.next};
+                var toReturn = {'idList': idList};
 
                 return resolve(toReturn);
             })
