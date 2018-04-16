@@ -46,7 +46,7 @@ def get_report(url, m_symbol):
 
 	# GET DATE
 	for div_tag in div_tags:
-		if "Date of reporting period" in div_tag.get_text():
+		if "Date of reporting" in div_tag.get_text():
 			date = re.sub('[/\t\n\s,\xa0]','',div_tag.get_text())
 			date = date.split(":")[1]
 			date = time.strptime(date, "%B%d%Y")

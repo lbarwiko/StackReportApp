@@ -132,8 +132,6 @@ def jensvf_csr(url, symbol):
 
 
 def jensvf_nq(url, symbol):
-
-	soup = get_soup(url)
 	# Get soup
 	soup = get_soup(url)
 
@@ -146,6 +144,13 @@ def jensvf_nq(url, symbol):
 	date = time.strftime("%Y%m%d", date)
 	report["date"] = date
 
+	tr_tags = soup.find_all("tr")
+
+	idx = 0
+	for tr_tag in tr_tags[idx:]:
+		td_tags = tr_tag.find_all("td")
+		text_row = get_sanitized_text_row(td_tags)
+		print(text_row)
 
 
 def main():
@@ -160,7 +165,7 @@ def main():
 	if args.csr:
 		report = jensvf_csr(url, symbol)
 	else:
-		print("TO BE IMPLEMENTED")
+		jensvf_nq(url, symbol)
 		return
 
 	print_report(report)
