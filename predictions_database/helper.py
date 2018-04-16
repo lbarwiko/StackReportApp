@@ -468,6 +468,28 @@ def get_mf_name(m_symbol):
     return str(row[0])
 
 
+def change_mf_name(m_symbol, m_name):
+
+    if len(m_name) > 91:
+        print("New name is still longer than 91 char")
+        return
+
+    cur = db_cursor()
+    op_string = "UPDATE mutual_fund SET m_name = '%s' WHERE m_symbol = '%s'" % (m_name, m_symbol)
+    print(op_string)
+    
+    try:
+        cur.execute(op_string)
+    except psycopg2.Error as e:
+        print (e.pgerror)
+        print ("Cannot change %s name" % m_symbol)
+
+    return
+
+
+
+
+
 def get_mf_parent_nav(ticker):
     cur = db_cursor()
     op_string = ("""SELECT H2.m_symbol, C.ratio, H2.price, H2.m_date FROM 
@@ -578,7 +600,8 @@ def is_followed(ticker):
         elif row[0] == "f":
             return False
         else:
-            print("is_followed error out")
+            print("is_followed error out, Got this:")
+            print(row)
             
     return False
 
