@@ -43,8 +43,8 @@ export class HomePage {
         return Promise.all(promiseList);
       })
       .then(fund_list=>{
-        this.fundList = fund_list;
         this.loading.dismiss();
+        this.fundList = fund_list;
       })
       .catch(err => {
         this.loading.dismiss();

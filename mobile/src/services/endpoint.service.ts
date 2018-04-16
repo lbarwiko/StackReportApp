@@ -10,7 +10,7 @@ export class EndpointService {
 	auth: string;
 
     constructor() {
-		let fvariable: boolean = false;
+		let fvariable: boolean = true;
 		
 		if (fvariable) {
 			this.base = 'https://stackreport.io';

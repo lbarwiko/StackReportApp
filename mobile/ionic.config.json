@@ -1,6 +1,6 @@
 {
-  "name": "Stacks",
-  "app_id": "",
+  "name": "StackReport",
+  "app_id": "com.stackreport.mobile",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

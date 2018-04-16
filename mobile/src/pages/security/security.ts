@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { Security, Fund, Stock } from '../../models/security';
+import { Security, Fund } from '../../models/security';
 import { InvestmentsPage } from '../../pages/investments/investments';
 import { ReportsPage } from '../../pages/reports/reports';
 import { FollowingService } from '../../services/following.service';
