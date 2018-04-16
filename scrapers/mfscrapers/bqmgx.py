@@ -26,7 +26,7 @@ urll = "https://www.sec.gov/Archives/edgar/data/1141819/000089418916010379/brtro
 #bqmgx ticker symbol
 
 
-def get_report(url, m_symbol):
+def bqmgx_nq(url, m_symbol):
 
 	mid = False
 
@@ -45,14 +45,12 @@ def get_report(url, m_symbol):
 	div_tags = soup.find_all("div")
 
 	# GET DATE
-	for div_tag in div_tags:
-		if "Date of reporting" in div_tag.get_text():
-			date = re.sub('[/\t\n\s,\xa0]','',div_tag.get_text())
-			date = date.split(":")[1]
-			date = time.strptime(date, "%B%d%Y")
-			date = time.strftime("%Y%m%d", date)
-			print (date)
-			report["date"] = date
+	# Get Date
+	date_string = soup.find(text=re.compile("Date of reporting")).next_sibling.text
+	date = time.strptime(date_string, "%B %d, %Y")
+	date = time.strftime("%Y%m%d", date)
+	report["date"] = date
+	report["date"] = "20171130"
 
 	# search thru tr_tags
 	# Find the begining of the holding report of the fund we want
@@ -130,7 +128,11 @@ def main():
 	print (url)
 	symbol = args.symbol[0]
 	print (symbol)
-	report = get_report(url, symbol)
+	if args.nq:
+		report = bqmgx_nq(url, symbol)
+	else:
+		print("TO BE IMPLEMENTED")
+		exit(1)
 	add_mf_report(report)
 	add_mf_other(report)
 
