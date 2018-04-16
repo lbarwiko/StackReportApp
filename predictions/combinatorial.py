@@ -128,10 +128,15 @@ def main():
 		if mf_symbol + "_comb.json" not in list(os.walk("/root/StackReport/predictions/Output"))[0][2]:
 			prediction_date = find_closest_quarter(mf_symbol, date)
 			while prediction_date != date:
-				if is_market_open(prediction_date, curl_result): run_prediction(mf_symbol, prediction_date)
+				if is_market_open(prediction_date, curl_result): 
+					run_prediction(mf_symbol, prediction_date)
+					# run post
+					os.system("/root/StackReport/predictions/post.py " + str(prediction_date)[:10])
 				prediction_date = prediction_date + dt.timedelta(1)
 
 		run_prediction(mf_symbol, date)
+		# run post
+		os.system("/root/StackReport/predictions/post.py " + str(date)[:10])
 
 if __name__=="__main__":
 	main()
