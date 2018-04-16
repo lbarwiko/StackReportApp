@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
-import { AllFundsPage } from './allfunds';
+import { IonicPageModule } from 'ionic-angular';
+import { AllFundsPage } from '../main';
 
 @NgModule({
   declarations: [
-    AllFundsPage,
   ],
   imports: [
+    IonicPageModule.forChild(AllFundsPage),
   ],
 })
 export class AllFundsPageModule {}
