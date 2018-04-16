@@ -279,7 +279,8 @@ def predict_quarter(mf_symbol, quarter_begin, quarter_end):
 def main():
 	mf_symbols = get_mf_list()
 	for mf_symbol in mf_symbols:
-		quarters = get_mf_report_dates(mf_symbol).reverse()
+		quarters = get_mf_report_dates(mf_symbol)
+		quarters.reverse()
 		for i in range(len(quarters)-1):
 			prediction = predict_quarter(mf_symbol, quarters[i], quarters[i+1])
 			print_metrics(prediction, mf_symbol, quarters[i], quarters[i+1])
